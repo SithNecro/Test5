@@ -115,8 +115,9 @@ document.getElementById('modificadorTirada').addEventListener('change', function
             iframe.contentWindow.postMessage({ tipo: 'solicitarAmenazaActual' }, '*');
         }
 
-        function manejarAmenaza() {
-            rollDice(10)
+        async function manejarAmenaza() {
+            rollDice(10);
+            await new Promise(resolve => setTimeout(resolve, 2000));
             const valordadoTiradad10 = document.getElementById('result');
             const amenazaValor = parseInt(valordadoTiradad10.textContent) + modificadorTirada;
             const mensajeAmenaza = document.getElementById('mensajeAmenaza');
