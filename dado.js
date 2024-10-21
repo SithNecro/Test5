@@ -1,6 +1,6 @@
-function rollDice(sides) {
-    const diceImage = document.getElementById("dice-image");
-    const resultDiv = document.getElementById("result");  // Obtener el div del resultado
+function rollDice(sides,diceimage,resultado) {
+    const diceImage = document.getElementById(diceimage);
+    const resultDiv = document.getElementById(resultado);  // Obtener el div del resultado
     let currentSide = 1;
     let maxSide = sides;
     let rollDuration = 2000;  // Duración de la "animación"

@@ -50,7 +50,7 @@
         <div id="amenazaContainer">
               <!--//imagen del dado-->
             <div class="dice-container">
-                <img id="dice-image" src="img/dados/D10-01.png" alt="Dado" width="100">Dado de Amenaza</img>
+            <img id="dice-image" src="img/dados/D10-01.png" alt="Dado" width="100"></img>
             </div>
         <!-- Div para mostrar el resultado -->
 <div id="result" class="result"></div>
@@ -118,7 +118,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
         }
 
         async function manejarAmenaza() {
-            rollDice(10);
+            rollDice(10,'dice-image','result');
             await new Promise(resolve => setTimeout(resolve, 2000));
             const valordadoTiradad10 = document.getElementById('result');
             const amenazaValor = parseInt(valordadoTiradad10.textContent) + modificadorTirada;
@@ -158,7 +158,11 @@ document.getElementById('modificadorTirada').addEventListener('change', function
 
             // Tirada d20 si amenazaValor es 9 o 10
             if (amenazaValor >= rangoTirada) {
-                const tiradaD20 = lanzarDado(20);
+                rollDice(20);
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                //const tiradaD20 = lanzarDado(20);
+                const tiradaD20 = 
                 tiradaD20Container.innerHTML = `<p class="rojo">Tirada d20: ${tiradaD20}</p>`;
 
                 if (tiradaD20 === 20)
