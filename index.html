@@ -45,17 +45,19 @@
             <label for="rangoTirada">Rango de Tirada: </label>
             <input type="number" id="rangoTirada" value="9">
         </div>
-        <!--//imagen del dado-->
-        <div id="amenazaContainer">
-            <div class="dice-container">
-                <img id="dice-image" src="img/dados/D10-01.png" alt="Dado" width="200">
-            </div>
+      
         
+        <div id="amenazaContainer">
+              <!--//imagen del dado-->
+            <div class="dice-container">
+                <img id="dice-image" src="img/dados/D10-01.png" alt="Dado" width="100">
+            </div>
+        <!-- Div para mostrar el resultado -->
+<div id="result" class="result"></div>
             <div class="buttons">
                 <button onclick="rollDice(10)">Lanzar Amenaza D10</button>
             </div>
-            <!-- Div para mostrar el resultado -->
-<div id="result" class="result"></div>
+            
 
             <button id="btnAmenaza" onclick="manejarEventoAmenaza()">Amenaza</button>
             <div><p id="mensajeAmenazaActual"></p></div>
