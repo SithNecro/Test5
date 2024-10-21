@@ -158,7 +158,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
 
             // Tirada d20 si amenazaValor es 9 o 10
             if (amenazaValor >= rangoTirada) {
-                rollDice(20);
+                rollDice(20,'dice-image','result');
                 await new Promise(resolve => setTimeout(resolve, 2000));
                 
                 //const tiradaD20 = lanzarDado(20);
