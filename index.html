@@ -68,7 +68,13 @@
             <div id="result" class="result"></div>
                     <!-- Div para mostrar el resultado -->
             <div id="result2" class="result"></div>
+                    <!-- Div para mostrar el resultado -->
+            <div id="result3" class="result"></div>
             <div id="opcionesAdicionales"></div>
+            <div class="dice-container">
+                <img id="dice-image3" src="img/dados/D10-01.png" alt="Dado" width="100" style="display: none;"></img>
+               
+            </div>
         </div>
 
         <div id="imagenAmenazaContainer"></div> <!-- Contenedor para la imagen -->
@@ -129,6 +135,8 @@ document.getElementById('modificadorTirada').addEventListener('change', function
         async function manejarAmenaza() {
             const diceImage2 = document.getElementById('dice-image2');
             diceImage2.style.display = 'none';
+            const diceImage3 = document.getElementById('dice-image3');
+            diceImage3.style.display = 'none';
 
             rollDice(10,'dice-image','result');
             await new Promise(resolve => setTimeout(resolve, 2000));
@@ -201,7 +209,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                     btnAmenazaSinCombate.textContent = "Amenaza sin Combate";
                     opcionesAdicionales.appendChild(btnAmenazaSinCombate);
 
-                    btnAmenazaCombate.addEventListener('click', function() {
+                    btnAmenazaCombate.addEventListener('click',async function() {
                     // Crear un elemento de imagen
                     const imagenAmenaza = document.createElement('img');
         
@@ -209,7 +217,15 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                     imagenAmenaza.style.width = '300px'; // Puedes ajustar el tamaño
                     imagenAmenaza.style.display = 'block'; // Asegúrate de que se muestre en bloque
 
-                        const tiradaCombate = lanzarDado(10);
+
+                    //dado D10 para decidir evento
+                    diceImage3.style.display = 'none';
+                    rollDice(10,'dice-image3','result3');
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    valordadoTiradadcombate10.style.display = 'none';
+                    const tiradaCombate = parseInt(valordadoTiradadcombate10.textContent);
+
+                        //const tiradaCombate = lanzarDado(10);
                         let mensajeCombate;
                         let valorAModificar = 0;
                         if (tiradaCombate === 1) {
@@ -260,11 +276,18 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         }
                         modificarAmenaza(valorAModificar);
-                         opcionesAdicionales.innerHTML = `<p class="rojo"><strong>${tiradaCombate}: ${mensajeCombate}</strong></p>`;
+                         opcionesAdicionales.innerHTML = `<p class="rojo"><strong>${tiradaCombate}:</strong></p>`;
                     });
 
-                    btnAmenazaSinCombate.addEventListener('click', function() {
-                        const tiradaSinCombate = lanzarDado(20);
+                    btnAmenazaSinCombate.addEventListener('click', async function() {
+                        //dado D10 para decidir evento
+                        diceImage3.style.display = 'none';
+                        rollDice(20,'dice-image3','result3');
+                        await new Promise(resolve => setTimeout(resolve, 2000));
+                        valordadoTiradadcombate10.style.display = 'none';
+                        const tiradaSinCombate = parseInt(valordadoTiradadcombate10.textContent);
+                        
+                        //const tiradaSinCombate = lanzarDado(20);
                         let mensajeSinCombate;
                         let valorAModificar = 0;
 
@@ -311,7 +334,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
     localStorage.setItem('ModificadorTirada', modificadorTirada); // Guardar en localStorage
                         }
                         modificarAmenaza(valorAModificar);
-                        opcionesAdicionales.innerHTML = `<p class="rojo"><strong>${tiradaSinCombate}: ${mensajeSinCombate}</strong></p>`;
+                        opcionesAdicionales.innerHTML = `<p class="rojo"><strong>${tiradaSinCombate}:</strong></p>`;
                         modificadorTirada += 1; // Incrementar en 1
     document.getElementById('modificadorTirada').value = modificadorTirada; // Actualizar el input
     localStorage.setItem('ModificadorTirada', modificadorTirada); // Guardar en localStorage
