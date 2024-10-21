@@ -203,7 +203,20 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                     const eventoAleatorio = eventos_mazmorra[lanzarDado(eventos_mazmorra.length) - 1];
                     opcionesAdicionales.innerHTML = `<p class="rojo"><strong>${eventoAleatorio}</strong></p>`;
                 });
-            } else if (amenazaValor >= 4 && amenazaValor <= 8) {
+            } else if (amenazaValor >= 4 && amenazaValor < rangoTirada) {
+                // Crear un elemento de imagen
+                    const imagenAmenaza = document.createElement('img');
+                    imagenAmenaza.alt = 'Amenaza';
+                    imagenAmenaza.style.width = '300px'; // Puedes ajustar el tamaño
+                    imagenAmenaza.style.display = 'block'; // Asegúrate de que se muestre en bloque
+                    imagenAmenaza.src = 'img/Tranquilidad.png';
+
+                    document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+
+
+
+
+
                 mensajeAmenaza.innerHTML += `<p><strong>No ocurre nada.</strong></p>`;
             } else if (amenazaValor === 10) {
                 mensajeAmenaza.innerHTML += `<p class="rojo"><strong>Se apagan las fuentes de luz.</strong></p>`;
