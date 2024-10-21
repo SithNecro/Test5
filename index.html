@@ -54,6 +54,12 @@
             </div>
         <!-- Div para mostrar el resultado -->
 <div id="result" class="result"></div>
+  <!--//imagen del dado-->
+  <div class="dice-container">
+    <img id="dice-image2" src="" alt="Dado" width="100"></img>
+    </div>
+<!-- Div para mostrar el resultado -->
+<div id="result2" class="result"></div>
             <div class="buttons">
                 <button onclick="rollDice(10)">Lanzar Amenaza D10</button>
             </div>
@@ -158,7 +164,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
 
             // Tirada d20 si amenazaValor es 9 o 10
             if (amenazaValor >= rangoTirada) {
-                rollDice(20,'dice-image','result');
+                rollDice(20,'dice-image2','result2');
                 await new Promise(resolve => setTimeout(resolve, 2000));
                 
                 //const tiradaD20 = lanzarDado(20);
