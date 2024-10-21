@@ -16,7 +16,7 @@
 
 body {
     display: flex; /* Usamos flexbox para la disposición general */
-    height: 100vh; /* Altura total de la ventana */
+    height: 5vh; /* Altura total de la ventana */
 }
 
 #menuContainer {
@@ -33,18 +33,20 @@ body {
     width: 50%; /* Ancho del contenedor central */
     background-color: #e0e0e0; /* Color de fondo para distinguir */
     display: flex; /* Usamos flexbox para centrar contenido */
-    align-items: center; /* Centra verticalmente el contenido */
-    justify-content: center; /* Centra horizontalmente el contenido */
+    align-items: flex-start; /* Centra verticalmente el contenido */
+    justify-content: flex-start; /* Centra horizontalmente el contenido */
     flex-direction: column; /* Opcional, si tienes más elementos aquí */
+    padding: 10px; /* Espaciado interno opcional */
 }
 
 #imageContainer {
     flex: 1; /* Ocupa el espacio restante */
-    padding: 1px; /* Espaciado interno */
+    padding: 10px; /* Espaciado interno */
     background-color: #f0f0f0; /* Color de fondo para distinguir */
     display: flex; /* Hacemos que el contenedor de la imagen también sea un flexbox */
     flex-direction: column; /* Estructura en columna */
     justify-content: flex-start; /* Alinea los elementos al inicio */
+    align-items: flex-start; /* Alinea el contenido en la parte superior */
 }
 
 iframe {
@@ -72,7 +74,7 @@ iframe {
             <input type="number" id="modificadorTirada" value="0">
         </div>
         <div>
-            <label for="rangoTirada">A partir de que valor salta Amenaza: </label>
+            <label for="rangoTirada">Rango de Amenaza: </label>
             <input type="number" id="rangoTirada" value="9">
         </div>
         <div>
