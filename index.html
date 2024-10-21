@@ -124,6 +124,8 @@ document.getElementById('modificadorTirada').addEventListener('change', function
         }
 
         async function manejarAmenaza() {
+            const diceImage2 = document.getElementById('dice-image2');
+            diceImage2.style.display = 'none';
             rollDice(10,'dice-image','result');
             await new Promise(resolve => setTimeout(resolve, 2000));
             const valordadoTiradad10 = document.getElementById('result');
