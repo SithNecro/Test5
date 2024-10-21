@@ -50,6 +50,6 @@ function rollDice(sides) {
         diceImage.style.transform = 'rotate(0deg)';
 
         // Mostrar el resultado en el div
-        resultDiv.textContent = `Resultado: ${finalSide}`;
+        resultDiv.textContent = `${finalSide}`;
     }, rollDuration);
 }
