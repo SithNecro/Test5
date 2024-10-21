@@ -116,6 +116,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
         }
 
         function manejarAmenaza() {
+            rollDice(10);
             const valordadoTiradad10 = document.getElementById('result');
             const amenazaValor = parseInt(valordadoTiradad10.textContent) + modificadorTirada;
             const mensajeAmenaza = document.getElementById('mensajeAmenaza');
