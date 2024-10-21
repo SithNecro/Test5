@@ -4,6 +4,7 @@ function rollDice(sides) {
     let maxSide = sides;
     let rollDuration = 2000;  // Duración de la "animación"
     let interval = 100;  // Intervalo entre los cambios de imagen
+    let rotationDegree = 0;  // Grado de rotación inicial
 
     let rollInterval = setInterval(() => {
         // Mostrar caras al azar durante la animación
@@ -18,6 +19,11 @@ function rollDice(sides) {
         } else if (sides === 20) {
             diceImage.src = `img/dados/D20-${formattedSide}.png`;
         }
+
+        // Rotar la imagen simulando el "rodar" del dado
+        rotationDegree = Math.floor(Math.random() * 360);  // Grado de rotación aleatorio
+        diceImage.style.transform = `rotate(${rotationDegree}deg)`;
+
     }, interval);
 
     // Detener la animación después de `rollDuration` ms y mostrar el resultado final
@@ -36,5 +42,8 @@ function rollDice(sides) {
         } else if (sides === 20) {
             diceImage.src = `img/dados/D20-${formattedFinalSide}.png`;
         }
+
+        // Detener la rotación (restaurar a la posición original)
+        diceImage.style.transform = 'rotate(0deg)';
     }, rollDuration);
 }

@@ -6,6 +6,12 @@ body {
 
 .dice-container {
     margin: 20px auto;
+    position: relative;
+    display: inline-block;
+}
+
+#dice-image {
+    transition: transform 0.1s ease;
 }
 
 .buttons {
