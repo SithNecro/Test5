@@ -8,38 +8,50 @@
         img{
             border-radius: 5%;
         }
-       #imageContainer {
-            flex: 1; /* Ocupa el espacio restante a la izquierda */
-            padding: 1px; /* Espaciado interno */
-            background-color: #f0f0f0; /* Color de fondo para distinguir */
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            
-             
-        }
+        * {
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+    margin: 0;
+    padding: 0;
+}
 
-        #contentContainer {
-            width: 50%; /* Ancho del contenedor de la imagen */
-            background-color: #e0e0e0; /* Color de fondo para distinguir */
-            display: flex; /* Hacemos que el contenedor de la imagen también sea un flexbox */
-            align-items: center; /* Centra verticalmente la imagen */
-            justify-content: center; /* Centra horizontalmente la imagen */
-            margin-left: 310px;
-            flex-direction: column;
-        } 
-        #menuContainer {
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 300px;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+body {
+    display: flex; /* Usamos flexbox para la disposición general */
+    height: 100vh; /* Altura total de la ventana */
+}
+
+#menuContainer {
+    position: fixed; /* Fijo a la izquierda */
+    left: 0;
+    top: 0;
+    height: 100%; /* Ocupa toda la altura */
+    width: 310px; /* Ancho fijo del menú */
+    background-color: #ccc; /* Color de fondo del menú */
+}
+
+#contentContainer {
+    margin-left: 310px; /* Deja espacio para el menú */
+    width: 50%; /* Ancho del contenedor central */
+    background-color: #e0e0e0; /* Color de fondo para distinguir */
+    display: flex; /* Usamos flexbox para centrar contenido */
+    align-items: center; /* Centra verticalmente el contenido */
+    justify-content: center; /* Centra horizontalmente el contenido */
+    flex-direction: column; /* Opcional, si tienes más elementos aquí */
+}
+
+#imageContainer {
+    flex: 1; /* Ocupa el espacio restante */
+    padding: 1px; /* Espaciado interno */
+    background-color: #f0f0f0; /* Color de fondo para distinguir */
+    display: flex; /* Hacemos que el contenedor de la imagen también sea un flexbox */
+    flex-direction: column; /* Estructura en columna */
+    justify-content: flex-start; /* Alinea los elementos al inicio */
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
         
         .rojo {
             color: red;
