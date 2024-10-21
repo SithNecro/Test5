@@ -53,3 +53,6 @@ function rollDice(sides) {
         resultDiv.textContent = `${finalSide}`;
     }, rollDuration);
 }
+function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
