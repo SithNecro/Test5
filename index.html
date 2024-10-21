@@ -126,6 +126,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
         async function manejarAmenaza() {
             const diceImage2 = document.getElementById('dice-image2');
             diceImage2.style.display = 'none';
+
             rollDice(10,'dice-image','result');
             await new Promise(resolve => setTimeout(resolve, 2000));
             const valordadoTiradad10 = document.getElementById('result');
@@ -168,11 +169,10 @@ document.getElementById('modificadorTirada').addEventListener('change', function
             if (amenazaValor >= rangoTirada) {
                 rollDice(20,'dice-image2','result2');
                 await new Promise(resolve => setTimeout(resolve, 2000));
-                
+                const valordadoTiradad20 = document.getElementById('result2');
                 //const tiradaD20 = lanzarDado(20);
-                const tiradaD20 = 
-                tiradaD20Container.innerHTML = `<p class="rojo">Tirada d20: ${tiradaD20}</p>`;
-
+                const tiradaD20 = parseInt(valordadoTiradad10.textContent);
+                
                 if (tiradaD20 === 20)
             {
                 let valorAModificar = -5;
