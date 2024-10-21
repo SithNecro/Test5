@@ -5,7 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amenaza</title>
     <style>
-        
+       #contentContainer {
+            flex: 1; /* Ocupa el espacio restante a la izquierda */
+            padding: 1px; /* Espaciado interno */
+            background-color: #f0f0f0; /* Color de fondo para distinguir */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin-left: 310px;
+           
+        }
+
+        #imageContainer {
+            width: 50%; /* Ancho del contenedor de la imagen */
+            background-color: #e0e0e0; /* Color de fondo para distinguir */
+            display: flex; /* Hacemos que el contenedor de la imagen también sea un flexbox */
+            align-items: center; /* Centra verticalmente la imagen */
+            justify-content: center; /* Centra horizontalmente la imagen */
+        } 
         #menuContainer {
             position: fixed;
             left: 0;
@@ -18,13 +35,7 @@
             height: 100%;
             border: none;
         }
-        #contentContainer {
-            margin-left: 310px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            padding: 20px;
-        }
+        
         .rojo {
             color: red;
             font-weight: bold;
@@ -71,6 +82,9 @@
                     <!-- Div para mostrar el resultado -->
             <div id="result3" class="result"></div>
             
+            
+        </div>
+        <div id="imageContainer">
             <div id="imagenAmenazaContainer"></div>
         </div>
         <div id="opcionesAdicionales"></div>
