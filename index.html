@@ -72,7 +72,7 @@
 
     <script>
         // Función para lanzar un dado de cualquier tipo
-         lanzarDado(lados) {
+        function lanzarDado(lados) {
             return Math.floor(Math.random() * lados) + 1;
         }
 
@@ -115,9 +115,8 @@ document.getElementById('modificadorTirada').addEventListener('change', function
             iframe.contentWindow.postMessage({ tipo: 'solicitarAmenazaActual' }, '*');
         }
 
-        async function manejarAmenaza() {
-            rollDice(10);
-            await wait(2500); 
+        function manejarAmenaza() {
+            rollDice(10)
             const valordadoTiradad10 = document.getElementById('result');
             const amenazaValor = parseInt(valordadoTiradad10.textContent) + modificadorTirada;
             const mensajeAmenaza = document.getElementById('mensajeAmenaza');
