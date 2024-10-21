@@ -292,12 +292,11 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                         let valorAModificar = 0;
 
                         // Crear un elemento de imagen
-                       const imagenAmenaza = document.createElement('img');
-        
+                        const imagenAmenaza = document.createElement('img');
+                        imagenAmenaza.style.width = '300px';
                         imagenAmenaza.alt = 'Amenaza';
-                        imagenAmenaza.style.width = '200px'; // Puedes ajustar el tamaño
                         imagenAmenaza.style.display = 'block'; // Asegúrate de que se muestre en bloque
-
+                        imagenAmenaza.style.display = "flex";
                         if (tiradaSinCombate >= 1 && tiradaSinCombate <= 12) {
                             mensajeSinCombate = "Aparece un montruo errante";
                             valorAModificar = -5; 
