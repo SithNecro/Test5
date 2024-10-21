@@ -8,32 +8,32 @@
         img{
             border-radius: 5%;
         }
-        body {
-    display: grid;
-    grid-template-columns: 310px 1fr; /* 310px para el menú y el resto para el contenido */
-    height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
-}
+       #imageContainer {
+            flex: 1; /* Ocupa el espacio restante a la izquierda */
+            padding: 1px; /* Espaciado interno */
+            background-color: #f0f0f0; /* Color de fondo para distinguir */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            
+             
+        }
 
-
-
-#imageContainer {
-    padding: 1px; /* Espaciado interno */
-    background-color: #f0f0f0; /* Color de fondo para distinguir */
-    display: grid; /* Cambia a grid para gestionar mejor el contenido */
-    grid-template-rows: auto; /* Fila automática para el contenido */
-}
-
-#contentContainer {
-    width: 100%; /* Ocupar el ancho total disponible */
-    background-color: #e0e0e0; /* Color de fondo para distinguir */
-    display: grid; /* Utiliza grid para el contenido */
-    grid-template-rows: repeat(auto-fit, minmax(50px, 1fr)); /* Apilar elementos */
-    align-items: start; /* Alinea los elementos desde el inicio */
-    padding: 10px; /* Espaciado interno */
-}
+        #contentContainer {
+            width: 50%; /* Ancho del contenedor de la imagen */
+            background-color: #e0e0e0; /* Color de fondo para distinguir */
+            display: flex; /* Hacemos que el contenedor de la imagen también sea un flexbox */
+            align-items: center; /* Centra verticalmente la imagen */
+            justify-content: center; /* Centra horizontalmente la imagen */
+            margin-left: 310px;
+            flex-direction: column;
+        } 
         #menuContainer {
-            background-color: #e0e0e0; /* Color de fondo del menú */
-            padding: 1px; /* Espaciado interno del menú */
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 300px;
         }
         iframe {
             width: 100%;
