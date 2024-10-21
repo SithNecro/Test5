@@ -1,4 +1,4 @@
-function rollDice(sides) {
+async function rollDice(sides) {
     const diceImage = document.getElementById("dice-image");
     const resultDiv = document.getElementById("result");  // Obtener el div del resultado
     let currentSide = 1;
@@ -28,6 +28,8 @@ function rollDice(sides) {
         diceImage.style.transform = `rotate(${rotationDegree}deg)`;
 
     }, interval);
+// Espera hasta que termine la animación de "rodar" el dado
+await wait(rollDuration);
 
     // Detener la animación después de `rollDuration` ms y mostrar el resultado final
     setTimeout(() => {
