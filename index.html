@@ -46,7 +46,7 @@
             <input type="number" id="rangoTirada" value="9">
         </div>
         <div>
-
+            <br>
         <button id="btnAmenaza" onclick="manejarEventoAmenaza()">Tirar Amenaza</button>
         </div>  
         <div id="amenazaContainer">
@@ -62,9 +62,6 @@
             <div id="result" class="result"></div>
                     <!-- Div para mostrar el resultado -->
             <div id="result2" class="result"></div>
-            
-            <div><p id="mensajeAmenazaActual"></p></div>
-            <p id="mensajeAmenaza"></p>
             <div id="opcionesAdicionales"></div>
         </div>
 
@@ -73,6 +70,8 @@
 
         <div>
             <p>Nivel de Amenaza Actual: <span id="amenazaActual">...</span></p>
+            <div><p id="mensajeAmenazaActual"></p></div>
+            <p id="mensajeAmenaza"></p>
         </div>
     </div>
 
@@ -201,7 +200,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                     const imagenAmenaza = document.createElement('img');
         
                     imagenAmenaza.alt = 'Amenaza';
-                    imagenAmenaza.style.width = '200px'; // Puedes ajustar el tamaño
+                    imagenAmenaza.style.width = '300px'; // Puedes ajustar el tamaño
                     imagenAmenaza.style.display = 'block'; // Asegúrate de que se muestre en bloque
 
                         const tiradaCombate = lanzarDado(10);
