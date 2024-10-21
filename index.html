@@ -10,18 +10,24 @@
             margin: 0;
         }
         #menuContainer {
-            width: 25%;
-            border-right: 1px solid #ccc;
-            padding: 10px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 300px;
         }
         iframe {
             width: 100%;
-            height: 100vh;
+            height: 100%;
             border: none;
         }
         #contentContainer {
-            width: 75%;
+            margin-left: 310px;
             padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
         .rojo {
             color: red;
