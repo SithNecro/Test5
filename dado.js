@@ -1,10 +1,13 @@
 function rollDice(sides) {
     const diceImage = document.getElementById("dice-image");
+    const resultDiv = document.getElementById("result");  // Obtener el div del resultado
     let currentSide = 1;
     let maxSide = sides;
     let rollDuration = 2000;  // Duración de la "animación"
     let interval = 100;  // Intervalo entre los cambios de imagen
     let rotationDegree = 0;  // Grado de rotación inicial
+
+    resultDiv.textContent = "";  // Limpiar el resultado previo
 
     let rollInterval = setInterval(() => {
         // Mostrar caras al azar durante la animación
@@ -45,5 +48,8 @@ function rollDice(sides) {
 
         // Detener la rotación (restaurar a la posición original)
         diceImage.style.transform = 'rotate(0deg)';
+
+        // Mostrar el resultado en el div
+        resultDiv.textContent = `Resultado: ${finalSide}`;
     }, rollDuration);
 }
