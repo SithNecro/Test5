@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amenaza</title>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+        }
+        #menuContainer {
+            width: 25%;
+            border-right: 1px solid #ccc;
+            padding: 10px;
+        }
+        iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+        }
+        #contentContainer {
+            width: 75%;
+            padding: 20px;
+        }
+        .rojo {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body style="background-image: url('fondo.png'); background-size: cover;">
+    <div id="menuContainer">
+        <iframe src="menu.html" id="iframeMenu"></iframe>
+    </div>
+
+    <div id="contentContainer">
+        <h1>Simulación de Amenazas</h1>
+        <div>
+            <label for="modificadorTirada">Modificador de Tirada: </label>
+            <input type="number" id="modificadorTirada" value="0">
+        </div>
+        <div>
+            <label for="rangoTirada">Rango de Tirada: </label>
+            <input type="number" id="rangoTirada" value="9">
+        </div>
+        <div id="amenazaContainer">
+            <button id="btnAmenaza" onclick="manejarEventoAmenaza()">Amenaza</button>
+            <div><p id="mensajeAmenazaActual"></p></div>
+            <p id="mensajeAmenaza"></p>
+            <div id="opcionesAdicionales"></div>
+        </div>
+        <div id="imagenAmenazaContainer"></div> <!-- Contenedor para la imagen -->
+        <div id="tiradaD20Container"></div>
+
+        <div>
+            <p>Nivel de Amenaza Actual: <span id="amenazaActual">...</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Función para lanzar un dado de cualquier tipo
+        function lanzarDado(lados) {
+            return Math.floor(Math.random() * lados) + 1;
+        }
+
+        let amenazaActual = null;  // Mantener la amenaza actual en un scope superior
+        // Cargar valores de localStorage o usar valores por defecto
+        let modificadorTirada = parseInt(localStorage.getItem('ModificadorTirada')) || 0;
+        let rangoTirada = parseInt(localStorage.getItem('RangoTirada')) || 9;
+
+        // Asignar valores iniciales a los inputs
+        document.getElementById('modificadorTirada').value = modificadorTirada;
+        document.getElementById('rangoTirada').value = rangoTirada;
+
+        // Escuchar la respuesta del iframe solo una vez
+        window.addEventListener('message', function(event) {
+            if (event.data.tipo === 'amenazaActual') {
+                amenazaActual = parseInt(event.data.valor, 10);
+                if (isNaN(amenazaActual)) {
+                    alert('No se pudo obtener el valor de amenazaActual');
+                    return;
+                }
+                manejarAmenaza();
+            }
+        });
+
+// Guardar los valores en localStorage cuando se cambien los inputs
+document.getElementById('modificadorTirada').addEventListener('change', function() {
+            modificadorTirada = parseInt(this.value);
+            localStorage.setItem('ModificadorTirada', modificadorTirada);
+        });
+
+        document.getElementById('rangoTirada').addEventListener('change', function() {
+            rangoTirada = parseInt(this.value);
+            localStorage.setItem('RangoTirada', rangoTirada);
+        });
+
+
+        function manejarEventoAmenaza() {
+            const iframe = document.getElementById('iframeMenu');
+            // Enviar mensaje al iframe para solicitar el valor de amenazaActual
+            iframe.contentWindow.postMessage({ tipo: 'solicitarAmenazaActual' }, '*');
+        }
+
+        function manejarAmenaza() {
+            const amenazaValor = lanzarDado(10) + modificadorTirada;
+            const mensajeAmenaza = document.getElementById('mensajeAmenaza');
+            const mensajeAmenazaActual = document.getElementById('mensajeAmenazaActual');
+            const opcionesAdicionales = document.getElementById('opcionesAdicionales');
+            const tiradaD20Container = document.getElementById('tiradaD20Container');
+
+            // Limpiamos los mensajes y opciones previos
+            mensajeAmenaza.innerHTML = '';
+            mensajeAmenazaActual.innerHTML = '';
+            opcionesAdicionales.innerHTML = '';
+            tiradaD20Container.innerHTML = '';
+
+            document.getElementById('imagenAmenazaContainer').innerHTML = ''; // Asegúrate de ocultar la imagen
+            
+            // Mostramos el resultado de Amenaza Actual
+            mensajeAmenazaActual.innerHTML = `<span class="rojo">Amenaza Actual: ${amenazaActual}</span>`;
+            // Mostramos el resultado del dado de amenaza
+            mensajeAmenaza.innerHTML = `<span class="rojo">Tirada de Amenaza: ${amenazaValor}</span>`;
+
+            // Lógica según el valor de amenaza
+            if (amenazaValor === 1 || amenazaValor === 2 || amenazaValor === 3) {
+                const btnEvento = document.createElement('button');
+                btnEvento.textContent = "Evento en nueva sala";
+                opcionesAdicionales.appendChild(btnEvento);
+
+                btnEvento.addEventListener('click', function() {
+                    const eventoAleatorio = eventos_mazmorra[lanzarDado(eventos_mazmorra.length) - 1];
+                    opcionesAdicionales.innerHTML = `<p class="rojo"><strong>${eventoAleatorio}</strong></p>`;
+                });
+            } else if (amenazaValor >= 4 && amenazaValor <= 8) {
+                mensajeAmenaza.innerHTML += `<p><strong>No ocurre nada.</strong></p>`;
+            } else if (amenazaValor === 10) {
+                mensajeAmenaza.innerHTML += `<p class="rojo"><strong>Se apagan las fuentes de luz.</strong></p>`;
+            }
+
+            // Tirada d20 si amenazaValor es 9 o 10
+            if (amenazaValor >= rangoTirada) {
+                const tiradaD20 = lanzarDado(20);
+                tiradaD20Container.innerHTML = `<p class="rojo">Tirada d20: ${tiradaD20}</p>`;
+
+                if (tiradaD20 === 20)
+            {
+                let valorAModificar = -5;
+                    modificarAmenaza(valorAModificar);
+                    mensajeCombate = "Parece que todo está tranquilo... por ahora...";
+                            
+                    opcionesAdicionales.innerHTML = `<p>${mensajeCombate}</p>`;
+            }
+                else if (tiradaD20 > amenazaActual) {
+                    let valorAModificar = 1;
+                    modificarAmenaza(valorAModificar);
+                }  
+                else {
+                    mensajeAmenaza.innerHTML += `<p class="rojo"><strong>Se activa Amenaza</strong></p>`;
+
+                    const btnAmenazaCombate = document.createElement('button');
+                    btnAmenazaCombate.textContent = "Amenaza en Combate";
+                    opcionesAdicionales.appendChild(btnAmenazaCombate);
+
+                    const btnAmenazaSinCombate = document.createElement('button');
+                    btnAmenazaSinCombate.textContent = "Amenaza sin Combate";
+                    opcionesAdicionales.appendChild(btnAmenazaSinCombate);
+
+                    btnAmenazaCombate.addEventListener('click', function() {
+// Crear un elemento de imagen
+const imagenAmenaza = document.createElement('img');
+        
+        imagenAmenaza.alt = 'Amenaza';
+        imagenAmenaza.style.width = '200px'; // Puedes ajustar el tamaño
+        imagenAmenaza.style.display = 'block'; // Asegúrate de que se muestre en bloque
+
+                        const tiradaCombate = lanzarDado(10);
+                        let mensajeCombate;
+                        let valorAModificar = 0;
+                        if (tiradaCombate === 1) {
+                            mensajeCombate = "Una perturbación en el Vacío. Hay un cambio repentino en el Vacío que deja todos los Magos en estado de shock. Los Magos no pueden hacer nada durante el próximo turno ni parar o esquivar.";
+                            valorAModificar -= 2;
+                            imagenAmenaza.src = '/LigasMazmorreras/img/amenaza.png';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+                        } else if (tiradaCombate === 2) {
+                            mensajeCombate = "Tinte Verdoso. Los héroes se dan cuenta de que el tinte verdoso del filo o garra de los enemigos es algún tipo de veneno. El enemigo adquiere la regla especial 'Venenoso'.";
+                            valorAModificar -= 2;
+                            imagenAmenaza.src = '/LigasMazmorreras/img/amenaza.png';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+                        }else if (tiradaCombate === 3) {
+                            mensajeCombate = "Forjado bajo presión. Bajo presión unos se alzan y otros caen. Un enemigo gana +15HC hasta que muera.";
+                            valorAModificar -= 3;
+                            imagenAmenaza.src = '/LigasMazmorreras/img/amenaza.png';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+                        }else if (tiradaCombate === 4 || tiradaCombate ===5) {
+                            mensajeCombate = "Curación. Un enemigo que esté actualmente herido en el tablero (El que de más experiencia o aleatorio) Se curará 1d10VIT. Esto es debido a una poción de curación o intervención divina de los dioses, O quizás pura voluntad.";
+                            valorAModificar -= 3;
+                            imagenAmenaza.src = '/LigasMazmorreras/img/amenaza.png';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+                        }else if (tiradaCombate === 6) {
+                            mensajeCombate = "Frenesí. Un enemigo comienza a rugir con rabia y ataca con una fuerza desatada. El enemigo gana el trato de 'Frenesí' hasta que muera.";
+                            valorAModificar -= 3;
+                            imagenAmenaza.src = '/LigasMazmorreras/img/amenaza.png';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+                        }else if (tiradaCombate === 7) {
+                            mensajeCombate = "¡Desarmado! Ya sea por un intento de desarme del enemigo por propia torpeza, Un héroe al azar deja caer su arma. Este debe hacer un test de DES Para recuperarla, Gastando 1PA. Si falla, No tendrá armas y no podrá luchar. Puede continuar intentándolo gastando 1PA por intento.";
+                            valorAModificar -= 3;
+                            imagenAmenaza.src = '/LigasMazmorreras/img/amenaza.png';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+                        }else if (tiradaCombate === 8) {
+                            mensajeCombate = "¡Temible! Un enemigo parece crecer en presencia. Volviéndose más temible por momentos. Gana la habilidad de 'Miedo'. No hay límite de nivel para este Miedo, Los talentos que hacen ignorarlo, funcionan.";
+                            valorAModificar -= 4;
+                            imagenAmenaza.src = '/LigasMazmorreras/img/amenaza.png';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+                        }else if (tiradaCombate === 9) {
+                            mensajeCombate = "Refuerzos. Tiran la tabla de encuentros y colocan su resultado justo fuera de una puerta aleatoria, abierta o no, Listos para entrar a una loseta donde haya héroes. Actuarán en el último lugar de este turno. Si la puerta no está abierta, Se considerará desde ahora como abierta y sin trampas.";
+                            valorAModificar -= 4;
+                            imagenAmenaza.src = '/LigasMazmorreras/img/amenaza.png';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+                        }       
+                        else {
+                            mensajeCombate = "Adelante. Un enemigo estalla con un rugido feroz que impulsa sus compañeros, Haciéndolos luchar con energías renovadas. Todos los enemigos ganan +10HC hasta el final de la batalla.";
+                            valorAModificar -= 6;
+                            imagenAmenaza.src = '/LigasMazmorreras/img/amenaza.png';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+                        }
+                        modificarAmenaza(valorAModificar);
+                         opcionesAdicionales.innerHTML = `<p class="rojo"><strong>${tiradaCombate}: ${mensajeCombate}</strong></p>`;
+                    });
+
+                    btnAmenazaSinCombate.addEventListener('click', function() {
+                        const tiradaSinCombate = lanzarDado(20);
+                        let mensajeSinCombate;
+                        let valorAModificar = 0;
+                        if (tiradaSinCombate >= 1 && tiradaSinCombate <= 12) {
+                            mensajeSinCombate = "Aparece un montruo errante";
+                            valorAModificar = -5; 
+                        } else if (tiradaSinCombate >= 13 && tiradaSinCombate <= 15) {
+                            mensajeSinCombate = "Añade una carta extra a la parte superior del mazo de exploración";
+                            valorAModificar = -5;
+                        } else if (tiradaSinCombate === 16 || tiradaSinCombate === 17) {
+                            mensajeSinCombate = "El riesgo de encuentro aumenta en 10 para habitaciones y pastillos hasta el final de la misión. (Acumulativo máximo el 70%)";
+                            valorAModificar = -6;
+                        } else if (tiradaSinCombate === 18 || tiradaSinCombate === 19) {
+                            mensajeSinCombate = "¡Un héroe activo una trampa! La casilla en la que se encuentra el héroe es donde se ubica la trampa.";
+                            valorAModificar = -7;
+                        }
+                        else {
+                            mensajeSinCombate = "Añade 1 a todas las tiradas de escenario hasta el final de esta mazmorra. Solo puede suceder una vez por misión.";
+                            valorAModificar = -10;
+                            modificadorTirada += 1; // Incrementar en 1
+    document.getElementById('modificadorTirada').value = modificadorTirada; // Actualizar el input
+    localStorage.setItem('ModificadorTirada', modificadorTirada); // Guardar en localStorage
+                        }
+                        modificarAmenaza(valorAModificar);
+                        opcionesAdicionales.innerHTML = `<p class="rojo"><strong>${tiradaSinCombate}: ${mensajeSinCombate}</strong></p>`;
+                        modificadorTirada += 1; // Incrementar en 1
+    document.getElementById('modificadorTirada').value = modificadorTirada; // Actualizar el input
+    localStorage.setItem('ModificadorTirada', modificadorTirada); // Guardar en localStorage
+                    });
+                }
+            }
+        }
+
+        // Función para modificar la amenaza
+        function modificarAmenaza(valorAModificar) {
+            const iframe = document.getElementById('iframeMenu');
+            iframe.contentWindow.postMessage({ tipo: 'cambiarAmenaza', valor: valorAModificar }, '*');
+            amenazaActual += valorAModificar;  // Actualizar localmente el valor de amenazaActual
+            document.getElementById('amenazaActual').innerHTML = amenazaActual;
+        }
+    </script>
+</body>
+</html>

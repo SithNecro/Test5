@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objetos Superiores</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos para el menú lateral */
+        .menu {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 300px; /* Ancho del menú lateral */
+        }
+
+        .menu-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Estilos para el contenido principal */
+        .main-content {
+            margin-left: 310px; /* Espacio para que el contenido no quede oculto tras el menú */
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .center-content {
+            text-align: center;
+        }
+
+        .legend-image {
+            width: 400px; /* Ajusta el tamaño de la imagen */
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body style="background-image: url('fondo.png'); background-size: cover;">
+
+    <!-- Carga del menú lateral -->
+    <div class="menu">
+        <iframe src="menu.html" frameborder="0" class="menu-frame"></iframe>
+    </div>
+
+    <!-- Zona de contenido principal centrada -->
+    <div class="main-content">
+        <div class="center-content">
+            <button onclick="cambiarImagen()" id="legendario-btn">Objetos Superiores</button>
+            <button onclick="restaurarImagen()" id="barajar-btn">Barajar Objetos Superiores</button>
+            <br><br>
+            <img src="objetos_legendarios.png" id="imagen-legendaria" alt="Objeto Legendario" class="legend-image">
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
