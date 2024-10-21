@@ -16,11 +16,15 @@ function rollDice(sides,diceimage,resultado) {
         // Formatear el nombre de la imagen correctamente según el número de lados
         let formattedSide = currentSide.toString().padStart(2, '0'); // para D10 y D20
         if (sides === 6) {
+            
             diceImage.src = `img/dados/D6-${currentSide}.png`;
+            diceImage.style.display = 'block';
         } else if (sides === 10) {
             diceImage.src = `img/dados/D10-${formattedSide}.png`;
+            diceImage.style.display = 'block';
         } else if (sides === 20) {
             diceImage.src = `img/dados/D20-${formattedSide}.png`;
+            diceImage.style.display = 'block';
         }
 
         // Rotar la imagen simulando el "rodar" del dado
