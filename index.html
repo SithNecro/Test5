@@ -168,12 +168,12 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                     opcionesAdicionales.appendChild(btnAmenazaSinCombate);
 
                     btnAmenazaCombate.addEventListener('click', function() {
-// Crear un elemento de imagen
-const imagenAmenaza = document.createElement('img');
+                    // Crear un elemento de imagen
+                    const imagenAmenaza = document.createElement('img');
         
-        imagenAmenaza.alt = 'Amenaza';
-        imagenAmenaza.style.width = '200px'; // Puedes ajustar el tamaño
-        imagenAmenaza.style.display = 'block'; // Asegúrate de que se muestre en bloque
+                    imagenAmenaza.alt = 'Amenaza';
+                    imagenAmenaza.style.width = '200px'; // Puedes ajustar el tamaño
+                    imagenAmenaza.style.display = 'block'; // Asegúrate de que se muestre en bloque
 
                         const tiradaCombate = lanzarDado(10);
                         let mensajeCombate;
@@ -181,48 +181,48 @@ const imagenAmenaza = document.createElement('img');
                         if (tiradaCombate === 1) {
                             mensajeCombate = "Una perturbación en el Vacío. Hay un cambio repentino en el Vacío que deja todos los Magos en estado de shock. Los Magos no pueden hacer nada durante el próximo turno ni parar o esquivar.";
                             valorAModificar -= 2;
-                            imagenAmenaza.src = 'img/amenaza.png';
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Perturbación  en el Vacío.png';
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         } else if (tiradaCombate === 2) {
                             mensajeCombate = "Tinte Verdoso. Los héroes se dan cuenta de que el tinte verdoso del filo o garra de los enemigos es algún tipo de veneno. El enemigo adquiere la regla especial 'Venenoso'.";
                             valorAModificar -= 2;
-                            imagenAmenaza.src = 'img/amenaza.png';
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Tinte Verdoso.png';
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         }else if (tiradaCombate === 3) {
                             mensajeCombate = "Forjado bajo presión. Bajo presión unos se alzan y otros caen. Un enemigo gana +15HC hasta que muera.";
                             valorAModificar -= 3;
-                            imagenAmenaza.src = 'img/amenaza.png';
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Forjado bajo presión.png';
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         }else if (tiradaCombate === 4 || tiradaCombate ===5) {
                             mensajeCombate = "Curación. Un enemigo que esté actualmente herido en el tablero (El que de más experiencia o aleatorio) Se curará 1d10VIT. Esto es debido a una poción de curación o intervención divina de los dioses, O quizás pura voluntad.";
                             valorAModificar -= 3;
-                            imagenAmenaza.src = 'img/amenaza.png';
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Curación.png';
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         }else if (tiradaCombate === 6) {
                             mensajeCombate = "Frenesí. Un enemigo comienza a rugir con rabia y ataca con una fuerza desatada. El enemigo gana el trato de 'Frenesí' hasta que muera.";
                             valorAModificar -= 3;
-                            imagenAmenaza.src = 'img/amenaza.png';
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Frenesí.png';
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         }else if (tiradaCombate === 7) {
                             mensajeCombate = "¡Desarmado! Ya sea por un intento de desarme del enemigo por propia torpeza, Un héroe al azar deja caer su arma. Este debe hacer un test de DES Para recuperarla, Gastando 1PA. Si falla, No tendrá armas y no podrá luchar. Puede continuar intentándolo gastando 1PA por intento.";
                             valorAModificar -= 3;
-                            imagenAmenaza.src = 'img/amenaza.png';
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Desarmado.png';
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         }else if (tiradaCombate === 8) {
                             mensajeCombate = "¡Temible! Un enemigo parece crecer en presencia. Volviéndose más temible por momentos. Gana la habilidad de 'Miedo'. No hay límite de nivel para este Miedo, Los talentos que hacen ignorarlo, funcionan.";
                             valorAModificar -= 4;
-                            imagenAmenaza.src = 'img/amenaza.png';
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Temible.png';
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         }else if (tiradaCombate === 9) {
                             mensajeCombate = "Refuerzos. Tiran la tabla de encuentros y colocan su resultado justo fuera de una puerta aleatoria, abierta o no, Listos para entrar a una loseta donde haya héroes. Actuarán en el último lugar de este turno. Si la puerta no está abierta, Se considerará desde ahora como abierta y sin trampas.";
                             valorAModificar -= 4;
-                            imagenAmenaza.src = 'img/amenaza.png';
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Refuerzos.png';
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         }       
                         else {
                             mensajeCombate = "Adelante. Un enemigo estalla con un rugido feroz que impulsa sus compañeros, Haciéndolos luchar con energías renovadas. Todos los enemigos ganan +10HC hasta el final de la batalla.";
                             valorAModificar -= 6;
-                            imagenAmenaza.src = 'img/amenaza.png';
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Adelante.png';
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         }
                         modificarAmenaza(valorAModificar);
@@ -233,22 +233,45 @@ const imagenAmenaza = document.createElement('img');
                         const tiradaSinCombate = lanzarDado(20);
                         let mensajeSinCombate;
                         let valorAModificar = 0;
+
+                        // Crear un elemento de imagen
+                       const imagenAmenaza = document.createElement('img');
+        
+                        imagenAmenaza.alt = 'Amenaza';
+                        imagenAmenaza.style.width = '200px'; // Puedes ajustar el tamaño
+                        imagenAmenaza.style.display = 'block'; // Asegúrate de que se muestre en bloque
+
                         if (tiradaSinCombate >= 1 && tiradaSinCombate <= 12) {
                             mensajeSinCombate = "Aparece un montruo errante";
                             valorAModificar = -5; 
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d20Errante.png';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+                        
                         } else if (tiradaSinCombate >= 13 && tiradaSinCombate <= 15) {
                             mensajeSinCombate = "Añade una carta extra a la parte superior del mazo de exploración";
                             valorAModificar = -5;
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d20Sin fin.png';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+                        
                         } else if (tiradaSinCombate === 16 || tiradaSinCombate === 17) {
                             mensajeSinCombate = "El riesgo de encuentro aumenta en 10 para habitaciones y pastillos hasta el final de la misión. (Acumulativo máximo el 70%)";
                             valorAModificar = -6;
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d20Nos acechan.png';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+                        
                         } else if (tiradaSinCombate === 18 || tiradaSinCombate === 19) {
                             mensajeSinCombate = "¡Un héroe activo una trampa! La casilla en la que se encuentra el héroe es donde se ubica la trampa.";
                             valorAModificar = -7;
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d20Trampa.png';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+                        
                         }
                         else {
                             mensajeSinCombate = "Añade 1 a todas las tiradas de escenario hasta el final de esta mazmorra. Solo puede suceder una vez por misión.";
                             valorAModificar = -10;
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d20Amenaza.png';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+                        
                             modificadorTirada += 1; // Incrementar en 1
     document.getElementById('modificadorTirada').value = modificadorTirada; // Actualizar el input
     localStorage.setItem('ModificadorTirada', modificadorTirada); // Guardar en localStorage
