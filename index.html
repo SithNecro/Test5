@@ -139,7 +139,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
             diceImage3.style.display = 'none';
 
             rollDice(10,'dice-image','result');
-            await new Promise(resolve => setTimeout(resolve, 2500));
+            await new Promise(resolve => setTimeout(resolve, 2000));
             const valordadoTiradad10 = document.getElementById('result');
             valordadoTiradad10.style.display = 'none';
             const amenazaValor = parseInt(valordadoTiradad10.textContent) + modificadorTirada;
@@ -180,7 +180,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
             // Tirada d20 si amenazaValor es 9 o 10
             if (amenazaValor >= rangoTirada) {
                 rollDice(20,'dice-image2','result2');
-                await new Promise(resolve => setTimeout(resolve, 2500));
+                await new Promise(resolve => setTimeout(resolve, 2000));
                 const valordadoTiradad20 = document.getElementById('result2');
                 valordadoTiradad20.style.display = 'none';
                 //const tiradaD20 = lanzarDado(20);
@@ -221,7 +221,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                     //dado D10 para decidir evento
                     diceImage3.style.display = 'none';
                     rollDice(10,'dice-image3','result3');
-                    await new Promise(resolve => setTimeout(resolve, 2500));
+                    await new Promise(resolve => setTimeout(resolve, 2000));
                     const valordadoTiradadcombate10 = document.getElementById('result3');
                     valordadoTiradadcombate10.style.display = 'none';
                     const tiradaCombate = parseInt(valordadoTiradadcombate10.textContent);
@@ -284,7 +284,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                         //dado D10 para decidir evento
                         diceImage3.style.display = 'none';
                         rollDice(20,'dice-image3','result3');
-                        await new Promise(resolve => setTimeout(resolve, 2500));
+                        await new Promise(resolve => setTimeout(resolve, 2000));
                         const valordadoTiradadcombate10 = document.getElementById('result3');
                         valordadoTiradadcombate10.style.display = 'none';
                         const tiradaSinCombate = parseInt(valordadoTiradadcombate10.textContent);
