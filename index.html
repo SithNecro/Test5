@@ -71,7 +71,7 @@
             <div id="opcionesAdicionales"></div>
         </div>
         <div id="imagenAmenazaContainer"></div> <!-- Contenedor para la imagen -->
-        <div id="tiradaD20Container"></div>
+        <!--<div id="tiradaD20Container"></div>-->
 
         <div>
             <p>Nivel de Amenaza Actual: <span id="amenazaActual">...</span></p>
@@ -130,17 +130,18 @@ document.getElementById('modificadorTirada').addEventListener('change', function
             rollDice(10,'dice-image','result');
             await new Promise(resolve => setTimeout(resolve, 2000));
             const valordadoTiradad10 = document.getElementById('result');
+            valordadoTiradad10.style.display = 'none';
             const amenazaValor = parseInt(valordadoTiradad10.textContent) + modificadorTirada;
             const mensajeAmenaza = document.getElementById('mensajeAmenaza');
             const mensajeAmenazaActual = document.getElementById('mensajeAmenazaActual');
             const opcionesAdicionales = document.getElementById('opcionesAdicionales');
-            const tiradaD20Container = document.getElementById('tiradaD20Container');
+            //const tiradaD20Container = document.getElementById('tiradaD20Container');
 
             // Limpiamos los mensajes y opciones previos
             mensajeAmenaza.innerHTML = '';
             mensajeAmenazaActual.innerHTML = '';
             opcionesAdicionales.innerHTML = '';
-            tiradaD20Container.innerHTML = '';
+            //tiradaD20Container.innerHTML = '';
 
             document.getElementById('imagenAmenazaContainer').innerHTML = ''; // Asegúrate de ocultar la imagen
             
@@ -170,6 +171,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                 rollDice(20,'dice-image2','result2');
                 await new Promise(resolve => setTimeout(resolve, 2000));
                 const valordadoTiradad20 = document.getElementById('result2');
+                valordadoTiradad20.style.display = 'none';
                 //const tiradaD20 = lanzarDado(20);
                 const tiradaD20 = parseInt(valordadoTiradad10.textContent);
                 
