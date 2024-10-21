@@ -36,35 +36,38 @@
     </div>
 
     <div id="contentContainer">
-        <h1>Simulación de Amenazas</h1>
+        <h1>Tiradas de Amenaza</h1>
         <div>
             <label for="modificadorTirada">Modificador de Tirada: </label>
             <input type="number" id="modificadorTirada" value="0">
         </div>
         <div>
-            <label for="rangoTirada">Rango de Tirada: </label>
+            <label for="rangoTirada">A partir de que valor salta Amenaza: </label>
             <input type="number" id="rangoTirada" value="9">
         </div>
-      
-        
+        <div>
+
+        <button id="btnAmenaza" onclick="manejarEventoAmenaza()">Tirar Amenaza</button>
+        </div>  
         <div id="amenazaContainer">
-              <!--//imagen del dado-->
+                <!--//imagen del dado D10-->
             <div class="dice-container">
-            <img id="dice-image" src="img/dados/D10-01.png" alt="Dado" width="100" style="display: none;"></img>
+                <img id="dice-image" src="img/dados/D10-01.png" alt="Dado" width="100" style="display: none;"></img>
             </div>
-        <!-- Div para mostrar el resultado -->
-<div id="result" class="result"></div>
-  <!--//imagen del dado-->
-  <div class="dice-container">
-    <img id="dice-image2" src="" alt="Dado" width="100" style="display: none;"></img>
-    </div>
-<!-- Div para mostrar el resultado -->
-<div id="result2" class="result"></div>
-            <button id="btnAmenaza" onclick="manejarEventoAmenaza()">Amenaza</button>
+                <!--//imagen del dado D20-->
+            <div class="dice-container">
+                <img id="dice-image2" src="" alt="Dado" width="100" style="display: none;"></img>
+            </div>
+                    <!-- Div para mostrar el resultado -->
+            <div id="result" class="result"></div>
+                    <!-- Div para mostrar el resultado -->
+            <div id="result2" class="result"></div>
+            
             <div><p id="mensajeAmenazaActual"></p></div>
             <p id="mensajeAmenaza"></p>
             <div id="opcionesAdicionales"></div>
         </div>
+
         <div id="imagenAmenazaContainer"></div> <!-- Contenedor para la imagen -->
         <!--<div id="tiradaD20Container"></div>-->
 
