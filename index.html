@@ -70,11 +70,11 @@
             <div id="result2" class="result"></div>
                     <!-- Div para mostrar el resultado -->
             <div id="result3" class="result"></div>
-            <div id="opcionesAdicionales"></div>
             
+            <div id="imagenAmenazaContainer"></div>
         </div>
-
-        <div id="imagenAmenazaContainer"></div> <!-- Contenedor para la imagen -->
+        <div id="opcionesAdicionales"></div>
+         <!-- Contenedor para la imagen -->
         <!--<div id="tiradaD20Container"></div>-->
 
         <div>
@@ -271,6 +271,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                             mensajeCombate = "Adelante. Un enemigo estalla con un rugido feroz que impulsa sus compañeros, Haciéndolos luchar con energías renovadas. Todos los enemigos ganan +10HC hasta el final de la batalla.";
                             valorAModificar -= 6;
                             imagenAmenaza.src = 'img/Eventos_Amenaza/d10Adelante.png';
+                            imagenAmenaza.style.borderRadius = "5%";
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         }
                         modificarAmenaza(valorAModificar);
@@ -326,6 +327,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                             mensajeSinCombate = "Añade 1 a todas las tiradas de escenario hasta el final de esta mazmorra. Solo puede suceder una vez por misión.";
                             valorAModificar = -10;
                             imagenAmenaza.src = 'img/Eventos_Amenaza/d20Amenaza.png';
+                            imagenAmenaza.style.borderRadius = "5%";
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         
                             modificadorTirada += 1; // Incrementar en 1
