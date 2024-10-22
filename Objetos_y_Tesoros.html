@@ -31,20 +31,37 @@
             justify-content: flex-start;
         }
 
-        .top-buttons {
-            display: flex;
-            gap: 10px;
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
         }
 
-        .content-right {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-        }
-
-        .treasure-image {
+        .button-grid button {
             width: 200px;
-            border-radius: 5%;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Imágenes de fondo para cada botón */
+        #btn1 {
+            background-image: url('img/Trasera tesoro corriente.png');
+        }
+
+        #btn2 {
+            background-image: url('img/Trasera tesoro superior.png');
+        }
+
+        #btn3 {
+            background-image: url('img/Trasera tesoro maravilloso.png');
+        }
+
+        #btn4 {
+            background-image: url('img/Trasera legendarios.png');
         }
 
         button, select {
@@ -78,29 +95,24 @@
     <!-- Zona de contenido principal -->
     <div class="main-content">
 
-        <div class="nav-buttons">
-            <!-- Añadimos target="_top" en cada botón para asegurar que las páginas se abran en el marco principal -->
-            
-            <button onclick="saveAndNavigate('Tesoros_Corrientes.html')" target="_top">Tesoros Corrientes</button><br>
-            <button onclick="saveAndNavigate('Tesoros_Superiores.html')" target="_top">Tesoros Superiores</button><br>
-            <button onclick="saveAndNavigate('Tesoros_Maravillosos.html')" target="_top">Tesoros Maravillosos</button><br>
-            <button onclick="saveAndNavigate('Objetos_Legendario.html')" target="_top">Objetos Legendarios</button><br>
-            
-            
-        </div>
-
        
 
+        <!-- Grupo de botones con imagen de fondo en dos columnas -->
+        <div class="button-grid">
+            <button id="btn1" onclick="saveAndNavigate('Tesoros_Corrientes.html')"></button>
+            <button id="btn2" onclick="saveAndNavigate('Tesoros_Superiores.html')"></button>
+            <button id="btn3" onclick="saveAndNavigate('Tesoros_Maravillosos.html')"></button>
+            <button id="btn4" onclick="saveAndNavigate('Objetos_Legendario.html')"></button>
+        </div>
+
     </div>
-<script>
-    // Navegar a una página guardando los valores antes
-    function saveAndNavigate(url) {
-      
-        
-        window.top.location.href = url; // Navegar a la nueva página en el marco principal
-    }
-   
-</script>
+    
+    <script>
+        // Navegar a una página guardando los valores antes
+        function saveAndNavigate(url) {
+            window.top.location.href = url; // Navegar a la nueva página en el marco principal
+        }
+    </script>
+
 </body>
 </html>
-
