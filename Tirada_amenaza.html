@@ -239,10 +239,6 @@ document.getElementById('modificadorTirada').addEventListener('change', function
 
                     document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
 
-
-
-
-
                 mensajeAmenaza.innerHTML += `<p><strong>No ocurre nada.</strong></p>`;
             } else if (amenazaValor === 10) {
                 const imagenAmenaza = document.createElement('img');
@@ -439,6 +435,11 @@ document.getElementById('modificadorTirada').addEventListener('change', function
             iframe.contentWindow.postMessage({ tipo: 'cambiarAmenaza', valor: valorAModificar }, '*');
             amenazaActual += valorAModificar;  // Actualizar localmente el valor de amenazaActual
             document.getElementById('amenazaActual').innerHTML = amenazaActual;
+            // Asegurarse de que el iframe ha cargado
+            if (iframe.contentWindow && iframe.contentWindow.checkAmenaza) {
+                // Llamar a la función checkAmenaza() que está en el iframe
+                iframe.contentWindow.checkAmenaza();
+            }
         }
 
        
