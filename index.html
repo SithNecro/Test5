@@ -295,12 +295,13 @@ document.getElementById('modificadorTirada').addEventListener('change', function
 
                     btnAmenazaCombate.addEventListener('click',async function() {
                     // Crear un elemento de imagen
+                    imagenAmenaza.style.display = 'none';
                     const imagenAmenaza = document.createElement('img');
         
                     imagenAmenaza.alt = 'Amenaza';
                     imagenAmenaza.style.width = '300px'; // Puedes ajustar el tamaño
                     imagenAmenaza.style.display = 'block'; // Asegúrate de que se muestre en bloque
-
+                    
 
                     //dado D10 para decidir evento
                     diceImage3.style.display = 'none';
@@ -366,6 +367,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                     });
 
                     btnAmenazaSinCombate.addEventListener('click', async function() {
+                        imagenAmenaza.style.display = 'none';
                         //dado D10 para decidir evento
                         diceImage3.style.display = 'none';
                         rollDice(20,'dice-image3','result3');
