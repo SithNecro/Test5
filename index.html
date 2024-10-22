@@ -195,7 +195,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
 
             // Lógica según el valor de amenaza
             if (amenazaValor === 1 || amenazaValor === 2 || amenazaValor === 3) {
-
+                
                  // Crear un elemento de imagen
                  const imagenAmenaza = document.createElement('img');
                     imagenAmenaza.alt = 'Amenaza';
@@ -213,7 +213,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                     fetch('img/Listado_Cartas.json')
                             .then(response => response.json())
                             .then(data => {
-                            imagenAmenaza.style.display = 'none';
+                            document.getElementById('imagenAmenazaContainer').innerHTML = '';
                             const tesoros = data.Eventos_habitacion;
                             const randomIndex = Math.floor(Math.random() * tesoros.length);
                             const tesoroAleatorio = tesoros[randomIndex];
