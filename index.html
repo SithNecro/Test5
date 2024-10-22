@@ -245,7 +245,13 @@ document.getElementById('modificadorTirada').addEventListener('change', function
 
                 mensajeAmenaza.innerHTML += `<p><strong>No ocurre nada.</strong></p>`;
             } else if (amenazaValor === 10) {
-                mensajeAmenaza.innerHTML += `<p class="rojo"><strong>Se apagan las fuentes de luz.</strong></p>`;
+                const imagenAmenaza = document.createElement('img');
+                    imagenAmenaza.alt = 'Amenaza';
+                    imagenAmenaza.style.width = '300px'; // Puedes ajustar el tamaño
+                    imagenAmenaza.style.display = 'block'; // Asegúrate de que se muestre en bloque
+                    imagenAmenaza.src = 'img/se_apagan_antorchas.png';
+
+                    document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
             }
 
             // Tirada d20 si amenazaValor es 9 o 10
@@ -409,10 +415,11 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                             imagenAmenaza.src = 'img/Eventos_Amenaza/d20Amenaza.png';
                             imagenAmenaza.style.borderRadius = "5%";
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
-                        
+                        if(modificadorTirada === 0){
                             modificadorTirada += 1; // Incrementar en 1
-    document.getElementById('modificadorTirada').value = modificadorTirada; // Actualizar el input
-    localStorage.setItem('ModificadorTirada', modificadorTirada); // Guardar en localStorage
+                            document.getElementById('modificadorTirada').value = modificadorTirada; // Actualizar el input
+                            localStorage.setItem('ModificadorTirada', modificadorTirada); // Guardar en localStorage
+                            }
                         }
                         modificarAmenaza(valorAModificar);
                         opcionesAdicionales.innerHTML = `<p class="rojo"><strong>${tiradaSinCombate}:</strong></p>`;
