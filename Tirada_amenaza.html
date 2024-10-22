@@ -430,11 +430,12 @@ document.getElementById('modificadorTirada').addEventListener('change', function
         }
 
         // Función para modificar la amenaza
-        function modificarAmenaza(valorAModificar) {
+        async function modificarAmenaza(valorAModificar) {
             const iframe = document.getElementById('iframeMenu');
             iframe.contentWindow.postMessage({ tipo: 'cambiarAmenaza', valor: valorAModificar }, '*');
             amenazaActual += valorAModificar;  // Actualizar localmente el valor de amenazaActual
             document.getElementById('amenazaActual').innerHTML = amenazaActual;
+            await new Promise(resolve => setTimeout(resolve, 1000));
             // Asegurarse de que el iframe ha cargado
             if (iframe.contentWindow && iframe.contentWindow.checkAmenaza) {
                 // Llamar a la función checkAmenaza() que está en el iframe
