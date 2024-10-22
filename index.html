@@ -195,6 +195,16 @@ document.getElementById('modificadorTirada').addEventListener('change', function
 
             // Lógica según el valor de amenaza
             if (amenazaValor === 1 || amenazaValor === 2 || amenazaValor === 3) {
+
+                 // Crear un elemento de imagen
+                 const imagenAmenaza = document.createElement('img');
+                    imagenAmenaza.alt = 'Amenaza';
+                    imagenAmenaza.style.width = '300px'; // Puedes ajustar el tamaño
+                    imagenAmenaza.style.display = 'block'; // Asegúrate de que se muestre en bloque
+                    imagenAmenaza.src = 'img/Evento_Habitacion.png';
+
+                    document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+
                 const btnEvento = document.createElement('button');
                 btnEvento.textContent = "Evento en nueva sala";
                 opcionesAdicionales.appendChild(btnEvento);
@@ -236,7 +246,14 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                 let valorAModificar = -5;
                     modificarAmenaza(valorAModificar);
                     mensajeCombate = "Parece que todo está tranquilo... por ahora...";
-                            
+                     // Crear un elemento de imagen
+                     const imagenAmenaza = document.createElement('img');
+                    imagenAmenaza.alt = 'Amenaza';
+                    imagenAmenaza.style.width = '300px'; // Puedes ajustar el tamaño
+                    imagenAmenaza.style.display = 'block'; // Asegúrate de que se muestre en bloque
+                    imagenAmenaza.src = 'img/Tranquilidad.png';
+
+                    document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);        
                     opcionesAdicionales.innerHTML = `<p>${mensajeCombate}</p>`;
             }
                 else if (tiradaD20 > amenazaActual) {
