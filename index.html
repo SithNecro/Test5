@@ -213,6 +213,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                     fetch('img/Listado_Cartas.json')
                             .then(response => response.json())
                             .then(data => {
+                            imagenAmenaza.style.display = 'none';
                             const tesoros = data.Eventos_habitacion;
                             const randomIndex = Math.floor(Math.random() * tesoros.length);
                             const tesoroAleatorio = tesoros[randomIndex];
