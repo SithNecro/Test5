@@ -29,7 +29,7 @@ function cambiarImagenSeleccionada() {
 }
 
 // Función para cargar una imagen aleatoria
-function cargarTesoroCorriente() {
+function cargarTesoroLegendario() {
     fetch('img/Listado_Cartas.json')
         .then(response => response.json())
         .then(data => {
