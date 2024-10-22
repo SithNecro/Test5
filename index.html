@@ -210,8 +210,28 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                 opcionesAdicionales.appendChild(btnEvento);
 
                 btnEvento.addEventListener('click', function() {
-                    const eventoAleatorio = eventos_mazmorra[lanzarDado(eventos_mazmorra.length) - 1];
-                    opcionesAdicionales.innerHTML = `<p class="rojo"><strong>${eventoAleatorio}</strong></p>`;
+                    fetch('img/Listado_Cartas.json')
+                            .then(response => response.json())
+                            .then(data => {
+                            const tesoros = data.Eventos_habitacion;
+                            const randomIndex = Math.floor(Math.random() * tesoros.length);
+                            const tesoroAleatorio = tesoros[randomIndex];
+
+                            // Cambiar la imagen
+                            const imagen = document.createElement('img');
+                            imagen.src = `img/Eventos_habitacion/${tesoroAleatorio}`;
+                            imagen.alt = 'Amenaza';
+                            imagen.style.width = '300px'; // Puedes ajustar el tamaño
+                            imagen.style.display = 'block'; // Asegúrate de que se muestre en bloque
+                            // Seleccionar el tesoro en el desplegable
+                            const selector = document.getElementById('selector-tesoro-0');
+                            selector.value = tesoroAleatorio;
+                            // Muestra los dos tesoros y sus selectores
+                            document.getElementById('two-treasures-container').style.display = 'none';
+                            document.getElementById('single-treasure-container').style.display = 'flex';
+
+                    });
+                
                 });
             } else if (amenazaValor >= 4 && amenazaValor < rangoTirada) {
                 // Crear un elemento de imagen
@@ -415,6 +435,9 @@ document.getElementById('modificadorTirada').addEventListener('change', function
             amenazaActual += valorAModificar;  // Actualizar localmente el valor de amenazaActual
             document.getElementById('amenazaActual').innerHTML = amenazaActual;
         }
+
+       
+
     </script>
         <script src="dado.js"></script>
 
