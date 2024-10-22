@@ -223,12 +223,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                             imagen.alt = 'Amenaza';
                             imagen.style.width = '300px'; // Puedes ajustar el tamaño
                             imagen.style.display = 'block'; // Asegúrate de que se muestre en bloque
-                            // Seleccionar el tesoro en el desplegable
-                            const selector = document.getElementById('selector-tesoro-0');
-                            selector.value = tesoroAleatorio;
-                            // Muestra los dos tesoros y sus selectores
-                            document.getElementById('two-treasures-container').style.display = 'none';
-                            document.getElementById('single-treasure-container').style.display = 'flex';
+                            document.getElementById('imagenAmenazaContainer').appendChild(imagen);
 
                     });
                 
