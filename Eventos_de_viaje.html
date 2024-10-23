@@ -37,14 +37,42 @@
             margin-top: 20px;
         }
 
+        /* Estilo de los botones (mazos de cartas) */
         .button-row button {
+            position: relative;
             width: 200px;
             height: 300px;
             background-size: cover;
             background-position: center;
             border: none;
             cursor: pointer;
+            box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3); /* Sombra para simular relieve */
+            transform: translateY(0px); /* Posición inicial */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        /* Pseudo-elementos para simular más cartas detrás */
+        .button-row button::before, .button-row button::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-row button::before {
+            transform: rotate(-3deg) translateY(-10px); /* Simular carta detrás */
+            z-index: -1; /* Colocar detrás */
+        }
+
+        .button-row button::after {
+            transform: rotate(3deg) translateY(-20px); /* Simular otra carta */
+            z-index: -2; /* Más atrás */
+        }
+
         /* Imágenes de fondo para cada botón */
         #btn1 {
             background-image: url('img/Trasera Carretera.png');
@@ -58,7 +86,11 @@
             background-image: url('img/Trasera Desierto.png');
         }
 
-        
+        /* Efecto hover para simular que el mazo se levanta */
+        .button-row button:hover {
+            transform: translateY(-10px); /* Simula levantar el mazo */
+            box-shadow: 0 12px 15px rgba(0, 0, 0, 0.4); /* Más sombra al levantar */
+        }
 
         button, select {
             padding: 10px 20px;
@@ -91,9 +123,7 @@
     <!-- Zona de contenido principal -->
     <div class="main-content">
 
-       
-
-        <!-- Grupo de botones con imagen de fondo en dos columnas -->
+        <!-- Grupo de botones con imagen de fondo en fila -->
         <div class="button-row">
             <button id="btn1" onclick="saveAndNavigate('Evento_Carretera.html')"></button>
             <button id="btn2" onclick="saveAndNavigate('Evento_Espesura.html')"></button>
