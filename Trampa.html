@@ -30,7 +30,7 @@
             justify-content: flex-start;
         }
 
-        /* Columna izquierda con ancho fijo de 300px y centrado vertical */
+        /* Columna izquierda con ancho fijo de 300px y centrado arriba */
         .column-left {
             width: 300px;
             display: flex;
@@ -54,17 +54,18 @@
             align-items: flex-start; /* Alineado a la izquierda */
             justify-content: flex-start; /* Alineado arriba */
             text-align: left; /* Texto y elementos alineados a la izquierda */
+            padding-top: 0px; /* Eliminar cualquier espaciado superior */
         }
 
         .buttons {
-            margin-top: 20px;
+            margin-top: 10px; /* Reducir el espacio entre la imagen y los botones */
         }
 
         button, select {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            margin: 10px 0;
+            margin: 5px 0; /* Reducir el margen vertical */
         }
 
         /* Selector y botones debajo de la imagen de trampas */
@@ -77,6 +78,7 @@
         .treasure-image {
             width: 200px; /* Tamaño ajustado para la imagen de trampas */
             border-radius: 5%;
+            margin-bottom: 10px; /* Reducir el margen inferior de la imagen */
         }
 
     </style>
