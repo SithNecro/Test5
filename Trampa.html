@@ -30,27 +30,29 @@
             justify-content: flex-start;
         }
 
-        /* Columna izquierda con ancho fijo de 300px */
+        /* Columna izquierda con ancho fijo de 300px y centrado vertical */
         .column-left {
             width: 300px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
+            align-items: center; /* Centrado horizontal */
+            justify-content: flex-start; /* Alineado arriba */
         }
- 
+
         .column-left img {
             width: 300px; /* Ancho de la imagen FAQ igual a la columna */
             border-radius: 5%;
+            margin-bottom: 20px;
         }
 
-        /* Columna derecha que toma el resto del espacio */
+        /* Columna derecha que toma el resto del espacio y se alinea arriba a la izquierda */
         .column-right {
             flex: 1;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
+            align-items: flex-start; /* Alineado a la izquierda */
+            justify-content: flex-start; /* Alineado arriba */
+            text-align: left; /* Texto y elementos alineados a la izquierda */
         }
 
         .buttons {
@@ -68,7 +70,7 @@
         .trampas-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start; /* Alineado a la izquierda */
         }
 
         .treasure-image {
@@ -87,12 +89,12 @@
 
     <!-- Zona de contenido principal -->
     <div class="main-content">
-        <!-- Columna izquierda (FAQ) con ancho fijo de 300px -->
+        <!-- Columna izquierda (FAQ) con ancho fijo de 300px y centrado arriba -->
         <div class="column-left">
             <img src="img/FAQ/FAQ_Puertas.png" alt="FAQ" class="faq-image">
         </div>
 
-        <!-- Columna derecha (Trampas) que toma el resto del espacio -->
+        <!-- Columna derecha (Trampas) que toma el resto del espacio, alineado arriba a la izquierda -->
         <div class="column-right trampas-container">
             <!-- Botones encima de la imagen de trampas -->
             <div class="buttons">
@@ -106,7 +108,11 @@
                 <!-- Aquí se añadirán los nombres de los archivos mediante JavaScript -->
             </select>
 
-            
+            <!-- Botones debajo de la imagen de trampas -->
+            <div class="buttons">
+                <button onclick="cargarTesoroLegendario()" id="tesoro-btn">Sacar Trampa</button>
+                <button onclick="barajarTesoros()">Barajar Trampas</button>
+            </div>
         </div>
     </div>
 
