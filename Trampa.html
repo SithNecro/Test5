@@ -94,6 +94,11 @@
 
         <!-- Columna derecha (Trampas) que toma el resto del espacio -->
         <div class="column-right trampas-container">
+            <!-- Botones encima de la imagen de trampas -->
+            <div class="buttons">
+                <button onclick="cargarTesoroLegendario()" id="tesoro-btn">Sacar Trampa</button>
+                <button onclick="barajarTesoros()">Barajar Trampas</button>
+            </div>
             <img src="img/Trasera trampas.png" id="imagen-tesoro" alt="Trampas" class="treasure-image">
             
             <label for="selector-tesoro-0">Seleccionar Trampa:</label>
@@ -101,11 +106,7 @@
                 <!-- Aquí se añadirán los nombres de los archivos mediante JavaScript -->
             </select>
 
-            <!-- Botones debajo de la imagen de trampas -->
-            <div class="buttons">
-                <button onclick="cargarTesoroLegendario()" id="tesoro-btn">Sacar Trampa</button>
-                <button onclick="barajarTesoros()">Barajar Trampas</button>
-            </div>
+            
         </div>
     </div>
 
