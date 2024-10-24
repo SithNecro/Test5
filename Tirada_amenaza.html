@@ -258,6 +258,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
 
             // Tirada d20 si amenazaValor es 9 o 10
             if (amenazaValor >= rangoTirada) {
+                playSound();
                 rollDice(20,'dice-image2','result2');
                 await new Promise(resolve => setTimeout(resolve, 2000));
                 const valordadoTiradad20 = document.getElementById('result2');
@@ -307,6 +308,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
 
                     //dado D10 para decidir evento
                     diceImage3.style.display = 'none';
+                    playSound();
                     rollDice(10,'dice-image3','result3');
                     await new Promise(resolve => setTimeout(resolve, 2000));
                     const valordadoTiradadcombate10 = document.getElementById('result3');
@@ -372,6 +374,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
                         document.getElementById('imagenAmenazaContainer').innerHTML = '';
                         //dado D10 para decidir evento
                         diceImage3.style.display = 'none';
+                        playSound();
                         rollDice(20,'dice-image3','result3');
                         await new Promise(resolve => setTimeout(resolve, 2000));
                         const valordadoTiradadcombate10 = document.getElementById('result3');
