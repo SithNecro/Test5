@@ -123,7 +123,7 @@ input{
             </div>
         </div>
         
-    
+        <audio id="lanzarDadoSonido" src="sonidos/dados.mp3" preload="auto"></audio>    
 
     <script>
         // Función para lanzar un dado de cualquier tipo
@@ -166,6 +166,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
 
         function manejarEventoAmenaza() {
             const iframe = document.getElementById('iframeMenu');
+
             // Enviar mensaje al iframe para solicitar el valor de amenazaActual
             iframe.contentWindow.postMessage({ tipo: 'solicitarAmenazaActual' }, '*');
         }
@@ -177,6 +178,8 @@ document.getElementById('modificadorTirada').addEventListener('change', function
             diceImage3.style.display = 'none';
 
             rollDice(10,'dice-image','result');
+            const lanzarDadoSonido = document.getElementById('lanzarDadoSonido');
+            lanzarDadoSonido.play();}
             await new Promise(resolve => setTimeout(resolve, 2000));
             const valordadoTiradad10 = document.getElementById('result');
             valordadoTiradad10.style.display = 'none';
