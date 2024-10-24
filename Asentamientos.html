@@ -25,29 +25,40 @@
         .main-content {
             margin-left: 310px;
             padding: 20px;
-            /*height: 100vh;*/
+            height: 100vh;
             display: grid;
             grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
-            gap: 20px; /* Espacio entre columnas */
+            gap: 20px;
         }
 
         /* Contenedor de la imagen (lado izquierdo) */
         .treasure-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center; /* Alinear al centro verticalmente */
+            justify-content: center; /* Centrar verticalmente */
         }
 
+        /* Imagen responsive */
         .treasure-image {
-            width: 500px;
-            border-radius: 5%;
+            width: 100%;
+            height: 100vh; /* Ocupar el 100% de la altura de la pantalla */
+            object-fit: cover; /* Ajustar la imagen sin perder proporción */
+        }
+
+        /* Para asegurar que en pantallas más pequeñas el diseño siga funcionando */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr; /* Cambiar a una sola columna en pantallas pequeñas */
+            }
+            .treasure-image {
+                height: 50vh; /* Reducir el tamaño de la imagen para pantallas pequeñas */
+            }
         }
 
         /* Estilos para el lado derecho (botones y selector) */
         .right-controls {
             display: flex;
-            flex-direction: column; /* Apilar elementos uno debajo de otro */
+            flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
         }
