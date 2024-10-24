@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Valor de Venta</title>
+    <title>Calculadora de Valor de Venta y Reparación</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,17 +39,18 @@
 <body>
 
 <div class="container">
-    <h2>Calculadora de Valor de Venta</h2>
+    <h2>Calculadora de Valor de Venta y Reparación</h2>
     <label for="valorCompra">Valor de compra:</label>
     <input type="number" id="valorCompra" min="10" max="50000" step="10" placeholder="Ingresa el valor de compra">
     
     <label for="puntosDurabilidad">Puntos perdidos de durabilidad (0-5):</label>
     <input type="number" id="puntosDurabilidad" min="0" max="5" placeholder="Ingresa los puntos perdidos de durabilidad">
 
-    <button onclick="calcularValorVenta()">Calcular Valor de Venta</button>
+    <button onclick="calcularValores()">Calcular Valores</button>
     
     <h3>Resultado:</h3>
-    <p id="resultado">Valor de venta: </p>
+    <p id="resultadoVenta">Valor de venta: </p>
+    <p id="resultadoReparacion">Valor de reparación por punto: </p>
 </div>
 
 <script>
@@ -74,17 +75,19 @@ const tablaValores = [
     [343, 294, 245, 196, 147, 98], [350, 300, 250, 200, 150, 100]
 ];
 
-// Función para calcular el valor de venta
-function calcularValorVenta() {
+// Función para calcular el valor de venta y reparación
+function calcularValores() {
     const valorCompra = parseInt(document.getElementById("valorCompra").value);
     const puntosDurabilidad = parseInt(document.getElementById("puntosDurabilidad").value);
     
     if (isNaN(valorCompra) || isNaN(puntosDurabilidad) || puntosDurabilidad < 0 || puntosDurabilidad > 5) {
-        document.getElementById("resultado").textContent = "Por favor, ingrese valores válidos.";
+        document.getElementById("resultadoVenta").textContent = "Por favor, ingrese valores válidos.";
+        document.getElementById("resultadoReparacion").textContent = "";
         return;
     }
 
     let valorVenta = 0;
+    let valorReparacion = 0;
     let restante = valorCompra;
     
     // Lógica para calcular el valor de venta basado en la tabla
@@ -92,11 +95,14 @@ function calcularValorVenta() {
         const tope = Math.min(500, restante); // Máximo de 500 por iteración
         const fila = Math.floor((tope - 10) / 10); // Filas de la tabla empiezan en 10
         valorVenta += tablaValores[fila][puntosDurabilidad];
+        valorReparacion += tablaValores[fila][5]; // Tomamos el valor de la última columna para reparación
         restante -= tope;
     }
     
-    document.getElementById("resultado").textContent = "Valor de venta: " + valorVenta;
+    document.getElementById("resultadoVenta").textContent = "Valor de venta: " + valorVenta;
+    document.getElementById("resultadoReparacion").textContent = "Valor de reparación por punto: " + valorReparacion;
 }
+
 </script>
 
 </body>
