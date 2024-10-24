@@ -258,6 +258,8 @@ document.getElementById('modificadorTirada').addEventListener('change', function
 
             // Tirada d20 si amenazaValor es 9 o 10
             if (amenazaValor >= rangoTirada) {
+                diceSound.pause();
+                diceSound.currentTime = 0;
                 playSound();
                 rollDice(20,'dice-image2','result2');
                 await new Promise(resolve => setTimeout(resolve, 2000));
