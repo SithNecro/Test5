@@ -3,7 +3,7 @@ window.onload = function() {
     fetch('img/Listado_Cartas.json')
         .then(response => response.json())
         .then(data => {
-            const tesoros = data.Evento_Espesura;
+            const tesoros = data.Asentamiento;
             const selector = document.getElementById('selector-tesoro-0');
             
 
@@ -25,7 +25,7 @@ function cambiarImagenSeleccionada() {
     const selector = document.getElementById('selector-tesoro-0');
     const imagen = document.getElementById('imagen-tesoro');
     const tesoroSeleccionado = selector.value;
-    imagen.src = `img/Evento_Espesura/${tesoroSeleccionado}`;
+    imagen.src = `img/Asentamiento/${tesoroSeleccionado}`;
 }
 
 // Función para cargar una imagen aleatoria
@@ -33,13 +33,13 @@ function cargarTesoroLegendario() {
     fetch('img/Listado_Cartas.json')
         .then(response => response.json())
         .then(data => {
-            const tesoros = data.Evento_Espesura;
+            const tesoros = data.Asentamiento;
             const randomIndex = Math.floor(Math.random() * tesoros.length);
             const tesoroAleatorio = tesoros[randomIndex];
 
             // Cambiar la imagen
             const imagen = document.getElementById('imagen-tesoro');
-            imagen.src = `img/Evento_Espesura/${tesoroAleatorio}`;
+            imagen.src = `img/Asentamiento/${tesoroAleatorio}`;
 
             // Seleccionar el tesoro en el desplegable
             const selector = document.getElementById('selector-tesoro-0');
@@ -56,5 +56,5 @@ function cargarTesoroLegendario() {
 
  // Función para barajar y poner la imagen de trasera del tesoro
         function barajarTesoros() {
-          	document.getElementById('imagen-tesoro').src = 'img/Trasera Espesura.png';
+          	document.getElementById('imagen-tesoro').src = 'img/traseras/Asentamientos.png';
         }
