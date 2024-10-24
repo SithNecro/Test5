@@ -8,65 +8,57 @@
     <style>
         /* Estilos para el menú lateral */
         .menu {
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 300px;
-        }
+          position: fixed;
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: 300px;
+      }
 
-        .menu-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+      .menu-frame {
+          width: 100%;
+          height: 100%;
+          border: none;
+      }
 
-        /* Estilos para el contenido principal */
-        .main-content {
-            margin-left: 310px;
-            padding: 20px;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
+      /* Estilos para el contenido principal */
+      .main-content {
+          margin-left: 310px;
+          padding: 20px;
+          /*height: 100vh;*/
+          display: grid;
+          grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+          gap: 20px; /* Espacio entre columnas */
+      }
 
-        .top-buttons {
-            display: flex;
-            gap: 10px;
-        }
+      /* Contenedor de la imagen (lado izquierdo) */
+      .treasure-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center; /* Alinear al centro verticalmente */
+      }
 
-        .content-right {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-        }
+      .treasure-image {
+          width: 350px;
+          border-radius: 5%;
+      }
 
-        .treasure-image {
-            width: 350px;
-            border-radius: 5%;
-        }
+      /* Estilos para el lado derecho (botones y selector) */
+      .right-controls {
+          display: flex;
+          flex-direction: column; /* Apilar elementos uno debajo de otro */
+          justify-content: flex-start;
+          align-items: flex-start;
+      }
 
-        button, select {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 10px 0;
-        }
-
-        .treasure-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-right: 20px;
-        }
-
-        .two-treasures-container {
-            display: none;
-            gap: 20px;
-        }
-
-    </style>
+      button, select {
+          padding: 10px 20px;
+          font-size: 16px;
+          cursor: pointer;
+          margin-bottom: 10px; /* Espacio entre botones y select */
+      }
+  </style>
 </head>
 <body style="background-image: url('fondo.png'); background-size: cover;">
 
@@ -79,23 +71,22 @@
     <div class="main-content">
 
         <!-- Botones en la parte Legendario izquierda -->
-        <div class="top-buttons">
-            <button onclick="cargarTesoroLegendario()" id="tesoro-btn">Sacar Evento de Viaje</button>
-            <button onclick="barajarTesoros()">Barajar Eventos</button>
+        <div class="treasure-container" id="single-treasure-container">
+            <img src="img/Trasera Desierto.png" id="imagen-tesoro" alt="Tesoro Legendario" class="treasure-image">
+                
             
         </div>
 
         <!-- Zona derecha con la imagen y el selector debajo -->
-        <div class="content-right">
+        <div class="right-controls">
+            <button onclick="cargarTesoroLegendario()" id="tesoro-btn">Sacar Evento de Viaje</button>
+            <button onclick="barajarTesoros()">Barajar Eventos</button>
             <!-- Imagen y selector del tesoro normal -->
-            <div class="treasure-container" id="single-treasure-container">
-                <img src="img/Trasera Desierto.png" id="imagen-tesoro" alt="Tesoro Legendario" class="treasure-image">
-                <label for="selector-tesoro-0">Seleccionar Evento de Viaje:</label>
+               <label for="selector-tesoro-0">Seleccionar Evento de Viaje:</label>
                 <select id="selector-tesoro-0" onchange="cambiarImagenSeleccionada()">
                     <!-- Aquí se añadirán los nombres de los archivos mediante JavaScript -->
                 </select>
-            </div>
-
+           
            
         </div>
 

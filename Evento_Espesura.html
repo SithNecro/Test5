@@ -6,8 +6,8 @@
     <title>Eventos de Viaje: Espesura</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Estilos para el menú lateral */
-        .menu {
+          /* Estilos para el menú lateral */
+          .menu {
             position: fixed;
             left: 0;
             top: 0;
@@ -25,21 +25,18 @@
         .main-content {
             margin-left: 310px;
             padding: 20px;
-            height: 100vh;
+            /*height: 100vh;*/
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+            gap: 20px; /* Espacio entre columnas */
+        }
+
+        /* Contenedor de la imagen (lado izquierdo) */
+        .treasure-container {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-        }
-
-        .top-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .content-right {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
+            align-items: center;
+            justify-content: center; /* Alinear al centro verticalmente */
         }
 
         .treasure-image {
@@ -47,25 +44,20 @@
             border-radius: 5%;
         }
 
+        /* Estilos para el lado derecho (botones y selector) */
+        .right-controls {
+            display: flex;
+            flex-direction: column; /* Apilar elementos uno debajo de otro */
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
         button, select {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            margin: 10px 0;
+            margin-bottom: 10px; /* Espacio entre botones y select */
         }
-
-        .treasure-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-right: 20px;
-        }
-
-        .two-treasures-container {
-            display: none;
-            gap: 20px;
-        }
-
     </style>
 </head>
 <body style="background-image: url('fondo.png'); background-size: cover;">
@@ -79,17 +71,17 @@
     <div class="main-content">
 
         <!-- Botones en la parte Legendario izquierda -->
-        <div class="top-buttons">
-            <button onclick="cargarTesoroLegendario()" id="tesoro-btn">Sacar Evento de Viaje</button>
-            <button onclick="barajarTesoros()">Barajar Eventos</button>
+        <div class="treasure-container" id="single-treasure-container">
+            <img src="img/Trasera Espesura.png" id="imagen-tesoro" alt="Tesoro Legendario" class="treasure-image">
             
         </div>
 
         <!-- Zona derecha con la imagen y el selector debajo -->
-        <div class="content-right">
+        <div class="right-controls">
+            <button onclick="cargarTesoroLegendario()" id="tesoro-btn">Sacar Evento de Viaje</button>
+            <button onclick="barajarTesoros()">Barajar Eventos</button>
             <!-- Imagen y selector del tesoro normal -->
-            <div class="treasure-container" id="single-treasure-container">
-                <img src="img/Trasera Espesura.png" id="imagen-tesoro" alt="Tesoro Legendario" class="treasure-image">
+                
                 <label for="selector-tesoro-0">Seleccionar Evento de Viaje:</label>
                 <select id="selector-tesoro-0" onchange="cambiarImagenSeleccionada()">
                     <!-- Aquí se añadirán los nombres de los archivos mediante JavaScript -->
@@ -99,7 +91,6 @@
            
         </div>
 
-    </div>
 
     <script src="Evento_Espesura.js"></script>
 
