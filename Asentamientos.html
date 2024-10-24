@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Objetos Legendarios</title>
+    <title>Eventos de Viaje: Espesura</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Estilos para el menú lateral */
@@ -24,42 +24,27 @@
         /* Estilos para el contenido principal */
         .main-content {
             margin-left: 310px;
-            padding: 5px;
+            padding: 20px;
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
         }
 
-        .button-row {
+        .top-buttons {
             display: flex;
-            gap: 5px;
-            margin-top: 20px;
+            gap: 10px;
         }
 
-        .button-row button {
+        .content-right {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .treasure-image {
             width: 200px;
-            height: 300px;
-            background-size: cover;
-            background-position: center;
-            border: none;
-            cursor: pointer;
-        }
-        /* Imágenes de fondo para cada botón */
-        #btn1 {
-            background-image: url('img/traseras/VentasReparaciones.png');
-        }
-
-        #btn2 {
-            background-image: url('img/traseras/Asentamientos.png');
-        }
-
-        #btn3 {
-            background-image: url('img/Trasera tesoro maravilloso.png');
-        }
-
-        #btn4 {
-            background-image: url('img/Trasera legendarios.png');
+            border-radius: 5%;
         }
 
         button, select {
@@ -93,24 +78,33 @@
     <!-- Zona de contenido principal -->
     <div class="main-content">
 
-       
+        <!-- Botones en la parte Legendario izquierda -->
+        <div class="top-buttons">
+            <button onclick="cargarTesoroLegendario()" id="tesoro-btn">Sacar Evento de Viaje</button>
+            <button onclick="barajarTesoros()">Barajar Eventos</button>
+            
+        </div>
 
-        <!-- Grupo de botones con imagen de fondo en dos columnas -->
-        <div class="button-row">
-            <button id="btn1" onclick="saveAndNavigate('Ventas_y_reparaciones.html')"></button>
-            <button id="btn2" onclick="saveAndNavigate('Asentamientos.html')"></button>
-            <button id="btn3" onclick="saveAndNavigate('Tesoros_Maravillosos.html')"></button>
-            <button id="btn4" onclick="saveAndNavigate('Objetos_Legendario.html')"></button>
+        <!-- Zona derecha con la imagen y el selector debajo -->
+        <div class="content-right">
+            <!-- Imagen y selector del tesoro normal -->
+            <div class="treasure-container" id="single-treasure-container">
+                <img src="img/Trasera Espesura.png" id="imagen-tesoro" alt="Tesoro Legendario" class="treasure-image">
+                <label for="selector-tesoro-0">Seleccionar Evento de Viaje:</label>
+                <select id="selector-tesoro-0" onchange="cambiarImagenSeleccionada()">
+                    <!-- Aquí se añadirán los nombres de los archivos mediante JavaScript -->
+                </select>
+            </div>
+
+           
         </div>
 
     </div>
-    
-    <script>
-        // Navegar a una página guardando los valores antes
-        function saveAndNavigate(url) {
-            window.top.location.href = url; // Navegar a la nueva página en el marco principal
-        }
-    </script>
+
+    <script src="Evento_Espesura.js"></script>
+
+   
 
 </body>
 </html>
+
