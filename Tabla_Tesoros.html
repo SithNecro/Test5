@@ -24,7 +24,6 @@
         /* Estilos para el contenido principal */
         .main-content {
             margin-left: 310px;
-          
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -33,17 +32,17 @@
         .button-row {
             display: flex;
             gap: 5px;
-           /* margin-top: 20px;*/
         }
 
-        .button-row image {
-            width: 280px;
+        /* Estilo de las imágenes */
+        .button-row img {
+            width: 200px;
             height: 300px;
-            background-size: cover;
-            background-position: center;
+            object-fit: cover;
             border: none;
             cursor: pointer;
         }
+
         /* Imágenes de fondo para cada botón */
         #btn1 {
             background-image: url('img/FAQ/BuscarObjetos1.png');
@@ -53,9 +52,7 @@
             background-image: url('img/FAQ/BuscarObjetos2.png');
         }
 
-       
-
-        image, select {
+        img, select {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
@@ -66,14 +63,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-           /* margin-right: 20px;*/
         }
 
         .two-treasures-container {
             display: none;
             gap: 20px;
         }
-
     </style>
 </head>
 <body style="background-image: url('fondo.png'); background-size: cover;">
@@ -85,24 +80,17 @@
 
     <!-- Zona de contenido principal -->
     <div class="main-content">
-
-       
-
         <!-- Grupo de botones con imagen de fondo en dos columnas -->
         <div class="button-row">
-            <image id="btn1" src="img/FAQ/BuscarObjetos1.png"></image>
-            
-        </div>
-        <div class="button-row">
-            <image id="btn2" src="img/FAQ/BuscarObjetos2.png"></image>
-            
+            <img id="btn1" src="img/FAQ/BuscarObjetos1.png" alt="Imagen 1">
+            <img id="btn2" src="img/FAQ/BuscarObjetos2.png" alt="Imagen 2">
         </div>
     </div>
     
     <script>
         // Navegar a una página guardando los valores antes
         function saveAndNavigate(url) {
-            window.top.location.href = url; // Navegar a la nueva página en el marco principal
+            window.top.location.href = url;
         }
     </script>
 
