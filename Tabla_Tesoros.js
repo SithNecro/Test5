@@ -25,7 +25,7 @@ function cambiarImagenSeleccionada() {
     const selector = document.getElementById('selector-tesoro-0');
     const imagen = document.getElementById('imagen-tesoro');
     const tesoroSeleccionado = selector.value;
-    imagen.src = `img/Evento_Desierto/${tesoroSeleccionado}`;
+    imagen.src = `img/Buscar_Objetos/${tesoroSeleccionado}`;
 }
 
 // Función para cargar una imagen aleatoria
