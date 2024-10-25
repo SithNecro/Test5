@@ -3,7 +3,7 @@ window.onload = function() {
     fetch('img/Listado_Cartas.json')
         .then(response => response.json())
         .then(data => {
-            const tesoros = data.Evento_Desierto;
+            const tesoros = data.Buscar_Objetos;
             const selector = document.getElementById('selector-tesoro-0');
             
 
@@ -33,7 +33,7 @@ function cargarTesoroLegendario() {
     fetch('img/Listado_Cartas.json')
         .then(response => response.json())
         .then(data => {
-            const tesoros = data.Evento_Desierto;
+            const tesoros = data.Buscar_Objetos;
             const randomIndex = Math.floor(Math.random() * tesoros.length);
             const tesoroAleatorio = tesoros[randomIndex];
 
