@@ -115,7 +115,7 @@ function cambiarImagenSeleccionadaTesoro2() {
 
  // Función para barajar y poner la imagen de trasera del tesoro
         function barajarTesoros() {
-          	document.getElementById('imagen-tesoro').src = 'img/traseras/Trasera tesoro superior.png';
-		    document.getElementById('imagen-tesoro-1').src = 'img/traseras/Trasera tesoro superior.png';
-		    document.getElementById('imagen-tesoro-2').src = 'img/traseras/Trasera tesoro superior.png';
+          	document.getElementById('imagen-tesoro').src = 'img/traseras/Trasera_tesoro_superior.png';
+		    document.getElementById('imagen-tesoro-1').src = 'img/traseras/Trasera_tesoro_superior.png';
+		    document.getElementById('imagen-tesoro-2').src = 'img/traseras/Trasera_tesoro_superior.png';
         }
