@@ -3,65 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Objetos Legendarios</title>
+    <title>Eventos de Viaje: Desierto</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         /* Estilos para el menú lateral */
         .menu {
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 300px;
-        }
+          position: fixed;
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: 300px;
+      }
 
-        .menu-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+      .menu-frame {
+          width: 100%;
+          height: 100%;
+          border: none;
+      }
 
-        /* Estilos para el contenido principal */
-        .main-content {
-            margin-left: 310px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
+      /* Estilos para el contenido principal */
+      .main-content {
+          margin-left: 310px;
+          padding: 20px;
+          /*height: 100vh;*/
+          display: grid;
+          grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+          gap: 20px; /* Espacio entre columnas */
+      }
 
-        .button-row {
-            display: flex;
-            gap: 5px;
-        }
+      /* Contenedor de la imagen (lado izquierdo) */
+      .treasure-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center; /* Alinear al centro verticalmente */
+      }
 
-        /* Estilo de las imágenes */
-        .button-row img {
-            width: 650px;
-            height: 500px;
-            object-fit: contain;
-            border: none;
-            cursor: pointer;
-        }
+      .treasure-image {
+          width: 350px;
+          border-radius: 5%;
+      }
 
-        /* Estilos para el modal de imagen ampliada */
-        .modal {
-            display: none; /* Oculto por defecto */
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semitransparente */
-            justify-content: center;
-            align-items: center;
-        }
+      /* Estilos para el lado derecho (botones y selector) */
+      .right-controls {
+          display: flex;
+          flex-direction: column; /* Apilar elementos uno debajo de otro */
+          justify-content: flex-start;
+          align-items: flex-start;
+      }
 
-        .modal img {
-            max-width: 90%;
-            max-height: 90%;
-        }
-
-    </style>
+      button, select {
+          padding: 10px 20px;
+          font-size: 16px;
+          cursor: pointer;
+          margin-bottom: 10px; /* Espacio entre botones y select */
+      }
+  </style>
 </head>
 <body style="background-image: url('fondo.png'); background-size: cover;">
 
@@ -72,30 +69,32 @@
 
     <!-- Zona de contenido principal -->
     <div class="main-content">
-        <!-- Grupo de botones con imagen de fondo en dos columnas -->
-        <div class="button-row">
-            <img id="btn1" src="img/FAQ/BuscarObjetos1.png" alt="Imagen 1" onclick="ampliarImagen(this.src)">
-            <img id="btn2" src="img/FAQ/BuscarObjetos2.png" alt="Imagen 2" onclick="ampliarImagen(this.src)">
+
+        <!-- Botones en la parte Legendario izquierda -->
+        <div class="treasure-container" id="single-treasure-container">
+            <img src="img/traseras/Buscar_Objetos.png" id="imagen-tesoro" alt="Tesoro Legendario" class="treasure-image">
+                
+            
         </div>
+
+        <!-- Zona derecha con la imagen y el selector debajo -->
+        <div class="right-controls">
+            <button onclick="cargarTesoroLegendario()" id="tesoro-btn">Sacar Evento de Viaje</button>
+            <button onclick="barajarTesoros()">Barajar Eventos</button>
+            <!-- Imagen y selector del tesoro normal -->
+                <select id="selector-tesoro-0" onchange="cambiarImagenSeleccionada()">
+                    <!-- Aquí se añadirán los nombres de los archivos mediante JavaScript -->
+                    </select>
+           
+           
+        </div>
+
     </div>
 
-    <!-- Modal para mostrar la imagen ampliada -->
-    <div id="modal" class="modal" onclick="cerrarModal()">
-        <img id="imagenModal" src="" alt="Imagen ampliada">
-    </div>
+    <script src="Evento_Desierto.js"></script>
 
-    <script>
-        // Función para ampliar la imagen
-        function ampliarImagen(src) {
-            document.getElementById("imagenModal").src = src;
-            document.getElementById("modal").style.display = "flex";
-        }
-
-        // Función para cerrar el modal
-        function cerrarModal() {
-            document.getElementById("modal").style.display = "none";
-        }
-    </script>
+   
 
 </body>
 </html>
+
