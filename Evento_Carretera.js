@@ -56,5 +56,5 @@ function cargarTesoroLegendario() {
 
  // Función para barajar y poner la imagen de trasera del tesoro
         function barajarTesoros() {
-          	document.getElementById('imagen-tesoro').src = 'img/Trasera Carretera.png';
+          	document.getElementById('imagen-tesoro').src = 'img/traseras/Trasera Carretera.png';
         }
