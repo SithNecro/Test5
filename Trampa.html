@@ -80,7 +80,7 @@
         }
 
         .treasure-image {
-            width: 200px; /* Tamaño ajustado para la imagen de trampas */
+            width: 280px; /* Tamaño ajustado para la imagen de trampas */
             border-radius: 5%;
             margin-bottom: 10px; /* Reducir el margen inferior de la imagen */
         }
@@ -98,20 +98,20 @@
     <div class="main-content">
         <!-- Columna izquierda (FAQ) con ancho fijo de 300px y centrado arriba -->
         <div class="column-left">
+            <div class="buttons">
+                <button onclick="cargarTesoroLegendario()" id="tesoro-btn">Sacar Trampa</button>
+                <button onclick="barajarTesoros()">Barajar Trampas</button>
+            </div>
             <img src="img/FAQ/FAQ_Puertas.png" alt="FAQ" class="faq-image">
         </div>
 
         <!-- Columna derecha (Trampas) que toma el resto del espacio, alineado arriba a la izquierda -->
         <div class="column-right trampas-container">
             <!-- Botones encima de la imagen de trampas -->
-            <div class="buttons">
-                <button onclick="cargarTesoroLegendario()" id="tesoro-btn">Sacar Trampa</button>
-                <button onclick="barajarTesoros()">Barajar Trampas</button>
-            </div>
+            <select id="selector-tesoro-0" onchange="cambiarImagenSeleccionada()"></select>
             <img src="img/Trasera trampas.png" id="imagen-tesoro" alt="Trampas" class="treasure-image">
             
-            <label for="selector-tesoro-0">Seleccionar Trampa:</label>
-            <select id="selector-tesoro-0" onchange="cambiarImagenSeleccionada()">
+           
                 <!-- Aquí se añadirán los nombres de los archivos mediante JavaScript -->
             </select>
 
