@@ -53,6 +53,7 @@ function cambiarImagenSeleccionada() {
 
 // Función para cargar una imagen aleatoria
 function cargarTesoroCorriente(color) {
+    const palancasAudio = document.getElementById('palancasAudio');
     const imagen = document.getElementById('imagen-tesoro-2');
     const imagen2 = document.getElementById('imagen-tesoro-1');
     if (imagen2.src === "img/traseras/PalancaRDOWN.png" || imagen.src === "img/traseras/PalancaNDOWN.png" )
@@ -61,10 +62,11 @@ function cargarTesoroCorriente(color) {
 		document.getElementById('imagen-tesoro-2').src = 'img/traseras/PalancaRUP.png';
     } else if (color === "Rojas")
     {
+       
         fetch('img/Listado_Cartas.json')
         .then(response => response.json())
         .then(data => {
-            
+            palancasAudio.play();
             const tesoros = data.PalancasRojas;
             const randomIndex = Math.floor(Math.random() * tesoros.length);
             const tesoroAleatorio = tesoros[randomIndex];
@@ -86,7 +88,7 @@ function cargarTesoroCorriente(color) {
         fetch('img/Listado_Cartas.json')
         .then(response => response.json())
         .then(data => {
-            
+            palancasAudio.play();
             const tesoros = data.PalancasNegras;
             const randomIndex = Math.floor(Math.random() * tesoros.length);
             const tesoroAleatorio = tesoros[randomIndex];
