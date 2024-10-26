@@ -56,7 +56,7 @@ function cargarTesoroCorriente(color) {
     const palancasAudio = document.getElementById('palancasAudio');
     const imagen = document.getElementById('imagen-tesoro-2');
     const imagen2 = document.getElementById('imagen-tesoro-1');
-    if (imagen2.src === "img/traseras/PalancaRDOWN.png" || imagen.src === "img/traseras/PalancaNDOWN.png" )
+    if (imagen2.src === "https://sithnecro.github.io/Test5/img/traseras/PalancaRDOWN.png" || imagen.src === "https://sithnecro.github.io/Test5/img/traseras/PalancaNDOWN.png" )
     {
         document.getElementById('imagen-tesoro-1').src = 'img/traseras/PalancaNUP.png';
 		document.getElementById('imagen-tesoro-2').src = 'img/traseras/PalancaRUP.png';
