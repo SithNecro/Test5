@@ -80,8 +80,8 @@ function cargarTesoroCorriente(color) {
             selector.value = tesoroAleatorio;
             // Muestra los dos tesoros y sus selectores
             
-            imagen2.src = `img/traseras/PalancaRDOWN.png`;
-            imagen.src = `img/PalancasRojas/${tesoroAleatorio}`;
+            imagen.src = `img/traseras/PalancaRDOWN.png`;
+            imagen2.src = `img/PalancasRojas/${tesoroAleatorio}`;
         });
     } else if (color === "Negras")
     {
@@ -95,8 +95,8 @@ function cargarTesoroCorriente(color) {
 
             // Cambiar la imagen
             
-            imagen.src = `img/traseras/PalancaNDOWN.png`;
-            imagen2.src = `img/PalancasNegras/${tesoroAleatorio}`;
+            imagen2.src = `img/traseras/PalancaNDOWN.png`;
+            imagen.src = `img/PalancasNegras/${tesoroAleatorio}`;
             // Seleccionar el tesoro en el desplegable
             const selector = document.getElementById('selector-tesoro-1');
             selector.value = tesoroAleatorio;
