@@ -326,6 +326,29 @@ window.addEventListener('message', function(event) {
 document.addEventListener('DOMContentLoaded', function() {
     loadValues(); // Cargar valores al inicio
 });
+
+// Función para cambiar el nivel de amenaza
+function cambiarMoral(valor) {
+            const moralActualElem = document.getElementById('moralActual');
+            const moralmax = document.getElementById('maxMoral');
+            let actual = parseInt(moralActualElem.value, 10);
+            actual += valor; // Sumar o restar según el valor recibido
+            // Obtén los valores mínimo y máximo
+            const mMax = parseInt(moralmax.value, 10);
+           // Verifica los límites
+    if (actual <= maxAmenaza) {
+        moralActualElem.value = actual; // Cambia el valor del span
+    } else if (actual < 0) {
+        moralActualElem.value = 0; // Ajusta al mínimo
+    } else if (actual > mMax) {
+        moralActualElem.value = mMax; // Ajusta al máximo
+    }
+            saveValues(); // Guardar al incrementar
+        }
+        // Asegúrate de que loadValues se llame al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    loadValues(); // Cargar valores al inicio
+});
 </script>
 
 </body>

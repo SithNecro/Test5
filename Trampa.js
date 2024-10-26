@@ -49,9 +49,10 @@ function cargarTesoroLegendario() {
 
         });
 }
-
-  
-
+function BajarMoral(valor){
+const iframe = document.getElementById('iframeMenu');
+            iframe.contentWindow.postMessage({ tipo: 'cambiarMoral', valor }, '*');
+}
 
 
  // Función para barajar y poner la imagen de trasera del tesoro
