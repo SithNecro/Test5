@@ -458,7 +458,29 @@
                            "Sarcófago.png",
                            "Trono.png",
                            "Útiles de tortura.png"
-                       ]
+                       ],
+                       "PalancasNegras":  [
+                           "PalancaN1.png",
+                           "PalancaN2.png",
+                           "PalancaN3.png",
+                           "PalancaN4.png",
+                           "PalancaN5.png",
+                           "PalancaN6.png",
+                           "PalancaN7.png",
+                           "PalancaN8.png"
+                       ],
+                       "PalancasRojas":  [
+                          "PalancaR1.png",
+                          "PalancaR12.png",
+                          "PalancaR13.png",
+                          "PalancaR14.png",
+                          "PalancaR15.png",
+                          "PalancaR16.png",
+                          "PalancaR17.png",
+                          "PalancaR18.png",
+                          "PalancaR19.png",
+                          "PalancaR20.png"
+                      ]
                
                 
 
