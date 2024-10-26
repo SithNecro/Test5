@@ -339,9 +339,9 @@ function cambiarMoral(valor) {
             // Obtén los valores mínimo y máximo
             const mMax = parseInt(moralmax.value, 10);
            // Verifica los límites
-    if (actual <= mMax) {
+    if (actual <= mMax && actual > 0) {
         moralActualElem.value = actual; // Cambia el valor del span
-    } else if (actual < 0) {
+    } else if (actual <= 0) {
         moralActualElem.value = 0; // Ajusta al mínimo
     } else if (actual > mMax) {
         moralActualElem.value = mMax; // Ajusta al máximo
