@@ -53,7 +53,11 @@ function cambiarImagenSeleccionada() {
 
 // Función para cargar una imagen aleatoria
 function cargarTesoroCorriente(color) {
-    if (color === "Rojas")
+    if (document.getElementById('selector-tesoro-2').src === "img/traseras/PalancaRDOWN.png" || document.getElementById('selector-tesoro-1').src === "img/traseras/PalancaNDOWN.png" )
+    {
+        document.getElementById('imagen-tesoro-1').src = 'img/traseras/PalancaNUP.png';
+		document.getElementById('imagen-tesoro-2').src = 'img/traseras/PalancaRUP.png';
+    } else if (color === "Rojas")
     {
         fetch('img/Listado_Cartas.json')
         .then(response => response.json())
@@ -75,8 +79,7 @@ function cargarTesoroCorriente(color) {
             imagen.src = `img/traseras/PalancaRDOWN.png`;
             imagen2.src = `img/PalancasRojas/${tesoroAleatorio}`;
         });
-    }
-    else
+    } else
     {
         fetch('img/Listado_Cartas.json')
         .then(response => response.json())
