@@ -300,6 +300,9 @@ window.addEventListener('message', function(event) {
     if (event.data.tipo === 'cambiarAmenaza') {
         cambiarAmenaza(event.data.valor);
     }
+    if (event.data.tipo === 'cambiarMoral') {
+        cambiarMoral(event.data.valor);
+    }
     });
 
  // Función para cambiar el nivel de amenaza
