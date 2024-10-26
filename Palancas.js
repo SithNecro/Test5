@@ -52,26 +52,51 @@ function cambiarImagenSeleccionada() {
 }
 
 // Función para cargar una imagen aleatoria
-function cargarTesoroCorriente() {
-    fetch('img/Listado_Cartas.json')
+function cargarTesoroCorriente(color) {
+    if (color === "Rojas")
+    {
+        fetch('img/Listado_Cartas.json')
         .then(response => response.json())
         .then(data => {
-            const tesoros = data.Tesoros_Corrientes;
+            
+            const tesoros = data.PalancasRojas;
             const randomIndex = Math.floor(Math.random() * tesoros.length);
             const tesoroAleatorio = tesoros[randomIndex];
 
             // Cambiar la imagen
             const imagen = document.getElementById('imagen-tesoro');
-            imagen.src = `img/Tesoros_Corrientes/${tesoroAleatorio}`;
+            imagen.src = `img/PalancasRojas/${tesoroAleatorio}`;
 
             // Seleccionar el tesoro en el desplegable
-            const selector = document.getElementById('selector-tesoro-0');
+            const selector = document.getElementById('selector-tesoro-2');
             selector.value = tesoroAleatorio;
-// Muestra los dos tesoros y sus selectores
-            document.getElementById('two-treasures-container').style.display = 'none';
-            document.getElementById('single-treasure-container').style.display = 'flex';
+            // Muestra los dos tesoros y sus selectores
+           
 
         });
+    }
+    else
+    {
+        fetch('img/Listado_Cartas.json')
+        .then(response => response.json())
+        .then(data => {
+            
+            const tesoros = data.PalancasNegras;
+            const randomIndex = Math.floor(Math.random() * tesoros.length);
+            const tesoroAleatorio = tesoros[randomIndex];
+
+            // Cambiar la imagen
+            const imagen = document.getElementById('imagen-tesoro');
+            imagen.src = `img/PalancasNegras/${tesoroAleatorio}`;
+
+            // Seleccionar el tesoro en el desplegable
+            const selector = document.getElementById('selector-tesoro-1');
+            selector.value = tesoroAleatorio;
+
+
+        });
+    }
+    
 }
 
   // Función para cargar la habilidad de buscatesoros, mostrando dos tesoros
@@ -93,10 +118,10 @@ function habilidadBuscatesoros() {
             // Cambia la imagen de ambos tesoros
             document.getElementById('imagen-tesoro-1').src = `img/Tesoros_Corrientes/${tesoro1}`;
             document.getElementById('imagen-tesoro-2').src = `img/Tesoros_Corrientes/${tesoro2}`;
-//Selecciona en los desplegables los objetos
-const selector1 = document.getElementById('selector-tesoro-1');
+            //Selecciona en los desplegables los objetos
+            const selector1 = document.getElementById('selector-tesoro-1');
             selector1.value = tesoro1;
-const selector2 = document.getElementById('selector-tesoro-2');
+            const selector2 = document.getElementById('selector-tesoro-2');
             selector2.value = tesoro2;
 
 
