@@ -99,38 +99,7 @@ function cargarTesoroCorriente(color) {
     
 }
 
-  // Función para cargar la habilidad de buscatesoros, mostrando dos tesoros
-function habilidadBuscatesoros() {
-    fetch('img/Listado_Cartas.json')
-        .then(response => response.json())
-        .then(data => {
-            const tesoros = data.Tesoros_Corrientes; // Cargar la lista de tesoros desde el JSON
-            
-            // Seleccionar dos tesoros aleatorios
-            let tesoro1 = tesoros[Math.floor(Math.random() * tesoros.length)];
-            let tesoro2;
 
-            // Asegurar que los dos tesoros no sean iguales
-            do {
-                tesoro2 = tesoros[Math.floor(Math.random() * tesoros.length)];
-            } while (tesoro1 === tesoro2);
-
-            // Cambia la imagen de ambos tesoros
-            document.getElementById('imagen-tesoro-1').src = `img/Tesoros_Corrientes/${tesoro1}`;
-            document.getElementById('imagen-tesoro-2').src = `img/Tesoros_Corrientes/${tesoro2}`;
-            //Selecciona en los desplegables los objetos
-            const selector1 = document.getElementById('selector-tesoro-1');
-            selector1.value = tesoro1;
-            const selector2 = document.getElementById('selector-tesoro-2');
-            selector2.value = tesoro2;
-
-
-            // Muestra los dos tesoros y sus selectores
-            document.getElementById('two-treasures-container').style.display = 'flex';
-            document.getElementById('single-treasure-container').style.display = 'none';
-        })
-        .catch(error => console.error('Error al cargar los tesoros:', error));
-}
 
 // Funciones para cambiar la imagen seleccionada en los selectores individuales
 function cambiarImagenSeleccionadaTesoro1() {
