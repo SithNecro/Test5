@@ -72,7 +72,7 @@
 
     <!-- Carga del menú lateral -->
     <div class="menu">
-        <iframe src="menu.html" frameborder="0" class="menu-frame"></iframe>
+        <iframe id="iframeMenu" src="menu.html" frameborder="0" class="menu-frame"></iframe>
     </div>
 
     <!-- Zona de contenido principal -->
@@ -84,7 +84,9 @@
             <button onclick="barajarTesoros()">Barajar Tesoros</button>
             <button onclick="habilidadBuscatesoros()">Habilidad de Buscatesoros</button>
         </div>
-
+        <div class="top-buttons"></div>
+        <button onclick="BajarMoral(1)">Coger Tesoro<BR>(+1 de Moral del Grupo)</button>
+        </div>
         <!-- Zona derecha con la imagen y el selector debajo -->
         <div class="content-right">
             <!-- Imagen y selector del tesoro normal -->

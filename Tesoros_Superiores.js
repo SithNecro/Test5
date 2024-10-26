@@ -119,3 +119,7 @@ function cambiarImagenSeleccionadaTesoro2() {
 		    document.getElementById('imagen-tesoro-1').src = 'img/traseras/Trasera_tesoro_superior.png';
 		    document.getElementById('imagen-tesoro-2').src = 'img/traseras/Trasera_tesoro_superior.png';
         }
+        function BajarMoral(valor){
+            const iframe = document.getElementById('iframeMenu');
+                        iframe.contentWindow.postMessage({ tipo: 'cambiarMoral', valor }, '*');
+            }
