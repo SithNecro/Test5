@@ -80,10 +80,10 @@ function cargarTesoroCorriente(color) {
             selector.value = tesoroAleatorio;
             // Muestra los dos tesoros y sus selectores
             
-            imagen.src = `img/traseras/PalancaRDOWN.png`;
-            imagen2.src = `img/PalancasRojas/${tesoroAleatorio}`;
+            imagen2.src = `img/traseras/PalancaRDOWN.png`;
+            imagen.src = `img/PalancasRojas/${tesoroAleatorio}`;
         });
-    } else
+    } else if (color === "Negras")
     {
         fetch('img/Listado_Cartas.json')
         .then(response => response.json())
