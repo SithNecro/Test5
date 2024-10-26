@@ -346,6 +346,7 @@ function cambiarMoral(valor) {
     } else if (actual > mMax) {
         moralActualElem.value = mMax; // Ajusta al máximo
     }
+    checkMoral();
             saveValues(); // Guardar al incrementar
         }
         // Asegúrate de que loadValues se llame al cargar la página
