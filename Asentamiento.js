@@ -89,14 +89,14 @@ function cargarTesoroCorriente(color) {
         .then(response => response.json())
         .then(data => {
             palancasAudio.play();
-            const tesoros = data.PalancasNegras;
+            const tesoros = data.EventosAsentamiento;
             const randomIndex = Math.floor(Math.random() * tesoros.length);
             const tesoroAleatorio = tesoros[randomIndex];
 
             // Cambiar la imagen
             
-            imagen2.src = `img/traseras/PalancaNDOWN.png`;
-            imagen.src = `img/PalancasNegras/${tesoroAleatorio}`;
+            //imagen2.src = `img/traseras/PalancaNDOWN.png`;
+            imagen.src = `img/EventosAsentamiento/${tesoroAleatorio}`;
             // Seleccionar el tesoro en el desplegable
             const selector = document.getElementById('selector-tesoro-1');
             selector.value = tesoroAleatorio;
@@ -115,6 +115,10 @@ function cambiarImagenSeleccionadaTesoro1() {
     const imagen = document.getElementById('imagen-tesoro-1');
     const tesoroSeleccionado = selector.value;
     imagen.src = `img/Asentamiento/${tesoroSeleccionado}`; // Ajusta la ruta
+
+    
+    const imagen2 = document.getElementById('imagen-tesoro-2');
+    imagen2.src = `img/Asentamiento/a${tesoroSeleccionado}`; // Ajusta la ruta
 }
 
 function cambiarImagenSeleccionadaTesoro2() {
