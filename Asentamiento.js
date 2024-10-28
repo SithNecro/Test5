@@ -66,7 +66,7 @@ function cargarTesoroCorriente(color) {
         fetch('img/Listado_Cartas.json')
         .then(response => response.json())
         .then(data => {
-            palancasAudio.play();
+           // palancasAudio.play();
             const tesoros = data.PalancasRojas;
             const randomIndex = Math.floor(Math.random() * tesoros.length);
             const tesoroAleatorio = tesoros[randomIndex];
@@ -88,7 +88,7 @@ function cargarTesoroCorriente(color) {
         fetch('img/Listado_Cartas.json')
         .then(response => response.json())
         .then(data => {
-            palancasAudio.play();
+            //palancasAudio.play();
             const tesoros = data.EventosAsentamiento;
             const randomIndex = Math.floor(Math.random() * tesoros.length);
             const tesoroAleatorio = tesoros[randomIndex];
