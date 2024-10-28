@@ -98,7 +98,7 @@ function cargarTesoroCorriente(color) {
             //imagen2.src = `img/traseras/PalancaNDOWN.png`;
             imagen.src = `img/EventosAsentamiento/${tesoroAleatorio}`;
             // Seleccionar el tesoro en el desplegable
-            const selector = document.getElementById('selector-tesoro-1');
+            const selector = document.getElementById('selector-tesoro-2');
             selector.value = tesoroAleatorio;
 
 
