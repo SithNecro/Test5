@@ -581,7 +581,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
             alert("La bolsa está vacía. Reinicia la bolsa para volver a jugar.");
             return;
           }
-    
+          document.getElementById('imagenAmenazaContainer').innerHTML = '';
           const fichaElegida = Math.random() < (fichasAliadas / totalFichas) ? "aliada" : "enemiga";
           const imagenFicha = document.getElementById("imagenAmenazaContainer");
           const imagenAmenaza = document.createElement('img');
