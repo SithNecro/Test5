@@ -54,8 +54,8 @@ button, select {
 }
 
 #contentContainer {
-    margin-left: 310px; /* Deja espacio para el menú */
-    width: 40%; /* Ancho del contenedor central */
+     /* Deja espacio para el menú */
+    width: 20%; /* Ancho del contenedor central */
     /*background-color: #404040; /* Color de fondo para distinguir */
     display: flex; /* Usamos flexbox para centrar contenido */
     align-items: stretch; /* Centra verticalmente el contenido */
@@ -63,7 +63,16 @@ button, select {
     flex-direction: column; /* Opcional, si tienes más elementos aquí */
     padding: 10px; /* Espaciado interno opcional */
 }
-
+#contentContainer0 {
+    margin-left: 310px; /* Deja espacio para el menú */
+    width: 20%; /* Ancho del contenedor central */
+    /*background-color: #404040; /* Color de fondo para distinguir */
+    display: flex; /* Usamos flexbox para centrar contenido */
+    align-items: stretch; /* Centra verticalmente el contenido */
+    justify-content: flex-start; /* Centra horizontalmente el contenido */
+    flex-direction: column; /* Opcional, si tienes más elementos aquí */
+    padding: 10px; /* Espaciado interno opcional */
+}
 #imageContainer {
     flex: 1; /* Ocupa el espacio restante */
     padding: 10px; /* Espaciado interno */
@@ -96,7 +105,44 @@ input{
     <div id="menuContainer">
         <iframe src="menu.html" id="iframeMenu"></iframe>
     </div>
-
+    <div class="contentContainer0">
+        <h2>Bolsa de Fichas</h2>
+    
+        <!-- Entrada de fichas iniciales -->
+        <label>
+          Iniciativas Aliadas (1-25):
+          <input type="number" id="aliadas" min="1" max="25" value="1">
+        </label>
+        <label>
+          Iniciativas Enemigas (1-25):
+          <input type="number" id="enemigas" min="1" max="25" value="1">
+        </label>
+    
+        <!-- Botón para reiniciar la bolsa -->
+        <button onclick="iniciarBolsa()">Reiniciar Bolsa</button>
+    
+        <!-- Información de las fichas en la bolsa -->
+        <p class="result" id="aliadasRestantes">Fichas Aliadas Restantes: 0</p>
+        <div class="control-buttons">
+          <button onclick="ajustarFichas('aliadas', 1)">+ Aliada</button>
+          <button onclick="ajustarFichas('aliadas', -1)">- Aliada</button>
+        </div>
+    
+        <p class="result" id="enemigasRestantes">Fichas Enemigas Restantes: 0</p>
+        <div class="control-buttons">
+          <button onclick="ajustarFichas('enemigas', 1)">+ Enemiga</button>
+          <button onclick="ajustarFichas('enemigas', -1)">- Enemiga</button>
+        </div>
+    
+        <p class="result" id="totalFichas">Total de Fichas en la Bolsa: 0</p>
+    
+        <!-- Botón para sacar una ficha -->
+        <button onclick="sacarFicha()">Sacar Ficha de la Bolsa</button>
+    
+        <!-- Resultado de la ficha sacada -->
+        <p id="resultadoFicha"></p>
+        <img id="imagenFicha" src="" alt="Imagen de la ficha" style="display:none;">
+      </div>
     <div id="contentContainer">
         <h3>AMENAZA</h3>
         <div>
@@ -134,44 +180,7 @@ input{
             
             
         </div>
-        <div class="container">
-            <h2>Bolsa de Fichas</h2>
-        
-            <!-- Entrada de fichas iniciales -->
-            <label>
-              Iniciativas Aliadas (1-25):
-              <input type="number" id="aliadas" min="1" max="25" value="1">
-            </label>
-            <label>
-              Iniciativas Enemigas (1-25):
-              <input type="number" id="enemigas" min="1" max="25" value="1">
-            </label>
-        
-            <!-- Botón para reiniciar la bolsa -->
-            <button onclick="iniciarBolsa()">Reiniciar Bolsa</button>
-        
-            <!-- Información de las fichas en la bolsa -->
-            <p class="result" id="aliadasRestantes">Fichas Aliadas Restantes: 0</p>
-            <div class="control-buttons">
-              <button onclick="ajustarFichas('aliadas', 1)">+ Aliada</button>
-              <button onclick="ajustarFichas('aliadas', -1)">- Aliada</button>
-            </div>
-        
-            <p class="result" id="enemigasRestantes">Fichas Enemigas Restantes: 0</p>
-            <div class="control-buttons">
-              <button onclick="ajustarFichas('enemigas', 1)">+ Enemiga</button>
-              <button onclick="ajustarFichas('enemigas', -1)">- Enemiga</button>
-            </div>
-        
-            <p class="result" id="totalFichas">Total de Fichas en la Bolsa: 0</p>
-        
-            <!-- Botón para sacar una ficha -->
-            <button onclick="sacarFicha()">Sacar Ficha de la Bolsa</button>
-        
-            <!-- Resultado de la ficha sacada -->
-            <p id="resultadoFicha"></p>
-            <img id="imagenFicha" src="" alt="Imagen de la ficha" style="display:none;">
-          </div>
+       
     </div>
         <div id="imageContainer">
             <div id="imagenAmenazaContainer"></div>
