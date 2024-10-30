@@ -590,6 +590,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
             document.getElementById("resultadoFicha").style.color = "blue";
             imagenAmenaza.src = "FIniAliadas.png"; // Ruta de la imagen de ficha aliada
             imagenAmenaza.style.display = "block";
+            imagenAmenaza.width="150px"
             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
             reproducirSonido("aliada"); // Reproduce sonido de ficha aliada
           } else if (fichaElegida === "enemiga" && fichasEnemigas > 0) {
@@ -598,6 +599,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
             document.getElementById("resultadoFicha").style.color = "red";
             imagenAmenaza.src = "FIniEnemigas.png"; // Ruta de la imagen de ficha enemiga
             imagenAmenaza.style.display = "block";
+            imagenAmenaza.width="150px"
             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
             reproducirSonido("enemiga"); // Reproduce sonido de ficha enemiga
           } else {
