@@ -24,7 +24,7 @@
     }
     #imagenFicha {
       margin-top: 10px;
-      width: 100px; /* Ajusta el tamaño según tus necesidades */
+      width: 100px;
       height: auto;
     }
     .control-buttons {
@@ -132,12 +132,14 @@
         document.getElementById("resultadoFicha").style.color = "blue";
         imagenFicha.src = "FIniAliadas.png"; // Ruta de la imagen de ficha aliada
         imagenFicha.style.display = "block";
+        reproducirSonido("aliada"); // Reproduce sonido de ficha aliada
       } else if (fichaElegida === "enemiga" && fichasEnemigas > 0) {
         fichasEnemigas--;
         document.getElementById("resultadoFicha").textContent = "¡Sacaste una ficha enemiga!";
         document.getElementById("resultadoFicha").style.color = "red";
         imagenFicha.src = "FIniEnemigas.png"; // Ruta de la imagen de ficha enemiga
         imagenFicha.style.display = "block";
+        reproducirSonido("enemiga"); // Reproduce sonido de ficha enemiga
       } else {
         document.getElementById("resultadoFicha").textContent = "Error al sacar ficha, intenta de nuevo.";
         return;
@@ -145,6 +147,21 @@
 
       totalFichas = fichasAliadas + fichasEnemigas;
       actualizarDisplay();
+    }
+
+    // Función para reproducir un sonido aleatorio según el tipo de ficha
+    function reproducirSonido(tipo) {
+      const numeroAleatorio = Math.floor(Math.random() * 10) + 1; // Número aleatorio entre 1 y 10
+      let rutaSonido = "";
+
+      if (tipo === "aliada") {
+        rutaSonido = `SonidosIniciativa/Aliado${numeroAleatorio}.mp3`;
+      } else if (tipo === "enemiga") {
+        rutaSonido = `SonidosIniciativa/Enemigo${numeroAleatorio}.mp3`;
+      }
+
+      const audio = new Audio(rutaSonido);
+      audio.play();
     }
 
     // Inicializar la bolsa al cargar la página
