@@ -540,6 +540,13 @@ document.getElementById('modificadorTirada').addEventListener('change', function
     
         // Función para inicializar la bolsa con las cantidades especificadas
         function iniciarBolsa() {
+             // Si el total de fichas es distinto de 0, pedir confirmación antes de reiniciar
+      if (totalFichas !== 0) {
+        const confirmarReinicio = window.confirm("¿Realmente deseas reiniciar la bolsa?");
+        if (!confirmarReinicio) {
+          return; // Si el usuario elige "Cancelar", no hace nada
+        }
+      }
           document.getElementById('imagenAmenazaContainer').innerHTML = '';
           const aliadasInput = parseInt(document.getElementById("aliadas").value);
           const enemigasInput = parseInt(document.getElementById("enemigas").value);
