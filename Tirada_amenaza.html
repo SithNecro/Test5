@@ -110,31 +110,33 @@ input{
     
         <!-- Entrada de fichas iniciales -->
         <label>
-          Iniciativas Aliadas (1-25):
-          <input type="number" id="aliadas" min="1" max="25" value="1">
+          Ini. Aliados:
+          <input type="number" id="aliadas" min="1" max="25" value="4">
+          <button onclick="ajustarFichas('aliadas', 1)">+</button>
+          <button onclick="ajustarFichas('aliadas', -1)">-</button>
         </label>
         <label>
-          Iniciativas Enemigas (1-25):
-          <input type="number" id="enemigas" min="1" max="25" value="1">
+          Ini. Enemigos:
+          <input type="number" id="enemigas" min="1" max="25" value="3">
+          <button onclick="ajustarFichas('enemigas', 1)">+</button>
+          <button onclick="ajustarFichas('enemigas', -1)">-</button>
         </label>
     
         <!-- Botón para reiniciar la bolsa -->
         <button onclick="iniciarBolsa()">Reiniciar Bolsa</button>
     
         <!-- Información de las fichas en la bolsa -->
-        <p class="result" id="aliadasRestantes">Fichas Aliadas Restantes: 0</p>
-        <div class="control-buttons">
-          <button onclick="ajustarFichas('aliadas', 1)">+ Aliada</button>
-          <button onclick="ajustarFichas('aliadas', -1)">- Aliada</button>
+        <p class="result" id="aliadasRestantes">Fichas Aliadas: 0</p>
+       <!-- <div class="control-buttons">
+         
         </div>
-    
-        <p class="result" id="enemigasRestantes">Fichas Enemigas Restantes: 0</p>
-        <div class="control-buttons">
-          <button onclick="ajustarFichas('enemigas', 1)">+ Enemiga</button>
-          <button onclick="ajustarFichas('enemigas', -1)">- Enemiga</button>
+    -->
+        <p class="result" id="enemigasRestantes">Fichas Enemigas: 0</p>
+       <!-- <div class="control-buttons">
+          
         </div>
-    
-        <p class="result" id="totalFichas">Total de Fichas en la Bolsa: 0</p>
+    -->
+        <p class="result" id="totalFichas">Fichas en la Bolsa: 0</p>
     
         <!-- Botón para sacar una ficha -->
         <button onclick="sacarFicha()">Sacar Ficha de la Bolsa</button>
@@ -580,7 +582,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
           }
     
           const fichaElegida = Math.random() < (fichasAliadas / totalFichas) ? "aliada" : "enemiga";
-          const imagenFicha = document.getElementById("imagenFicha");
+          const imagenFicha = document.getElementById("imagenAmenazaContainer");
     
           if (fichaElegida === "aliada" && fichasAliadas > 0) {
             fichasAliadas--;
