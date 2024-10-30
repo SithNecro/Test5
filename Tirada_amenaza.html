@@ -583,20 +583,22 @@ document.getElementById('modificadorTirada').addEventListener('change', function
     
           const fichaElegida = Math.random() < (fichasAliadas / totalFichas) ? "aliada" : "enemiga";
           const imagenFicha = document.getElementById("imagenAmenazaContainer");
-    
+          const imagenAmenaza = document.createElement('img');
           if (fichaElegida === "aliada" && fichasAliadas > 0) {
             fichasAliadas--;
             document.getElementById("resultadoFicha").textContent = "¡Sacaste una ficha aliada!";
             document.getElementById("resultadoFicha").style.color = "blue";
-            imagenFicha.src = "FIniAliadas.png"; // Ruta de la imagen de ficha aliada
-            imagenFicha.style.display = "block";
+            imagenAmenaza.src = "FIniAliadas.png"; // Ruta de la imagen de ficha aliada
+            imagenAmenaza.style.display = "block";
+            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
             reproducirSonido("aliada"); // Reproduce sonido de ficha aliada
           } else if (fichaElegida === "enemiga" && fichasEnemigas > 0) {
             fichasEnemigas--;
             document.getElementById("resultadoFicha").textContent = "¡Sacaste una ficha enemiga!";
             document.getElementById("resultadoFicha").style.color = "red";
-            imagenFicha.src = "FIniEnemigas.png"; // Ruta de la imagen de ficha enemiga
-            imagenFicha.style.display = "block";
+            imagenAmenaza.src = "FIniEnemigas.png"; // Ruta de la imagen de ficha enemiga
+            imagenAmenaza.style.display = "block";
+            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
             reproducirSonido("enemiga"); // Reproduce sonido de ficha enemiga
           } else {
             document.getElementById("resultadoFicha").textContent = "Error al sacar ficha, intenta de nuevo.";
