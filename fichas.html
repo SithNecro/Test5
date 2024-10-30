@@ -27,6 +27,11 @@
       width: 100px; /* Ajusta el tamaño según tus necesidades */
       height: auto;
     }
+    .control-buttons {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -48,7 +53,17 @@
 
     <!-- Información de las fichas en la bolsa -->
     <p class="result" id="aliadasRestantes">Fichas Aliadas Restantes: 0</p>
+    <div class="control-buttons">
+      <button onclick="ajustarFichas('aliadas', 1)">+ Aliada</button>
+      <button onclick="ajustarFichas('aliadas', -1)">- Aliada</button>
+    </div>
+
     <p class="result" id="enemigasRestantes">Fichas Enemigas Restantes: 0</p>
+    <div class="control-buttons">
+      <button onclick="ajustarFichas('enemigas', 1)">+ Enemiga</button>
+      <button onclick="ajustarFichas('enemigas', -1)">- Enemiga</button>
+    </div>
+
     <p class="result" id="totalFichas">Total de Fichas en la Bolsa: 0</p>
 
     <!-- Botón para sacar una ficha -->
@@ -88,6 +103,17 @@
       document.getElementById("aliadasRestantes").textContent = `Fichas Aliadas Restantes: ${fichasAliadas}`;
       document.getElementById("enemigasRestantes").textContent = `Fichas Enemigas Restantes: ${fichasEnemigas}`;
       document.getElementById("totalFichas").textContent = `Total de Fichas en la Bolsa: ${totalFichas}`;
+    }
+
+    // Función para ajustar manualmente la cantidad de fichas
+    function ajustarFichas(tipo, cantidad) {
+      if (tipo === "aliadas") {
+        fichasAliadas = Math.max(0, fichasAliadas + cantidad); // Evita que sea negativo
+      } else if (tipo === "enemigas") {
+        fichasEnemigas = Math.max(0, fichasEnemigas + cantidad); // Evita que sea negativo
+      }
+      totalFichas = fichasAliadas + fichasEnemigas;
+      actualizarDisplay();
     }
 
     // Función para sacar una ficha aleatoria
