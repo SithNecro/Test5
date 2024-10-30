@@ -587,10 +587,10 @@ document.getElementById('modificadorTirada').addEventListener('change', function
           const imagenAmenaza = document.createElement('img');
           imagenAmenaza.style.display = "block";
           imagenAmenaza.style.width = '300px'; // Puedes ajustar el tamaño
-          
+          document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+            
           const intervalo = setInterval(() => {
             imagenAmenaza.src = alternar ? "FIniAliadas.png" : "FIniEnemigas.png";
-            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
             
             alternar = !alternar;
       }, 100);
