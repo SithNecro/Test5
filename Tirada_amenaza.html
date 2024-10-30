@@ -585,6 +585,18 @@ document.getElementById('modificadorTirada').addEventListener('change', function
           const fichaElegida = Math.random() < (fichasAliadas / totalFichas) ? "aliada" : "enemiga";
           const imagenFicha = document.getElementById("imagenAmenazaContainer");
           const imagenAmenaza = document.createElement('img');
+          imagenAmenaza.style.display = "block";
+          imagenAmenaza.style.width = '300px'; // Puedes ajustar el tamaño
+          
+          const intervalo = setInterval(() => {
+            imagenAmenaza.src = alternar ? "FIniAliadas.png" : "FIniEnemigas.png";
+        alternar = !alternar;
+      }, 100);
+ // Detenemos el efecto de ruleta después de un tiempo
+ setTimeout(() => {
+        clearInterval(intervalo);
+
+        
           if (fichaElegida === "aliada" && fichasAliadas > 0) {
             fichasAliadas--;
             document.getElementById("resultadoFicha").textContent = "¡Sacaste una ficha aliada!";
@@ -610,6 +622,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
     
           totalFichas = fichasAliadas + fichasEnemigas;
           actualizarDisplay();
+        }, 2000); // Duración del efecto de ruleta en milisegundos
         }
     
         // Función para reproducir un sonido aleatorio según el tipo de ficha
