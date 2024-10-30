@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bolsa de Fichas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .result {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    #imagenFicha {
+      margin-top: 10px;
+      width: 100px; /* Ajusta el tamaño según tus necesidades */
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Bolsa de Fichas</h2>
+
+    <!-- Entrada de fichas iniciales -->
+    <label>
+      Iniciativas Aliadas (1-25):
+      <input type="number" id="aliadas" min="1" max="25" value="1">
+    </label>
+    <label>
+      Iniciativas Enemigas (1-25):
+      <input type="number" id="enemigas" min="1" max="25" value="1">
+    </label>
+
+    <!-- Botón para reiniciar la bolsa -->
+    <button onclick="iniciarBolsa()">Reiniciar Bolsa</button>
+
+    <!-- Información de las fichas en la bolsa -->
+    <p class="result" id="aliadasRestantes">Fichas Aliadas Restantes: 0</p>
+    <p class="result" id="enemigasRestantes">Fichas Enemigas Restantes: 0</p>
+    <p class="result" id="totalFichas">Total de Fichas en la Bolsa: 0</p>
+
+    <!-- Botón para sacar una ficha -->
+    <button onclick="sacarFicha()">Sacar Ficha de la Bolsa</button>
+
+    <!-- Resultado de la ficha sacada -->
+    <p id="resultadoFicha"></p>
+    <img id="imagenFicha" src="" alt="Imagen de la ficha" style="display:none;">
+  </div>
+
+  <script>
+    let fichasAliadas = 0;
+    let fichasEnemigas = 0;
+    let totalFichas = 0;
+
+    // Función para inicializar la bolsa con las cantidades especificadas
+    function iniciarBolsa() {
+      const aliadasInput = parseInt(document.getElementById("aliadas").value);
+      const enemigasInput = parseInt(document.getElementById("enemigas").value);
+
+      if (isNaN(aliadasInput) || isNaN(enemigasInput) || aliadasInput < 1 || aliadasInput > 25 || enemigasInput < 1 || enemigasInput > 25) {
+        alert("Por favor, introduce valores entre 1 y 25 para ambos campos.");
+        return;
+      }
+
+      fichasAliadas = aliadasInput;
+      fichasEnemigas = enemigasInput;
+      totalFichas = fichasAliadas + fichasEnemigas;
+
+      actualizarDisplay();
+      document.getElementById("resultadoFicha").textContent = "";
+      document.getElementById("imagenFicha").style.display = "none"; // Oculta la imagen al reiniciar
+    }
+
+    // Función para actualizar los contadores en pantalla
+    function actualizarDisplay() {
+      document.getElementById("aliadasRestantes").textContent = `Fichas Aliadas Restantes: ${fichasAliadas}`;
+      document.getElementById("enemigasRestantes").textContent = `Fichas Enemigas Restantes: ${fichasEnemigas}`;
+      document.getElementById("totalFichas").textContent = `Total de Fichas en la Bolsa: ${totalFichas}`;
+    }
+
+    // Función para sacar una ficha aleatoria
+    function sacarFicha() {
+      if (totalFichas === 0) {
+        alert("La bolsa está vacía. Reinicia la bolsa para volver a jugar.");
+        return;
+      }
+
+      const fichaElegida = Math.random() < (fichasAliadas / totalFichas) ? "aliada" : "enemiga";
+      const imagenFicha = document.getElementById("imagenFicha");
+
+      if (fichaElegida === "aliada" && fichasAliadas > 0) {
+        fichasAliadas--;
+        document.getElementById("resultadoFicha").textContent = "¡Sacaste una ficha aliada!";
+        document.getElementById("resultadoFicha").style.color = "blue";
+        imagenFicha.src = "FIniAliadas.png"; // Ruta de la imagen de ficha aliada
+        imagenFicha.style.display = "block";
+      } else if (fichaElegida === "enemiga" && fichasEnemigas > 0) {
+        fichasEnemigas--;
+        document.getElementById("resultadoFicha").textContent = "¡Sacaste una ficha enemiga!";
+        document.getElementById("resultadoFicha").style.color = "red";
+        imagenFicha.src = "FIniEnemigas.png"; // Ruta de la imagen de ficha enemiga
+        imagenFicha.style.display = "block";
+      } else {
+        document.getElementById("resultadoFicha").textContent = "Error al sacar ficha, intenta de nuevo.";
+        return;
+      }
+
+      totalFichas = fichasAliadas + fichasEnemigas;
+      actualizarDisplay();
+    }
+
+    // Inicializar la bolsa al cargar la página
+    iniciarBolsa();
+  </script>
+</body>
+</html>
