@@ -590,7 +590,9 @@ document.getElementById('modificadorTirada').addEventListener('change', function
           
           const intervalo = setInterval(() => {
             imagenAmenaza.src = alternar ? "FIniAliadas.png" : "FIniEnemigas.png";
-        alternar = !alternar;
+            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+            
+            alternar = !alternar;
       }, 100);
  // Detenemos el efecto de ruleta después de un tiempo
  setTimeout(() => {
