@@ -676,7 +676,10 @@ document.getElementById('modificadorTirada').addEventListener('change', function
           const audio = new Audio(rutaSonido);
           audio.play();
         }
-    
+     // Escucha el cambio en los cuadros de texto para actualizar el localStorage en tiempo real
+     document.getElementById("aliadas").addEventListener("input", guardarEnLocalStorage);
+    document.getElementById("enemigas").addEventListener("input", guardarEnLocalStorage);
+
         // Inicializar la bolsa al cargar la página
         //iniciarBolsa();
         cargarDesdeLocalStorage();
