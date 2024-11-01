@@ -39,7 +39,21 @@ body {
     display: flex; /* Usamos flexbox para la disposición general */
     height: 100vh; /* Altura total de la ventana */
 }
-button, select {
+button {
+    padding: 5px 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 2px 0;
+    
+}
+.button2 {
+    padding: 5px 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 2px 0;
+    border-radius: 50%;
+}
+select {
     padding: 5px 5px;
     font-size: 14px;
     cursor: pointer;
@@ -114,14 +128,14 @@ input{
         <label>
           Ini. Aliados:
           <input type="number" id="aliadas" min="1" max="25" value="4">
-          <button onclick="ajustarFichas('aliadas', 1)" style="background-color: green; color: white;">+</button>
-          <button onclick="ajustarFichas('aliadas', -1)" style="background-color: red; color: white;>-</button>
+          <button class="button2" onclick="ajustarFichas('aliadas', 1)" style="background-color: green; color: white;">+</button>
+          <button class="button2" onclick="ajustarFichas('aliadas', -1)" style="background-color: red; color: white;>-</button>
         </label>
         <label>
           Ini. Enems:
           <input type="number" id="enemigas" min="1" max="25" value="3">
-          <button onclick="ajustarFichas('enemigas', 1)" style="background-color: green; color: white;">+</button>
-          <button onclick="ajustarFichas('enemigas', -1)" style="background-color: red; color: white;>-</button>
+          <button class="button2" onclick="ajustarFichas('enemigas', 1)" style="background-color: green; color: white;">+</button>
+          <button class="button2" onclick="ajustarFichas('enemigas', -1)" style="background-color: red; color: white;>-</button>
         </label>
     
         <!-- Botón para reiniciar la bolsa -->
