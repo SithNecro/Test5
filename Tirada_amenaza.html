@@ -44,6 +44,7 @@ button, select {
     font-size: 14px;
     cursor: pointer;
     margin: 2px 0;
+    border-radius: 50%;
 }
 #menuContainer {
     position: fixed; /* Fijo a la izquierda */
@@ -113,14 +114,14 @@ input{
         <label>
           Ini. Aliados:
           <input type="number" id="aliadas" min="1" max="25" value="4">
-          <button onclick="ajustarFichas('aliadas', 1)">+</button>
-          <button onclick="ajustarFichas('aliadas', -1)">-</button>
+          <button onclick="ajustarFichas('aliadas', 1)" style="background-color: green; color: white;">+</button>
+          <button onclick="ajustarFichas('aliadas', -1)" style="background-color: red; color: white;>-</button>
         </label>
         <label>
           Ini. Enems:
           <input type="number" id="enemigas" min="1" max="25" value="3">
-          <button onclick="ajustarFichas('enemigas', 1)">+</button>
-          <button onclick="ajustarFichas('enemigas', -1)">-</button>
+          <button onclick="ajustarFichas('enemigas', 1)" style="background-color: green; color: white;">+</button>
+          <button onclick="ajustarFichas('enemigas', -1)" style="background-color: red; color: white;>-</button>
         </label>
     
         <!-- Botón para reiniciar la bolsa -->
