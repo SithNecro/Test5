@@ -132,15 +132,11 @@ input{
         <label>
           Ini. Aliados:
           <input type="number" id="aliadas" min="1" max="25" value="4">
-          <button class="button2" onclick="ajustarFichas('aliadas', 1)" style="background-color: green; color: white;">+</button>
-          <button class="button2" onclick="ajustarFichas('aliadas', -1)" style="background-color: red; color: white;">-</button>
         </label>
         <label>
           Ini. Enems:
           <input type="number" id="enemigas" min="1" max="25" value="3">
-          <button class="button2" onclick="ajustarFichas('enemigas', 1)" style="background-color: green; color: white;">+</button>
-          <button class="button2" onclick="ajustarFichas('enemigas', -1)" style="background-color: red; color: white;" >-</button>
-        </label>
+          </label>
     
         <!-- Botón para reiniciar la bolsa -->
         <button onclick="iniciarBolsa()">Reiniciar Bolsa</button>
@@ -151,11 +147,17 @@ input{
          
         </div>
     -->
+    <button class="button2" onclick="ajustarFichas('aliadas', 1)" style="background-color: green; color: white;">+</button>
+    <button class="button2" onclick="ajustarFichas('aliadas', -1)" style="background-color: red; color: white;">-</button>
+  
         <p class="result" id="enemigasRestantes">Fichas Enemigas: 0</p>
        <!-- <div class="control-buttons">
           
         </div>
     -->
+    <button class="button2" onclick="ajustarFichas('enemigas', 1)" style="background-color: green; color: white;">+</button>
+    <button class="button2" onclick="ajustarFichas('enemigas', -1)" style="background-color: red; color: white;" >-</button>
+  
         <p class="result" id="totalFichas">Fichas en la Bolsa: 0</p>
     
         <!-- Botón para sacar una ficha -->
