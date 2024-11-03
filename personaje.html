@@ -205,21 +205,34 @@
             document.getElementById("roll-values").style.display = advantage ? 'none' : 'table-row';
         }
 
-        function generateRolls() {
-            rolls = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
-            const advantage = document.getElementById("advantageOption").checked;
+       // Generar las tiradas de atributos
+function generateRolls() {
+    // Generar 5 tiradas aleatorias entre 1 y 10
+    rolls = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
+    const advantage = document.getElementById("advantageOption").checked;
 
-            if (advantage) {
-                alert("Tiradas generadas: " + rolls.join(", ") + ". Asigna cada tirada a una estadística.");
-                showRollSelectors();
-            } else {
-                applyRollsDirectly();
-                hideRollSelectors();
-            }
+    if (advantage) {
+        alert("Tiradas generadas: " + rolls.join(", ") + ". Asigna cada tirada a una estadística.");
+        showRollSelectors();
+        document.getElementById("roll-values").style.display = 'none'; // Oculta la tercera fila si está usando ventaja
+    } else {
+        applyRollsDirectly();
+        hideRollSelectors();
+        
+        // Muestra la tercera fila con valores aleatorios
+        document.getElementById("roll-values").style.display = 'table-row';
+        
+        // Asigna los valores de tiradas aleatorias a cada celda de la fila
+        document.getElementById("roll-strength").textContent = rolls[0];
+        document.getElementById("roll-constitution").textContent = rolls[1];
+        document.getElementById("roll-dexterity").textContent = rolls[2];
+        document.getElementById("roll-wisdom").textContent = rolls[3];
+        document.getElementById("roll-determination").textContent = rolls[4];
+    }
 
-            calculateVitality(document.getElementById("race").value);
-            updatePreview();
-        }
+    calculateVitality(document.getElementById("race").value);
+    updatePreview();
+}
 
         function showRollSelectors() {
             document.querySelectorAll('.roll-select').forEach((select, index) => {
