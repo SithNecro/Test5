@@ -479,6 +479,7 @@ function updateCombatPreview() {
         function updateClassStats() {
             const selectedClass = document.getElementById("classSelect").value;
             document.getElementById("preview-class").textContent = selectedClass;
+            updateCombatPreview();
         }
 
         function updatePreview() {
