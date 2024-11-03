@@ -46,6 +46,15 @@
         .roll-select option.unavailable {
             color: red;
         }
+        table.stats-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table.stats-table th, table.stats-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -66,19 +75,51 @@
             </div>
 
             <div class="stat">
-                <label><input type="checkbox" id="advantageOption"> Opción ventajosa</label>
+                <label><input type="checkbox" id="advantageOption" onchange="toggleAdvantage()"> Opción ventajosa</label>
             </div>
 
             <button onclick="generateRolls()">Generar Tiradas</button>
 
-            <!-- Atributos Base -->
+            <!-- Atributos Base en Tabla -->
             <h3>Estadísticas Base</h3>
-            <p>Fuerza: <span id="base-strength">-</span> <select id="select-strength" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
-            <p>Constitución: <span id="base-constitution">-</span> <select id="select-constitution" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
-            <p>Destreza: <span id="base-dexterity">-</span> <select id="select-dexterity" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
-            <p>Sabiduría: <span id="base-wisdom">-</span> <select id="select-wisdom" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
-            <p>Determinación: <span id="base-determination">-</span> <select id="select-determination" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
-            <p>Vitalidad: <span id="base-vitality">-</span></p>
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>FUE</th>
+                        <th>CON</th>
+                        <th>DES</th>
+                        <th>SAB</th>
+                        <th>DET</th>
+                        <th>VIT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="base-values">
+                        <td id="base-strength">-</td>
+                        <td id="base-constitution">-</td>
+                        <td id="base-dexterity">-</td>
+                        <td id="base-wisdom">-</td>
+                        <td id="base-determination">-</td>
+                        <td id="base-vitality">-</td>
+                    </tr>
+                    <tr id="roll-selectors" style="display: none;">
+                        <td><select id="select-strength" class="roll-select" onchange="updateAdjustedStats()"></select></td>
+                        <td><select id="select-constitution" class="roll-select" onchange="updateAdjustedStats()"></select></td>
+                        <td><select id="select-dexterity" class="roll-select" onchange="updateAdjustedStats()"></select></td>
+                        <td><select id="select-wisdom" class="roll-select" onchange="updateAdjustedStats()"></select></td>
+                        <td><select id="select-determination" class="roll-select" onchange="updateAdjustedStats()"></select></td>
+                        <td>-</td>
+                    </tr>
+                    <tr id="roll-values" style="display: none;">
+                        <td id="roll-strength">-</td>
+                        <td id="roll-constitution">-</td>
+                        <td id="roll-dexterity">-</td>
+                        <td id="roll-wisdom">-</td>
+                        <td id="roll-determination">-</td>
+                        <td id="roll-vitality">-</td>
+                    </tr>
+                </tbody>
+            </table>
 
             <!-- Estadísticas Ajustadas -->
             <h3>Estadísticas Ajustadas</h3>
@@ -158,12 +199,10 @@
             return sum;
         }
 
-        function calculateVitality(race) {
-            const baseVitality = raceStats[race].vitality;
-            const vitalityRoll = rollDice(baseVitality);
-            finalStats.vitality = vitalityRoll;
-            document.getElementById("base-vitality").textContent = `VIT ${baseVitality}=${vitalityRoll}`;
-            document.getElementById("final-vitality").textContent = `Vitalidad ${vitalityRoll}`;
+        function toggleAdvantage() {
+            const advantage = document.getElementById("advantageOption").checked;
+            document.getElementById("roll-selectors").style.display = advantage ? 'table-row' : 'none';
+            document.getElementById("roll-values").style.display = advantage ? 'none' : 'table-row';
         }
 
         function generateRolls() {
@@ -183,7 +222,7 @@
         }
 
         function showRollSelectors() {
-            document.querySelectorAll('.roll-select').forEach(select => {
+            document.querySelectorAll('.roll-select').forEach((select, index) => {
                 select.style.display = 'inline';
                 select.innerHTML = '<option value="">-- Seleccionar --</option>' + rolls.map(roll => `<option value="${roll}" class="available">${roll}</option>`).join('');
             });
@@ -225,6 +264,7 @@
                 const baseValue = raceStats[document.getElementById("race").value][stat];
                 finalStats[stat] = baseValue + rolls[i];
                 document.getElementById("final-" + stat).textContent = `${baseValue} + ${rolls[i]}: ${finalStats[stat]}`;
+                document.getElementById("roll-" + stat).textContent = rolls[i];
             });
             updatePreview();
         }
@@ -268,3 +308,4 @@
     </script>
 </body>
 </html>
+
