@@ -472,7 +472,7 @@ function updateCombatPreview() {
 
     document.getElementById("preview-BD").textContent = strength >= 50 ? Math.floor((strength - 50) / 10) + 1 : 0;
 
-    document.getElementById("preview-vitality").textContent = parseInt(document.getElementById("preview-vitality").textContent) + modifiers.VIT ;
+    document.getElementById("preview-vitality").textContent = parseInt(document.getElementById("final-vitality").textContent) + modifiers.VIT ;
 }
 
 // Asumiendo que tienes un <select id="classSelect"> en tu HTML para la selección de clase.
