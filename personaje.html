@@ -338,7 +338,8 @@
                     const selectedValue = parseInt(document.getElementById("select-" + stat).value) || 0;
                     const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
                     finalStats[stat] = baseValue + selectedValue + extraValue;
-                    document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue} + ${extraValue}: ${finalStats[stat]}`;
+                   // document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue} + ${extraValue}: ${finalStats[stat]}`;
+                    document.getElementById("final-" + stat).textContent = `${finalStats[stat]}`;
                 });
             } else {
                 ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
@@ -346,7 +347,8 @@
                     const selectedValue = parseInt(document.getElementById("roll-" + stat).innerText) || 0;
                     const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
                     finalStats[stat] = baseValue + selectedValue + extraValue;
-                    document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue} + ${extraValue}: ${finalStats[stat]}`;
+                    document.getElementById("final-" + stat).textContent = `${finalStats[stat]}`;
+                    //document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue} + ${extraValue}: ${finalStats[stat]}`;
                 });
             }
 
