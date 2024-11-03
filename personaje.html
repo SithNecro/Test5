@@ -300,18 +300,30 @@
             }
 
             remainingPoints = 15 - totalExtraPoints;
-            document.getElementById("remaining-points").textContent = "Distribuye "+ remainingPoints + " puntos adicionales";
+            document.getElementById("remaining-points").textContent = "Distribuye " + remainingPoints + " puntos adicionales";
 
-            ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
-                const baseValue = raceStats[document.getElementById("race").value][stat];
-                const selectedValue = parseInt(document.getElementById("select-" + stat).value) || 0;
-                const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
-                finalStats[stat] = baseValue + selectedValue + extraValue;
-                document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue} + ${extraValue}: ${finalStats[stat]}`;
-            });
+            const advantage = document.getElementById("advantageOption").checked;
+            if (advantage) {
+                ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
+                    const baseValue = raceStats[document.getElementById("race").value][stat];
+                    const selectedValue = parseInt(document.getElementById("roll-" + stat).textContent) || 0;
+                    const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
+                    finalStats[stat] = baseValue + selectedValue + extraValue;
+                    document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue} + ${extraValue}: ${finalStats[stat]}`;
+                });
+            } else {
+                ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
+                    const baseValue = raceStats[document.getElementById("race").value][stat];
+                    const selectedValue = parseInt(document.getElementById("select-" + stat).value) || 0;
+                    const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
+                    finalStats[stat] = baseValue + selectedValue + extraValue;
+                    document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue} + ${extraValue}: ${finalStats[stat]}`;
+                });
+            }
 
             updatePreview();
         }
+
 
         function updatePreview() {
             document.getElementById("preview-race").textContent = document.getElementById("race").value;
