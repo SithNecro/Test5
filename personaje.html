@@ -146,7 +146,7 @@
             </table>
             <div class="stat">
                 <label for="class">Clase:</label>
-                <select id="class" onchange="updateClassStats()">
+                <select id="classSelect" onchange="updateClassStats()">
                     <option value="Alquimista">Alquimista</option>
                     <option value="Bárbaro">Bárbaro</option>
                     <option value="Guerrero">Guerrero</option>
@@ -442,34 +442,42 @@ function calculateVitality(race) {
     updatePreview();
 }
 
-        function updateCombatPreview() {
-            const dexterity = finalStats.dexterity || 0;
-            const wisdom = finalStats.wisdom || 0;
-            const constitution = finalStats.constitution || 0;
-            const strength = finalStats.strength || 0;
-            const determination = finalStats.determination || 0;
-            
-            document.getElementById("preview-HC").textContent = dexterity;
-            document.getElementById("preview-HD").textContent = dexterity;
-            document.getElementById("preview-ESQ").textContent = dexterity;
+function updateCombatPreview() {
+    // Obtener la clase seleccionada
+    const selectedClass = document.getElementById("classSelect").value; // Asegúrate de que el ID sea correcto
+    const modifiers = classModifiers[selectedClass] || {};
 
-            document.getElementById("preview-FC").textContent = determination;
+    const dexterity = (finalStats.dexterity || 0) + (modifiers.HC || 0);
+    const wisdom = (finalStats.wisdom || 0) + (modifiers.AA !== "N/A" ? modifiers.AA : 0);
+    const constitution = (finalStats.constitution || 0) + (modifiers.SUP || 0);
+    const strength = (finalStats.strength || 0) + (modifiers.BD || 0);
+    const determination = (finalStats.determination || 0) + (modifiers.FC || 0);
 
-            document.getElementById("preview-AA").textContent = wisdom;
-            document.getElementById("preview-TRU").textContent = wisdom;
-            document.getElementById("preview-CU").textContent = wisdom;
-            document.getElementById("preview-ALQ").textContent = wisdom;
-            document.getElementById("preview-PER").textContent = wisdom;
-            document.getElementById("preview-MANA").textContent = Math.floor(wisdom * 1.5);
+    // Aplicar valores modificados a los elementos de vista previa
+    document.getElementById("preview-HC").textContent = dexterity + (modifiers.HC || 0);
+    document.getElementById("preview-HD").textContent = dexterity + (modifiers.HD || 0);
+    document.getElementById("preview-ESQ").textContent = dexterity + (modifiers.ESQ || 0);
 
-            document.getElementById("preview-SUP").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0;
-            document.getElementById("preview-AN").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0;
+    document.getElementById("preview-FC").textContent = determination;
 
-            document.getElementById("preview-BD").textContent = strength >= 50 ? Math.floor((strength - 50) / 10) + 1 : 0;
-        }
+    document.getElementById("preview-AA").textContent = modifiers.AA !== "N/A" ? wisdom : "N/A";
+    document.getElementById("preview-TRU").textContent = wisdom + (modifiers.TRU || 0);
+    document.getElementById("preview-CU").textContent = wisdom + (modifiers.CU || 0);
+    document.getElementById("preview-ALQ").textContent = wisdom + (modifiers.ALQ || 0);
+    document.getElementById("preview-PER").textContent = wisdom + (modifiers.PER || 0);
+    document.getElementById("preview-MANA").textContent = modifiers.MANA !== "N/A" ? Math.floor(wisdom * 1.5) : "N/A";
+
+    document.getElementById("preview-SUP").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0;
+    document.getElementById("preview-AN").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0;
+
+    document.getElementById("preview-BD").textContent = strength >= 50 ? Math.floor((strength - 50) / 10) + 1 : 0;
+}
+
+// Asumiendo que tienes un <select id="classSelect"> en tu HTML para la selección de clase.
+
 
         function updateClassStats() {
-            const selectedClass = document.getElementById("class").value;
+            const selectedClass = document.getElementById("classSelect").value;
             document.getElementById("preview-class").textContent = selectedClass;
         }
 
