@@ -220,12 +220,12 @@
                 <table class="stats-table">
                     <thead>
                         <tr>
-                            <th>SUP</th><th>BD</th><th>AN</th><th>ENR</th>
+                            <th>SUP</th><th>BD</th><th>AN</th><th>ENR</th><th>MOV</th><th>COR</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td id="preview-SUP">-</td><td id="preview-BD">-</td><td id="preview-AN">-</td><td id="preview-ENR">1</td>
+                            <td id="preview-SUP">-</td><td id="preview-BD">-</td><td id="preview-AN">-</td><td id="preview-ENR">1</td><td id="preview-MOV">4</td><td id="preview-COR">8</td>
                         </tr>
                     </tbody>
                 </table>
@@ -243,16 +243,16 @@
             "Pato": { strength: 25, constitution: 25, dexterity: 30, wisdom: 30, determination: 40, vitality: "1d6+6" }
         };
         const classModifiers = {
-    "Alquimista": { HC: -5, HD: -5, ESQ: -10, FC: -20, AA: "N/A", TRU: 0, CU: 5, ALQ: 10, PER: -10, MANA: "N/A", SUP: -20, BD: 0, AN: 0, ENR: 0 },
-    "Bárbaro": { HC: 15, HD: -10, ESQ: 5, FC: -20, AA: "N/A", TRU: -15, CU: -10, ALQ: -25, PER: -5, MANA: "N/A", SUP: -15, BD: 0, AN: 0, ENR: 0 },
-    "Guerrero": { HC: 10, HD: 5, ESQ: 0, FC: -20, AA: "N/A", TRU: -15, CU: -10, ALQ: -25, PER: -10, MANA: "N/A", SUP: -15, BD: 0, AN: 0, ENR: 0 },
-    "Ladrón": { HC: -5, HD: 5, ESQ: 5, FC: 10, AA: "N/A", TRU: 0, CU: -20, ALQ: -30, PER: 10, MANA: "N/A", SUP: -20, BD: 0, AN: 0, ENR: 0 },
-    "Mago": { HC: -5, HD: -10, ESQ: -10, FC: -20, AA: 10, TRU: 5, CU: -5, ALQ: -20, PER: -10, MANA: 0, SUP: -20, BD: 0, AN: 0, ENR: 0 },
-    "Montaraz": { HC: -5, HD: 15, ESQ: -5, FC: -25, AA: "N/A", TRU: -20, CU: -10, ALQ: -20, PER: 0, MANA: "N/A", SUP: 15, BD: 0, AN: 0, ENR: 0 },
-    "Pícaro": { HC: 0, HD: 0, ESQ: 0, FC: 0, AA: "N/A", TRU: 5, CU: -10, ALQ: -25, PER: 0, MANA: "N/A", SUP: 0, BD: 0, AN: 0, ENR: 0 },
-    "Sacerdote Guerrero": { HC: 5, HD: -5, ESQ: -5, FC: -20, AA: "N/A", TRU: -10, CU: 5, ALQ: -15, PER: -10, MANA: "N/A", SUP: -20, BD: 0, AN: 0, ENR: 1 },
-    "Druida": { HC: -5, HD: 0, ESQ: -10, FC: -20, AA: 5, TRU: 0, CU: 5, ALQ: 0, PER: -5, MANA: 0, SUP: 0, BD: 0, AN: 0, ENR: 0 },
-    "Caballero": { HC: 10, HD: 0, ESQ: 0, FC: -25, AA: "N/A", TRU: 5, CU: -15, ALQ: -20, PER: -10, MANA: "N/A", SUP: -25, BD: 0, AN: 0, ENR: 0 },
+    "Alquimista": { HC: -5, HD: -5, ESQ: -10, FC: -20, AA: "N/A", TRU: 0, CU: 5, ALQ: 10, PER: -10, MANA: "N/A", SUP: -20, BD: 0, AN: 0, ENR: 0,VIT: 0 },
+    "Bárbaro": { HC: 15, HD: -10, ESQ: 5, FC: -20, AA: "N/A", TRU: -15, CU: -10, ALQ: -25, PER: -5, MANA: "N/A", SUP: -15, BD: 0, AN: 0, ENR: 0,VIT: 2 },
+    "Guerrero": { HC: 10, HD: 5, ESQ: 0, FC: -20, AA: "N/A", TRU: -15, CU: -10, ALQ: -25, PER: -10, MANA: "N/A", SUP: -15, BD: 0, AN: 0, ENR: 0,VIT: 3 },
+    "Ladrón": { HC: -5, HD: 5, ESQ: 5, FC: 10, AA: "N/A", TRU: 0, CU: -20, ALQ: -30, PER: 10, MANA: "N/A", SUP: -20, BD: 0, AN: 0, ENR: 0,VIT: 0 },
+    "Mago": { HC: -5, HD: -10, ESQ: -10, FC: -20, AA: 10, TRU: 5, CU: -5, ALQ: -20, PER: -10, MANA: 0, SUP: -20, BD: 0, AN: 0, ENR: 0,VIT: 0 },
+    "Montaraz": { HC: -5, HD: 15, ESQ: -5, FC: -25, AA: "N/A", TRU: -20, CU: -10, ALQ: -20, PER: 0, MANA: "N/A", SUP: 15, BD: 0, AN: 0, ENR: 0,VIT: 0 },
+    "Pícaro": { HC: 0, HD: 0, ESQ: 0, FC: 0, AA: "N/A", TRU: 5, CU: -10, ALQ: -25, PER: 0, MANA: "N/A", SUP: 0, BD: 0, AN: 0, ENR: 0,VIT: 1 },
+    "Sacerdote Guerrero": { HC: 5, HD: -5, ESQ: -5, FC: -20, AA: "N/A", TRU: -10, CU: 5, ALQ: -15, PER: -10, MANA: "N/A", SUP: -20, BD: 0, AN: 0, ENR: 1,VIT: 1 },
+    "Druida": { HC: -5, HD: 0, ESQ: -10, FC: -20, AA: 5, TRU: 0, CU: 5, ALQ: 0, PER: -5, MANA: 0, SUP: 0, BD: 0, AN: 0, ENR: 0,VIT: 0 },
+    "Caballero": { HC: 10, HD: 0, ESQ: 0, FC: -25, AA: "N/A", TRU: 5, CU: -15, ALQ: -20, PER: -10, MANA: "N/A", SUP: -25, BD: 0, AN: 0, ENR: 0,VIT: 2 },
 };
         let finalStats = {};
         let rolls = [];
@@ -469,6 +469,8 @@ function updateCombatPreview() {
 
     document.getElementById("preview-SUP").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0;
     document.getElementById("preview-AN").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0;
+
+    document.getElementById("preview-BD").textContent = strength >= 50 ? Math.floor((strength - 50) / 10) + 1 : 0;
 
     document.getElementById("preview-BD").textContent = strength >= 50 ? Math.floor((strength - 50) / 10) + 1 : 0;
 }
