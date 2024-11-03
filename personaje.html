@@ -305,6 +305,24 @@
 
         // Cargar estadísticas base al inicio
         window.onload = loadBaseStats;
+        // Mostrar los desplegables para asignar tiradas manualmente
+function showRollSelectors() {
+    const abbreviations = {
+        strength: "FUE",
+        constitution: "CON",
+        dexterity: "DES",
+        wisdom: "SAB",
+        determination: "DET"
+    };
+    
+    document.querySelectorAll('.roll-select').forEach((select, index) => {
+        const stat = select.id.split('-')[1]; // Obtiene el nombre del atributo
+        const abbreviation = abbreviations[stat]; // Obtiene la abreviatura correspondiente
+        select.style.display = 'inline';
+        select.innerHTML = `<option value="">${abbreviation}</option>` + 
+            rolls.map(roll => `<option value="${roll}" class="available">${roll}</option>`).join('');
+    });
+}
     </script>
 </body>
 </html>
