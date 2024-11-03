@@ -121,6 +121,21 @@
                 </tbody>
             </table>
 
+            <!-- Texto de Distribución de Puntos Adicionales -->
+            <tr>
+                <td colspan="6" style="text-align: center;"><strong>Distribuye 15 puntos adicionales</strong></td>
+            </tr>
+            <!-- Cuadros de Distribución de Puntos Adicionales -->
+            <tr>
+                <td colspan="6">
+                    <div class="stat">Fuerza: <input type="number" id="extra-strength" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
+                    <div class="stat">Constitución: <input type="number" id="extra-constitution" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
+                    <div class="stat">Destreza: <input type="number" id="extra-dexterity" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
+                    <div class="stat">Sabiduría: <input type="number" id="extra-wisdom" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
+                    <div class="stat">Determinación: <input type="number" id="extra-determination" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
+                </td>
+            </tr>
+
             <!-- Estadísticas Ajustadas -->
             <h3>Estadísticas Ajustadas</h3>
             <p>Fuerza: <span id="final-strength">-</span></p>
@@ -129,15 +144,6 @@
             <p>Sabiduría: <span id="final-wisdom">-</span></p>
             <p>Determinación: <span id="final-determination">-</span></p>
             <p>Vitalidad: <span id="final-vitality">-</span></p>
-
-            <!-- Distribución de Puntos Adicionales -->
-            <h3>Distribuir Puntos Adicionales</h3>
-            <p>Dispones de <span id="remaining-points">15</span> puntos adicionales para distribuir:</p>
-            <div class="stat">Fuerza: <input type="number" id="extra-strength" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
-            <div class="stat">Constitución: <input type="number" id="extra-constitution" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
-            <div class="stat">Destreza: <input type="number" id="extra-dexterity" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
-            <div class="stat">Sabiduría: <input type="number" id="extra-wisdom" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
-            <div class="stat">Determinación: <input type="number" id="extra-determination" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
         </div>
 
         <!-- Panel derecho: Vista previa -->
@@ -347,4 +353,3 @@ function calculateVitality(race) {
     </script>
 </body>
 </html>
-
