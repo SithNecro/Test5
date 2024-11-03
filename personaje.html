@@ -124,19 +124,14 @@
             </tr>
             <!-- Cuadros de Distribución de Puntos Adicionales -->
             <tr>
-                
-                  <td>  <input type="number" id="extra-strength" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
-                  <td>  <input type="number" id="extra-constitution" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
-                  <td>  <input type="number" id="extra-dexterity" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
-                  <td>  <input type="number" id="extra-wisdom" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
-                  <td>  <input type="number" id="extra-determination" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
-               
+                <td>  <input type="number" id="extra-strength" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
+                <td>  <input type="number" id="extra-constitution" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
+                <td>  <input type="number" id="extra-dexterity" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
+                <td>  <input type="number" id="extra-wisdom" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
+                <td>  <input type="number" id="extra-determination" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
             </tr>
                 </tbody>
             </table>
-
-            
-            
 
             <!-- Estadísticas Ajustadas -->
             <h3>Estadísticas Ajustadas</h3>
@@ -213,34 +208,34 @@
             document.getElementById("roll-values").style.display = advantage ? 'none' : 'table-row';
         }
 
-       // Generar las tiradas de atributos
-function generateRolls() {
-    // Generar 5 tiradas aleatorias entre 1 y 10
-    rolls = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
-    const advantage = document.getElementById("advantageOption").checked;
+        // Generar las tiradas de atributos
+        function generateRolls() {
+            // Generar 5 tiradas aleatorias entre 1 y 10
+            rolls = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
+            const advantage = document.getElementById("advantageOption").checked;
 
-    if (advantage) {
-        alert("Tiradas generadas: " + rolls.join(", ") + ". Asigna cada tirada a una estadística.");
-        showRollSelectors();
-        document.getElementById("roll-values").style.display = 'none'; // Oculta la tercera fila si está usando ventaja
-    } else {
-        applyRollsDirectly();
-        hideRollSelectors();
-        
-        // Muestra la tercera fila con valores aleatorios
-        document.getElementById("roll-values").style.display = 'table-row';
-        
-        // Asigna los valores de tiradas aleatorias a cada celda de la fila
-        document.getElementById("roll-strength").textContent = rolls[0];
-        document.getElementById("roll-constitution").textContent = rolls[1];
-        document.getElementById("roll-dexterity").textContent = rolls[2];
-        document.getElementById("roll-wisdom").textContent = rolls[3];
-        document.getElementById("roll-determination").textContent = rolls[4];
-    }
+            if (advantage) {
+                alert("Tiradas generadas: " + rolls.join(", ") + ". Asigna cada tirada a una estadística.");
+                showRollSelectors();
+                document.getElementById("roll-values").style.display = 'none'; // Oculta la tercera fila si está usando ventaja
+            } else {
+                applyRollsDirectly();
+                hideRollSelectors();
+                
+                // Muestra la tercera fila con valores aleatorios
+                document.getElementById("roll-values").style.display = 'table-row';
+                
+                // Asigna los valores de tiradas aleatorias a cada celda de la fila
+                document.getElementById("roll-strength").textContent = rolls[0];
+                document.getElementById("roll-constitution").textContent = rolls[1];
+                document.getElementById("roll-dexterity").textContent = rolls[2];
+                document.getElementById("roll-wisdom").textContent = rolls[3];
+                document.getElementById("roll-determination").textContent = rolls[4];
+            }
 
-    calculateVitality(document.getElementById("race").value);
-    updatePreview();
-}
+            calculateVitality(document.getElementById("race").value);
+            updatePreview();
+        }
 
         function showRollSelectors() {
             document.querySelectorAll('.roll-select').forEach((select, index) => {
@@ -273,8 +268,9 @@ function generateRolls() {
             ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
                 const baseValue = raceStats[document.getElementById("race").value][stat];
                 const selectedValue = parseInt(document.getElementById("select-" + stat).value) || 0;
-                finalStats[stat] = baseValue + selectedValue;
-                document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue}: ${finalStats[stat]}`;
+                const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
+                finalStats[stat] = baseValue + selectedValue + extraValue;
+                document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue} + ${extraValue}: ${finalStats[stat]}`;
             });
 
             updatePreview();
