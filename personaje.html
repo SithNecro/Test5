@@ -129,6 +129,7 @@
                 <td>  <input type="number" id="extra-dexterity" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
                 <td>  <input type="number" id="extra-wisdom" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
                 <td>  <input type="number" id="extra-determination" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
+                <td id="extra-vitality">-</td>
             </tr>
             <tr>
                 <td colspan="6" id="totallabel-points" style="text-align: center;"><strong>ESTADÍSTICAS TOTALES</strong></td>
@@ -292,7 +293,9 @@
                 const selectedValue = parseInt(document.getElementById("select-" + stat).value) || 0;
                 const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
                 finalStats[stat] = baseValue + selectedValue + extraValue;
-                document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue} + ${extraValue}: ${finalStats[stat]}`;
+                document.getElementById("final-" + stat).textContent = `${finalStats[stat]}`;
+
+                //document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue} + ${extraValue}: ${finalStats[stat]}`;
             });
 
             updatePreview();
