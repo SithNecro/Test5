@@ -103,14 +103,14 @@
                         <td id="base-vitality">-</td>
                     </tr>
                     <tr id="roll-selectors" style="display: none;">
-                        <td><select id="select-strength" class="roll-select" onchange="updateAdjustedStats()"></select></td>
-                        <td><select id="select-constitution" class="roll-select" onchange="updateAdjustedStats()"></select></td>
-                        <td><select id="select-dexterity" class="roll-select" onchange="updateAdjustedStats()"></select></td>
-                        <td><select id="select-wisdom" class="roll-select" onchange="updateAdjustedStats()"></select></td>
-                        <td><select id="select-determination" class="roll-select" onchange="updateAdjustedStats()"></select></td>
+                        <td><select id="select-strength" class="roll-select" onchange="updateAdjustedStats()"><option value="">FUE</option></select></td>
+                        <td><select id="select-constitution" class="roll-select" onchange="updateAdjustedStats()"><option value="">CON</option></select></td>
+                        <td><select id="select-dexterity" class="roll-select" onchange="updateAdjustedStats()"><option value="">DES</option></select></td>
+                        <td><select id="select-wisdom" class="roll-select" onchange="updateAdjustedStats()"><option value="">SAB</option></select></td>
+                        <td><select id="select-determination" class="roll-select" onchange="updateAdjustedStats()"><option value="">DET</option></select></td>
                         <td>-</td>
                     </tr>
-                    <tr id="roll-values" style="display: none;">
+                    <tr id="roll-values">
                         <td id="roll-strength">-</td>
                         <td id="roll-constitution">-</td>
                         <td id="roll-dexterity">-</td>
@@ -157,6 +157,7 @@
     </div>
 
     <script>
+        // Datos base de cada raza con sus estadísticas iniciales
         const raceStats = {
             "Enano": { strength: 40, constitution: 30, dexterity: 25, wisdom: 25, determination: 30, vitality: "1d6+6" },
             "Elfo": { strength: 25, constitution: 20, dexterity: 40, wisdom: 35, determination: 30, vitality: "1d6+8" },
@@ -166,14 +167,16 @@
             "Pato": { strength: 25, constitution: 25, dexterity: 30, wisdom: 30, determination: 40, vitality: "1d6+6" }
         };
 
-        let finalStats = {};
-        let rolls = [];
-        let remainingPoints = 15;
+        let finalStats = {}; // Objeto para almacenar las estadísticas finales del personaje
+        let rolls = []; // Array para almacenar las tiradas de estadísticas
+        let remainingPoints = 15; // Puntos adicionales para distribuir en las estadísticas
 
+        // Cargar las estadísticas base al seleccionar una raza
         function loadBaseStats() {
             const race = document.getElementById("race").value;
             const stats = raceStats[race];
 
+            // Actualizar las estadísticas base y ajustadas para cada atributo
             for (let [key, value] of Object.entries(stats)) {
                 finalStats[key] = value;
                 if (key === 'vitality') {
@@ -190,7 +193,9 @@
             updatePreview();
         }
 
+        // Función para realizar una tirada de dados
         function rollDice(dice) {
+            // Extraer número de dados, lados y bono del string (ej. "1d6+6")
             const [num, sides, bonus] = dice.match(/\d+/g).map(Number);
             let sum = bonus || 0;
             for (let i = 0; i < num; i++) {
@@ -199,13 +204,16 @@
             return sum;
         }
 
+        // Mostrar u ocultar los desplegables de tiradas según si está marcada la opción ventajosa
         function toggleAdvantage() {
             const advantage = document.getElementById("advantageOption").checked;
             document.getElementById("roll-selectors").style.display = advantage ? 'table-row' : 'none';
             document.getElementById("roll-values").style.display = advantage ? 'none' : 'table-row';
         }
 
+        // Generar las tiradas de atributos
         function generateRolls() {
+            // Generar 5 tiradas aleatorias entre 1 y 10
             rolls = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
             const advantage = document.getElementById("advantageOption").checked;
 
@@ -221,17 +229,20 @@
             updatePreview();
         }
 
+        // Mostrar los desplegables para asignar tiradas manualmente
         function showRollSelectors() {
             document.querySelectorAll('.roll-select').forEach((select, index) => {
                 select.style.display = 'inline';
-                select.innerHTML = '<option value="">-- Seleccionar --</option>' + rolls.map(roll => `<option value="${roll}" class="available">${roll}</option>`).join('');
+                select.innerHTML = '<option value="">' + select.id.split('-')[1].toUpperCase().substring(0, 3) + '</option>' + rolls.map(roll => `<option value="${roll}" class="available">${roll}</option>`).join('');
             });
         }
 
+        // Ocultar los desplegables si no está marcada la opción ventajosa
         function hideRollSelectors() {
             document.querySelectorAll('.roll-select').forEach(select => select.style.display = 'none');
         }
 
+        // Actualizar las estadísticas ajustadas según las tiradas seleccionadas
         function updateAdjustedStats() {
             let selectedValues = {};
             document.querySelectorAll('.roll-select').forEach(select => {
@@ -241,6 +252,7 @@
                 }
             });
 
+            // Marcar las opciones seleccionadas como no disponibles para evitar duplicados
             document.querySelectorAll('.roll-select').forEach(select => {
                 const selectedValue = parseInt(select.value);
                 select.querySelectorAll("option").forEach(option => {
@@ -249,6 +261,7 @@
                 });
             });
 
+            // Actualizar las estadísticas finales
             ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
                 const baseValue = raceStats[document.getElementById("race").value][stat];
                 const selectedValue = parseInt(document.getElementById("select-" + stat).value) || 0;
@@ -259,6 +272,7 @@
             updatePreview();
         }
 
+        // Aplicar las tiradas directamente a las estadísticas si no hay ventaja
         function applyRollsDirectly() {
             ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach((stat, i) => {
                 const baseValue = raceStats[document.getElementById("race").value][stat];
@@ -269,6 +283,7 @@
             updatePreview();
         }
 
+        // Actualizar los puntos adicionales distribuidos por el usuario
         function updateExtraPoints() {
             let totalExtraPoints =
                 parseInt(document.getElementById("extra-strength").value) +
@@ -290,12 +305,14 @@
                 const selectedValue = parseInt(document.getElementById("select-" + stat).value) || 0;
                 const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
                 finalStats[stat] = baseValue + selectedValue + extraValue;
-                document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue} + ${extraValue}: ${finalStats[stat]}`;
+                document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue} + ${extraValue}: ${finalStats[stat
+                }`;
             });
 
             updatePreview();
         }
 
+        // Actualizar la vista previa del personaje
         function updatePreview() {
             document.getElementById("preview-race").textContent = document.getElementById("race").value;
             ["strength", "constitution", "dexterity", "wisdom", "determination", "vitality"].forEach(stat => {
@@ -303,9 +320,17 @@
             });
         }
 
-        // Cargar estadísticas base al inicio
+        // Calcular la vitalidad del personaje en función de la raza
+        function calculateVitality(race) {
+            const vitalityStat = raceStats[race].vitality;
+            const vitalityValue = rollDice(vitalityStat);
+            finalStats["vitality"] = vitalityValue;
+            document.getElementById("final-vitality").textContent = vitalityValue;
+            document.getElementById("roll-vitality").textContent = vitalityValue;
+        }
+
+        // Ejecutar la carga inicial de estadísticas base cuando la página se carga
         window.onload = loadBaseStats;
     </script>
 </body>
 </html>
- 
