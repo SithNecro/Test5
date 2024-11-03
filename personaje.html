@@ -67,11 +67,11 @@
 
             <!-- Atributos Base -->
             <h3>Estadísticas Base</h3>
-            <p>Fuerza: <span id="base-strength">-</span> <select id="select-strength" class="roll-select" style="display:none"></select></p>
-            <p>Constitución: <span id="base-constitution">-</span> <select id="select-constitution" class="roll-select" style="display:none"></select></p>
-            <p>Destreza: <span id="base-dexterity">-</span> <select id="select-dexterity" class="roll-select" style="display:none"></select></p>
-            <p>Sabiduría: <span id="base-wisdom">-</span> <select id="select-wisdom" class="roll-select" style="display:none"></select></p>
-            <p>Determinación: <span id="base-determination">-</span> <select id="select-determination" class="roll-select" style="display:none"></select></p>
+            <p>Fuerza: <span id="base-strength">-</span> <select id="select-strength" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
+            <p>Constitución: <span id="base-constitution">-</span> <select id="select-constitution" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
+            <p>Destreza: <span id="base-dexterity">-</span> <select id="select-dexterity" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
+            <p>Sabiduría: <span id="base-wisdom">-</span> <select id="select-wisdom" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
+            <p>Determinación: <span id="base-determination">-</span> <select id="select-determination" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
             <p>Vitalidad: <span id="base-vitality">-</span></p>
 
             <!-- Estadísticas Ajustadas -->
@@ -161,18 +161,27 @@
             document.querySelectorAll('.roll-select').forEach(select => {
                 select.style.display = 'inline';
                 select.innerHTML = '<option value="">-- Seleccionar --</option>' + rolls.map(roll => `<option value="${roll}">${roll}</option>`).join('');
-                select.onchange = validateSelections;
+                select.onchange = updateAdjustedStats;
             });
         }
 
-        function validateSelections() {
-            let selectedValues = Array.from(document.querySelectorAll('.roll-select')).map(select => select.value);
-            let uniqueValues = new Set(selectedValues.filter(v => v));
-            if (uniqueValues.size === rolls.length) applyRollSelections();
-        }
+        function updateAdjustedStats() {
+            let selectedValues = Array.from(document.querySelectorAll('.roll-select')).map(select => parseInt(select.value));
+            selectedValues = selectedValues.filter(v => !isNaN(v)); // Eliminar opciones vacías
 
-        function applyRollSelections() {
-            // Aplicar las selecciones de los desplegables a cada estadística
+            // Eliminar opciones seleccionadas de otros desplegables
+            document.querySelectorAll('.roll-select').forEach(select => {
+                let selectedValue = parseInt(select.value);
+                select.querySelectorAll("option").forEach(option => {
+                    if (selectedValues.includes(parseInt(option.value)) && parseInt(option.value) !== selectedValue) {
+                        option.disabled = true;
+                    } else {
+                        option.disabled = false;
+                    }
+                });
+            });
+
+            // Actualizar estadísticas ajustadas y vista previa
             finalStats.strength = raceStats[document.getElementById("race").value].strength + parseInt(document.getElementById("select-strength").value || 0);
             finalStats.constitution = raceStats[document.getElementById("race").value].constitution + parseInt(document.getElementById("select-constitution").value || 0);
             finalStats.dexterity = raceStats[document.getElementById("race").value].dexterity + parseInt(document.getElementById("select-dexterity").value || 0);
@@ -184,7 +193,6 @@
         }
 
         function applyRollsDirectly() {
-            // Aplicar las tiradas en orden a las estadísticas
             finalStats.strength += rolls[0];
             finalStats.constitution += rolls[1];
             finalStats.dexterity += rolls[2];
@@ -214,7 +222,5 @@
             document.getElementById("preview-vitality").textContent = finalStats.vitality;
         }
     </script>
-    v1
 </body>
 </html>
- 
