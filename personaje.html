@@ -327,14 +327,7 @@ function showRollSelectors() {
         wisdom: "SAB",
         determination: "DET"
     };
-    // Calcular la vitalidad del personaje en función de la raza
-    function calculateVitality(race) {
-            const vitalityStat = raceStats[race].vitality;
-            const vitalityValue = rollDice(vitalityStat);
-            finalStats["vitality"] = vitalityValue;
-            document.getElementById("final-vitality").textContent = vitalityValue;
-            document.getElementById("roll-vitality").textContent = vitalityValue;
-        }
+    
     document.querySelectorAll('.roll-select').forEach((select, index) => {
         const stat = select.id.split('-')[1]; // Obtiene el nombre del atributo
         const abbreviation = abbreviations[stat]; // Obtiene la abreviatura correspondiente
@@ -343,6 +336,14 @@ function showRollSelectors() {
             rolls.map(roll => `<option value="${roll}" class="available">${roll}</option>`).join('');
     });
 }
+// Calcular la vitalidad del personaje en función de la raza
+function calculateVitality(race) {
+            const vitalityStat = raceStats[race].vitality;
+            const vitalityValue = rollDice(vitalityStat);
+            finalStats["vitality"] = vitalityValue;
+            document.getElementById("final-vitality").textContent = vitalityValue;
+            document.getElementById("roll-vitality").textContent = vitalityValue;
+        }
     </script>
 </body>
 </html>
