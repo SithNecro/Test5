@@ -309,7 +309,8 @@
             ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach((stat, i) => {
                 const baseValue = raceStats[document.getElementById("race").value][stat];
                 finalStats[stat] = baseValue + rolls[i];
-                document.getElementById("final-" + stat).textContent = `${baseValue} + ${rolls[i]}: ${finalStats[stat]}`;
+                document.getElementById("final-" + stat).textContent = `${finalStats[stat]}`;
+                //document.getElementById("final-" + stat).textContent = `${baseValue} + ${rolls[i]}: ${finalStats[stat]}`;
                 document.getElementById("roll-" + stat).textContent = rolls[i];
             });
             updatePreview();
