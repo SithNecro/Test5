@@ -213,7 +213,11 @@
             // Generar 5 tiradas aleatorias entre 1 y 10
             rolls = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
             const advantage = document.getElementById("advantageOption").checked;
-
+            document.getElementById("extra-strength").value = 0;
+                document.getElementById("extra-constitution").value = 0;
+                document.getElementById("extra-dexterity").value = 0;
+                document.getElementById("extra-wisdom").value = 0;
+                document.getElementById("extra-determination").value = 0;
             if (advantage) {
                 alert("Tiradas generadas: " + rolls.join(", ") + ". Asigna cada tirada a una estadística.");
                 showRollSelectors();
@@ -231,6 +235,8 @@
                 document.getElementById("roll-dexterity").textContent = rolls[2];
                 document.getElementById("roll-wisdom").textContent = rolls[3];
                 document.getElementById("roll-determination").textContent = rolls[4];
+
+               
             }
 
             calculateVitality(document.getElementById("race").value);
