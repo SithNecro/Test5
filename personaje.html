@@ -40,6 +40,12 @@
             border: 1px solid #ccc;
             background-color: #f9f9f9;
         }
+        .roll-select option.available {
+            color: green;
+        }
+        .roll-select option.unavailable {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -67,11 +73,11 @@
 
             <!-- Atributos Base -->
             <h3>Estadísticas Base</h3>
-            <p>Fuerza: <span id="base-strength">-</span> <select id="select-strength" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
-            <p>Constitución: <span id="base-constitution">-</span> <select id="select-constitution" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
-            <p>Destreza: <span id="base-dexterity">-</span> <select id="select-dexterity" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
-            <p>Sabiduría: <span id="base-wisdom">-</span> <select id="select-wisdom" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
-            <p>Determinación: <span id="base-determination">-</span> <select id="select-determination" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
+            <p>Fuerza: <span id="base-strength">-</span></p>
+            <p>Constitución: <span id="base-constitution">-</span></p>
+            <p>Destreza: <span id="base-dexterity">-</span></p>
+            <p>Sabiduría: <span id="base-wisdom">-</span></p>
+            <p>Determinación: <span id="base-determination">-</span></p>
             <p>Vitalidad: <span id="base-vitality">-</span></p>
 
             <!-- Estadísticas Ajustadas -->
@@ -119,7 +125,7 @@
 
             for (let [key, value] of Object.entries(stats)) {
                 finalStats[key] = value;
-                document.getElementById("base-" + key).textContent = value;
+                document.getElementById("base-" + key).textContent = (key === 'vitality') ? `VIT ${value}=${rollDice(value)}` : value;
                 document.getElementById("final-" + key).textContent = value;
             }
 
@@ -137,9 +143,11 @@
         }
 
         function calculateVitality(race) {
-            finalStats.vitality = rollDice(raceStats[race].vitality);
-            document.getElementById("final-vitality").textContent = finalStats.vitality;
-            document.getElementById("base-vitality").textContent = finalStats.vitality;
+            const baseVitality = raceStats[race].vitality;
+            const vitalityRoll = rollDice(baseVitality);
+            finalStats.vitality = vitalityRoll;
+            document.getElementById("base-vitality").textContent = `VIT ${baseVitality}=${vitalityRoll}`;
+            document.getElementById("final-vitality").textContent = `Vitalidad ${vitalityRoll}`;
         }
 
         function generateRolls() {
@@ -161,7 +169,7 @@
         function showRollSelectors() {
             document.querySelectorAll('.roll-select').forEach(select => {
                 select.style.display = 'inline';
-                select.innerHTML = '<option value="">-- Seleccionar --</option>' + rolls.map(roll => `<option value="${roll}">${roll}</option>`).join('');
+                select.innerHTML = '<option value="">-- Seleccionar --</option>' + rolls.map(roll => `<option value="${roll}" class="available">${roll}</option>`).join('');
             });
         }
 
@@ -182,11 +190,7 @@
                 const selectedValue = parseInt(select.value);
                 select.querySelectorAll("option").forEach(option => {
                     const optionValue = parseInt(option.value);
-                    if (optionValue && selectedValues[optionValue] >= rolls.filter(r => r === optionValue).length && optionValue !== selectedValue) {
-                        option.disabled = true;
-                    } else {
-                        option.disabled = false;
-                    }
+                    option.className = (optionValue && selectedValues[optionValue] >= rolls.filter(r => r === optionValue).length && optionValue !== selectedValue) ? 'unavailable' : 'available';
                 });
             });
 
