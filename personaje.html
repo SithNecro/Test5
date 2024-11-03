@@ -324,7 +324,14 @@
         function hideRollSelectors() {
             document.querySelectorAll('.roll-select').forEach(select => select.style.display = 'none');
         }
-
+// Calcular la vitalidad del personaje en función de la raza
+function calculateVitality(race) {
+            const vitalityStat = raceStats[race].vitality;
+            const vitalityValue = rollDice(vitalityStat);
+            finalStats["vitality"] = vitalityValue;
+            document.getElementById("final-vitality").textContent = vitalityValue;
+            document.getElementById("roll-vitality").textContent = vitalityValue;
+        }
         function updateAdjustedStats() {
             let selectedValues = {};
             document.querySelectorAll('.roll-select').forEach(select => {
@@ -463,16 +470,7 @@
 
         window.onload = loadBaseStats;
 
-          // Mostrar los desplegables para asignar tiradas manualmente
-function showRollSelectors() {
-    const abbreviations = {
-        strength: "FUE",
-        constitution: "CON",
-        dexterity: "DES",
-        wisdom: "SAB",
-        determination: "DET"
-    };
-}
+        
     </script>
 </body>
 </html>
