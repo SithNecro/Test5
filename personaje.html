@@ -220,7 +220,7 @@
                 document.getElementById("extra-dexterity").value = 0;
                 document.getElementById("extra-wisdom").value = 0;
                 document.getElementById("extra-determination").value = 0;
-                document.getElementById("extra-determination").innerText = "Distribuye 15 puntos adicionales";
+                document.getElementById("remaining-points").innerText = "Distribuye 15 puntos adicionales";
 
             if (advantage) {
                 alert("Tiradas generadas: " + rolls.join(", ") + ". Asigna cada tirada a una estadística.");
@@ -238,7 +238,7 @@
                 document.getElementById("roll-constitution").textContent = rolls[1];
                 document.getElementById("roll-dexterity").textContent = rolls[2];
                 document.getElementById("roll-wisdom").textContent = rolls[3];
-                document.getElementById("remaining-points").textContent = rolls[4];
+                document.getElementById("roll-determination").textContent = rolls[4];
 
                
             }
