@@ -116,7 +116,7 @@
                         <td id="roll-dexterity">-</td>
                         <td id="roll-wisdom">-</td>
                         <td id="roll-determination">-</td>
-                        <td id="roll-vitality">-</td>
+                        <td id="roll-vitality-2">-</td>
                     </tr>
                     <!-- Texto de Distribución de Puntos Adicionales -->
             <tr>
@@ -213,6 +213,7 @@
                 sum += Math.floor(Math.random() * sides) + 1;
             }
             document.getElementById("roll-vitality").textContent = sum;
+            document.getElementById("roll-vitality-2").textContent = sum;
             sum = sum + bonus;
             
             return sum;
