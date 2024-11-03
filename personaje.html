@@ -73,11 +73,11 @@
 
             <!-- Atributos Base -->
             <h3>Estadísticas Base</h3>
-            <p>Fuerza: <span id="base-strength">-</span></p>
-            <p>Constitución: <span id="base-constitution">-</span></p>
-            <p>Destreza: <span id="base-dexterity">-</span></p>
-            <p>Sabiduría: <span id="base-wisdom">-</span></p>
-            <p>Determinación: <span id="base-determination">-</span></p>
+            <p>Fuerza: <span id="base-strength">-</span> <select id="select-strength" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
+            <p>Constitución: <span id="base-constitution">-</span> <select id="select-constitution" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
+            <p>Destreza: <span id="base-dexterity">-</span> <select id="select-dexterity" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
+            <p>Sabiduría: <span id="base-wisdom">-</span> <select id="select-wisdom" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
+            <p>Determinación: <span id="base-determination">-</span> <select id="select-determination" class="roll-select" style="display:none" onchange="updateAdjustedStats()"></select></p>
             <p>Vitalidad: <span id="base-vitality">-</span></p>
 
             <!-- Estadísticas Ajustadas -->
@@ -89,25 +89,14 @@
             <p>Determinación: <span id="final-determination">-</span></p>
             <p>Vitalidad: <span id="final-vitality">-</span></p>
 
-            <!-- Desplegables para distribución de tiradas -->
-            <div id="rollSelectors" style="display: none;">
-                <h3>Asignación de Tiradas</h3>
-                <div class="stat">Fuerza: 
-                    <select id="select-strength" class="roll-select" onchange="updateAdjustedStats()"></select>
-                </div>
-                <div class="stat">Constitución: 
-                    <select id="select-constitution" class="roll-select" onchange="updateAdjustedStats()"></select>
-                </div>
-                <div class="stat">Destreza: 
-                    <select id="select-dexterity" class="roll-select" onchange="updateAdjustedStats()"></select>
-                </div>
-                <div class="stat">Sabiduría: 
-                    <select id="select-wisdom" class="roll-select" onchange="updateAdjustedStats()"></select>
-                </div>
-                <div class="stat">Determinación: 
-                    <select id="select-determination" class="roll-select" onchange="updateAdjustedStats()"></select>
-                </div>
-            </div>
+            <!-- Distribución de Puntos Adicionales -->
+            <h3>Distribuir Puntos Adicionales</h3>
+            <p>Dispones de <span id="remaining-points">15</span> puntos adicionales para distribuir:</p>
+            <div class="stat">Fuerza: <input type="number" id="extra-strength" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
+            <div class="stat">Constitución: <input type="number" id="extra-constitution" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
+            <div class="stat">Destreza: <input type="number" id="extra-dexterity" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
+            <div class="stat">Sabiduría: <input type="number" id="extra-wisdom" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
+            <div class="stat">Determinación: <input type="number" id="extra-determination" value="0" min="0" max="10" onchange="updateExtraPoints()"></div>
         </div>
 
         <!-- Panel derecho: Vista previa -->
@@ -138,6 +127,7 @@
 
         let finalStats = {};
         let rolls = [];
+        let remainingPoints = 15;
 
         function loadBaseStats() {
             const race = document.getElementById("race").value;
@@ -193,14 +183,14 @@
         }
 
         function showRollSelectors() {
-            document.getElementById("rollSelectors").style.display = 'block';
             document.querySelectorAll('.roll-select').forEach(select => {
+                select.style.display = 'inline';
                 select.innerHTML = '<option value="">-- Seleccionar --</option>' + rolls.map(roll => `<option value="${roll}" class="available">${roll}</option>`).join('');
             });
         }
 
         function hideRollSelectors() {
-            document.getElementById("rollSelectors").style.display = 'none';
+            document.querySelectorAll('.roll-select').forEach(select => select.style.display = 'none');
         }
 
         function updateAdjustedStats() {
@@ -236,6 +226,33 @@
                 finalStats[stat] = baseValue + rolls[i];
                 document.getElementById("final-" + stat).textContent = `${baseValue} + ${rolls[i]}: ${finalStats[stat]}`;
             });
+            updatePreview();
+        }
+
+        function updateExtraPoints() {
+            let totalExtraPoints =
+                parseInt(document.getElementById("extra-strength").value) +
+                parseInt(document.getElementById("extra-constitution").value) +
+                parseInt(document.getElementById("extra-dexterity").value) +
+                parseInt(document.getElementById("extra-wisdom").value) +
+                parseInt(document.getElementById("extra-determination").value);
+
+            if (totalExtraPoints > 15) {
+                alert("No puedes asignar más de 15 puntos en total.");
+                return;
+            }
+
+            remainingPoints = 15 - totalExtraPoints;
+            document.getElementById("remaining-points").textContent = remainingPoints;
+
+            ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
+                const baseValue = raceStats[document.getElementById("race").value][stat];
+                const selectedValue = parseInt(document.getElementById("select-" + stat).value) || 0;
+                const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
+                finalStats[stat] = baseValue + selectedValue + extraValue;
+                document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue} + ${extraValue}: ${finalStats[stat]}`;
+            });
+
             updatePreview();
         }
 
