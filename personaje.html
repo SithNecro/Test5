@@ -488,6 +488,35 @@ function showRollSelectors() {
             rolls.map(roll => `<option value="${roll}" class="available">${roll}</option>`).join('');
     });
 } 
+
+const classModifiers = {
+            "Alquimista": { HC: -5, HD: -5, ESQ: -10, FC: -20, AA: "N/A", TRU: 0, CU: 5, ALQ: 10, PER: -10, MANA: "N/A", SUP: -20, BD: 0, AN: "N/A", ENR: 0 },
+            // Agrega aquí más clases con sus respectivos modificadores si es necesario.
+        };
+
+        function updateClassStats() {
+            const selectedClass = document.getElementById("class").value;
+            document.getElementById("preview-class").textContent = selectedClass;
+
+            // Obtener los modificadores de la clase seleccionada
+            const modifiers = classModifiers[selectedClass] || {};
+
+            // Asignar los valores a los campos correspondientes
+            ["HC", "HD", "ESQ", "FC", "AA", "TRU", "CU", "ALQ", "PER", "MANA", "SUP", "BD", "AN", "ENR"].forEach(stat => {
+                let finalValue;
+
+                if (modifiers[stat] === "N/A") {
+                    finalValue = "-";
+                } else {
+                    const baseValue = finalStats[stat] || 0;
+                    finalValue = baseValue + (modifiers[stat] || 0);
+                }
+
+                document.getElementById("preview-" + stat).textContent = finalValue;
+            });
+        }
+
+
     </script>
 </body>
 </html>
