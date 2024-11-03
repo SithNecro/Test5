@@ -151,6 +151,7 @@
                 showRollSelectors();
             } else {
                 applyRollsDirectly();
+                hideRollSelectors();
             }
 
             calculateVitality(document.getElementById("race").value);
@@ -161,19 +162,27 @@
             document.querySelectorAll('.roll-select').forEach(select => {
                 select.style.display = 'inline';
                 select.innerHTML = '<option value="">-- Seleccionar --</option>' + rolls.map(roll => `<option value="${roll}">${roll}</option>`).join('');
-                select.onchange = updateAdjustedStats;
             });
         }
 
-        function updateAdjustedStats() {
-            let selectedValues = Array.from(document.querySelectorAll('.roll-select')).map(select => parseInt(select.value));
-            selectedValues = selectedValues.filter(v => !isNaN(v)); // Eliminar opciones vacías
+        function hideRollSelectors() {
+            document.querySelectorAll('.roll-select').forEach(select => select.style.display = 'none');
+        }
 
-            // Eliminar opciones seleccionadas de otros desplegables
+        function updateAdjustedStats() {
+            let selectedValues = {};
             document.querySelectorAll('.roll-select').forEach(select => {
-                let selectedValue = parseInt(select.value);
+                const value = parseInt(select.value);
+                if (!isNaN(value)) {
+                    selectedValues[value] = (selectedValues[value] || 0) + 1;
+                }
+            });
+
+            document.querySelectorAll('.roll-select').forEach(select => {
+                const selectedValue = parseInt(select.value);
                 select.querySelectorAll("option").forEach(option => {
-                    if (selectedValues.includes(parseInt(option.value)) && parseInt(option.value) !== selectedValue) {
+                    const optionValue = parseInt(option.value);
+                    if (optionValue && selectedValues[optionValue] >= rolls.filter(r => r === optionValue).length && optionValue !== selectedValue) {
                         option.disabled = true;
                     } else {
                         option.disabled = false;
@@ -181,46 +190,34 @@
                 });
             });
 
-            // Actualizar estadísticas ajustadas y vista previa
-            finalStats.strength = raceStats[document.getElementById("race").value].strength + parseInt(document.getElementById("select-strength").value || 0);
-            finalStats.constitution = raceStats[document.getElementById("race").value].constitution + parseInt(document.getElementById("select-constitution").value || 0);
-            finalStats.dexterity = raceStats[document.getElementById("race").value].dexterity + parseInt(document.getElementById("select-dexterity").value || 0);
-            finalStats.wisdom = raceStats[document.getElementById("race").value].wisdom + parseInt(document.getElementById("select-wisdom").value || 0);
-            finalStats.determination = raceStats[document.getElementById("race").value].determination + parseInt(document.getElementById("select-determination").value || 0);
+            ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
+                const baseValue = raceStats[document.getElementById("race").value][stat];
+                const selectedValue = parseInt(document.getElementById("select-" + stat).value) || 0;
+                finalStats[stat] = baseValue + selectedValue;
+                document.getElementById("final-" + stat).textContent = `${baseValue} + ${selectedValue}: ${finalStats[stat]}`;
+            });
 
-            updateFinalStatsDisplay();
             updatePreview();
         }
 
         function applyRollsDirectly() {
-            finalStats.strength += rolls[0];
-            finalStats.constitution += rolls[1];
-            finalStats.dexterity += rolls[2];
-            finalStats.wisdom += rolls[3];
-            finalStats.determination += rolls[4];
-
-            updateFinalStatsDisplay();
+            ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach((stat, i) => {
+                const baseValue = raceStats[document.getElementById("race").value][stat];
+                finalStats[stat] = baseValue + rolls[i];
+                document.getElementById("final-" + stat).textContent = `${baseValue} + ${rolls[i]}: ${finalStats[stat]}`;
+            });
             updatePreview();
-        }
-
-        function updateFinalStatsDisplay() {
-            document.getElementById("final-strength").textContent = finalStats.strength;
-            document.getElementById("final-constitution").textContent = finalStats.constitution;
-            document.getElementById("final-dexterity").textContent = finalStats.dexterity;
-            document.getElementById("final-wisdom").textContent = finalStats.wisdom;
-            document.getElementById("final-determination").textContent = finalStats.determination;
-            document.getElementById("final-vitality").textContent = finalStats.vitality;
         }
 
         function updatePreview() {
             document.getElementById("preview-race").textContent = document.getElementById("race").value;
-            document.getElementById("preview-strength").textContent = finalStats.strength;
-            document.getElementById("preview-constitution").textContent = finalStats.constitution;
-            document.getElementById("preview-dexterity").textContent = finalStats.dexterity;
-            document.getElementById("preview-wisdom").textContent = finalStats.wisdom;
-            document.getElementById("preview-determination").textContent = finalStats.determination;
-            document.getElementById("preview-vitality").textContent = finalStats.vitality;
+            ["strength", "constitution", "dexterity", "wisdom", "determination", "vitality"].forEach(stat => {
+                document.getElementById("preview-" + stat).textContent = finalStats[stat];
+            });
         }
+
+        // Cargar estadísticas base al inicio
+        window.onload = loadBaseStats;
     </script>
 </body>
 </html>
