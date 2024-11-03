@@ -67,11 +67,11 @@
 
             <!-- Atributos Base -->
             <h3>Estadísticas Base</h3>
-            <p>Fuerza: <span id="base-strength">-</span></p>
-            <p>Constitución: <span id="base-constitution">-</span></p>
-            <p>Destreza: <span id="base-dexterity">-</span></p>
-            <p>Sabiduría: <span id="base-wisdom">-</span></p>
-            <p>Determinación: <span id="base-determination">-</span></p>
+            <p>Fuerza: <span id="base-strength">-</span> <select id="select-strength" class="roll-select" style="display:none"></select></p>
+            <p>Constitución: <span id="base-constitution">-</span> <select id="select-constitution" class="roll-select" style="display:none"></select></p>
+            <p>Destreza: <span id="base-dexterity">-</span> <select id="select-dexterity" class="roll-select" style="display:none"></select></p>
+            <p>Sabiduría: <span id="base-wisdom">-</span> <select id="select-wisdom" class="roll-select" style="display:none"></select></p>
+            <p>Determinación: <span id="base-determination">-</span> <select id="select-determination" class="roll-select" style="display:none"></select></p>
             <p>Vitalidad: <span id="base-vitality">-</span></p>
 
             <!-- Estadísticas Ajustadas -->
@@ -82,15 +82,6 @@
             <p>Sabiduría: <span id="final-wisdom">-</span></p>
             <p>Determinación: <span id="final-determination">-</span></p>
             <p>Vitalidad: <span id="final-vitality">-</span></p>
-
-            <h3>Puntos Adicionales</h3>
-            <p>Distribuye 15 puntos extra (máx 10 por atributo)</p>
-            <input type="number" id="extra-strength" placeholder="Fuerza" max="10">
-            <input type="number" id="extra-constitution" placeholder="Constitución" max="10">
-            <input type="number" id="extra-dexterity" placeholder="Destreza" max="10">
-            <input type="number" id="extra-wisdom" placeholder="Sabiduría" max="10">
-            <input type="number" id="extra-determination" placeholder="Determinación" max="10">
-            <button onclick="applyExtraPoints()">Aplicar Puntos Adicionales</button>
         </div>
 
         <!-- Panel derecho: Vista previa -->
@@ -120,11 +111,12 @@
         };
 
         let finalStats = {};
+        let rolls = [];
 
         function loadBaseStats() {
             const race = document.getElementById("race").value;
             const stats = raceStats[race];
-            
+
             for (let [key, value] of Object.entries(stats)) {
                 finalStats[key] = value;
                 document.getElementById("base-" + key).textContent = value;
@@ -147,48 +139,69 @@
         function calculateVitality(race) {
             finalStats.vitality = rollDice(raceStats[race].vitality);
             document.getElementById("final-vitality").textContent = finalStats.vitality;
+            document.getElementById("base-vitality").textContent = finalStats.vitality;
         }
 
         function generateRolls() {
+            rolls = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
             const advantage = document.getElementById("advantageOption").checked;
-            const rolls = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
 
-            if (!advantage) {
-                ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach((stat, i) => {
-                    finalStats[stat] = raceStats[document.getElementById("race").value][stat] + rolls[i];
-                    document.getElementById("final-" + stat).textContent = finalStats[stat];
-                });
+            if (advantage) {
+                alert("Tiradas generadas: " + rolls.join(", ") + ". Asigna cada tirada a una estadística.");
+                showRollSelectors();
             } else {
-                alert("Tiradas generadas: " + rolls.join(", ") + ". Ahora asigna las tiradas manualmente.");
+                applyRollsDirectly();
             }
+
+            calculateVitality(document.getElementById("race").value);
             updatePreview();
         }
 
-        function applyExtraPoints() {
-            const extraStats = ["strength", "constitution", "dexterity", "wisdom", "determination"];
-            let totalPoints = 0;
-            for (let stat of extraStats) {
-                const value = parseInt(document.getElementById("extra-" + stat).value) || 0;
-                if (value > 10) {
-                    alert("No puedes asignar más de 10 puntos a " + stat.charAt(0).toUpperCase() + stat.slice(1));
-                    return;
-                }
-                totalPoints += value;
-            }
-            
-            if (totalPoints > 15) {
-                alert("No puedes asignar más de 15 puntos en total.");
-                return;
-            }
+        function showRollSelectors() {
+            document.querySelectorAll('.roll-select').forEach(select => {
+                select.style.display = 'inline';
+                select.innerHTML = '<option value="">-- Seleccionar --</option>' + rolls.map(roll => `<option value="${roll}">${roll}</option>`).join('');
+                select.onchange = validateSelections;
+            });
+        }
 
-            // Aplicar los puntos extra
-            for (let stat of extraStats) {
-                const value = parseInt(document.getElementById("extra-" + stat).value) || 0;
-                finalStats[stat] += value;
-                document.getElementById("final-" + stat).textContent = finalStats[stat];
-            }
+        function validateSelections() {
+            let selectedValues = Array.from(document.querySelectorAll('.roll-select')).map(select => select.value);
+            let uniqueValues = new Set(selectedValues.filter(v => v));
+            if (uniqueValues.size === rolls.length) applyRollSelections();
+        }
 
+        function applyRollSelections() {
+            // Aplicar las selecciones de los desplegables a cada estadística
+            finalStats.strength = raceStats[document.getElementById("race").value].strength + parseInt(document.getElementById("select-strength").value || 0);
+            finalStats.constitution = raceStats[document.getElementById("race").value].constitution + parseInt(document.getElementById("select-constitution").value || 0);
+            finalStats.dexterity = raceStats[document.getElementById("race").value].dexterity + parseInt(document.getElementById("select-dexterity").value || 0);
+            finalStats.wisdom = raceStats[document.getElementById("race").value].wisdom + parseInt(document.getElementById("select-wisdom").value || 0);
+            finalStats.determination = raceStats[document.getElementById("race").value].determination + parseInt(document.getElementById("select-determination").value || 0);
+
+            updateFinalStatsDisplay();
             updatePreview();
+        }
+
+        function applyRollsDirectly() {
+            // Aplicar las tiradas en orden a las estadísticas
+            finalStats.strength += rolls[0];
+            finalStats.constitution += rolls[1];
+            finalStats.dexterity += rolls[2];
+            finalStats.wisdom += rolls[3];
+            finalStats.determination += rolls[4];
+
+            updateFinalStatsDisplay();
+            updatePreview();
+        }
+
+        function updateFinalStatsDisplay() {
+            document.getElementById("final-strength").textContent = finalStats.strength;
+            document.getElementById("final-constitution").textContent = finalStats.constitution;
+            document.getElementById("final-dexterity").textContent = finalStats.dexterity;
+            document.getElementById("final-wisdom").textContent = finalStats.wisdom;
+            document.getElementById("final-determination").textContent = finalStats.determination;
+            document.getElementById("final-vitality").textContent = finalStats.vitality;
         }
 
         function updatePreview() {
@@ -201,5 +214,7 @@
             document.getElementById("preview-vitality").textContent = finalStats.vitality;
         }
     </script>
+    v1
 </body>
 </html>
+ 
