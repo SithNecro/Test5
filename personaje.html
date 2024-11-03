@@ -213,11 +213,15 @@
             // Generar 5 tiradas aleatorias entre 1 y 10
             rolls = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
             const advantage = document.getElementById("advantageOption").checked;
-            document.getElementById("extra-strength").value = 0;
+
+
+                document.getElementById("extra-strength").value = 0;
                 document.getElementById("extra-constitution").value = 0;
                 document.getElementById("extra-dexterity").value = 0;
                 document.getElementById("extra-wisdom").value = 0;
                 document.getElementById("extra-determination").value = 0;
+                document.getElementById("extra-determination").innerText = "Distribuye 15 puntos adicionales";
+
             if (advantage) {
                 alert("Tiradas generadas: " + rolls.join(", ") + ". Asigna cada tirada a una estadística.");
                 showRollSelectors();
