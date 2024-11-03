@@ -327,7 +327,11 @@ function showRollSelectors() {
         wisdom: "SAB",
         determination: "DET"
     };
-    
+    function calculateVitality(race) {
+            finalStats.vitality = rollDice(raceStats[race].vitality);
+            document.getElementById("final-vitality").textContent = finalStats.vitality;
+            document.getElementById("base-vitality").textContent = finalStats.vitality;
+        }
     document.querySelectorAll('.roll-select').forEach((select, index) => {
         const stat = select.id.split('-')[1]; // Obtiene el nombre del atributo
         const abbreviation = abbreviations[stat]; // Obtiene la abreviatura correspondiente
