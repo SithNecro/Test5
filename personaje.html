@@ -274,6 +274,7 @@
                 sum += Math.floor(Math.random() * sides) + 1;
             }
             document.getElementById("roll-vitality").textContent = sum;
+            document.getElementById("roll-vitality-2").textContent = sum;
             sum += bonus;
             return sum;
         }
@@ -461,6 +462,16 @@
         }
 
         window.onload = loadBaseStats;
+
+          // Mostrar los desplegables para asignar tiradas manualmente
+function showRollSelectors() {
+    const abbreviations = {
+        strength: "FUE",
+        constitution: "CON",
+        dexterity: "DES",
+        wisdom: "SAB",
+        determination: "DET"
+    };
     </script>
 </body>
 </html>
