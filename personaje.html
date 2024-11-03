@@ -165,6 +165,30 @@
             <h2>Vista Previa del Personaje</h2>
             <div class="character-preview" id="character-preview">
                 <p><strong>Raza:</strong> <span id="preview-race">-</span></p>
+                <table class="stats-table">
+                    <thead>
+                        
+                        <tr>
+                            <th>FUE</th>
+                            <th>CON</th>
+                            <th>DES</th>
+                            <th>SAB</th>
+                            <th>DET</th>
+                            <th>VIT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="base-values">
+                            <td id="preview-strength">-</td>
+                            <td id="preview-constitution">-</td>
+                            <td id="preview-dexterity">-</td>
+                            <td id="preview-wisdom">-</td>
+                            <td id="preview-determination">-</td>
+                            <td id="preview-vitality">-</td>
+                        </tr>
+                </tbody>
+            </table>
+              
                 <p><strong>Clase:</strong> <span id="preview-class">-</span></p>
                 <h3>Estadísticas de Combate</h3>
                 <table class="stats-table">
@@ -339,42 +363,62 @@
         }
 
         function updateExtraPoints() {
-            let totalExtraPoints =
-                parseInt(document.getElementById("extra-strength").value) +
-                parseInt(document.getElementById("extra-constitution").value) +
-                parseInt(document.getElementById("extra-dexterity").value) +
-                parseInt(document.getElementById("extra-wisdom").value) +
-                parseInt(document.getElementById("extra-determination").value);
+    let totalExtraPoints = 0;
 
-            if (totalExtraPoints > 15) {
-                return;
+    // Recorremos todos los puntos extra y calculamos el total
+    ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
+        const inputElement = document.getElementById("extra-" + stat);
+        const value = parseInt(inputElement.value) || 0;
+        totalExtraPoints += value;
+    });
+
+    // Si el total de puntos extra excede el límite, ajustamos los valores
+    if (totalExtraPoints > 15) {
+        alert("No puedes asignar más de 15 puntos en total.");
+        
+        // Ajustamos cada campo para asegurar que el total no exceda 15 puntos
+        let remainingPoints = 15;
+        ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
+            const inputElement = document.getElementById("extra-" + stat);
+            let value = parseInt(inputElement.value) || 0;
+            
+            if (value > remainingPoints) {
+                value = remainingPoints;
             }
+            inputElement.value = value;
+            remainingPoints -= value;
+        });
 
-            remainingPoints = 15 - totalExtraPoints;
-            document.getElementById("remaining-points").textContent = "Distribuye " + remainingPoints + " puntos adicionales";
+        totalExtraPoints = 15; // Ahora el total de puntos es 15
+    }
 
-            const advantage = document.getElementById("advantageOption").checked;
-            if (advantage) {
-                ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
-                    const baseValue = raceStats[document.getElementById("race").value][stat];
-                    const selectedValue = parseInt(document.getElementById("select-" + stat).value) || 0;
-                    const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
-                    finalStats[stat] = baseValue + selectedValue + extraValue;
-                    document.getElementById("final-" + stat).textContent = `${finalStats[stat]}`;
-                });
-            } else {
-                ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
-                    const baseValue = raceStats[document.getElementById("race").value][stat];
-                    const selectedValue = parseInt(document.getElementById("roll-" + stat).innerText) || 0;
-                    const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
-                    finalStats[stat] = baseValue + selectedValue + extraValue;
-                    document.getElementById("final-" + stat).textContent = `${finalStats[stat]}`;
-                });
-            }
+    // Actualizamos el texto de puntos restantes
+    remainingPoints = 15 - totalExtraPoints;
+    document.getElementById("remaining-points").textContent = "Distribuye " + remainingPoints + " puntos adicionales";
 
-            updateCombatPreview();
-            updatePreview();
-        }
+    // Ajustamos los valores finales con los puntos extra
+    const advantage = document.getElementById("advantageOption").checked;
+    if (advantage) {
+        ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
+            const baseValue = raceStats[document.getElementById("race").value][stat];
+            const selectedValue = parseInt(document.getElementById("select-" + stat).value) || 0;
+            const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
+            finalStats[stat] = baseValue + selectedValue + extraValue;
+            document.getElementById("final-" + stat).textContent = `${finalStats[stat]}`;
+        });
+    } else {
+        ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
+            const baseValue = raceStats[document.getElementById("race").value][stat];
+            const selectedValue = parseInt(document.getElementById("roll-" + stat).innerText) || 0;
+            const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
+            finalStats[stat] = baseValue + selectedValue + extraValue;
+            document.getElementById("final-" + stat).textContent = `${finalStats[stat]}`;
+        });
+    }
+
+    updateCombatPreview();
+    updatePreview();
+}
 
         function updateCombatPreview() {
             const dexterity = finalStats.dexterity || 0;
