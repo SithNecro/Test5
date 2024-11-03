@@ -208,10 +208,13 @@
 
         function rollDice(dice) {
             const [num, sides, bonus] = dice.match(/\d+/g).map(Number);
-            let sum = bonus || 0;
+            let sum = 0;
             for (let i = 0; i < num; i++) {
                 sum += Math.floor(Math.random() * sides) + 1;
             }
+            document.getElementById("roll-vitality").textContent = sum;
+            sum = sum + bonus;
+            
             return sum;
         }
 
@@ -383,7 +386,7 @@ function calculateVitality(race) {
             const vitalityValue = rollDice(vitalityStat);
             finalStats["vitality"] = vitalityValue;
             document.getElementById("final-vitality").textContent = vitalityValue;
-            document.getElementById("roll-vitality").textContent = vitalityValue;
+            //document.getElementById("roll-vitality").textContent = vitalityValue;
         }
     </script>
 </body>
