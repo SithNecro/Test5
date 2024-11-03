@@ -254,7 +254,8 @@
                 finalStats[key] = value;
                 if (key === 'vitality') {
                     const vitalityRoll = rollDice(value);
-                    document.getElementById("base-" + key).textContent = vitalityRoll;
+                    document.getElementById("base-" + key).textContent = value;
+                   // document.getElementById("roll-" + key).textContent = vitalityRoll;
                     finalStats[key] = vitalityRoll;
                 } else {
                     document.getElementById("base-" + key).textContent = value;
@@ -272,6 +273,7 @@
             for (let i = 0; i < num; i++) {
                 sum += Math.floor(Math.random() * sides) + 1;
             }
+            document.getElementById("roll-" + key).textContent = sum;
             sum += bonus;
             return sum;
         }
