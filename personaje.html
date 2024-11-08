@@ -452,11 +452,11 @@ function updateCombatPreview() {
     const selectedClass = document.getElementById("classSelect").value; // Asegúrate de que el ID sea correcto
     const modifiers = classModifiers[selectedClass] || {};
 
-    const dexterity = (finalStats.dexterity || 0) + (modifiers.HC || 0);
-    const wisdom = (finalStats.wisdom || 0) + (modifiers.AA !== "N/A" ? modifiers.AA : 0);
-    const constitution = (finalStats.constitution || 0) + (modifiers.SUP || 0);
-    const strength = (finalStats.strength || 0) + (modifiers.BD || 0);
-    const determination = (finalStats.determination || 0) + (modifiers.FC || 0);
+    const dexterity = (finalStats.dexterity || 0);
+    const wisdom = (finalStats.wisdom || 0);
+    const constitution = (finalStats.constitution || 0) ;
+    const strength = (finalStats.strength || 0) ;
+    const determination = (finalStats.determination || 0) ;
 
     // Aplicar valores modificados a los elementos de vista previa
     document.getElementById("preview-HC").textContent = dexterity + (modifiers.HC || 0);
