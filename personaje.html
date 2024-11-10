@@ -374,6 +374,7 @@
         function rerollStat(stat, id) {
             if (remainingRerolls > 0) {
                 let newRoll;
+                const advantage = document.getElementById("advantageOption").checked;
                 // Verifica si es una tirada de vitalidad o una tirada estándar
                 if (stat === 'vitality' || stat === 'vitality-2' ) {
                     newRoll = rerollDiceVitality(raceStats[document.getElementById("race").value].vitality);
@@ -384,7 +385,8 @@
                 const oldRoll = parseInt(document.getElementById("roll-" + id).textContent);
                 if (newRoll > oldRoll) {
                     document.getElementById("roll-" + id).textContent = newRoll;
-                    if (stat === 'vitality-2') {
+                    if (stat === 'vitality-2' || stat === 'vitality' ) {
+                        document.getElementById("roll-vitality" + id).textContent = newRoll;
                         bonus = bonusVitality(raceStats[document.getElementById("race").value].vitality);
                         let total = newRoll + bonus;
                         document.getElementById("final-vitality").textContent = total;
@@ -394,7 +396,7 @@
                     } 
                     updateStats(); // Función para recalcular y actualizar las estadísticas totales y de combate
                 } else {
-                    alert('Atributos sin cambios, manteniendo el valor más alto.');
+                    alert('Atributos sin cambios, Sacaste: ' + newRoll+' , manteniendo el valor más alto.');
                 }
 
                 document.getElementById("reroll-btn-" + id).style.display = 'none'; // Ocultar el botón después de usarlo
