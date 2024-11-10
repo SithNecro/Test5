@@ -381,11 +381,12 @@
                 } else {
                     newRoll = Math.floor(Math.random() * 10) + 1; // Simulación de d10 para otras estadísticas
                 }
+                let oldRoll;
                 if (advantage) {
                     if (stat === 'vitality' || stat === 'vitality-2') {
-                        const oldRoll = parseInt(document.getElementById("roll-" + id).textContent);
+                         oldRoll = parseInt(document.getElementById("roll-" + id).textContent);
                     } else { 
-                        const oldRoll = parseInt(document.getElementById("select-" + id).value);
+                         oldRoll = parseInt(document.getElementById("select-" + id).value);
                     }
                     if (newRoll > oldRoll) {
                         
