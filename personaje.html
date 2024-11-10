@@ -384,7 +384,7 @@
                 if (advantage) {
                     const oldRoll = parseInt(document.getElementById("select-" + id).value);
                     if (newRoll > oldRoll) {
-                        document.getElementById("select-" + id).value = newRoll;
+                        
                         if (stat === 'vitality-2' || stat === 'vitality') {
                             document.getElementById("roll-vitality" + id).textContent = newRoll;
                             bonus = bonusVitality(raceStats[document.getElementById("race").value].vitality);
@@ -392,6 +392,19 @@
                             document.getElementById("final-vitality").textContent = total;
                             document.getElementById("final-vitality").textContent = total;
                         } else {
+                            // Obtener el elemento select
+                            var select = document.getElementById("select-" + id);
+
+                            // Crear un nuevo elemento option
+                            var newOption = document.createElement("option");
+                            newOption.value = newRoll; // Establecer el valor de la opción
+                            newOption.text = newRoll; // Establecer el texto visible de la opción (puedes cambiarlo si necesario)
+
+                            // Añadir la nueva opción al select
+                            select.appendChild(newOption);
+
+                            // Seleccionar la nueva opción
+                            select.value = newRoll;
                             document.getElementById("final-" + id).textContent = newRoll;
                         }
                         updateStatsadvantage(); // Función para recalcular y actualizar las estadísticas totales y de combate
