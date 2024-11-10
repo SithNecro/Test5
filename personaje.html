@@ -384,7 +384,7 @@
                 if (advantage) {
                     const oldRoll = parseInt(document.getElementById("select-" + id).value);
                     if (newRoll > oldRoll) {
-                        document.getElementById("select-" + id).textContent = newRoll;
+                        document.getElementById("select-" + id).value = newRoll;
                         if (stat === 'vitality-2' || stat === 'vitality') {
                             document.getElementById("roll-vitality" + id).textContent = newRoll;
                             bonus = bonusVitality(raceStats[document.getElementById("race").value].vitality);
@@ -443,7 +443,7 @@
             // Actualiza las estadísticas basadas en los nuevos valores de roll
             ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
                 const baseValue = raceStats[document.getElementById("race").value][stat];
-                const rollValue = parseInt(document.getElementById("select-" + stat).textContent) || 0;
+                const rollValue = parseInt(document.getElementById("select-" + stat).value) || 0;
                 const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
                 finalStats[stat] = baseValue + rollValue + extraValue;
                 document.getElementById("final-" + stat).textContent = finalStats[stat];
