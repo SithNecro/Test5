@@ -358,21 +358,24 @@
 
         function rerollStat(stat, id) {
             if (remainingRerolls > 0) {
-                let newRoll = Math.floor(Math.random() * 10) + 1; // d10 para las estadísticas
-                if (stat === 'vitality-2') { // Caso especial para la vitalidad
+                let newRoll;
+                // Verifica si es una tirada de vitalidad o una tirada estándar
+                if (stat === 'vitality') {
                     newRoll = rollDice(raceStats[document.getElementById("race").value].vitality);
+                } else {
+                    newRoll = Math.floor(Math.random() * 10) + 1; // Simulación de d10 para otras estadísticas
                 }
 
                 const oldRoll = parseInt(document.getElementById("roll-" + id).textContent);
-                document.getElementById("roll-" + id).textContent = newRoll;
-                document.getElementById("reroll-btn-" + id).style.display = 'none'; // Ocultar el botón después de usarlo
-
                 if (newRoll > oldRoll) {
+                    document.getElementById("roll-" + id).textContent = newRoll;
                     document.getElementById("final-" + id).textContent = newRoll;
+                    updateStats(); // Función para recalcular y actualizar las estadísticas totales y de combate
                 } else {
-                    alert('Atributos sin cambios');
+                    alert('Atributos sin cambios, manteniendo el valor más alto.');
                 }
 
+                document.getElementById("reroll-btn-" + id).style.display = 'none'; // Ocultar el botón después de usarlo
                 remainingRerolls--;
                 if (remainingRerolls === 0) {
                     // Oculta todos los botones restantes
@@ -382,7 +385,19 @@
             }
         }
 
+        function updateStats() {
+            // Actualiza las estadísticas basadas en los nuevos valores de roll
+            ["strength", "constitution", "dexterity", "wisdom", "determination", "vitality"].forEach(stat => {
+                const baseValue = raceStats[document.getElementById("race").value][stat];
+                const rollValue = parseInt(document.getElementById("roll-" + stat).textContent) || 0;
+                const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
+                finalStats[stat] = baseValue + rollValue + extraValue;
+                document.getElementById("final-" + stat).textContent = finalStats[stat];
+            });
 
+            updatePreview();
+            updateCombatPreview();
+        }
         function showRollSelectors() {
             document.querySelectorAll('.roll-select').forEach((select, index) => {
                 select.style.display = 'inline';
