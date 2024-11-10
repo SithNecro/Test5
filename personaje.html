@@ -381,7 +381,8 @@
                 if (newRoll > oldRoll) {
                     document.getElementById("roll-" + id).textContent = newRoll;
                     if (stat === 'vitality-2') {
-                        document.getElementById("final-vitality" + id).textContent = newRoll;
+                        const [num, sides, bonus] = dice.match(/\d+/g).map(Number);
+                        document.getElementById("final-vitality" + id).textContent = newRoll + bonus;
                     } else { 
                         document.getElementById("final-" + id).textContent = newRoll;
                     } 
