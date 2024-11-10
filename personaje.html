@@ -360,7 +360,7 @@
             if (remainingRerolls > 0) {
                 let newRoll;
                 // Verifica si es una tirada de vitalidad o una tirada estándar
-                if (stat === 'vitality') {
+                if (stat === 'vitality' || stat === 'vitality-2' ) {
                     newRoll = rollDice(raceStats[document.getElementById("race").value].vitality);
                 } else {
                     newRoll = Math.floor(Math.random() * 10) + 1; // Simulación de d10 para otras estadísticas
