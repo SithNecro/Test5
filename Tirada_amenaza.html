@@ -644,8 +644,9 @@ document.getElementById('modificadorTirada').addEventListener('change', function
           const imagenAmenaza = document.createElement('img');
           imagenAmenaza.style.display = "block";
           imagenAmenaza.style.width = '300px'; // Puedes ajustar el tamaño
-          document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
-            
+            document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
+
+            reproducirSonido("bolsa");
           const intervalo = setInterval(() => {
             imagenAmenaza.src = alternar ? "FIniAliadas.png" : "FIniEnemigas.png";
             
@@ -692,7 +693,9 @@ document.getElementById('modificadorTirada').addEventListener('change', function
     
           if (tipo === "aliada") {
             rutaSonido = `SonidosIniciativa/Aliado1.mp3`;
-          } else if (tipo === "enemiga") {
+          } else if (tipo === "bolsa") {
+              rutaSonido = `SonidosIniciativa/sacar_bolsa.mp3`;
+          }else  if (tipo === "enemiga") {
             rutaSonido = `SonidosIniciativa/Enemigo${numeroAleatorio}.mp3`;
           }
     
