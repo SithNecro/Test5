@@ -391,7 +391,7 @@
                     if (newRoll > oldRoll) {
                         
                         if (stat === 'vitality-2' || stat === 'vitality') {
-                            document.getElementById("roll-vitality" + id).textContent = newRoll;
+                            document.getElementById("roll-" + id).textContent = newRoll;
                             bonus = bonusVitality(raceStats[document.getElementById("race").value].vitality);
                             let total = newRoll + bonus;
                             document.getElementById("final-vitality").textContent = total;
