@@ -397,6 +397,7 @@
                             let total = newRoll + bonus;
                             document.getElementById("final-vitality").textContent = total;
                             document.getElementById("final-vitality").textContent = total;
+                            document.getElementById("reroll-btn-vitality-2" + id).style.display = 'none';
                         } else {
                             // Obtener el elemento select
                             var select = document.getElementById("select-" + id);
@@ -426,16 +427,18 @@
                             bonus = bonusVitality(raceStats[document.getElementById("race").value].vitality);
                             let total = newRoll + bonus;
                             document.getElementById("final-vitality").textContent = total;
-                            document.getElementById("final-vitality-2").textContent = total;
                         } else {
                             document.getElementById("final-" + id).textContent = newRoll;
                         }
                         updateStats(); // Función para recalcular y actualizar las estadísticas totales y de combate
                     } else {
                         alert('Atributos sin cambios, Sacaste: ' + newRoll + ' , manteniendo el valor más alto.');
+                        
                     }
                 }
-                document.getElementById("reroll-btn-" + id).style.display = 'none'; // Ocultar el botón después de usarlo
+
+                // Ocultar el botón después de usarlo
+                document.getElementById("reroll-btn-" + id).style.display = 'none';
                 remainingRerolls--;
                 if (remainingRerolls === 0) {
                     // Oculta todos los botones restantes
