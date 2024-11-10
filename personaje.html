@@ -320,6 +320,10 @@
              
             return sum;
         }
+        function bonusVitality(dice) {
+            const [num, sides, bonus] = dice.match(/\d+/g).map(Number);
+            return bonus;
+        }
 
         function toggleAdvantage() {
             const advantage = document.getElementById("advantageOption").checked;
@@ -381,7 +385,7 @@
                 if (newRoll > oldRoll) {
                     document.getElementById("roll-" + id).textContent = newRoll;
                     if (stat === 'vitality-2') {
-                        const [num, sides, bonus] = dice.match(/\d+/g).map(Number);
+                        bonus = bonusVitality(raceStats[document.getElementById("race").value].vitality);
                         document.getElementById("final-vitality" + id).textContent = newRoll + bonus;
                     } else { 
                         document.getElementById("final-" + id).textContent = newRoll;
