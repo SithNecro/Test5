@@ -384,7 +384,8 @@
                 let oldRoll;
                 if (advantage) {
                     if (stat === 'vitality' || stat === 'vitality-2') {
-                         oldRoll = parseInt(document.getElementById("roll-" + id).textContent);
+                        oldRoll = parseInt(document.getElementById("roll-vitality").textContent);
+                        oldRoll = parseInt(document.getElementById("roll-vitality-2").textContent);
                     } else { 
                          oldRoll = parseInt(document.getElementById("select-" + id).value);
                     }
