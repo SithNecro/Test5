@@ -386,7 +386,8 @@
                     document.getElementById("roll-" + id).textContent = newRoll;
                     if (stat === 'vitality-2') {
                         bonus = bonusVitality(raceStats[document.getElementById("race").value].vitality);
-                        document.getElementById("final-vitality" + id).textContent = newRoll + bonus;
+                        let total = newRoll + bonus;
+                        document.getElementById("final-vitality" + id).textContent = total;
                     } else { 
                         document.getElementById("final-" + id).textContent = newRoll;
                     } 
