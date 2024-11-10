@@ -128,12 +128,12 @@
                         <td id="roll-vitality-2">-</td>
                     </tr>
                     <tr id="reroll-values">
-                        <td id="roll-strength">- <button id="reroll-btn-strength" class="reroll-button" style="background-color: green;" onclick="rerollStat('strength', 'strength')">↻</button></td>
-                        <td id="roll-constitution">- <button id="reroll-btn-constitution" class="reroll-button" style="background-color: green;" onclick="rerollStat('constitution', 'constitution')">↻</button></td>
-                        <td id="roll-dexterity">- <button id="reroll-btn-dexterity" class="reroll-button" style="background-color: green;" onclick="rerollStat('dexterity', 'dexterity')">↻</button></td>
-                        <td id="roll-wisdom">- <button id="reroll-btn-wisdom" class="reroll-button" style="background-color: green;" onclick="rerollStat('wisdom', 'wisdom')">↻</button></td>
-                        <td id="roll-determination">- <button id="reroll-btn-determination" class="reroll-button" style="background-color: green;" onclick="rerollStat('determination', 'determination')">↻</button></td>
-                        <td id="roll-vitality-2">- <button id="reroll-btn-vitality-2" class="reroll-button" style="background-color: green;" onclick="rerollStat('vitality-2', 'vitality-2')">↻</button></td>
+                        <td id="roll-strength"><button id="reroll-btn-strength" class="reroll-button" style="background-color: green;" onclick="rerollStat('strength', 'strength')">↻</button></td>
+                        <td id="roll-constitution"><button id="reroll-btn-constitution" class="reroll-button" style="background-color: green;" onclick="rerollStat('constitution', 'constitution')">↻</button></td>
+                        <td id="roll-dexterity"><button id="reroll-btn-dexterity" class="reroll-button" style="background-color: green;" onclick="rerollStat('dexterity', 'dexterity')">↻</button></td>
+                        <td id="roll-wisdom"><button id="reroll-btn-wisdom" class="reroll-button" style="background-color: green;" onclick="rerollStat('wisdom', 'wisdom')">↻</button></td>
+                        <td id="roll-determination"><button id="reroll-btn-determination" class="reroll-button" style="background-color: green;" onclick="rerollStat('determination', 'determination')">↻</button></td>
+                        <td id="roll-vitality-2"><button id="reroll-btn-vitality-2" class="reroll-button" style="background-color: green;" onclick="rerollStat('vitality-2', 'vitality-2')">↻</button></td>
                     </tr>
 
                     <tr>
@@ -381,24 +381,41 @@
                 } else {
                     newRoll = Math.floor(Math.random() * 10) + 1; // Simulación de d10 para otras estadísticas
                 }
-
-                const oldRoll = parseInt(document.getElementById("roll-" + id).textContent);
-                if (newRoll > oldRoll) {
-                    document.getElementById("roll-" + id).textContent = newRoll;
-                    if (stat === 'vitality-2' || stat === 'vitality' ) {
-                        document.getElementById("roll-vitality" + id).textContent = newRoll;
-                        bonus = bonusVitality(raceStats[document.getElementById("race").value].vitality);
-                        let total = newRoll + bonus;
-                        document.getElementById("final-vitality").textContent = total;
-                        document.getElementById("final-vitality").textContent = total;
-                    } else { 
-                        document.getElementById("final-" + id).textContent = newRoll;
-                    } 
-                    updateStats(); // Función para recalcular y actualizar las estadísticas totales y de combate
-                } else {
-                    alert('Atributos sin cambios, Sacaste: ' + newRoll+' , manteniendo el valor más alto.');
+                if (advantage) {
+                    const oldRoll = parseInt(document.getElementById("select-" + id).value);
+                    if (newRoll > oldRoll) {
+                        document.getElementById("select-" + id).textContent = newRoll;
+                        if (stat === 'vitality-2' || stat === 'vitality') {
+                            document.getElementById("roll-vitality" + id).textContent = newRoll;
+                            bonus = bonusVitality(raceStats[document.getElementById("race").value].vitality);
+                            let total = newRoll + bonus;
+                            document.getElementById("final-vitality").textContent = total;
+                            document.getElementById("final-vitality").textContent = total;
+                        } else {
+                            document.getElementById("final-" + id).textContent = newRoll;
+                        }
+                        updateStatsadvantage(); // Función para recalcular y actualizar las estadísticas totales y de combate
+                    } else {
+                        alert('Atributos sin cambios, Sacaste: ' + newRoll + ' , manteniendo el valor más alto.');
+                    }
+                    } else {
+                    const oldRoll = parseInt(document.getElementById("roll-" + id).textContent);
+                    if (newRoll > oldRoll) {
+                        document.getElementById("roll-" + id).textContent = newRoll;
+                        if (stat === 'vitality-2' || stat === 'vitality') {
+                            document.getElementById("roll-vitality" + id).textContent = newRoll;
+                            bonus = bonusVitality(raceStats[document.getElementById("race").value].vitality);
+                            let total = newRoll + bonus;
+                            document.getElementById("final-vitality").textContent = total;
+                            document.getElementById("final-vitality").textContent = total;
+                        } else {
+                            document.getElementById("final-" + id).textContent = newRoll;
+                        }
+                        updateStats(); // Función para recalcular y actualizar las estadísticas totales y de combate
+                    } else {
+                        alert('Atributos sin cambios, Sacaste: ' + newRoll + ' , manteniendo el valor más alto.');
+                    }
                 }
-
                 document.getElementById("reroll-btn-" + id).style.display = 'none'; // Ocultar el botón después de usarlo
                 remainingRerolls--;
                 if (remainingRerolls === 0) {
@@ -414,6 +431,19 @@
             ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
                 const baseValue = raceStats[document.getElementById("race").value][stat];
                 const rollValue = parseInt(document.getElementById("roll-" + stat).textContent) || 0;
+                const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
+                finalStats[stat] = baseValue + rollValue + extraValue;
+                document.getElementById("final-" + stat).textContent = finalStats[stat];
+            });
+
+            updatePreview();
+            updateCombatPreview();
+        }
+        function updateStatsadvantage() {
+            // Actualiza las estadísticas basadas en los nuevos valores de roll
+            ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
+                const baseValue = raceStats[document.getElementById("race").value][stat];
+                const rollValue = parseInt(document.getElementById("select-" + stat).textContent) || 0;
                 const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
                 finalStats[stat] = baseValue + rollValue + extraValue;
                 document.getElementById("final-" + stat).textContent = finalStats[stat];
