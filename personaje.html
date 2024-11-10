@@ -310,6 +310,18 @@
             return sum;
         }
 
+        function rerollDiceVitality(dice) {
+            const [num, sides, bonus] = dice.match(/\d+/g).map(Number);
+            let sum = 0;
+            for (let i = 0; i < num; i++) {
+                sum += Math.floor(Math.random() * sides) + 1;
+            }
+            document.getElementById("roll-vitality").textContent = sum;
+            document.getElementById("roll-vitality-2").textContent = sum;
+             
+            return sum;
+        }
+
         function toggleAdvantage() {
             const advantage = document.getElementById("advantageOption").checked;
             document.getElementById("roll-selectors").style.display = advantage ? 'table-row' : 'none';
@@ -361,7 +373,7 @@
                 let newRoll;
                 // Verifica si es una tirada de vitalidad o una tirada estándar
                 if (stat === 'vitality' || stat === 'vitality-2' ) {
-                    newRoll = rollDice(raceStats[document.getElementById("race").value].vitality);
+                    newRoll = rerollDiceVitality(raceStats[document.getElementById("race").value].vitality);
                 } else {
                     newRoll = Math.floor(Math.random() * 10) + 1; // Simulación de d10 para otras estadísticas
                 }
@@ -369,7 +381,11 @@
                 const oldRoll = parseInt(document.getElementById("roll-" + id).textContent);
                 if (newRoll > oldRoll) {
                     document.getElementById("roll-" + id).textContent = newRoll;
-                    document.getElementById("final-" + id).textContent = newRoll;
+                    if (stat === 'vitality-2') {
+                        document.getElementById("final-vitality" + id).textContent = newRoll;
+                    } else { 
+                        document.getElementById("final-" + id).textContent = newRoll;
+                    }
                     updateStats(); // Función para recalcular y actualizar las estadísticas totales y de combate
                 } else {
                     alert('Atributos sin cambios, manteniendo el valor más alto.');
