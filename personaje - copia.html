@@ -12,13 +12,6 @@
             margin: 0;
             height: 100vh;
         }
-        .reroll-button {
-            background-color: green;
-            color: white;
-            border: none;
-            padding: 5px;
-            cursor: pointer;
-        }
         .container {
             display: flex;
             width: 100%;
@@ -127,15 +120,6 @@
                         <td id="roll-determination">-</td>
                         <td id="roll-vitality-2">-</td>
                     </tr>
-                    <tr id="reroll-values">
-                        <td id="roll-strength">- <button id="reroll-btn-strength" class="reroll-button" style="background-color: green;" onclick="rerollStat('strength', 'strength')">↻</button></td>
-                        <td id="roll-constitution">- <button id="reroll-btn-constitution" class="reroll-button" style="background-color: green;" onclick="rerollStat('constitution', 'constitution')">↻</button></td>
-                        <td id="roll-dexterity">- <button id="reroll-btn-dexterity" class="reroll-button" style="background-color: green;" onclick="rerollStat('dexterity', 'dexterity')">↻</button></td>
-                        <td id="roll-wisdom">- <button id="reroll-btn-wisdom" class="reroll-button" style="background-color: green;" onclick="rerollStat('wisdom', 'wisdom')">↻</button></td>
-                        <td id="roll-determination">- <button id="reroll-btn-determination" class="reroll-button" style="background-color: green;" onclick="rerollStat('determination', 'determination')">↻</button></td>
-                        <td id="roll-vitality-2">- <button id="reroll-btn-vitality-2" class="reroll-button" style="background-color: green;" onclick="rerollStat('vitality-2', 'vitality-2')">↻</button></td>
-                    </tr>
-
                     <tr>
                         <td colspan="6" id="remaining-points" style="text-align: center;"><strong>Distribuye 15 puntos adicionales</strong></td>
                     </tr>
@@ -273,8 +257,6 @@
         let finalStats = {};
         let rolls = [];
         let remainingPoints = 15;
-        // Definición de la variable global para controlar los rerolls
-        let remainingRerolls = 2;
 
         function loadBaseStats() {
             const race = document.getElementById("race").value;
@@ -344,44 +326,7 @@
             calculateVitality(document.getElementById("race").value);
             updatePreview();
             updateCombatPreview();
-            resetRerollButtons();
         }
-        function resetRerollButtons() {
-            const rerollButtons = document.querySelectorAll('.reroll-button');
-            rerollButtons.forEach(button => {
-                button.style.display = 'inline-block'; // Muestra los botones
-                button.style.backgroundColor = 'green'; // Fondo verde
-                button.disabled = false; // Asegura que los botones estén habilitados
-            });
-            remainingRerolls = 2; // Reinicia el contador de rerolls permitidos
-        }
-
-        function rerollStat(stat, id) {
-            if (remainingRerolls > 0) {
-                let newRoll = Math.floor(Math.random() * 10) + 1; // d10 para las estadísticas
-                if (stat === 'vitality-2') { // Caso especial para la vitalidad
-                    newRoll = rollDice(raceStats[document.getElementById("race").value].vitality);
-                }
-
-                const oldRoll = parseInt(document.getElementById("roll-" + id).textContent);
-                document.getElementById("roll-" + id).textContent = newRoll;
-                document.getElementById("reroll-btn-" + id).style.display = 'none'; // Ocultar el botón después de usarlo
-
-                if (newRoll > oldRoll) {
-                    document.getElementById("final-" + id).textContent = newRoll;
-                } else {
-                    alert('Atributos sin cambios');
-                }
-
-                remainingRerolls--;
-                if (remainingRerolls === 0) {
-                    // Oculta todos los botones restantes
-                    const rerollButtons = document.querySelectorAll('.reroll-button');
-                    rerollButtons.forEach(button => button.style.display = 'none');
-                }
-            }
-        }
-
 
         function showRollSelectors() {
             document.querySelectorAll('.roll-select').forEach((select, index) => {
