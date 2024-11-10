@@ -316,8 +316,7 @@
             for (let i = 0; i < num; i++) {
                 sum += Math.floor(Math.random() * sides) + 1;
             }
-            document.getElementById("roll-vitality").textContent = sum;
-            document.getElementById("roll-vitality-2").textContent = sum;
+          
              
             return sum;
         }
@@ -385,7 +384,7 @@
                         document.getElementById("final-vitality" + id).textContent = newRoll;
                     } else { 
                         document.getElementById("final-" + id).textContent = newRoll;
-                    }
+                    } 
                     updateStats(); // Función para recalcular y actualizar las estadísticas totales y de combate
                 } else {
                     alert('Atributos sin cambios, manteniendo el valor más alto.');
