@@ -700,7 +700,7 @@
             const form = pdfDoc.getForm();
 
             // Obtener el valor del campo HTML
-            const strengthValue = document.getElementById('preview-strength').value;
+            const strengthValue = document.getElementById('preview-strength').textContent;
 
             // Establecer el valor del campo "preview-strength" en el PDF
             form.getTextField('preview-strength').setText(strengthValue);
