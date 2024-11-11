@@ -698,26 +698,78 @@
             // Obtener el formulario del PDF
             const form = pdfDoc.getForm();
 
-            // Mapeo de los IDs de HTML a campos de PDF (td y selects)
-            const fields = [
-                "preview-strength", "preview-constitution", "preview-dexterity",
-                "preview-wisdom", "preview-determination", "preview-vitality",
-                "preview-HC", "preview-HD", "preview-ESQ", "preview-FC", "preview-AA",
-                "preview-TRU", "preview-CU", "preview-ALQ", "preview-PER",
-                "preview-MANA", "preview-SUP", "preview-BD", "preview-AN",
-                "preview-ENR", "preview-MOV", "preview-COR"
-            ];
+            // Campos <td> individuales
+            const strengthValue = document.getElementById('preview-strength').textContent;
+            form.getTextField('preview-strength').setText(strengthValue);
 
-            // Asigna los valores de cada <td> al campo correspondiente en el PDF
-            fields.forEach(id => {
-                const value = document.getElementById(id).textContent;
-                form.getTextField(id).setText(value);
-            });
+            const constitutionValue = document.getElementById('preview-constitution').textContent;
+            form.getTextField('preview-constitution').setText(constitutionValue);
 
-            // Obtener y asignar los valores de los campos <select> al PDF
+            const dexterityValue = document.getElementById('preview-dexterity').textContent;
+            form.getTextField('preview-dexterity').setText(dexterityValue);
+
+            const wisdomValue = document.getElementById('preview-wisdom').textContent;
+            form.getTextField('preview-wisdom').setText(wisdomValue);
+
+            const determinationValue = document.getElementById('preview-determination').textContent;
+            form.getTextField('preview-determination').setText(determinationValue);
+
+            const vitalityValue = document.getElementById('preview-vitality').textContent;
+            form.getTextField('preview-vitality').setText(vitalityValue);
+
+            const hcValue = document.getElementById('preview-HC').textContent;
+            form.getTextField('preview-HC').setText(hcValue);
+
+            const hdValue = document.getElementById('preview-HD').textContent;
+            form.getTextField('preview-HD').setText(hdValue);
+
+            const esqValue = document.getElementById('preview-ESQ').textContent;
+            form.getTextField('preview-ESQ').setText(esqValue);
+
+            const fcValue = document.getElementById('preview-FC').textContent;
+            form.getTextField('preview-FC').setText(fcValue);
+
+            const aaValue = document.getElementById('preview-AA').textContent;
+            form.getTextField('preview-AA').setText(aaValue);
+
+            const truValue = document.getElementById('preview-TRU').textContent;
+            form.getTextField('preview-TRU').setText(truValue);
+
+            const cuValue = document.getElementById('preview-CU').textContent;
+            form.getTextField('preview-CU').setText(cuValue);
+
+            const alqValue = document.getElementById('preview-ALQ').textContent;
+            form.getTextField('preview-ALQ').setText(alqValue);
+
+            const perValue = document.getElementById('preview-PER').textContent;
+            form.getTextField('preview-PER').setText(perValue);
+
+            const manaValue = document.getElementById('preview-MANA').textContent;
+            form.getTextField('preview-MANA').setText(manaValue);
+
+            const supValue = document.getElementById('preview-SUP').textContent;
+            form.getTextField('preview-SUP').setText(supValue);
+
+            const bdValue = document.getElementById('preview-BD').textContent;
+            form.getTextField('preview-BD').setText(bdValue);
+
+            const anValue = document.getElementById('preview-AN').textContent;
+            form.getTextField('preview-AN').setText(anValue);
+
+            const enrValue = document.getElementById('preview-ENR').textContent;
+            form.getTextField('preview-ENR').setText(enrValue);
+
+            const movValue = document.getElementById('preview-MOV').textContent;
+            form.getTextField('preview-MOV').setText(movValue);
+
+            const corValue = document.getElementById('preview-COR').textContent;
+            form.getTextField('preview-COR').setText(corValue);
+
+            // Campos <select>
             const classValue = document.getElementById('classSelect').value;
-            const raceValue = document.getElementById('race').value;
             form.getTextField('classSelect').setText(classValue);
+
+            const raceValue = document.getElementById('race').value;
             form.getTextField('race').setText(raceValue);
 
             // Guardar el PDF modificado
