@@ -149,120 +149,121 @@
     <!-- Zona de contenido principal -->
     <div class="main-content">
         <!-- Columna izquierda (FAQ) con ancho fijo de 300px y centrado arriba -->
-        
-            <h2>Opciones del Personaje</h2>
-            <div class="stat">
-                <label for="Name">Nombre:</label>
-                <input id="Name" />
-                <label for="race">Raza:</label>
-                <select id="race" onchange="loadBaseStats()">
-                    <option value="Enano">Enano</option>
-                    <option value="Elfo">Elfo</option>
-                    <option value="Mediano">Mediano</option>
-                    <option value="Humano">Humano</option>
-                    <option value="Semiogro">Semiogro</option>
-                    <option value="Pato">Pato</option>
-                </select>
-                <div id="statics" class="stat" style="display: none;">
-                    <label for="class">Clase:</label>
-                    <select id="classSelect" onchange="updateClassStats()">
-                        <option value="SeleccionaClase">Selecciona la Clase</option>
-                        <option value="Alquimista">Alquimista</option>
-                        <option value="Bárbaro">Bárbaro</option>
-                        <option value="Guerrero">Guerrero</option>
-                        <option value="Ladrón">Ladrón</option>
-                        <option value="Mago">Mago</option>
-                        <option value="Montaraz">Montaraz</option>
-                        <option value="Pícaro">Pícaro</option>
-                        <option value="Sacerdote Guerrero">Sacerdote Guerrero</option>
-                        <option value="Druida">Druida</option>
-                        <option value="Caballero">Caballero</option>
-                    </select>
-                </div>
-            </div>
+
+        <h2>Opciones del Personaje</h2>
+        <div class="stat">
+            <label for="Name">Nombre:</label>
+            <input id="Name" />
+            <label for="race">Raza:</label>
+            <select id="race" onchange="loadBaseStats()">
+                <option value="Enano">Enano</option>
+                <option value="Elfo">Elfo</option>
+                <option value="Mediano">Mediano</option>
+                <option value="Humano">Humano</option>
+                <option value="Semiogro">Semiogro</option>
+                <option value="Pato">Pato</option>
+            </select>
+
+        </div>
 
 
 
-            <div class="stat">
-                <label><input type="checkbox" id="advantageOption" onchange="toggleAdvantage()"> Opción ventajosa</label>
+        <div class="stat">
+            <label><input type="checkbox" id="advantageOption" onchange="toggleAdvantage()"> Opción ventajosa</label>
 
 
-                <button onclick="generateRolls()">Generar Tiradas</button>
-            </div>
-            <!-- Atributos Base en Tabla -->
-            <h3 id="estadisticasbaseh3" style="display: none;">Estadísticas Base</h3>
-            <table id="stats-table" class="stats-table" style="display: none;">
-                <thead>
-                    <tr>
-                        <th>FUE</th>
-                        <th>CON</th>
-                        <th>DES</th>
-                        <th>SAB</th>
-                        <th>DET</th>
-                        <th>VIT</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr id="base-values">
-                        <td id="base-strength">-</td>
-                        <td id="base-constitution">-</td>
-                        <td id="base-dexterity">-</td>
-                        <td id="base-wisdom">-</td>
-                        <td id="base-determination">-</td>
-                        <td id="base-vitality">-</td>
-                    </tr>
-                    <tr id="roll-selectors" style="display: none;">
-                        <td><select id="select-strength" class="roll-select" onchange="updateAdjustedStats()"></select></td>
-                        <td><select id="select-constitution" class="roll-select" onchange="updateAdjustedStats()"></select></td>
-                        <td><select id="select-dexterity" class="roll-select" onchange="updateAdjustedStats()"></select></td>
-                        <td><select id="select-wisdom" class="roll-select" onchange="updateAdjustedStats()"></select></td>
-                        <td><select id="select-determination" class="roll-select" onchange="updateAdjustedStats()"></select></td>
-                        <td id="roll-vitality">-</td>
-                    </tr>
-                    <tr id="roll-values" style="display: none;">
-                        <td id="roll-strength">-</td>
-                        <td id="roll-constitution">-</td>
-                        <td id="roll-dexterity">-</td>
-                        <td id="roll-wisdom">-</td>
-                        <td id="roll-determination">-</td>
-                        <td id="roll-vitality-2">-</td>
-                    </tr>
-                    <tr id="reroll-values">
-                        <td id="roll-strength"><button id="reroll-btn-strength" class="reroll-button" style="background-color: green;" onclick="rerollStat('strength', 'strength')">↻</button></td>
-                        <td id="roll-constitution"><button id="reroll-btn-constitution" class="reroll-button" style="background-color: green;" onclick="rerollStat('constitution', 'constitution')">↻</button></td>
-                        <td id="roll-dexterity"><button id="reroll-btn-dexterity" class="reroll-button" style="background-color: green;" onclick="rerollStat('dexterity', 'dexterity')">↻</button></td>
-                        <td id="roll-wisdom"><button id="reroll-btn-wisdom" class="reroll-button" style="background-color: green;" onclick="rerollStat('wisdom', 'wisdom')">↻</button></td>
-                        <td id="roll-determination"><button id="reroll-btn-determination" class="reroll-button" style="background-color: green;" onclick="rerollStat('determination', 'determination')">↻</button></td>
-                        <td id="roll-vitality-2"><button id="reroll-btn-vitality-2" class="reroll-button" style="background-color: green;" onclick="rerollStat('vitality-2', 'vitality-2')">↻</button></td>
-                    </tr>
+            <button onclick="generateRolls()">Generar Tiradas</button>
+        </div>
+        <!-- Atributos Base en Tabla -->
+        <h3 id="estadisticasbaseh3" style="display: none;">Estadísticas Base</h3>
+        <div id="statics" class="stat" style="display: none;">
+            <label for="class">Clase:</label>
+            <select id="classSelect" onchange="updateClassStats()">
+                <option value="SeleccionaClase">Selecciona la Clase</option>
+                <option value="Alquimista">Alquimista</option>
+                <option value="Bárbaro">Bárbaro</option>
+                <option value="Guerrero">Guerrero</option>
+                <option value="Ladrón">Ladrón</option>
+                <option value="Mago">Mago</option>
+                <option value="Montaraz">Montaraz</option>
+                <option value="Pícaro">Pícaro</option>
+                <option value="Sacerdote Guerrero">Sacerdote Guerrero</option>
+                <option value="Druida">Druida</option>
+                <option value="Caballero">Caballero</option>
+            </select>
+        </div>
+        <table id="stats-table" class="stats-table" style="display: none;">
+            <thead>
+                <tr>
+                    <th>FUE</th>
+                    <th>CON</th>
+                    <th>DES</th>
+                    <th>SAB</th>
+                    <th>DET</th>
+                    <th>VIT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="base-values">
+                    <td id="base-strength">-</td>
+                    <td id="base-constitution">-</td>
+                    <td id="base-dexterity">-</td>
+                    <td id="base-wisdom">-</td>
+                    <td id="base-determination">-</td>
+                    <td id="base-vitality">-</td>
+                </tr>
+                <tr id="roll-selectors" style="display: none;">
+                    <td><select id="select-strength" class="roll-select" onchange="updateAdjustedStats()"></select></td>
+                    <td><select id="select-constitution" class="roll-select" onchange="updateAdjustedStats()"></select></td>
+                    <td><select id="select-dexterity" class="roll-select" onchange="updateAdjustedStats()"></select></td>
+                    <td><select id="select-wisdom" class="roll-select" onchange="updateAdjustedStats()"></select></td>
+                    <td><select id="select-determination" class="roll-select" onchange="updateAdjustedStats()"></select></td>
+                    <td id="roll-vitality">-</td>
+                </tr>
+                <tr id="roll-values" style="display: none;">
+                    <td id="roll-strength">-</td>
+                    <td id="roll-constitution">-</td>
+                    <td id="roll-dexterity">-</td>
+                    <td id="roll-wisdom">-</td>
+                    <td id="roll-determination">-</td>
+                    <td id="roll-vitality-2">-</td>
+                </tr>
+                <tr id="reroll-values">
+                    <td id="roll-strength"><button id="reroll-btn-strength" class="reroll-button" style="background-color: green;" onclick="rerollStat('strength', 'strength')">↻</button></td>
+                    <td id="roll-constitution"><button id="reroll-btn-constitution" class="reroll-button" style="background-color: green;" onclick="rerollStat('constitution', 'constitution')">↻</button></td>
+                    <td id="roll-dexterity"><button id="reroll-btn-dexterity" class="reroll-button" style="background-color: green;" onclick="rerollStat('dexterity', 'dexterity')">↻</button></td>
+                    <td id="roll-wisdom"><button id="reroll-btn-wisdom" class="reroll-button" style="background-color: green;" onclick="rerollStat('wisdom', 'wisdom')">↻</button></td>
+                    <td id="roll-determination"><button id="reroll-btn-determination" class="reroll-button" style="background-color: green;" onclick="rerollStat('determination', 'determination')">↻</button></td>
+                    <td id="roll-vitality-2"><button id="reroll-btn-vitality-2" class="reroll-button" style="background-color: green;" onclick="rerollStat('vitality-2', 'vitality-2')">↻</button></td>
+                </tr>
 
-                    <tr>
-                        <td colspan="6" id="remaining-points" style="text-align: center;"><strong>Distribuye 15 puntos adicionales</strong></td>
-                    </tr>
-                    <tr>
-                        <td>  <input type="number" id="extra-strength" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
-                        <td>  <input type="number" id="extra-constitution" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
-                        <td>  <input type="number" id="extra-dexterity" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
-                        <td>  <input type="number" id="extra-wisdom" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
-                        <td>  <input type="number" id="extra-determination" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
-                        <td id="extra-vitality">-</td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" id="totallabel-points" style="text-align: center;"><strong>ESTADÍSTICAS TOTALES</strong></td>
-                    </tr>
-                    <tr>
-                        <td><span id="final-strength">-</span></td>
-                        <td><span id="final-constitution">-</span></td>
-                        <td><span id="final-dexterity">-</span></td>
-                        <td><span id="final-wisdom">-</span></td>
-                        <td><span id="final-determination">-</span></td>
-                        <td><span id="final-vitality">-</span></td>
-                    </tr>
-                </tbody>
-            </table>
-            <br />
-          
-        
+                <tr>
+                    <td colspan="6" id="remaining-points" style="text-align: center;"><strong>Distribuye 15 puntos adicionales</strong></td>
+                </tr>
+                <tr>
+                    <td>  <input type="number" id="extra-strength" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
+                    <td>  <input type="number" id="extra-constitution" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
+                    <td>  <input type="number" id="extra-dexterity" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
+                    <td>  <input type="number" id="extra-wisdom" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
+                    <td>  <input type="number" id="extra-determination" value="0" min="0" max="10" onchange="updateExtraPoints()"> </td>
+                    <td id="extra-vitality">-</td>
+                </tr>
+                <tr>
+                    <td colspan="6" id="totallabel-points" style="text-align: center;"><strong>ESTADÍSTICAS TOTALES</strong></td>
+                </tr>
+                <tr>
+                    <td><span id="final-strength">-</span></td>
+                    <td><span id="final-constitution">-</span></td>
+                    <td><span id="final-dexterity">-</span></td>
+                    <td><span id="final-wisdom">-</span></td>
+                    <td><span id="final-determination">-</span></td>
+                    <td><span id="final-vitality">-</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+
+
 
     </div>
 
