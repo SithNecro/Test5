@@ -92,7 +92,7 @@
             <button onclick="generateRolls()">Generar Tiradas</button>
 
             <!-- Atributos Base en Tabla -->
-            <h3>Estadísticas Base</h3>
+            <h3 id="estadisticasbaseh3" style="display: none;">Estadísticas Base</h3>
             <table class="stats-table" style="display: none;">
                 <thead>
                     <tr>
@@ -356,6 +356,12 @@
         }
 
         function generateRolls() {
+            document.getElementById('estadisticasbaseh3').style.display = 'table';
+            document.getElementById('stats-table').style.display = 'table';
+            document.getElementById('stat').style.display = 'table';
+
+
+
             rolls = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
             const advantage = document.getElementById("advantageOption").checked;
 
