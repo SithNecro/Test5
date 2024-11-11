@@ -745,7 +745,7 @@
             document.getElementById("preview-PER").textContent = wisdom + (modifiers.PER || 0) + (bonusApplied["PER"] || 0);
             document.getElementById("preview-MANA").textContent = modifiers.MANA !== "N/A" ? Math.floor(wisdom * 1.5) : "N/A";
 
-            document.getElementById("preview-SUP").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0 + (bonusApplied["SUP"] || 0);;
+            document.getElementById("preview-SUP").textContent = constitution + (modifiers.SUP || 0) + (bonusApplied["SUP"] || 0);;
             document.getElementById("preview-AN").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0;
 
             document.getElementById("preview-BD").textContent = strength >= 50 ? Math.floor((strength - 50) / 10) + 1 : 0;
