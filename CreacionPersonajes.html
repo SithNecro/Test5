@@ -259,7 +259,7 @@
         </table>
         <br />
         <!-- Select para seleccionar valores negativos de la clase -->
-        <select id="classNegative">
+        <select onchange="applyNegativeBonus()" id="classNegative">
             <option value="">Selecciona un atributo en desventaja para sumarle +10</option>
         </select>
 
@@ -932,6 +932,17 @@
 
             // Liberar el objeto URL
             URL.revokeObjectURL(urlBlob);
+        }
+        function applyNegativeBonus() {
+            const selectedNegative = document.getElementById("classNegative").value;
+
+            if (selectedNegative) {
+                bonusApplied = { [selectedNegative]: 10 };
+            } else {
+                bonusApplied = {};
+            }
+
+            updateCombatPreview();
         }
     </script>
 </body>
