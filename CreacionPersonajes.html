@@ -259,8 +259,9 @@
         </table>
         <br />
         <!-- Select para seleccionar valores negativos de la clase -->
-        <select onchange="applyNegativeBonus()" id="classNegative">
-            <option value="">Selecciona un atributo en desventaja para sumarle +10</option>
+        <select style="display: none;" onchange="applyNegativeBonus()" id="classNegative">
+            Selecciona un atributo en desventaja para sumarle +10
+            <option value="">Selecciona un atributo...</option>
         </select>
 
 
@@ -454,7 +455,7 @@
             document.getElementById('character-preview').style.display = 'table';
             document.getElementById('statics').style.display = 'table';
             document.getElementById('goblinImage').style.display = 'none';
-
+            
 
 
             rolls = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
@@ -756,6 +757,7 @@
 
 
         function updateClassStats() {
+            document.getElementById('classNegative').style.display = 'none';
             const selectedClass = document.getElementById("classSelect").value;
             document.getElementById("preview-class").textContent = selectedClass;
             const classNegativeSelect = document.getElementById("classNegative");
