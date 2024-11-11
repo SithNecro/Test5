@@ -194,10 +194,10 @@
         <!-- Panel derecho: Vista previa -->
         <div class="right-panel">
             <!-- Imagen con fondo transparente -->
-            <img  src="./img/goblin_dibujante.png" alt="Goblin Dibujante" id="goblinImage" style="align-items: center ;width: 200px; height: auto; align-content: center">
+            <img  src="./img/goblin_dibujante.png" alt="Goblin Dibujante" id="goblinImage" style="align-items: center ;width: 100%; height: auto; align-content: center">
 
             <h2>Vista Previa del Personaje</h2>
-            <div class="character-preview" id="character-preview">
+            <div id="character-preview"style="display: none;" class="character-preview" id="character-preview">
                 <p><strong>Raza:</strong> <span id="preview-race">-</span></p>
                 <table class="stats-table">
                     <thead>
@@ -371,8 +371,9 @@
         function generateRolls() {
             document.getElementById('estadisticasbaseh3').style.display = 'table';
             document.getElementById('stats-table').style.display = 'table';
-            document.getElementById('stat').style.display = 'table';
 
+            document.getElementById('character-preview').style.display = 'table';
+            
             document.getElementById('goblinImage').style.display = 'none';
             
 
