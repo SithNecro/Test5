@@ -49,7 +49,7 @@
             padding: 5px;
             border: 1px solid #ccc;
             background-color: #f9f9f9;
-            width: 60%;
+            width: 100%;
         }
 
         .roll-select option.available {
@@ -276,7 +276,7 @@
         <img src="./img/goblin_dibujante.png" alt="Goblin Dibujante" id="goblinImage" style="align-items: center ;width: 100%; height: auto; align-content: center">
 
         <h2>Vista Previa del Personaje</h2>
-        <div id="character-preview" style="display: none;" class="character-preview" >
+        <div id="character-preview" style="display: none;" class="character-preview">
             <p><strong>Raza:</strong> <span id="preview-race">-</span></p>
             <table class="stats-table">
                 <thead>
@@ -359,7 +359,11 @@
                     </tr>
                 </tbody>
             </table>
-            <button id="generarPDF" onclick="exportPdf()"></button>
+            <div style="display: flex; justify-content: center; align-items: center; height: 200px; border: 1px solid #ccc;">
+
+                <button id="generarPDF" onclick="exportPdf()"></button>
+            </div>
+
         </div>
     </div>
     <script>
