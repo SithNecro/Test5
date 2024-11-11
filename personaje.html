@@ -6,6 +6,16 @@
     <title>Generador de Personajes de Rol</title>
     <style>
         /* Diseño básico */
+        #generarPDF {
+            width: 150px; /* Ajusta el ancho según sea necesario */
+            height:150px; /* Ajusta la altura según sea necesario */
+            background-image: url('/traseras/downloadPDF.png');
+            background-size: cover; /* Escala la imagen para cubrir todo el botón */
+            background-repeat: no-repeat;
+            background-position: center;
+            border: none; /* Elimina el borde del botón */
+            cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+        }
         body {
             display: flex;
             font-family: Arial, sans-serif;
@@ -270,7 +280,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <button onclick="exportPdf()">Exportar PDF</button>
+                <button id="generarPDF" onclick="exportPdf()">Exportar PDF</button>
             </div>
         </div>
     </div>
