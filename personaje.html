@@ -716,7 +716,7 @@
 
             const vitalityValue = document.getElementById('preview-vitality').textContent;
             form.getTextField('preview-vitality').setText(vitalityValue);
-
+            form.getTextField('preview-vitalityMAX').setText(vitalityValue);
             const hcValue = document.getElementById('preview-HC').textContent;
             form.getTextField('preview-HC').setText(hcValue);
 
@@ -759,8 +759,8 @@
             const enrValue = document.getElementById('preview-ENR').textContent;
             form.getTextField('preview-ENR').setText(enrValue);
 
-           // const movValue = document.getElementById('preview-MOV').textContent;
-           // form.getTextField('preview-MOV').setText(movValue);
+            const movValue = document.getElementById('preview-MOV').textContent;
+            form.getTextField('preview-MOV').setText(movValue);
 
             const corValue = document.getElementById('preview-COR').textContent;
             form.getTextField('preview-COR').setText(corValue);
