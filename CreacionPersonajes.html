@@ -758,12 +758,13 @@
         function updateClassStats() {
             const selectedClass = document.getElementById("classSelect").value;
             document.getElementById("preview-class").textContent = selectedClass;
-            updateCombatPreview();
-
             const classNegativeSelect = document.getElementById("classNegative");
             // Limpiamos el select de opciones previas
             classNegativeSelect.innerHTML = '<option value="">Selecciona una opción negativa</option>';
             bonusApplied = {}; // Restablecer cualquier bonificación aplicada
+            updateCombatPreview();
+
+            
 
 
             if (selectedClass === "SeleccionaClase") return;
