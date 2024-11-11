@@ -90,7 +90,7 @@
             </div>
 
             <button onclick="generateRolls()">Generar Tiradas</button>
-
+           
             <!-- Atributos Base en Tabla -->
             <h3 id="estadisticasbaseh3" style="display: none;">Estadísticas Base</h3>
             <table id="stats-table" class="stats-table" style="display: none;">
@@ -183,6 +183,9 @@
 
         <!-- Panel derecho: Vista previa -->
         <div class="right-panel">
+            <!-- Imagen con fondo transparente -->
+            <img  src="/img/goblin_dibujante.png" alt="Goblin Dibujante" id="goblinImage" style="width: 200px; height: auto; align-content:center">
+
             <h2>Vista Previa del Personaje</h2>
             <div class="character-preview" id="character-preview">
                 <p><strong>Raza:</strong> <span id="preview-race">-</span></p>
@@ -360,6 +363,8 @@
             document.getElementById('stats-table').style.display = 'table';
             document.getElementById('stat').style.display = 'table';
 
+            document.getElementById('goblinImage').style.display = 'none';
+            
 
 
             rolls = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
