@@ -258,7 +258,10 @@
             </tbody>
         </table>
         <br />
-
+        <!-- Select para seleccionar valores negativos de la clase -->
+        <select id="classNegative">
+            <option value="">Selecciona un atributo en desventaja para sumarle +10</option>
+        </select>
 
 
     </div>
@@ -755,6 +758,25 @@
             const selectedClass = document.getElementById("classSelect").value;
             document.getElementById("preview-class").textContent = selectedClass;
             updateCombatPreview();
+
+            const classNegativeSelect = document.getElementById("classNegative");
+            // Limpiamos el select de opciones previas
+            classNegativeSelect.innerHTML = '<option value="">Selecciona una opción negativa</option>';
+            if (selectedClass === "SeleccionaClase") return;
+
+            // Obtenemos los modificadores de la clase seleccionada
+            const modifiers = classModifiers[selectedClass];
+
+            // Filtramos las propiedades con valor negativo
+            for (const [key, value] of Object.entries(modifiers)) {
+                if (typeof value === "number" && value < 0) {
+                    const option = document.createElement("option");
+                    option.value = key;
+                    option.textContent = key;
+                    classNegativeSelect.appendChild(option);
+                }
+            }
+
         }
 
         function updatePreview() {
