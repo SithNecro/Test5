@@ -81,7 +81,7 @@
                 </select>
             </div>
 
-            
+
 
             <div class="stat">
                 <label><input type="checkbox" id="advantageOption" onchange="toggleAdvantage()"> Opción ventajosa</label>
@@ -184,7 +184,7 @@
                 <p><strong>Raza:</strong> <span id="preview-race">-</span></p>
                 <table class="stats-table">
                     <thead>
-                        
+
                         <tr>
                             <th>FUE</th>
                             <th>CON</th>
@@ -203,21 +203,25 @@
                             <td id="preview-determination">-</td>
                             <td id="preview-vitality">-</td>
                         </tr>
-                </tbody>
-            </table>
-              
+                    </tbody>
+                </table>
+
                 <p><strong>Clase:</strong> <span id="preview-class">-</span></p>
                 <h3>Estadísticas de Combate</h3>
                 <table class="stats-table">
                     <thead>
                         <tr>
-                            <th>HC</th><th>HD</th><th>ESQ</th>
+                            <th>HC</th>
+                            <th>HD</th>
+                            <th>ESQ</th>
                             <th>FC</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td id="preview-HC">-</td><td id="preview-HD">-</td><td id="preview-ESQ">-</td>
+                            <td id="preview-HC">-</td>
+                            <td id="preview-HD">-</td>
+                            <td id="preview-ESQ">-</td>
                             <td id="preview-FC">-</td>
                         </tr>
                     </tbody>
@@ -228,23 +232,38 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td id="preview-AA">-</td><td id="preview-TRU">-</td><td id="preview-CU">-</td>
-                            <td id="preview-ALQ">-</td><td id="preview-PER">-</td><td id="preview-MANA">-</td>
+                            <td id="preview-AA">-</td>
+                            <td id="preview-TRU">-</td>
+                            <td id="preview-CU">-</td>
+                            <td id="preview-ALQ">-</td>
+                            <td id="preview-PER">-</td>
+                            <td id="preview-MANA">-</td>
                         </tr>
                     </tbody>
                 </table>
                 <table class="stats-table">
                     <thead>
                         <tr>
-                            <th>SUP</th><th>BD</th><th>AN</th><th>ENR</th><th>MOV</th><th>COR</th>
+                            <th>SUP</th>
+                            <th>BD</th>
+                            <th>AN</th>
+                            <th>ENR</th>
+                            <th>MOV</th>
+                            <th>COR</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td id="preview-SUP">-</td><td id="preview-BD">-</td><td id="preview-AN">-</td><td id="preview-ENR">1</td><td id="preview-MOV">4</td><td id="preview-COR">8</td>
+                            <td id="preview-SUP">-</td>
+                            <td id="preview-BD">-</td>
+                            <td id="preview-AN">-</td>
+                            <td id="preview-ENR">1</td>
+                            <td id="preview-MOV">4</td>
+                            <td id="preview-COR">8</td>
                         </tr>
                     </tbody>
                 </table>
+                <button onclick="exportPdf()">Exportar PDF</button>
             </div>
         </div>
     </div>
@@ -259,17 +278,17 @@
             "Pato": { strength: 25, constitution: 25, dexterity: 30, wisdom: 30, determination: 40, vitality: "1d6+6" }
         };
         const classModifiers = {
-    "Alquimista": { HC: -5, HD: -5, ESQ: -10, FC: -20, AA: "N/A", TRU: 0, CU: 5, ALQ: 10, PER: -10, MANA: "N/A", SUP: -20, BD: 0, AN: 0, ENR: 0,VIT: 0 },
-    "Bárbaro": { HC: 15, HD: -10, ESQ: 5, FC: -20, AA: "N/A", TRU: -15, CU: -10, ALQ: -25, PER: -5, MANA: "N/A", SUP: -15, BD: 0, AN: 0, ENR: 0,VIT: 2 },
-    "Guerrero": { HC: 10, HD: 5, ESQ: 0, FC: -20, AA: "N/A", TRU: -15, CU: -10, ALQ: -25, PER: -10, MANA: "N/A", SUP: -15, BD: 0, AN: 0, ENR: 0,VIT: 3 },
-    "Ladrón": { HC: -5, HD: 5, ESQ: 5, FC: 10, AA: "N/A", TRU: 0, CU: -20, ALQ: -30, PER: 10, MANA: "N/A", SUP: -20, BD: 0, AN: 0, ENR: 0,VIT: 0 },
-    "Mago": { HC: -5, HD: -10, ESQ: -10, FC: -20, AA: 10, TRU: 5, CU: -5, ALQ: -20, PER: -10, MANA: 0, SUP: -20, BD: 0, AN: 0, ENR: 0,VIT: 0 },
-    "Montaraz": { HC: -5, HD: 15, ESQ: -5, FC: -25, AA: "N/A", TRU: -20, CU: -10, ALQ: -20, PER: 0, MANA: "N/A", SUP: 15, BD: 0, AN: 0, ENR: 0,VIT: 0 },
-    "Pícaro": { HC: 0, HD: 0, ESQ: 0, FC: 0, AA: "N/A", TRU: 5, CU: -10, ALQ: -25, PER: 0, MANA: "N/A", SUP: 0, BD: 0, AN: 0, ENR: 0,VIT: 1 },
-    "Sacerdote Guerrero": { HC: 5, HD: -5, ESQ: -5, FC: -20, AA: "N/A", TRU: -10, CU: 5, ALQ: -15, PER: -10, MANA: "N/A", SUP: -20, BD: 0, AN: 0, ENR: 1,VIT: 1 },
-    "Druida": { HC: -5, HD: 0, ESQ: -10, FC: -20, AA: 5, TRU: 0, CU: 5, ALQ: 0, PER: -5, MANA: 0, SUP: 0, BD: 0, AN: 0, ENR: 0,VIT: 0 },
-    "Caballero": { HC: 10, HD: 0, ESQ: 0, FC: -25, AA: "N/A", TRU: 5, CU: -15, ALQ: -20, PER: -10, MANA: "N/A", SUP: -25, BD: 0, AN: 0, ENR: 0,VIT: 2 },
-};
+            "Alquimista": { HC: -5, HD: -5, ESQ: -10, FC: -20, AA: "N/A", TRU: 0, CU: 5, ALQ: 10, PER: -10, MANA: "N/A", SUP: -20, BD: 0, AN: 0, ENR: 0, VIT: 0 },
+            "Bárbaro": { HC: 15, HD: -10, ESQ: 5, FC: -20, AA: "N/A", TRU: -15, CU: -10, ALQ: -25, PER: -5, MANA: "N/A", SUP: -15, BD: 0, AN: 0, ENR: 0, VIT: 2 },
+            "Guerrero": { HC: 10, HD: 5, ESQ: 0, FC: -20, AA: "N/A", TRU: -15, CU: -10, ALQ: -25, PER: -10, MANA: "N/A", SUP: -15, BD: 0, AN: 0, ENR: 0, VIT: 3 },
+            "Ladrón": { HC: -5, HD: 5, ESQ: 5, FC: 10, AA: "N/A", TRU: 0, CU: -20, ALQ: -30, PER: 10, MANA: "N/A", SUP: -20, BD: 0, AN: 0, ENR: 0, VIT: 0 },
+            "Mago": { HC: -5, HD: -10, ESQ: -10, FC: -20, AA: 10, TRU: 5, CU: -5, ALQ: -20, PER: -10, MANA: 0, SUP: -20, BD: 0, AN: 0, ENR: 0, VIT: 0 },
+            "Montaraz": { HC: -5, HD: 15, ESQ: -5, FC: -25, AA: "N/A", TRU: -20, CU: -10, ALQ: -20, PER: 0, MANA: "N/A", SUP: 15, BD: 0, AN: 0, ENR: 0, VIT: 0 },
+            "Pícaro": { HC: 0, HD: 0, ESQ: 0, FC: 0, AA: "N/A", TRU: 5, CU: -10, ALQ: -25, PER: 0, MANA: "N/A", SUP: 0, BD: 0, AN: 0, ENR: 0, VIT: 1 },
+            "Sacerdote Guerrero": { HC: 5, HD: -5, ESQ: -5, FC: -20, AA: "N/A", TRU: -10, CU: 5, ALQ: -15, PER: -10, MANA: "N/A", SUP: -20, BD: 0, AN: 0, ENR: 1, VIT: 1 },
+            "Druida": { HC: -5, HD: 0, ESQ: -10, FC: -20, AA: 5, TRU: 0, CU: 5, ALQ: 0, PER: -5, MANA: 0, SUP: 0, BD: 0, AN: 0, ENR: 0, VIT: 0 },
+            "Caballero": { HC: 10, HD: 0, ESQ: 0, FC: -25, AA: "N/A", TRU: 5, CU: -15, ALQ: -20, PER: -10, MANA: "N/A", SUP: -25, BD: 0, AN: 0, ENR: 0, VIT: 2 },
+        };
         let finalStats = {};
         let rolls = [];
         let remainingPoints = 15;
@@ -285,7 +304,7 @@
                 if (key === 'vitality') {
                     const vitalityRoll = rollDice(value);
                     document.getElementById("base-" + key).textContent = value;
-                   // document.getElementById("roll-" + key).textContent = vitalityRoll;
+                    // document.getElementById("roll-" + key).textContent = vitalityRoll;
                     finalStats[key] = vitalityRoll;
                 } else {
                     document.getElementById("base-" + key).textContent = value;
@@ -293,7 +312,7 @@
                 document.getElementById("final-" + key).textContent = value;
             }
 
-            
+
             updatePreview();
             updateCombatPreview();
         }
@@ -316,8 +335,8 @@
             for (let i = 0; i < num; i++) {
                 sum += Math.floor(Math.random() * sides) + 1;
             }
-          
-             
+
+
             return sum;
         }
         function bonusVitality(dice) {
@@ -376,7 +395,7 @@
                 let newRoll;
                 const advantage = document.getElementById("advantageOption").checked;
                 // Verifica si es una tirada de vitalidad o una tirada estándar
-                if (stat === 'vitality' || stat === 'vitality-2' ) {
+                if (stat === 'vitality' || stat === 'vitality-2') {
                     newRoll = rerollDiceVitality(raceStats[document.getElementById("race").value].vitality);
                 } else {
                     newRoll = Math.floor(Math.random() * 10) + 1; // Simulación de d10 para otras estadísticas
@@ -386,11 +405,11 @@
                     if (stat === 'vitality' || stat === 'vitality-2') {
                         oldRoll = parseInt(document.getElementById("roll-vitality").textContent);
                         oldRoll = parseInt(document.getElementById("roll-vitality-2").textContent);
-                    } else { 
-                         oldRoll = parseInt(document.getElementById("select-" + id).value);
+                    } else {
+                        oldRoll = parseInt(document.getElementById("select-" + id).value);
                     }
                     if (newRoll > oldRoll) {
-                        
+
                         if (stat === 'vitality-2' || stat === 'vitality') {
                             document.getElementById("roll-vitality" + id).textContent = newRoll;
                             document.getElementById("roll-vitality-2" + id).textContent = newRoll;
@@ -398,7 +417,7 @@
                             let total = newRoll + bonus;
                             document.getElementById("final-vitality").textContent = total;
                             document.getElementById("final-vitality").textContent = total;
-                            document.getElementById("reroll-btn-vitality-2" ).style.display = 'none';
+                            document.getElementById("reroll-btn-vitality-2").style.display = 'none';
                         } else {
                             // Obtener el elemento select
                             var select = document.getElementById("select-" + id);
@@ -419,7 +438,7 @@
                     } else {
                         alert('Atributos sin cambios, Sacaste: ' + newRoll + ' , manteniendo el valor más alto.');
                     }
-                    } else {
+                } else {
                     const oldRoll = parseInt(document.getElementById("roll-" + id).textContent);
                     if (newRoll > oldRoll) {
                         document.getElementById("roll-" + id).textContent = newRoll;
@@ -434,7 +453,7 @@
                         updateStats(); // Función para recalcular y actualizar las estadísticas totales y de combate
                     } else {
                         alert('Atributos sin cambios, Sacaste: ' + newRoll + ' , manteniendo el valor más alto.');
-                        
+
                     }
                 }
 
@@ -485,13 +504,13 @@
         function hideRollSelectors() {
             document.querySelectorAll('.roll-select').forEach(select => select.style.display = 'none');
         }
-// Calcular la vitalidad del personaje en función de la raza
-function calculateVitality(race) {
+        // Calcular la vitalidad del personaje en función de la raza
+        function calculateVitality(race) {
             const vitalityStat = raceStats[race].vitality;
             const vitalityValue = rollDice(vitalityStat);
             finalStats["vitality"] = vitalityValue;
             document.getElementById("final-vitality").textContent = vitalityValue;
-           // document.getElementById("roll-vitality").textContent = vitalityValue;
+            // document.getElementById("roll-vitality").textContent = vitalityValue;
         }
         function updateAdjustedStats() {
             let selectedValues = {};
@@ -518,7 +537,7 @@ function calculateVitality(race) {
                 document.getElementById("final-" + stat).textContent = `${finalStats[stat]}`;
             });
 
-            
+
             updatePreview();
             updateCombatPreview();
         }
@@ -530,104 +549,104 @@ function calculateVitality(race) {
                 document.getElementById("final-" + stat).textContent = `${finalStats[stat]}`;
                 document.getElementById("roll-" + stat).textContent = rolls[i];
             });
-            
+
             updatePreview();
             updateCombatPreview();
         }
 
         function updateExtraPoints() {
-    let totalExtraPoints = 0;
+            let totalExtraPoints = 0;
 
-    // Recorremos todos los puntos extra y calculamos el total
-    ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
-        const inputElement = document.getElementById("extra-" + stat);
-        const value = parseInt(inputElement.value) || 0;
-        totalExtraPoints += value;
-    });
+            // Recorremos todos los puntos extra y calculamos el total
+            ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
+                const inputElement = document.getElementById("extra-" + stat);
+                const value = parseInt(inputElement.value) || 0;
+                totalExtraPoints += value;
+            });
 
-    // Si el total de puntos extra excede el límite, ajustamos los valores
-    if (totalExtraPoints > 15) {
-        //alert("No puedes asignar más de 15 puntos en total.");
-        
-        // Ajustamos cada campo para asegurar que el total no exceda 15 puntos
-        let remainingPoints = 15;
-        ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
-            const inputElement = document.getElementById("extra-" + stat);
-            let value = parseInt(inputElement.value) || 0;
-            
-            if (value > remainingPoints) {
-                value = remainingPoints;
+            // Si el total de puntos extra excede el límite, ajustamos los valores
+            if (totalExtraPoints > 15) {
+                //alert("No puedes asignar más de 15 puntos en total.");
+
+                // Ajustamos cada campo para asegurar que el total no exceda 15 puntos
+                let remainingPoints = 15;
+                ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
+                    const inputElement = document.getElementById("extra-" + stat);
+                    let value = parseInt(inputElement.value) || 0;
+
+                    if (value > remainingPoints) {
+                        value = remainingPoints;
+                    }
+                    inputElement.value = value;
+                    remainingPoints -= value;
+                });
+
+                totalExtraPoints = 15; // Ahora el total de puntos es 15
             }
-            inputElement.value = value;
-            remainingPoints -= value;
-        });
 
-        totalExtraPoints = 15; // Ahora el total de puntos es 15
-    }
+            // Actualizamos el texto de puntos restantes
+            remainingPoints = 15 - totalExtraPoints;
+            document.getElementById("remaining-points").textContent = "Distribuye " + remainingPoints + " puntos adicionales";
 
-    // Actualizamos el texto de puntos restantes
-    remainingPoints = 15 - totalExtraPoints;
-    document.getElementById("remaining-points").textContent = "Distribuye " + remainingPoints + " puntos adicionales";
+            // Ajustamos los valores finales con los puntos extra
+            const advantage = document.getElementById("advantageOption").checked;
+            if (advantage) {
+                ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
+                    const baseValue = raceStats[document.getElementById("race").value][stat];
+                    const selectedValue = parseInt(document.getElementById("select-" + stat).value) || 0;
+                    const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
+                    finalStats[stat] = baseValue + selectedValue + extraValue;
+                    document.getElementById("final-" + stat).textContent = `${finalStats[stat]}`;
+                });
+            } else {
+                ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
+                    const baseValue = raceStats[document.getElementById("race").value][stat];
+                    const selectedValue = parseInt(document.getElementById("roll-" + stat).innerText) || 0;
+                    const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
+                    finalStats[stat] = baseValue + selectedValue + extraValue;
+                    document.getElementById("final-" + stat).textContent = `${finalStats[stat]}`;
+                });
+            }
 
-    // Ajustamos los valores finales con los puntos extra
-    const advantage = document.getElementById("advantageOption").checked;
-    if (advantage) {
-        ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
-            const baseValue = raceStats[document.getElementById("race").value][stat];
-            const selectedValue = parseInt(document.getElementById("select-" + stat).value) || 0;
-            const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
-            finalStats[stat] = baseValue + selectedValue + extraValue;
-            document.getElementById("final-" + stat).textContent = `${finalStats[stat]}`;
-        });
-    } else {
-        ["strength", "constitution", "dexterity", "wisdom", "determination"].forEach(stat => {
-            const baseValue = raceStats[document.getElementById("race").value][stat];
-            const selectedValue = parseInt(document.getElementById("roll-" + stat).innerText) || 0;
-            const extraValue = parseInt(document.getElementById("extra-" + stat).value) || 0;
-            finalStats[stat] = baseValue + selectedValue + extraValue;
-            document.getElementById("final-" + stat).textContent = `${finalStats[stat]}`;
-        });
-    }
 
-    
-    updatePreview();
-    updateCombatPreview();
-}
+            updatePreview();
+            updateCombatPreview();
+        }
 
-function updateCombatPreview() {
-    // Obtener la clase seleccionada
-    const selectedClass = document.getElementById("classSelect").value; // Asegúrate de que el ID sea correcto
-    const modifiers = classModifiers[selectedClass] || {};
+        function updateCombatPreview() {
+            // Obtener la clase seleccionada
+            const selectedClass = document.getElementById("classSelect").value; // Asegúrate de que el ID sea correcto
+            const modifiers = classModifiers[selectedClass] || {};
 
-    const dexterity = (finalStats.dexterity || 0);
-    const wisdom = (finalStats.wisdom || 0);
-    const constitution = (finalStats.constitution || 0) ;
-    const strength = (finalStats.strength || 0) ;
-    const determination = (finalStats.determination || 0) ;
+            const dexterity = (finalStats.dexterity || 0);
+            const wisdom = (finalStats.wisdom || 0);
+            const constitution = (finalStats.constitution || 0);
+            const strength = (finalStats.strength || 0);
+            const determination = (finalStats.determination || 0);
 
-    // Aplicar valores modificados a los elementos de vista previa
-    document.getElementById("preview-HC").textContent = dexterity + (modifiers.HC || 0);
-    document.getElementById("preview-HD").textContent = dexterity + (modifiers.HD || 0);
-    document.getElementById("preview-ESQ").textContent = dexterity + (modifiers.ESQ || 0);
+            // Aplicar valores modificados a los elementos de vista previa
+            document.getElementById("preview-HC").textContent = dexterity + (modifiers.HC || 0);
+            document.getElementById("preview-HD").textContent = dexterity + (modifiers.HD || 0);
+            document.getElementById("preview-ESQ").textContent = dexterity + (modifiers.ESQ || 0);
 
-    document.getElementById("preview-FC").textContent = determination;
+            document.getElementById("preview-FC").textContent = determination;
 
-    document.getElementById("preview-AA").textContent = modifiers.AA !== "N/A" ? wisdom : "N/A";
-    document.getElementById("preview-TRU").textContent = wisdom + (modifiers.TRU || 0);
-    document.getElementById("preview-CU").textContent = wisdom + (modifiers.CU || 0);
-    document.getElementById("preview-ALQ").textContent = wisdom + (modifiers.ALQ || 0);
-    document.getElementById("preview-PER").textContent = wisdom + (modifiers.PER || 0);
-    document.getElementById("preview-MANA").textContent = modifiers.MANA !== "N/A" ? Math.floor(wisdom * 1.5) : "N/A";
+            document.getElementById("preview-AA").textContent = modifiers.AA !== "N/A" ? wisdom : "N/A";
+            document.getElementById("preview-TRU").textContent = wisdom + (modifiers.TRU || 0);
+            document.getElementById("preview-CU").textContent = wisdom + (modifiers.CU || 0);
+            document.getElementById("preview-ALQ").textContent = wisdom + (modifiers.ALQ || 0);
+            document.getElementById("preview-PER").textContent = wisdom + (modifiers.PER || 0);
+            document.getElementById("preview-MANA").textContent = modifiers.MANA !== "N/A" ? Math.floor(wisdom * 1.5) : "N/A";
 
-    document.getElementById("preview-SUP").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0;
-    document.getElementById("preview-AN").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0;
+            document.getElementById("preview-SUP").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0;
+            document.getElementById("preview-AN").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0;
 
-    document.getElementById("preview-BD").textContent = strength >= 50 ? Math.floor((strength - 50) / 10) + 1 : 0;
+            document.getElementById("preview-BD").textContent = strength >= 50 ? Math.floor((strength - 50) / 10) + 1 : 0;
 
-    document.getElementById("preview-vitality").textContent = parseInt(document.getElementById("final-vitality").textContent) + modifiers.VIT ;
-}
+            document.getElementById("preview-vitality").textContent = parseInt(document.getElementById("final-vitality").textContent) + modifiers.VIT;
+        }
 
-// Asumiendo que tienes un <select id="classSelect"> en tu HTML para la selección de clase.
+        // Asumiendo que tienes un <select id="classSelect"> en tu HTML para la selección de clase.
 
 
         function updateClassStats() {
@@ -645,24 +664,62 @@ function updateCombatPreview() {
 
         window.onload = loadBaseStats;
 
-           // Mostrar los desplegables para asignar tiradas manualmente
-function showRollSelectors() {
-    const abbreviations = {
-        strength: "FUE",
-        constitution: "CON",
-        dexterity: "DES",
-        wisdom: "SAB",
-        determination: "DET"
-    };
-    
-    document.querySelectorAll('.roll-select').forEach((select, index) => {
-        const stat = select.id.split('-')[1]; // Obtiene el nombre del atributo
-        const abbreviation = abbreviations[stat]; // Obtiene la abreviatura correspondiente
-        select.style.display = 'inline';
-        select.innerHTML = `<option value="">${abbreviation}</option>` + 
-            rolls.map(roll => `<option value="${roll}" class="available">${roll}</option>`).join('');
-    });
-} 
+        // Mostrar los desplegables para asignar tiradas manualmente
+        function showRollSelectors() {
+            const abbreviations = {
+                strength: "FUE",
+                constitution: "CON",
+                dexterity: "DES",
+                wisdom: "SAB",
+                determination: "DET"
+            };
+
+            document.querySelectorAll('.roll-select').forEach((select, index) => {
+                const stat = select.id.split('-')[1]; // Obtiene el nombre del atributo
+                const abbreviation = abbreviations[stat]; // Obtiene la abreviatura correspondiente
+                select.style.display = 'inline';
+                select.innerHTML = `<option value="">${abbreviation}</option>` +
+                    rolls.map(roll => `<option value="${roll}" class="available">${roll}</option>`).join('');
+            });
+        }
+    </script>
+    <script src="https://unpkg.com/pdf-lib@1.16.0"></script>
+    <script>
+       
+            async function exportPdf() {
+                // URL del PDF en la misma carpeta que el HTML
+                const url = 'personaje.pdf'; // Archivo PDF en la misma ubicación que el archivo HTML
+
+                // Cargar el PDF
+                const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
+
+            // Cargar el documento PDF
+            const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+
+            // Obtener el formulario del PDF
+            const form = pdfDoc.getForm();
+
+            // Obtener el valor del campo HTML
+            const strengthValue = document.getElementById('preview-strength').value;
+
+            // Establecer el valor del campo "preview-strength" en el PDF
+            form.getTextField('preview-strength').setText(strengthValue);
+
+            // Guardar el PDF modificado
+            const pdfBytes = await pdfDoc.save();
+
+            // Crear un enlace para la descarga
+            const blob = new Blob([pdfBytes], {type: 'application/pdf' });
+            const urlBlob = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = urlBlob;
+            link.download = 'Ficha_Personaje_Completada.pdf';
+            link.click();
+
+            // Liberar el objeto URL
+            URL.revokeObjectURL(urlBlob);
+            }
+  
     </script>
 </body>
 </html>
