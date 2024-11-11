@@ -786,8 +786,7 @@
             const imageBytes = await fetch(imageUrl).then(res => res.arrayBuffer());
             const pngImage = await pdfDoc.embedPng(imageBytes);
 
-            // Obtener el formulario del PDF
-            const form = pdfDoc.getForm();
+           
 
             // Insertar la imagen en el campo "Imagen" (tratándolo como un botón)
             const imageField = form.getButton('Imagen'); // Acceso al campo de imagen como "button"
