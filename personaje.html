@@ -808,7 +808,7 @@
             const urlBlob = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = urlBlob;
-            link.download = 'Ficha_Personaje_Completada.pdf';
+            link.download = 'LoD_' + NameValue + '_' + raceValue + '_' + classValue+'.pdf';
             link.click();
 
             // Liberar el objeto URL
