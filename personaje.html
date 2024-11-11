@@ -70,6 +70,8 @@
         <div class="left-panel">
             <h2>Opciones del Personaje</h2>
             <div class="stat">
+                <label for="Name">Nombre:</label>
+                <input id="Name" />
                 <label for="race">Raza:</label>
                 <select id="race" onchange="loadBaseStats()">
                     <option value="Enano">Enano</option>
@@ -769,6 +771,9 @@
 
             const corValue = document.getElementById('preview-COR').textContent;
             form.getTextField('preview-COR').setText(corValue);
+
+            const NameValue = document.getElementById('Name').value;
+            form.getTextField('Name').setText(NameValue);
 
             // Campos <select>
             const classValue = document.getElementById('classSelect').value;
