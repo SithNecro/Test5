@@ -391,6 +391,7 @@
         let remainingPoints = 15;
         // Definición de la variable global para controlar los rerolls
         let remainingRerolls = 2;
+        let bonusApplied = {}; // Objeto para almacenar el estado de bonificación
 
         function loadBaseStats() {
             const race = document.getElementById("race").value;
@@ -730,20 +731,20 @@
             const determination = (finalStats.determination || 0);
 
             // Aplicar valores modificados a los elementos de vista previa
-            document.getElementById("preview-HC").textContent = dexterity + (modifiers.HC || 0);
-            document.getElementById("preview-HD").textContent = dexterity + (modifiers.HD || 0);
-            document.getElementById("preview-ESQ").textContent = dexterity + (modifiers.ESQ || 0);
+            document.getElementById("preview-HC").textContent = dexterity + (modifiers.HC || 0) + (bonusApplied["HC"] || 0);
+            document.getElementById("preview-HD").textContent = dexterity + (modifiers.HD || 0) + (bonusApplied["HD"] || 0);
+            document.getElementById("preview-ESQ").textContent = dexterity + (modifiers.ESQ || 0) + (bonusApplied["ESQ"] || 0);
 
-            document.getElementById("preview-FC").textContent = determination;
+            document.getElementById("preview-FC").textContent = determination + (bonusApplied["FC"] || 0);;
 
             document.getElementById("preview-AA").textContent = modifiers.AA !== "N/A" ? wisdom : "N/A";
-            document.getElementById("preview-TRU").textContent = wisdom + (modifiers.TRU || 0);
-            document.getElementById("preview-CU").textContent = wisdom + (modifiers.CU || 0);
-            document.getElementById("preview-ALQ").textContent = wisdom + (modifiers.ALQ || 0);
-            document.getElementById("preview-PER").textContent = wisdom + (modifiers.PER || 0);
+            document.getElementById("preview-TRU").textContent = wisdom + (modifiers.TRU || 0) + (bonusApplied["TRU"] || 0);;
+            document.getElementById("preview-CU").textContent = wisdom + (modifiers.CU || 0) + (bonusApplied["CU"] || 0);
+            document.getElementById("preview-ALQ").textContent = wisdom + (modifiers.ALQ || 0) + (bonusApplied["ALQ"] || 0);
+            document.getElementById("preview-PER").textContent = wisdom + (modifiers.PER || 0) + (bonusApplied["PER"] || 0);
             document.getElementById("preview-MANA").textContent = modifiers.MANA !== "N/A" ? Math.floor(wisdom * 1.5) : "N/A";
 
-            document.getElementById("preview-SUP").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0;
+            document.getElementById("preview-SUP").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0 + (bonusApplied["SUP"] || 0);;
             document.getElementById("preview-AN").textContent = constitution >= 50 ? Math.floor((constitution - 50) / 5) + 1 : 0;
 
             document.getElementById("preview-BD").textContent = strength >= 50 ? Math.floor((strength - 50) / 10) + 1 : 0;
