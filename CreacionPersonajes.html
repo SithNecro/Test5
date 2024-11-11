@@ -33,10 +33,7 @@
             width: 100%;
         }
 
-        .left-panel, .right-panel {
-            padding: 20px;
-            box-sizing: border-box;
-        }
+      
 
        
 
@@ -92,11 +89,11 @@
         /* Estilos para el contenido principal */
         .main-content {
             margin-left: 310px;
-            padding: 20px;
+            padding: 10px;
             /* height: 100vh;*/
             flex-direction: column;
             display: flex;
-            align-items: center;
+            
             justify-content: flex-start;
         }
         /* Columna izquierda con ancho fijo de 300px y centrado arriba */
@@ -251,7 +248,7 @@
                 </tbody>
             </table>
             <br />
-            <div id="stat" class="stat" style="display: none;">
+            <div id="statics" class="stat" style="display: none;">
                 <label for="class">Clase:</label>
                 <select id="classSelect" onchange="updateClassStats()">
                     <option value="SeleccionaClase">Selecciona la Clase</option>
@@ -451,9 +448,8 @@
         function generateRolls() {
             document.getElementById('estadisticasbaseh3').style.display = 'table';
             document.getElementById('stats-table').style.display = 'table';
-
             document.getElementById('character-preview').style.display = 'table';
-
+            document.getElementById('statics').style.display = 'table';
             document.getElementById('goblinImage').style.display = 'none';
 
 
