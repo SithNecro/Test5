@@ -224,6 +224,9 @@
                     <td id="roll-determination">-</td>
                     <td id="roll-vitality-2">-</td>
                 </tr>
+                <tr>
+                    <td colspan="6" id="remaining-points" style="text-align: center;"><strong>Puedes relanzar hasta 2 dados (Se mantendrá el valor más alto)</strong></td>
+                </tr>
                 <tr id="reroll-values">
                     <td id="roll-strength"><button id="reroll-btn-strength" class="reroll-button" style="background-color: green;" onclick="rerollStat('strength', 'strength')">↻</button></td>
                     <td id="roll-constitution"><button id="reroll-btn-constitution" class="reroll-button" style="background-color: green;" onclick="rerollStat('constitution', 'constitution')">↻</button></td>
@@ -259,8 +262,8 @@
         </table>
         <br />
         <!-- Select para seleccionar valores negativos de la clase -->
+        <label for="class">Selecciona un atributo en desventaja para sumarle +10</label>
         <select style="display: none;" onchange="applyNegativeBonus()" id="classNegative">
-            Selecciona un atributo en desventaja para sumarle +10
             <option value="">Selecciona un atributo...</option>
         </select>
 
@@ -736,9 +739,9 @@
             document.getElementById("preview-HD").textContent = dexterity + (modifiers.HD || 0) + (bonusApplied["HD"] || 0);
             document.getElementById("preview-ESQ").textContent = dexterity + (modifiers.ESQ || 0) + (bonusApplied["ESQ"] || 0);
 
-            document.getElementById("preview-FC").textContent = determination + (bonusApplied["FC"] || 0);;
+            document.getElementById("preview-FC").textContent = dexterity + (modifiers.FC || 0) + (bonusApplied["FC"] || 0)  ;
 
-            document.getElementById("preview-AA").textContent = modifiers.AA !== "N/A" ? wisdom : "N/A";
+            document.getElementById("preview-AA").textContent =  modifiers.AA !== "N/A" ? wisdom : "N/A";
             document.getElementById("preview-TRU").textContent = wisdom + (modifiers.TRU || 0) + (bonusApplied["TRU"] || 0);;
             document.getElementById("preview-CU").textContent = wisdom + (modifiers.CU || 0) + (bonusApplied["CU"] || 0);
             document.getElementById("preview-ALQ").textContent = wisdom + (modifiers.ALQ || 0) + (bonusApplied["ALQ"] || 0);
