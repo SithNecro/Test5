@@ -763,6 +763,9 @@
             const classNegativeSelect = document.getElementById("classNegative");
             // Limpiamos el select de opciones previas
             classNegativeSelect.innerHTML = '<option value="">Selecciona una opción negativa</option>';
+            bonusApplied = {}; // Restablecer cualquier bonificación aplicada
+
+
             if (selectedClass === "SeleccionaClase") return;
 
             // Obtenemos los modificadores de la clase seleccionada
