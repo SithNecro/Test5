@@ -409,48 +409,6 @@
             loadValues(); // Cargar valores al inicio
         });
     </script>
-    <script>
-        let playerTab = null; // Variable para almacenar la referencia de la pestaña de audio
-        let activeButton = null;  // Botón activo en la página
-
-        // Abre la pestaña de audio solo tras una interacción del usuario
-        function initializeAudioPlayer() {
-            if (!playerTab || playerTab.closed) {
-                playerTab = window.open('https://sithnecro.github.io/Test5/player.html', 'uniquePlayerTab');
-            }
-        }
-
-        // Función para reproducir música
-        function playMusic(type) {
-            initializeAudioPlayer(); // Abre o reutiliza `player.html` tras una interacción
-
-            if (playerTab && !playerTab.closed) {
-                playerTab.postMessage({ action: 'play', trackType: type }, '*');
-            }
-
-            document.getElementById('muteButton').classList.add('active');
-            if (activeButton) activeButton.classList.remove('pressed');
-            const button = event.target;
-            button.classList.add('pressed');
-            activeButton = button;
-        }
-
-        function stopMusic() {
-            if (playerTab && !playerTab.closed) {
-                playerTab.postMessage({ action: 'stop' }, '*');
-            }
-
-            document.getElementById('muteButton').classList.remove('active');
-            if (activeButton) activeButton.classList.remove('pressed');
-            activeButton = null;
-        }
-
-        // Agrega el evento de clic en el botón o en cualquier elemento que se use para inicializar el audio
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('initializeButton').addEventListener('click', () => {
-                initializeAudioPlayer(); // Permite la reproducción tras un clic inicial
-            });
-        });
-    </script>
+   
 </body>
 </html>
