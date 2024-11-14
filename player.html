@@ -34,10 +34,9 @@
         };
 
         const audioPlayer = document.getElementById('audioPlayer');
-
-        // Escuchar mensajes de la p�gina principal
         window.addEventListener('message', (event) => {
             const { action, trackType } = event.data;
+
             if (action === 'play' && trackType) {
                 playRandomTrack(trackType);
             } else if (action === 'stop') {
@@ -50,27 +49,15 @@
             const randomTrack = trackList[Math.floor(Math.random() * trackList.length)];
             audioPlayer.src = randomTrack;
 
-            setTimeout(() => {
-                audioPlayer.play().catch(error => {
-                    console.log("Reproducci�n bloqueada por el navegador:", error);
-                });
-                focusMainPage(); // Devuelve el foco a la p�gina principal
-            }, 100);
+            // Reproducir la pista sin cambiar el foco de la pestaña
+            audioPlayer.play().catch(error => {
+                console.log("Reproducción bloqueada por el navegador:", error);
+            });
         }
 
         function stopTrack() {
             audioPlayer.pause();
             audioPlayer.currentTime = 0;
-        }
-
-        // Funci�n para devolver el foco a la p�gina principal
-        function focusMainPage() {
-            if (window.opener && !window.opener.closed) {
-                // Devuelve el foco a la ventana que abri� player.html
-                window.opener.focus();
-            } else {
-                console.log("La ventana de origen no est� disponible.");
-            }
         }
     </script>
 
