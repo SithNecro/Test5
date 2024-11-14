@@ -419,8 +419,6 @@
         function playMusic(type) {
             // Comprueba si la pestaña de audio ya está abierta y la reutiliza si es el caso
             if (!playerTab || playerTab.closed) {
-                playerTab = window.open('player.html', '_blank');
-
                 playerTab = window.open('https://sithnecro.github.io/Test5/player.html', 'playerWindow');
                 // Envía el tipo de música a reproducir después de cargar la pestaña
                 playerTab.onload = () => {
