@@ -12,26 +12,17 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            flex-direction: column;
         }
         /* Evitar que la imagen cambie de tamaño */
         img {
             max-width: 100%;
             height: auto;
         }
-        /* Estilo del botón de silencio */
-        .mute-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
     <img src="./img/playersound.png" alt="Descripción de la imagen">
     <audio id="audioPlayer" loop></audio> <!-- Elemento de audio que reproduce en bucle -->
-    <button id="muteButton" class="mute-button">Silenciar</button>
 
     <script>
         const tracks = {
@@ -39,4 +30,49 @@
             guerra: ['sonidosambientes/guerra1.mp3', 'sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra3.mp3'
                 , 'sonidosambientes/guerra4.mp3', 'sonidosambientes/guerra5.mp3', 'sonidosambientes/guerra6.mp3'
                 , 'sonidosambientes/guerra7.mp3'],
+            mazmorra: ['sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra2.mp3']
+        };
 
+        const audioPlayer = document.getElementById('audioPlayer');
+
+        // Escuchar mensajes de la página principal
+        window.addEventListener('message', (event) => {
+            const { action, trackType } = event.data;
+            if (action === 'play' && trackType) {
+                playRandomTrack(trackType);
+            } else if (action === 'stop') {
+                stopTrack();
+            }
+        });
+
+        function playRandomTrack(type) {
+            const trackList = tracks[type];
+            const randomTrack = trackList[Math.floor(Math.random() * trackList.length)];
+            audioPlayer.src = randomTrack;
+
+            setTimeout(() => {
+                audioPlayer.play().catch(error => {
+                    console.log("Reproducción bloqueada por el navegador:", error);
+                });
+                focusMainPage(); // Devuelve el foco a la página principal
+            }, 100);
+        }
+
+        function stopTrack() {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+        }
+
+        // Función para devolver el foco a la página principal
+        function focusMainPage() {
+            if (window.opener && !window.opener.closed) {
+                // Devuelve el foco a la ventana que abrió player.html
+                window.opener.focus();
+            } else {
+                console.log("La ventana de origen no está disponible.");
+            }
+        }
+    </script>
+
+</body>
+</html>
