@@ -1,11 +1,11 @@
+       
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imagen Centrada</title>
+    <title>Reproductor de Audio</title>
     <style>
-        /* Centrar imagen en la p�gina */
         body {
             display: flex;
             justify-content: center;
@@ -13,15 +13,9 @@
             height: 100vh;
             margin: 0;
         }
-        /* Evitar que la imagen cambie de tama�o */
-        img {
-            max-width: 100%;
-            height: auto;
-        }
     </style>
 </head>
 <body>
-    <img src="./img/playersound.png" alt="Descripci�n de la imagen">
     <audio id="audioPlayer" loop></audio> <!-- Elemento de audio que reproduce en bucle -->
 
     <script>
@@ -34,6 +28,8 @@
         };
 
         const audioPlayer = document.getElementById('audioPlayer');
+
+        // Escuchar mensajes entrantes para reproducir o detener
         window.addEventListener('message', (event) => {
             const { action, trackType } = event.data;
 
@@ -45,21 +41,29 @@
         });
 
         function playRandomTrack(type) {
+            if (!tracks[type]) return; // Verificar si el tipo de pista existe
+
+            // Detener cualquier reproducción en curso antes de cargar una nueva
+            stopTrack();
+
+            // Selecciona una pista aleatoria y asigna la fuente
             const trackList = tracks[type];
             const randomTrack = trackList[Math.floor(Math.random() * trackList.length)];
             audioPlayer.src = randomTrack;
 
-            // Reproducir la pista sin cambiar el foco de la pestaña
+            // Iniciar reproducción después de cargar la pista
+            audioPlayer.load();
             audioPlayer.play().catch(error => {
-                console.log("Reproducción bloqueada por el navegador:", error);
+                console.log("Error en la reproducción:", error);
             });
         }
 
         function stopTrack() {
+            // Pausar y restablecer el audio
             audioPlayer.pause();
             audioPlayer.currentTime = 0;
+            audioPlayer.src = ""; // Limpiar la fuente para evitar conflictos
         }
     </script>
-
 </body>
 </html>
