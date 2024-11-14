@@ -100,16 +100,17 @@
             background-image: url('./img/mazmorra.png'); /* Imagen de puerta de mazmorra */
         }
 
-        .music-button4 {
+        /* Estilo del botón de silenciar con clase específica */
+        .mute-button {
             background-color: red; /* Rojo por defecto */
             color: white;
             font-weight: bold;
-            transition: background-color 0.3s; /* Transición para el cambio de color */
+            transition: background-color 0.3s;
         }
-        /* Verde cuando está activado */
-        .active {
-            background-color: green;
-        }
+
+            .mute-button.active {
+                background-color: green; /* Verde cuando está activo */
+            }
     </style>
 </head>
 <body>
@@ -122,7 +123,8 @@
             <button class="music-button music-button1" onclick="playRandomTrack('camino')"></button>
             <button class="music-button music-button2" onclick="playRandomTrack('guerra')"></button>
             <button class="music-button music-button3" onclick="playRandomTrack('mazmorra')"></button>
-            <button class="music-button music-button4" id="muteButton" onclick="stopAllTracks()">🔇</button>
+            <!-- HTML -->
+            <button class="music-button music-button4 mute-button" id="muteButton" onclick="stopAllTracks()">🔇</button>
 
             <!-- Archivos de audio (ocultos) -->
             <audio id="audio1" loop></audio> <!-- El atributo loop permite que el audio se repita automáticamente -->
