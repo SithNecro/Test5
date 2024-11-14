@@ -1,28 +1,27 @@
-        
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reproductor de Música</title>
+    <title>Imagen Centrada</title>
     <style>
-        /* Estilo para la imagen de fondo */
+        /* Centrar imagen en la página */
         body {
-            background-image: url('./img/playersound.png');
-            background-size: cover; /* Hace que la imagen cubra toda la ventana */
-            background-position: center; /* Centra la imagen */
-            background-repeat: no-repeat; /* Evita que la imagen se repita */
-            margin: 0; /* Elimina el margen */
-            height: 100vh; /* Asegura que el fondo cubra toda la pantalla */
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
+            height: 100vh;
+            margin: 0;
+        }
+        /* Evitar que la imagen cambie de tamaño */
+        img {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
+
 <body>
     <audio id="audioPlayer" loop></audio> <!-- Elemento de audio que reproduce en bucle -->
 

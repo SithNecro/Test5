@@ -421,10 +421,10 @@
             if (!playerTab || playerTab.closed) {
                 playerTab = window.open('player.html', '_blank');
 
-                // Recupera el foco a la pestaña principal después de abrir la pestaña de audio
-                setTimeout(() => {
-                    window.focus();
-                }, 500);
+                // Envía la URL de la pestaña principal al abrir player.html
+                playerTab.onload = () => {
+                    playerTab.postMessage({ action: 'setOrigin', originUrl: window.location.href }, '*');
+                };
 
                 // Envía el tipo de música a reproducir después de una breve espera
                 setTimeout(() => {
