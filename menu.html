@@ -416,31 +416,24 @@
         let playerTab = null; // Variable para almacenar la referencia de la pestaña de audio
         let activeButton = null;  // Botón activo en la página
 
+        // Función para abrir o reutilizar la pestaña `player.html`
         function openOrReusePlayerTab() {
-            // Verificar si ya existe una referencia en sessionStorage
-            const playerTabExists = sessionStorage.getItem('playerTabIsOpen');
-
-            if (!playerTabExists || !playerTab || playerTab.closed) {
-                // Abre `player.html` como una ventana independiente
-                playerTab = window.open('https://sithnecro.github.io/Test5/player.html', '_blank', 'noopener,noreferrer');
-                sessionStorage.setItem('playerTabIsOpen', 'true'); // Marcar que la pestaña está abierta
-
-                playerTab.onload = () => {
-                    // Envía un mensaje de reproducción inicial después de cargar
-                    playerTab.postMessage({ action: 'play', trackType: 'camino' }, '*');
-                };
+            // Si no existe una referencia o está cerrada, abrir la pestaña con un nombre único
+            if (!playerTab || playerTab.closed) {
+                playerTab = window.open('https://sithnecro.github.io/Test5/player.html', 'uniquePlayerTab', 'width=300,height=200'); // Nombre único para reutilizarla
             }
         }
 
+        // Llamar a `openOrReusePlayerTab` para asegurarse de que la pestaña esté abierta
         function playMusic(type) {
-            openOrReusePlayerTab(); // Asegura que `player.html` esté abierta o reutilizada
+            openOrReusePlayerTab(); // Abre o reutiliza `player.html`
 
-            // Envía el mensaje para reproducir la pista deseada
+            // Envía el mensaje para reproducir la pista deseada solo si la pestaña está abierta
             if (playerTab && !playerTab.closed) {
                 playerTab.postMessage({ action: 'play', trackType: type }, '*');
             }
 
-            // Actualiza el estado visual de los botones
+            // Cambiar el estado visual del botón de silencio
             document.getElementById('muteButton').classList.add('active');
             if (activeButton) activeButton.classList.remove('pressed');
             const button = event.target;
@@ -449,23 +442,20 @@
         }
 
         function stopMusic() {
-            // Envía un mensaje para detener la música si `player.html` sigue abierta
+            // Envía un mensaje para detener la música si `player.html` está abierta
             if (playerTab && !playerTab.closed) {
                 playerTab.postMessage({ action: 'stop' }, '*');
             }
 
-            // Restablece el estado visual de los botones
+            // Restablecer el estado visual de los botones
             document.getElementById('muteButton').classList.remove('active');
             if (activeButton) activeButton.classList.remove('pressed');
             activeButton = null;
         }
 
-        // Limpiar `sessionStorage` al cerrar completamente el navegador
+        // Asegura que `playerTab` no se cierre cuando se recargue o navegue en `menu.html`
         window.addEventListener('beforeunload', () => {
-            if (playerTab && !playerTab.closed) {
-                playerTab.close(); // Cierra `player.html` cuando `menu.html` se cierra
-                sessionStorage.removeItem('playerTabIsOpen'); // Limpia el indicador de la pestaña abierta
-            }
+            // No cerrar `playerTab` en `beforeunload` para mantenerla abierta entre navegaciones
         });
 
     </script>
