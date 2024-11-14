@@ -413,25 +413,22 @@
         });
     </script>
     <script>
-        let playerTab = null; // Variable para la nueva pestaña
+        let playerTab = null; // Variable para almacenar la referencia de la pestaña de audio
         let activeButton = null;  // Botón activo en la página
 
         function playMusic(type) {
-            // Abre una nueva pestaña o reutiliza la existente
+            // Comprueba si la pestaña de audio ya está abierta y la reutiliza si es el caso
             if (!playerTab || playerTab.closed) {
                 playerTab = window.open('player.html', '_blank');
 
-                // Envía la URL de la pestaña principal al abrir player.html
+                playerTab = window.open('https://sithnecro.github.io/Test5/player.html', 'playerWindow');
+                // Envía el tipo de música a reproducir después de cargar la pestaña
                 playerTab.onload = () => {
-                    playerTab.postMessage({ action: 'setOrigin', originUrl: window.location.href }, '*');
-                };
-
-                // Envía el tipo de música a reproducir después de una breve espera
-                setTimeout(() => {
                     playerTab.postMessage({ action: 'play', trackType: type }, '*');
-                }, 1000);
+                };
             } else {
-                // Si la pestaña de audio ya está abierta, envía el mensaje de reproducción inmediatamente
+                // Si la pestaña ya está abierta, solo envía el mensaje de reproducción
+                playerTab.focus(); // Lleva el foco a la pestaña abierta
                 playerTab.postMessage({ action: 'play', trackType: type }, '*');
             }
 
@@ -446,10 +443,9 @@
         }
 
         function stopMusic() {
-            // Verificar si la pestaña de audio existe y sigue abierta
+            // Verifica si la pestaña de audio existe y sigue abierta, y envía el mensaje para detener la música
             if (playerTab && !playerTab.closed) {
                 playerTab.postMessage({ action: 'stop' }, '*');
-                playerTab.close(); // Cerrar la pestaña
             }
 
             // Cambiar estado visual del botón de silencio y botones de audio
