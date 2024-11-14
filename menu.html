@@ -417,15 +417,10 @@
         let activeButton = null;  // Botón activo en la página
 
         function playMusic(type) {
-            // Verificar si ya existe una pestaña almacenada en localStorage
-            const playerTabIsOpen = localStorage.getItem('playerTabIsOpen');
-
-            // Si no está abierta o se cerró, abre una nueva pestaña
-            if (!playerTabIsOpen || !playerTab || playerTab.closed) {
-                playerTab = window.open('https://sithnecro.github.io/Test5/player.html', '_blank');
-                localStorage.setItem('playerTabIsOpen', 'true'); // Guardar en localStorage que la pestaña está abierta
-
-                // Usar el evento de carga para enviar el mensaje solo cuando la pestaña haya cargado
+            // Verificar si la pestaña ya existe usando su nombre único
+            if (!playerTab || playerTab.closed) {
+                playerTab = window.open('https://sithnecro.github.io/Test5/player.html', 'uniquePlayerTab'); // Asigna un nombre único
+                // Enviar el mensaje de reproducción después de que la pestaña cargue
                 playerTab.onload = () => {
                     playerTab.postMessage({ action: 'play', trackType: type }, '*');
                 };
@@ -455,11 +450,6 @@
             if (activeButton) activeButton.classList.remove('pressed');
             activeButton = null;
         }
-
-        // Escuchar el evento `beforeunload` para limpiar `localStorage` al cerrar la pestaña principal
-        window.addEventListener('beforeunload', () => {
-            localStorage.removeItem('playerTabIsOpen'); // Limpiar indicador cuando la página se cierra o recarga
-        });
     </script>
 </body>
 </html>
