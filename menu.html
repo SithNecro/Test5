@@ -415,17 +415,22 @@
     <script>
         let playerTab = null; // Variable para almacenar la referencia de la pestaña de audio
         let activeButton = null;  // Botón activo en la página
-      
+
         function playMusic(type) {
-            // Abre la pestaña de audio en segundo plano si no está abierta o se ha cerrado
-            if (!playerTab || playerTab.closed) {
+            // Verificar si ya existe una pestaña almacenada en localStorage
+            const playerTabIsOpen = localStorage.getItem('playerTabIsOpen');
+
+            // Si no está abierta o se cerró, abre una nueva pestaña
+            if (!playerTabIsOpen || !playerTab || playerTab.closed) {
                 playerTab = window.open('https://sithnecro.github.io/Test5/player.html', '_blank');
-                // Usa el evento de carga para enviar el mensaje solo cuando la pestaña haya cargado
+                localStorage.setItem('playerTabIsOpen', 'true'); // Guardar en localStorage que la pestaña está abierta
+
+                // Usar el evento de carga para enviar el mensaje solo cuando la pestaña haya cargado
                 playerTab.onload = () => {
                     playerTab.postMessage({ action: 'play', trackType: type }, '*');
                 };
             } else {
-                // Si ya está abierta, envía el mensaje sin cambiar el foco
+                // Si la pestaña ya está abierta, envía el mensaje sin cambiar el foco
                 playerTab.postMessage({ action: 'play', trackType: type }, '*');
             }
 
@@ -440,7 +445,7 @@
         }
 
         function stopMusic() {
-            // Verifica si la pestaña de audio existe y sigue abierta, y envía el mensaje para detener la música
+            // Verificar si la pestaña de audio existe y sigue abierta
             if (playerTab && !playerTab.closed) {
                 playerTab.postMessage({ action: 'stop' }, '*');
             }
@@ -450,6 +455,11 @@
             if (activeButton) activeButton.classList.remove('pressed');
             activeButton = null;
         }
+
+        // Escuchar el evento `beforeunload` para limpiar `localStorage` al cerrar la pestaña principal
+        window.addEventListener('beforeunload', () => {
+            localStorage.removeItem('playerTabIsOpen'); // Limpiar indicador cuando la página se cierra o recarga
+        });
     </script>
 </body>
 </html>
