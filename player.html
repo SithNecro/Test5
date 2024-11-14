@@ -34,15 +34,11 @@
         };
 
         const audioPlayer = document.getElementById('audioPlayer');
-        let originWindow = null; // Guardará la referencia a la pestaña original
 
         // Escuchar mensajes de la página principal
         window.addEventListener('message', (event) => {
-            const { action, trackType, originUrl } = event.data;
-            if (action === 'setOrigin') {
-                // Establece la URL de la pestaña de origen
-                originWindow = originUrl;
-            } else if (action === 'play' && trackType) {
+            const { action, trackType } = event.data;
+            if (action === 'play' && trackType) {
                 playRandomTrack(trackType);
             } else if (action === 'stop') {
                 stopTrack();
@@ -58,7 +54,7 @@
                 audioPlayer.play().catch(error => {
                     console.log("Reproducción bloqueada por el navegador:", error);
                 });
-                focusMainPage(); // Devolver el foco a la página principal
+                focusMainPage(); // Devuelve el foco a la página principal
             }, 100);
         }
 
@@ -69,12 +65,14 @@
 
         // Función para devolver el foco a la página principal
         function focusMainPage() {
-            if (originWindow) {
-                // Encuentra la ventana original y devuelve el foco
-                window.open(originWindow, '_self');
+            if (window.opener && !window.opener.closed) {
+                // Devuelve el foco a la ventana que abrió player.html
+                window.opener.focus();
+            } else {
+                console.log("La ventana de origen no está disponible.");
             }
         }
     </script>
 
-    </body>
+</body>
 </html>
