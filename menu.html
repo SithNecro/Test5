@@ -424,7 +424,7 @@
 
             // Enviar el tipo de música a reproducir
             playerWindow.postMessage({ action: 'play', trackType: type }, '*');
-
+            playerWindow.postMessage({ action: 'play', trackType: type }, '*');
             // Cambiar estado visual del botón de silencio
             document.getElementById('muteButton').classList.add('active');
 
