@@ -413,43 +413,39 @@
         });
     </script>
     <script>
-        let playerTab = null; // Variable para almacenar la referencia de la pestaña de audio
-        let activeButton = null;  // Botón activo en la página
+        const audioPlayer = document.getElementById('audioPlayer');
+        const tracks = {
+            camino: ['sonidosambientes/guerra1.mp3', 'sonidosambientes/guerra1.mp3', 'sonidosambientes/guerra1.mp3'],
+            guerra: ['sonidosambientes/guerra1.mp3', 'sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra3.mp3',
+                'sonidosambientes/guerra4.mp3', 'sonidosambientes/guerra5.mp3', 'sonidosambientes/guerra6.mp3',
+                'sonidosambientes/guerra7.mp3'],
+            mazmorra: ['sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra2.mp3']
+        };
 
-        function playMusic(type) {
-            // Comprueba si la pestaña de audio ya está abierta y la reutiliza si es el caso
-            if (!playerTab || playerTab.closed) {
-                playerTab = window.open('https://sithnecro.github.io/Test5/player.html', 'playerWindow');
-                // Envía el tipo de música a reproducir después de cargar la pestaña
-                playerTab.onload = () => {
-                    playerTab.postMessage({ action: 'play', trackType: type }, '*');
-                };
-            } else {
-                // Si la pestaña ya está abierta, solo envía el mensaje de reproducción
-                playerTab.focus(); // Lleva el foco a la pestaña abierta
-                playerTab.postMessage({ action: 'play', trackType: type }, '*');
+        window.addEventListener('message', (event) => {
+            const { action, trackType } = event.data;
+
+            if (action === 'play' && trackType) {
+                playRandomTrack(trackType);
+            } else if (action === 'stop') {
+                stopTrack();
             }
+        });
 
-            // Cambiar estado visual del botón de silencio
-            document.getElementById('muteButton').classList.add('active');
+        function playRandomTrack(type) {
+            const trackList = tracks[type];
+            const randomTrack = trackList[Math.floor(Math.random() * trackList.length)];
+            audioPlayer.src = randomTrack;
 
-            // Actualizar estado visual del botón de audio activo
-            if (activeButton) activeButton.classList.remove('pressed');
-            const button = event.target;
-            button.classList.add('pressed');
-            activeButton = button;
+            // Reproducir la pista sin cambiar el foco de la pestaña
+            audioPlayer.play().catch(error => {
+                console.log("Reproducción bloqueada por el navegador:", error);
+            });
         }
 
-        function stopMusic() {
-            // Verifica si la pestaña de audio existe y sigue abierta, y envía el mensaje para detener la música
-            if (playerTab && !playerTab.closed) {
-                playerTab.postMessage({ action: 'stop' }, '*');
-            }
-
-            // Cambiar estado visual del botón de silencio y botones de audio
-            document.getElementById('muteButton').classList.remove('active');
-            if (activeButton) activeButton.classList.remove('pressed');
-            activeButton = null;
+        function stopTrack() {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
         }
     </script>
 </body>
