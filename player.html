@@ -7,8 +7,9 @@
     <style>
         body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             height: 100vh;
             margin: 0;
             font-family: 'Arial', sans-serif;
@@ -17,14 +18,16 @@
         }
 
         .container {
-            position:center;
             text-align: center;
+            margin-bottom: 20px;
         }
 
-        /* Imagen principal */
-        .background-image {
-            
-            height: auto;
+        /* Contenedor de botones en fila */
+        .button-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
         }
 
         /* Botones de música circulares */
@@ -36,29 +39,21 @@
             background-position: center;
             cursor: pointer;
             border: none;
-            margin: 10px;
             outline: none;
             transition: box-shadow 0.3s;
-            position: absolute;
         }
 
-        /* Establece la imagen de fondo y tamaño en cada botón */
+        /* Establece la imagen de fondo en cada botón */
         .music-button1 {
             background-image: url('./img/camino.png');
-            top: 10px;
-            left: 20px;
         }
 
         .music-button2 {
             background-image: url('./img/espadas.png');
-            top: 10px;
-            right: 20px;
         }
 
         .music-button3 {
             background-image: url('./img/mazmorra.png');
-            bottom: 10px;
-            left: 20px;
         }
 
         /* Botón de silenciar */
@@ -73,24 +68,31 @@
             border: none;
             outline: none;
             transition: background-color 0.3s;
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
         }
 
             .music-button4.active {
                 background-color: green;
             }
+
+        /* Imagen principal */
+        .background-image {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <button title="Música de camino" class="music-button music-button1" onclick="playRandomTrack('camino')"></button>
-        <button title="Música de combate" class="music-button music-button2" onclick="playRandomTrack('guerra')"></button>
-        <button title="Música de mazmorra" class="music-button music-button3" onclick="playRandomTrack('mazmorra')"></button>
-        <button title="Parar la música" class="music-button music-button4" id="muteButton" onclick="stopTrack()">🔇</button>
+        <!-- Fila de botones en la parte superior -->
+        <div class="button-row">
+            <button title="Música de camino" class="music-button music-button1" onclick="playRandomTrack('camino')"></button>
+            <button title="Música de combate" class="music-button music-button2" onclick="playRandomTrack('guerra')"></button>
+            <button title="Música de mazmorra" class="music-button music-button3" onclick="playRandomTrack('mazmorra')"></button>
+            <button title="Parar la música" class="music-button music-button4" id="muteButton" onclick="stopTrack()">🔇</button>
+        </div>
+        <!-- Imagen principal debajo de los botones -->
+        <img src="./img/playersound.png" alt="Player Sound" class="background-image">
     </div>
-    <div><img src="./img/playersound.png" alt="Player Sound" class="background-image"></div>
     <audio id="audioPlayer" loop></audio>
 
     <script>
