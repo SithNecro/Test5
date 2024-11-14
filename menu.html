@@ -138,9 +138,7 @@
 
 
 
-            <!-- Archivos de audio (ocultos) -->
-            <!-- Iframe para el reproductor de música -->
-            <iframe id="musicPlayer" src="player.html" style="display:none;"></iframe>
+            
 
 
             <h2>Moral del Grupo</h2>
@@ -415,42 +413,39 @@
         });
     </script>
     <script>
-        // Elementos de referencia
-        const muteButton = document.getElementById('muteButton');
-        const musicPlayerIframe = document.getElementById('musicPlayer');
-        let activeButton = null;
+        let playerWindow = null;  // Ventana del reproductor de música
+        let activeButton = null;  // Botón activo en la página
 
-        // Función para iniciar música desde el iframe
+        // Función para abrir el popup y reproducir música
         function playMusic(type) {
-            // Mostrar el iframe si está oculto
-            musicPlayerIframe.style.display = 'block';
-
-            // Enviar mensaje al iframe con el tipo de música a reproducir
-            musicPlayerIframe.contentWindow.postMessage({ action: 'play', trackType: type }, '*');
-
-            // Activar el botón de silencio en verde
-            muteButton.classList.add('active');
-
-            // Actualizar la clase "pressed" en el botón activo
-            if (activeButton) {
-                activeButton.classList.remove('pressed');
+            if (!playerWindow || playerWindow.closed) {
+                playerWindow = window.open('player.html', 'Player', 'width=300,height=200');
             }
+
+            // Enviar el tipo de música a reproducir
+            playerWindow.postMessage({ action: 'play', trackType: type }, '*');
+
+            // Cambiar estado visual del botón de silencio
+            document.getElementById('muteButton').classList.add('active');
+
+            // Actualizar estado visual del botón de audio activo
+            if (activeButton) activeButton.classList.remove('pressed');
             const button = event.target;
             button.classList.add('pressed');
             activeButton = button;
         }
 
-        // Función para detener la música
+        // Función para detener la música y cerrar el popup
         function stopMusic() {
-            // Enviar mensaje al iframe para detener la reproducción
-            musicPlayerIframe.contentWindow.postMessage({ action: 'stop' }, '*');
-
-            // Cambiar el botón de silencio a rojo y remover la clase "pressed"
-            muteButton.classList.remove('active');
-            if (activeButton) {
-                activeButton.classList.remove('pressed');
-                activeButton = null;
+            if (playerWindow && !playerWindow.closed) {
+                playerWindow.postMessage({ action: 'stop' }, '*');
+                playerWindow.close(); // Cerrar el popup
             }
+
+            // Cambiar estado visual del botón de silencio y botones de audio
+            document.getElementById('muteButton').classList.remove('active');
+            if (activeButton) activeButton.classList.remove('pressed');
+            activeButton = null;
         }
     </script>
 </body>
