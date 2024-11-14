@@ -16,53 +16,13 @@
             color: white;
         }
 
-        .menu-lateral {
-            color: white;
-            width: 300px;
-            padding-left: 20px;
-            padding-right: 20px;
-            height: 100vh;
-            position: fixed;
-            background-color: #404040;
-            overflow-y: auto;
-        }
-
-        .butback {
-            background-image: linear-gradient(to right, #6c757d, #adb5bd);
-        }
-
-        .menu-lateral h2 {
-            font-family: 'Georgia', serif;
-            margin-bottom: 10px;
-        }
-
-        .menu-lateral .nav-buttons button {
-            width: 80%;
-            padding: 14px 28px;
-            margin-top: 10px;
-            border: none;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-            background-image: linear-gradient(to right, #6c757d, #adb5bd);
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-            .menu-lateral .nav-buttons button:hover {
-                background-color: #848b92;
-            }
-
-            .menu-lateral .nav-buttons button:active {
-                transform: scale(0.80);
-            }
-
+        /* Botones de música circulares */
         .music-button {
             width: 50px;
             height: 50px;
             border-radius: 50%;
+            background-size: cover;
+            background-position: center;
             cursor: pointer;
             border: none;
             margin: 10px;
@@ -70,22 +30,32 @@
             transition: box-shadow 0.3s;
         }
 
+        /* Establece la imagen de fondo y tamaño en cada botón */
         .music-button1 {
-            background-image: url('./img/camino.png');
+            background-image: url('./img/camino.png'); /* Imagen de camino de tierra */
         }
 
         .music-button2 {
-            background-image: url('./img/espadas.png');
+            background-image: url('./img/espadas.png'); /* Imagen de espadas */
         }
 
         .music-button3 {
-            background-image: url('./img/mazmorra.png');
+            background-image: url('./img/mazmorra.png'); /* Imagen de puerta de mazmorra */
         }
 
+        /* Botón de silenciar */
         .music-button4 {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             background-color: red;
             color: white;
             font-weight: bold;
+            cursor: pointer;
+            border: none;
+            margin: 10px;
+            outline: none;
+            transition: background-color 0.3s;
         }
 
             .music-button4.active {
@@ -98,8 +68,9 @@
     <button title="Música de combate" class="music-button music-button2" onclick="playRandomTrack('guerra')"></button>
     <button title="Música de mazmorra" class="music-button music-button3" onclick="playRandomTrack('mazmorra')"></button>
     <button title="Parar la música" class="music-button music-button4" id="muteButton" onclick="stopTrack()">🔇</button>
+    <br />
     <img src="./img/playersound.png">
-    <br>
+    <br />
     <audio id="audioPlayer" loop></audio>
 
     <script>
