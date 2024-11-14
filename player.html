@@ -1,69 +1,66 @@
-       
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reproductor de Audio</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+
+
+
+        < !DOCTYPE html >
+        <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Reproductor de Audio</title>
+                        <style>
+                            body {
+                                display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100vh;
+                            margin: 0;
         }
-    </style>
-</head>
-<body>
-    <audio id="audioPlayer" loop></audio> <!-- Elemento de audio que reproduce en bucle -->
+                        </style>
+                    </head>
+            <body>
+                <img src="./img/playersound.png" alt="Descripci�n de la imagen">
+                <audio id="audioPlayer" loop></audio> <!-- Elemento de audio que reproduce en bucle -->
 
-    <script>
-        const tracks = {
-            camino: ['sonidosambientes/camino1.mp3', 'sonidosambientes/camino2.mp3', 'sonidosambientes/camino3.mp3'],
-            guerra: ['sonidosambientes/guerra1.mp3', 'sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra3.mp3'
-                , 'sonidosambientes/guerra4.mp3', 'sonidosambientes/guerra5.mp3', 'sonidosambientes/guerra6.mp3'
-                , 'sonidosambientes/guerra7.mp3'],
-            mazmorra: ['sonidosambientes/mazmorra1.mp3', 'sonidosambientes/mazmorra2.mp3']
-        };
+                <script>
+                    const tracks = {
+                        camino: ['sonidosambientes/camino1.mp3', 'sonidosambientes/camino2.mp3', 'sonidosambientes/camino3.mp3'],
+                        guerra: ['sonidosambientes/guerra1.mp3', 'sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra3.mp3'
+                            , 'sonidosambientes/guerra4.mp3', 'sonidosambientes/guerra5.mp3', 'sonidosambientes/guerra6.mp3'
+                            , 'sonidosambientes/guerra7.mp3'],
+                        mazmorra: ['sonidosambientes/mazmorra1.mp3', 'sonidosambientes/mazmorra2.mp3']
+                    };
+                    const audioPlayer = document.getElementById('audioPlayer');
 
-        const audioPlayer = document.getElementById('audioPlayer');
+                    // Escuchar mensajes de `menu.html`
+                    window.addEventListener('message', (event) => {
+                        const { action, trackType } = event.data;
 
-        // Escuchar mensajes entrantes para reproducir o detener
-        window.addEventListener('message', (event) => {
-            const { action, trackType } = event.data;
+                        if (action === 'play' && trackType) {
+                            playRandomTrack(trackType);
+                        } else if (action === 'stop') {
+                            stopTrack();
+                        }
+                    });
 
-            if (action === 'play' && trackType) {
-                playRandomTrack(trackType);
-            } else if (action === 'stop') {
-                stopTrack();
-            }
-        });
+                    function playRandomTrack(type) {
+                        if (!tracks[type]) return;
 
-        function playRandomTrack(type) {
-            if (!tracks[type]) return; // Verificar si el tipo de pista existe
+                        stopTrack(); // Detener cualquier reproducción en curso
+                        const trackList = tracks[type];
+                        const randomTrack = trackList[Math.floor(Math.random() * trackList.length)];
+                        audioPlayer.src = randomTrack;
 
-            // Detener cualquier reproducción en curso antes de cargar una nueva
-            stopTrack();
+                        audioPlayer.load();
+                        audioPlayer.play().catch(error => {
+                            console.log("Error en la reproducción:", error);
+                        });
+                    }
 
-            // Selecciona una pista aleatoria y asigna la fuente
-            const trackList = tracks[type];
-            const randomTrack = trackList[Math.floor(Math.random() * trackList.length)];
-            audioPlayer.src = randomTrack;
-
-            // Iniciar reproducción después de cargar la pista
-            audioPlayer.load();
-            audioPlayer.play().catch(error => {
-                console.log("Error en la reproducción:", error);
-            });
-        }
-
-        function stopTrack() {
-            // Pausar y restablecer el audio
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0;
-            audioPlayer.src = ""; // Limpiar la fuente para evitar conflictos
-        }
-    </script>
-</body>
+                    function stopTrack() {
+                        audioPlayer.pause();
+                        audioPlayer.currentTime = 0;
+                        audioPlayer.src = "";
+                    }
+                </script>
+            </body>
 </html>

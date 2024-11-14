@@ -416,44 +416,44 @@
         let playerTab = null; // Variable para almacenar la referencia de la pestaña de audio
         let activeButton = null;  // Botón activo en la página
 
-        // Función para abrir o reutilizar `player.html` sin cambiar el foco
-        function openOrReusePlayerTab() {
+        // Abre la pestaña de audio solo tras una interacción del usuario
+        function initializeAudioPlayer() {
             if (!playerTab || playerTab.closed) {
-                // Abrir `player.html` en una nueva pestaña o reutilizar la existente sin cerrarla
-                playerTab = window.open('https://sithnecro.github.io/Test5/player.html', 'uniquePlayerTab'); // Nombre único para reutilizar
+                playerTab = window.open('https://sithnecro.github.io/Test5/player.html', 'uniquePlayerTab');
             }
         }
 
         // Función para reproducir música
         function playMusic(type) {
-            openOrReusePlayerTab(); // Abre o reutiliza `player.html`
+            initializeAudioPlayer(); // Abre o reutiliza `player.html` tras una interacción
 
-            // Envía el mensaje para reproducir la pista deseada solo si la pestaña está abierta y cargada
             if (playerTab && !playerTab.closed) {
                 playerTab.postMessage({ action: 'play', trackType: type }, '*');
             }
 
-            // Cambia el estado visual del botón de silencio
             document.getElementById('muteButton').classList.add('active');
-
-            // Actualiza el estado visual del botón de audio activo
             if (activeButton) activeButton.classList.remove('pressed');
             const button = event.target;
             button.classList.add('pressed');
             activeButton = button;
         }
 
-        // Función para detener la música
         function stopMusic() {
             if (playerTab && !playerTab.closed) {
                 playerTab.postMessage({ action: 'stop' }, '*');
             }
 
-            // Restablece el estado visual de los botones
             document.getElementById('muteButton').classList.remove('active');
             if (activeButton) activeButton.classList.remove('pressed');
             activeButton = null;
         }
+
+        // Agrega el evento de clic en el botón o en cualquier elemento que se use para inicializar el audio
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('initializeButton').addEventListener('click', () => {
+                initializeAudioPlayer(); // Permite la reproducción tras un clic inicial
+            });
+        });
     </script>
 </body>
 </html>
