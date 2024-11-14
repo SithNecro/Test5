@@ -426,8 +426,10 @@
                     playerWindow.postMessage({ action: 'play', trackType: type }, '*');
                 }, 3000);
 
-                // Devuelve el foco a la ventana principal
-                window.focus();
+                // Espera unos milisegundos y luego devuelve el foco a la ventana principal
+                setTimeout(() => {
+                    window.focus();
+                }, 500);
             } else {
                 // Si el popup ya está abierto, envía el mensaje de reproducción inmediatamente
                 playerWindow.postMessage({ action: 'play', trackType: type }, '*');
