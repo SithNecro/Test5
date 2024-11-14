@@ -78,8 +78,8 @@
 }
         /* Estilo para los botones de música circulares */
         .music-button {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background-size: cover;
             background-position: center;
@@ -87,6 +87,7 @@
             border: none;
             margin: 10px;
             outline: none;
+            transition: box-shadow 0.3s; /* Transición para el relieve */
         }
 
         .music-button1 {
@@ -101,17 +102,22 @@
             background-image: url('./img/mazmorra.png'); /* Imagen de puerta de mazmorra */
         }
 
-        /* Estilo del botón de silenciar con clase específica */
-        .mute-button {
+        /* Estilo para el botón de silenciar */
+        .music-button4 {
             background-color: red; /* Rojo por defecto */
             color: white;
             font-weight: bold;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s; /* Transición para el cambio de color */
         }
 
-            .mute-button.active {
+            .music-button4.active {
                 background-color: green; /* Verde cuando está activo */
             }
+
+        /* Estilo de relieve para los botones cuando están pulsados */
+        .pressed {
+            box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.7);
+        }
     </style>
 </head>
 <body>
@@ -121,11 +127,13 @@
         <div class="section">
             <button onclick="window.history.back()">Back</button>
             <!-- Botones circulares de música -->
-            <button class="music-button music-button1" onclick="playRandomTrack('camino')"></button>
-            <button class="music-button music-button2" onclick="playRandomTrack('guerra')"></button>
-            <button class="music-button music-button3" onclick="playRandomTrack('mazmorra')"></button>
-            <!-- HTML -->
-            <button class="music-button music-button4 mute-button" id="muteButton" onclick="stopAllTracks()">🔇</button>
+            <!-- Botones circulares de música -->
+            <button class="music-button music-button1" onclick="playRandomTrack('camino', this)"></button>
+            <button class="music-button music-button2" onclick="playRandomTrack('guerra', this)"></button>
+            <button class="music-button music-button3" onclick="playRandomTrack('mazmorra', this)"></button>
+            <button class="music-button music-button4" id="muteButton" onclick="stopAllTracks()">🔇</button>
+
+
 
             <!-- Archivos de audio (ocultos) -->
             <audio id="audio1" loop></audio> <!-- El atributo loop permite que el audio se repita automáticamente -->
@@ -403,16 +411,15 @@
         });
     </script>
     <script>
-        // Listas de canciones por categoría
         const caminoTracks = ['camino1.mp3', 'camino2.mp3', 'camino3.mp3', 'camino4.mp3', 'camino5.mp3'];
         const guerraTracks = ['guerra1.mp3', 'guerra2.mp3', 'guerra3.mp3', 'guerra4.mp3', 'guerra5.mp3'];
         const mazmorraTracks = ['mazmorra1.mp3', 'mazmorra2.mp3', 'mazmorra3.mp3', 'mazmorra4.mp3', 'mazmorra5.mp3'];
 
         let audioPlayer = document.getElementById('audio1');
         let muteButton = document.getElementById('muteButton');
+        let activeButton = null; // Almacena el botón activo
 
-        function playRandomTrack(type) {
-            // Escoge una lista basada en el tipo
+        function playRandomTrack(type, button) {
             let trackList;
             switch (type) {
                 case 'camino':
@@ -433,6 +440,15 @@
 
             // Cambia el color del botón de silenciar a verde
             muteButton.classList.add('active');
+
+            // Remueve la clase 'pressed' del botón anterior si existe
+            if (activeButton) {
+                activeButton.classList.remove('pressed');
+            }
+
+            // Marca el botón actual como activo
+            button.classList.add('pressed');
+            activeButton = button; // Actualiza el botón activo
         }
 
         function stopAllTracks() {
@@ -441,6 +457,12 @@
 
             // Cambia el color del botón de silenciar a rojo
             muteButton.classList.remove('active');
+
+            // Remueve la clase 'pressed' de todos los botones de audio
+            if (activeButton) {
+                activeButton.classList.remove('pressed');
+                activeButton = null;
+            }
         }
     </script>
 </body>
