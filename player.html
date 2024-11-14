@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imagen Centrada</title>
     <style>
-        /* Centrar imagen en la página */
+        /* Centrar imagen en la pï¿½gina */
         body {
             display: flex;
             justify-content: center;
@@ -13,7 +13,7 @@
             height: 100vh;
             margin: 0;
         }
-        /* Evitar que la imagen cambie de tamaño */
+        /* Evitar que la imagen cambie de tamaï¿½o */
         img {
             max-width: 100%;
             height: auto;
@@ -21,21 +21,21 @@
     </style>
 </head>
 <body>
-    <img src="./img/playersound.png" alt="Descripción de la imagen">
+    <img src="./img/playersound.png" alt="Descripciï¿½n de la imagen">
     <audio id="audioPlayer" loop></audio> <!-- Elemento de audio que reproduce en bucle -->
 
     <script>
         const tracks = {
-            camino: ['sonidosambientes/guerra1.mp3', 'sonidosambientes/guerra1.mp3', 'sonidosambientes/guerra1.mp3'],
+            camino: ['sonidosambientes/camino1.mp3', 'sonidosambientes/camino2.mp3', 'sonidosambientes/camino3.mp3'],
             guerra: ['sonidosambientes/guerra1.mp3', 'sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra3.mp3'
                 , 'sonidosambientes/guerra4.mp3', 'sonidosambientes/guerra5.mp3', 'sonidosambientes/guerra6.mp3'
                 , 'sonidosambientes/guerra7.mp3'],
-            mazmorra: ['sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra2.mp3']
+            mazmorra: ['sonidosambientes/mazmorra1.mp3', 'sonidosambientes/mazmorra2.mp3']
         };
 
         const audioPlayer = document.getElementById('audioPlayer');
 
-        // Escuchar mensajes de la página principal
+        // Escuchar mensajes de la pï¿½gina principal
         window.addEventListener('message', (event) => {
             const { action, trackType } = event.data;
             if (action === 'play' && trackType) {
@@ -52,9 +52,9 @@
 
             setTimeout(() => {
                 audioPlayer.play().catch(error => {
-                    console.log("Reproducción bloqueada por el navegador:", error);
+                    console.log("Reproducciï¿½n bloqueada por el navegador:", error);
                 });
-                focusMainPage(); // Devuelve el foco a la página principal
+                focusMainPage(); // Devuelve el foco a la pï¿½gina principal
             }, 100);
         }
 
@@ -63,13 +63,13 @@
             audioPlayer.currentTime = 0;
         }
 
-        // Función para devolver el foco a la página principal
+        // Funciï¿½n para devolver el foco a la pï¿½gina principal
         function focusMainPage() {
             if (window.opener && !window.opener.closed) {
-                // Devuelve el foco a la ventana que abrió player.html
+                // Devuelve el foco a la ventana que abriï¿½ player.html
                 window.opener.focus();
             } else {
-                console.log("La ventana de origen no está disponible.");
+                console.log("La ventana de origen no estï¿½ disponible.");
             }
         }
     </script>
