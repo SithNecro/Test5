@@ -423,8 +423,12 @@
             }
 
             // Enviar el tipo de música a reproducir
-            playerWindow.postMessage({ action: 'play', trackType: type }, '*');
-            playerWindow.postMessage({ action: 'play', trackType: type }, '*');
+            // Espera 3 segundos antes de enviar el mensaje de reproducción
+            setTimeout(() => {
+                if (playerWindow && !playerWindow.closed) {
+                    playerWindow.postMessage({ action: 'play', trackType: type }, '*');
+                }
+            }, 3000);
             // Cambiar estado visual del botón de silencio
             document.getElementById('muteButton').classList.add('active');
 
