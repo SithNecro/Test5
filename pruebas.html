@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar y Leer Texto</title>
+</head>
+<body>
+    <input type="text" id="codigo" placeholder="Introduce el código">
+    <button onclick="buscarTexto()">Buscar</button>
+    <div id="texto"></div>
+
+    <script>
+        const textos = {
+            "001": "Texto asociado al código 001",
+            "002": "Texto asociado al código 002"
+            // Agrega más textos aquí
+        };
+
+        function buscarTexto() {
+            const codigo = document.getElementById("codigo").value;
+            const texto = textos[codigo] || "Código no encontrado";
+            document.getElementById("texto").innerText = texto;
+            leerTexto(texto);
+        }
+
+        function leerTexto(texto) {
+            const synth = window.speechSynthesis;
+            const utterThis = new SpeechSynthesisUtterance(texto);
+            synth.speak(utterThis);
+        }
+    </script>
+</body>
+</html>
