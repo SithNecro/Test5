@@ -17,6 +17,7 @@
             mazmorra: ['sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra2.mp3']
         };
 
+
         const audioPlayer = document.getElementById('audioPlayer');
 
         // Escuchar mensajes de la página principal
@@ -34,10 +35,12 @@
             const randomTrack = trackList[Math.floor(Math.random() * trackList.length)];
             audioPlayer.src = randomTrack;
 
+            // Intentar reproducir el audio después de una breve pausa
             setTimeout(() => {
                 audioPlayer.play().catch(error => {
                     console.log("Reproducción bloqueada por el navegador:", error);
                 });
+                focusMainPage(); // Devolver el foco a la página principal
             }, 100);
         }
 
@@ -45,7 +48,19 @@
             audioPlayer.pause();
             audioPlayer.currentTime = 0;
         }
+
+        // Función para devolver el foco a la página principal
+        function focusMainPage() {
+            if (window.opener && !window.opener.closed) {
+                const mainUrlPattern = /^https:\/\/sithnecro\.github\.io\/Test5\/.*/;
+                if (mainUrlPattern.test(window.opener.location.href)) {
+                    window.opener.focus(); // Devuelve el foco a la ventana principal si coincide la URL
+                }
+            }
+        }
     </script>
 
 </body>
 </html>
+
+      
