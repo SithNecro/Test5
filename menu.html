@@ -75,20 +75,53 @@
     display: inline-block;
     margin-right: 20px; /* Espacio entre los elementos */
 }
+        /* Estilo para los botones de música circulares */
+        .music-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            border: none;
+            margin: 10px;
+            outline: none;
+        }
+
+        .music-button1 {
+            background-image: url('camino.jpg'); /* Imagen de camino de tierra */
+        }
+
+        .music-button2 {
+            background-image: url('espadas.jpg'); /* Imagen de espadas */
+        }
+
+        .music-button3 {
+            background-image: url('mazmorra.jpg'); /* Imagen de puerta de mazmorra */
+        }
+
+        .music-button4 {
+            background-color: #333; /* Fondo negro para el botón de silenciar */
+            color: white;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <!-- Archivos de audio (ocultos) -->
-    <audio id="audio1"></audio>
 
     <div class="menu-lateral">
         <div class="section">
             <button onclick="window.history.back()">Back</button>
-            <!-- Botones circulares -->
-            <button class="button button1" onclick="playRandomTrack('camino')"></button>
-            <button class="button button2" onclick="playRandomTrack('guerra')"></button>
-            <button class="button button3" onclick="playRandomTrack('mazmorra')"></button>
-            <button class="button button4" onclick="stopAllTracks()">🔇</button>
+            <!-- Botones circulares de música -->
+            <button class="music-button music-button1" onclick="playRandomTrack('camino')"></button>
+            <button class="music-button music-button2" onclick="playRandomTrack('guerra')"></button>
+            <button class="music-button music-button3" onclick="playRandomTrack('mazmorra')"></button>
+            <button class="music-button music-button4" onclick="stopAllTracks()">🔇</button>
+
+            <!-- Archivos de audio (ocultos) -->
+            <audio id="audio1" loop></audio> <!-- El atributo loop permite que el audio se repita automáticamente -->
+
 
             <h2>Moral del Grupo</h2>
 
@@ -364,7 +397,7 @@
     <script>
         // Listas de canciones por categoría
         const caminoTracks = ['camino1.mp3', 'camino2.mp3', 'camino3.mp3', 'camino4.mp3', 'camino5.mp3'];
-        const guerraTracks = ['guerra1.mp3', 'guerra2.mp3', 'guerra3.mp3', 'guerra4.mp3', 'guerra5.mp3'];
+        const guerraTracks = ['guerra1.mp3', 'guerra2.mp3', 'guerra3.mp3', 'guerra4.mp3', 'guerra5.mp3', 'guerra6.mp3', 'guerra7.mp3'];
         const mazmorraTracks = ['mazmorra1.mp3', 'mazmorra2.mp3', 'mazmorra3.mp3', 'mazmorra4.mp3', 'mazmorra5.mp3'];
 
         let audioPlayer = document.getElementById('audio1');
@@ -386,7 +419,7 @@
 
             // Selecciona un archivo aleatorio
             let randomTrack = trackList[Math.floor(Math.random() * trackList.length)];
-            audioPlayer.src = randomTrack;
+            audioPlayer.src = './sonidosambientes/' + randomTrack;
             audioPlayer.play();
         }
 
