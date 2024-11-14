@@ -446,11 +446,11 @@
         }
 
         function stopMusic() {
-            if (playerWindow && !playerWindow.closed) {
+           // if (playerWindow && !playerWindow.closed) {
                 playerWindow.postMessage({ action: 'stop' }, '*');
                 playerWindow.close();
-            }
-
+           // }
+           
             // Cambiar estado visual del botón de silencio y botones de audio
             document.getElementById('muteButton').classList.remove('active');
             if (activeButton) activeButton.classList.remove('pressed');
