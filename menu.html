@@ -10,6 +10,7 @@
             background-color: #404040;
             color: white;
         }
+
         .menu-lateral {
             color: white;
             width: 300px;
@@ -20,132 +21,106 @@
             background-color: #404040;
             overflow-y: auto; /* Habilitar barra de scroll vertical */
         }
+
         .butback {
             background-image: linear-gradient(to right, #6c757d, #adb5bd);
         }
+
         .menu-lateral h2 {
             font-family: 'Georgia', serif;
             margin-bottom: 10px;
         }
+
         .menu-lateral input {
             width: 50px;
             padding: 5px;
             text-align: center;
         }
+
         .menu-lateral button {
             width: 30px;
             height: 30px;
             border: none;
             border-radius: 50%;
-            
             color: white;
             font-size: 16px;
             margin-left: 10px;
             cursor: pointer;
         }
+
         .menu-lateral .section {
             margin-bottom: 20px;
         }
-            .menu-lateral .nav-buttons button {
-                width: 80%;
-                padding: 10px;
-                margin-top: 10px;
-                border: none;
-                color: white;
-                padding: 14px 28px;
-                cursor: pointer;
-                border-radius: 5px;
-                transition: transform 0.3s ease-in-out;
-                background-image: linear-gradient(to right, #6c757d, #adb5bd);
-                text-align: center;
-                line-height: normal;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: #777;
+
+        .menu-lateral .nav-buttons button {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            color: white;
+            padding: 14px 28px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.3s ease-in-out;
+            background-image: linear-gradient(to right, #6c757d, #adb5bd);
+            text-align: center;
+            line-height: normal;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #777;
+        }
+
+            .menu-lateral .nav-buttons button:hover {
+                background-color: #848b92;
             }
-        .menu-lateral .nav-buttons button:hover {
-            background-color: #848b92;
-        }
-        .menu-lateral .nav-buttons button:active {
-            transform: scale(0.80);
-        }
+
+            .menu-lateral .nav-buttons button:active {
+                transform: scale(0.80);
+            }
+
         .alerta {
             color: yellow;
             font-weight: bold;
             display: none;
-         }
-.input-group label {
-    display: inline-block;
-    margin-right: 20px; /* Espacio entre los elementos */
-}
-        /* Estilo para los botones de música circulares */
-        .music-button {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-size: cover;
-            background-position: center;
-            cursor: pointer;
+        }
+
+        .input-group label {
+            display: inline-block;
+            margin-right: 20px; /* Espacio entre los elementos */
+        }
+        /* Estilo para el botón de nota musical */
+        .music-note-button {
+            width: 30px;
+            height: 30px;
             border: none;
-            margin: 10px;
-            outline: none;
-            transition: box-shadow 0.3s; /* Transición para el relieve */
-        }
-
-        .music-button1 {
-            background-image: url('./img/camino.png'); /* Imagen de camino de tierra */
-        }
-
-        .music-button2 {
-            background-image: url('./img/espadas.png'); /* Imagen de espadas */
-        }
-
-        .music-button3 {
-            background-image: url('./img/mazmorra.png'); /* Imagen de puerta de mazmorra */
-        }
-
-        /* Estilo para el botón de silenciar */
-        .music-button4 {
-            background-color: red; /* Rojo por defecto */
+            border-radius: 50%;
+            background-color: #6c757d;
             color: white;
-            font-weight: bold;
-            transition: background-color 0.3s; /* Transición para el cambio de color */
+            font-size: 20px;
+            line-height: 30px;
+            text-align: center;
+            margin-left: 10px;
+            cursor: pointer;
         }
 
-            .music-button4.active {
-                background-color: green; /* Verde cuando está activo */
+            .music-note-button:hover {
+                background-color: #848b92;
             }
-
-        /* Estilo de relieve para los botones cuando están pulsados */
-        .pressed {
-            box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.7);
-        }
     </style>
 </head>
 <body>
-    <!-- Archivos de audio (ocultos) -->
-
     <div class="menu-lateral">
         <div class="section">
             <button class="butback" onclick="window.history.back()">Back</button>
-            <!-- Botones circulares de música -->
-            <!-- Botones circulares de música -->
-          
-
-
-
-            
-
+            <button class="music-note-button" onclick="window.open('player.html', '_blank')">&#9835;</button>
 
             <h2>Moral del Grupo</h2>
-
-
             <div class="input-group">
                 <label>Max. <input id="maxMoral" type="number" value="18" min="1" max="20"></label>
                 <label>Med. <input id="medMoral" type="number" value="9" readonly></label>
             </div>
-            <p id="alerta" class="alerta">       Todos Sufren -20 DET</p>
+            <p id="alerta" class="alerta">Todos Sufren -20 DET</p>
             <label>Moral Actual <input id="moralActual" type="number" value="14" min="1" max="20"></label>
             <button id="moralIncrement" style="background-color: green; color: white;">+</button>
             <button id="moralDecrement" style="background-color: red; color: white;">-</button>
@@ -158,21 +133,18 @@
                 <label>Max. <input id="maxAmenaza" type="number" value="20" min="1" max="20"></label>
             </div>
             <br>
-            <p id="alerta2" class="alerta">       Aparece un Monstruo errante</p>
-            <label>Evento de Amenaza<input id="eventoAmenaza" type="number" value="12" min="1" max="20"></label><br><br>
+            <p id="alerta2" class="alerta">Aparece un Monstruo errante</p>
+            <label>Evento de Amenaza <input id="eventoAmenaza" type="number" value="12" min="1" max="20"></label><br><br>
             <label>NA. Actual <input id="amenazaActual" type="number" value="7" min="1" max="20"></label>
             <button id="amenazaIncrement" style="background-color: green; color: white;">+</button>
-
             <button id="amenazaDecrement" style="background-color: red; color: white;">-</button>
         </div>
 
         <div class="nav-buttons">
-            <!-- Añadimos target="_top" en cada botón para asegurar que las páginas se abran en el marco principal -->
             <button onclick="saveAndNavigate('Tirada_amenaza.html')" target="_top">Tirada de Amenaza</button>
             <button onclick="saveAndNavigate('Acciones_de_mazmorra.html')" target="_top">Acciones Mazmorras</button>
             <button onclick="saveAndNavigate('Acciones_de_travesia.html')" target="_top">Acciones Travesía</button>
             <button onclick="saveAndNavigate('CreacionPersonajes.html')" target="_top">Creación de Héroes</button>
-
         </div>
     </div>
 
@@ -409,6 +381,6 @@
             loadValues(); // Cargar valores al inicio
         });
     </script>
-   
+
 </body>
 </html>
