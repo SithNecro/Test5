@@ -10,9 +10,9 @@
 
     <script>
         const tracks = {
-            camino: ['sonidosambientes/guerra1.mp3', 'sonidosambientes/guerra1.mp3', 'sonidosambientes/guerra1.mp3'],
-            guerra: ['./sonidosambientes/guerra1.mp3', './sonidosambientes/guerra2.mp3', './sonidosambientes/guerra3.mp3', './sonidosambientes/guerra4.mp3', './sonidosambientes/guerra5.mp3', './sonidosambientes/guerra6.mp3', './sonidosambientes/guerra7.mp3'],
-            mazmorra: ['sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra2.mp3']
+            camino: ['sonidosambientes/camino1.mp3', 'sonidosambientes/camino2.mp3', 'sonidosambientes/camino3.mp3'],
+            guerra: ['sonidosambientes/guerra1.mp3', 'sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra3.mp3'],
+            mazmorra: ['sonidosambientes/mazmorra1.mp3', 'sonidosambientes/mazmorra2.mp3', 'sonidosambientes/mazmorra3.mp3']
         };
 
         const audioPlayer = document.getElementById('audioPlayer');
@@ -27,13 +27,11 @@
             }
         });
 
-        // Función para reproducir una pista aleatoria
         function playRandomTrack(type) {
             const trackList = tracks[type];
             const randomTrack = trackList[Math.floor(Math.random() * trackList.length)];
             audioPlayer.src = randomTrack;
 
-            // Intentar reproducir después de una breve pausa
             setTimeout(() => {
                 audioPlayer.play().catch(error => {
                     console.log("Reproducción bloqueada por el navegador:", error);
@@ -41,13 +39,11 @@
             }, 100);
         }
 
-        // Función para detener la música
         function stopTrack() {
             audioPlayer.pause();
             audioPlayer.currentTime = 0;
         }
     </script>
+
 </body>
 </html>
-
-            
