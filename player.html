@@ -1,9 +1,27 @@
+        
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reproductor de Música</title>
+    <style>
+        /* Estilo para la imagen de fondo */
+        body {
+            background-image: url('./img/playersound.png');
+            background-size: cover; /* Hace que la imagen cubra toda la ventana */
+            background-position: center; /* Centra la imagen */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            margin: 0; /* Elimina el margen */
+            height: 100vh; /* Asegura que el fondo cubra toda la pantalla */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <audio id="audioPlayer" loop></audio> <!-- Elemento de audio que reproduce en bucle -->
@@ -17,13 +35,16 @@
             mazmorra: ['sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra2.mp3']
         };
 
-
         const audioPlayer = document.getElementById('audioPlayer');
+        let originWindow = null; // Guardará la referencia a la pestaña original
 
         // Escuchar mensajes de la página principal
         window.addEventListener('message', (event) => {
-            const { action, trackType } = event.data;
-            if (action === 'play' && trackType) {
+            const { action, trackType, originUrl } = event.data;
+            if (action === 'setOrigin') {
+                // Establece la URL de la pestaña de origen
+                originWindow = originUrl;
+            } else if (action === 'play' && trackType) {
                 playRandomTrack(trackType);
             } else if (action === 'stop') {
                 stopTrack();
@@ -35,7 +56,6 @@
             const randomTrack = trackList[Math.floor(Math.random() * trackList.length)];
             audioPlayer.src = randomTrack;
 
-            // Intentar reproducir el audio después de una breve pausa
             setTimeout(() => {
                 audioPlayer.play().catch(error => {
                     console.log("Reproducción bloqueada por el navegador:", error);
@@ -51,16 +71,12 @@
 
         // Función para devolver el foco a la página principal
         function focusMainPage() {
-            if (window.opener && !window.opener.closed) {
-                const mainUrlPattern = /^https:\/\/sithnecro\.github\.io\/Test5\/.*/;
-                if (mainUrlPattern.test(window.opener.location.href)) {
-                    window.opener.focus(); // Devuelve el foco a la ventana principal si coincide la URL
-                }
+            if (originWindow) {
+                // Encuentra la ventana original y devuelve el foco
+                window.open(originWindow, '_self');
             }
         }
     </script>
 
 </body>
 </html>
-
-      
