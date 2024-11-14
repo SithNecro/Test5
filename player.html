@@ -16,10 +16,21 @@
             color: white;
         }
 
+        .container {
+            position: relative;
+            text-align: center;
+        }
+
+        /* Imagen principal */
+        .background-image {
+            width: 300px;
+            height: auto;
+        }
+
         /* Botones de música circulares */
         .music-button {
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             background-size: cover;
             background-position: center;
@@ -28,34 +39,43 @@
             margin: 10px;
             outline: none;
             transition: box-shadow 0.3s;
+            position: absolute;
         }
 
         /* Establece la imagen de fondo y tamaño en cada botón */
         .music-button1 {
-            background-image: url('./img/camino.png'); /* Imagen de camino de tierra */
+            background-image: url('./img/camino.png');
+            top: 10px;
+            left: 20px;
         }
 
         .music-button2 {
-            background-image: url('./img/espadas.png'); /* Imagen de espadas */
+            background-image: url('./img/espadas.png');
+            top: 10px;
+            right: 20px;
         }
 
         .music-button3 {
-            background-image: url('./img/mazmorra.png'); /* Imagen de puerta de mazmorra */
+            background-image: url('./img/mazmorra.png');
+            bottom: 10px;
+            left: 20px;
         }
 
         /* Botón de silenciar */
         .music-button4 {
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             background-color: red;
             color: white;
             font-weight: bold;
             cursor: pointer;
             border: none;
-            margin: 10px;
             outline: none;
             transition: background-color 0.3s;
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
         }
 
             .music-button4.active {
@@ -64,13 +84,14 @@
     </style>
 </head>
 <body>
-    <button title="Música de camino" class="music-button music-button1" onclick="playRandomTrack('camino')"></button>
-    <button title="Música de combate" class="music-button music-button2" onclick="playRandomTrack('guerra')"></button>
-    <button title="Música de mazmorra" class="music-button music-button3" onclick="playRandomTrack('mazmorra')"></button>
-    <button title="Parar la música" class="music-button music-button4" id="muteButton" onclick="stopTrack()">🔇</button>
-    <br />
-    <img src="./img/playersound.png">
-    <br />
+    <div class="container">
+        <button title="Música de camino" class="music-button music-button1" onclick="playRandomTrack('camino')"></button>
+        <button title="Música de combate" class="music-button music-button2" onclick="playRandomTrack('guerra')"></button>
+        <button title="Música de mazmorra" class="music-button music-button3" onclick="playRandomTrack('mazmorra')"></button>
+        <button title="Parar la música" class="music-button music-button4" id="muteButton" onclick="stopTrack()">🔇</button>
+        <img src="./img/playersound.png" alt="Player Sound" class="background-image">
+    </div>
+
     <audio id="audioPlayer" loop></audio>
 
     <script>
