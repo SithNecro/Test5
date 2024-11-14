@@ -446,11 +446,15 @@
         }
 
         function stopMusic() {
-           // if (playerWindow && !playerWindow.closed) {
+            // Verificar si el popup existe y sigue abierto
+            if (playerWindow && !playerWindow.closed) {
                 playerWindow.postMessage({ action: 'stop' }, '*');
-                playerWindow.close();
-           // }
-           
+                playerWindow.close(); // Cerrar el popup
+            } else {
+                // Si el popup no existe, asegura que el estado visual se restablezca
+                playerWindow = null;
+            }
+
             // Cambiar estado visual del botón de silencio y botones de audio
             document.getElementById('muteButton').classList.remove('active');
             if (activeButton) activeButton.classList.remove('pressed');
