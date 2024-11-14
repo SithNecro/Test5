@@ -101,9 +101,14 @@
         }
 
         .music-button4 {
-            background-color: #333; /* Fondo negro para el botón de silenciar */
+            background-color: red; /* Rojo por defecto */
             color: white;
             font-weight: bold;
+            transition: background-color 0.3s; /* Transición para el cambio de color */
+        }
+        /* Verde cuando está activado */
+        .active {
+            background-color: green;
         }
     </style>
 </head>
@@ -397,10 +402,11 @@
     <script>
         // Listas de canciones por categoría
         const caminoTracks = ['camino1.mp3', 'camino2.mp3', 'camino3.mp3', 'camino4.mp3', 'camino5.mp3'];
-        const guerraTracks = ['guerra1.mp3', 'guerra2.mp3', 'guerra3.mp3', 'guerra4.mp3', 'guerra5.mp3', 'guerra6.mp3', 'guerra7.mp3'];
+        const guerraTracks = ['guerra1.mp3', 'guerra2.mp3', 'guerra3.mp3', 'guerra4.mp3', 'guerra5.mp3'];
         const mazmorraTracks = ['mazmorra1.mp3', 'mazmorra2.mp3', 'mazmorra3.mp3', 'mazmorra4.mp3', 'mazmorra5.mp3'];
 
         let audioPlayer = document.getElementById('audio1');
+        let muteButton = document.getElementById('muteButton');
 
         function playRandomTrack(type) {
             // Escoge una lista basada en el tipo
@@ -417,15 +423,21 @@
                     break;
             }
 
-            // Selecciona un archivo aleatorio
+            // Selecciona un archivo aleatorio y construye la ruta
             let randomTrack = trackList[Math.floor(Math.random() * trackList.length)];
             audioPlayer.src = './sonidosambientes/' + randomTrack;
             audioPlayer.play();
+
+            // Cambia el color del botón de silenciar a verde
+            muteButton.classList.add('active');
         }
 
         function stopAllTracks() {
             audioPlayer.pause();
             audioPlayer.currentTime = 0; // Reinicia el audio
+
+            // Cambia el color del botón de silenciar a rojo
+            muteButton.classList.remove('active');
         }
     </script>
 </body>
