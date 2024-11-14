@@ -139,7 +139,8 @@
 
 
             <!-- Archivos de audio (ocultos) -->
-            <audio id="audio1" loop></audio> <!-- El atributo loop permite que el audio se repita automáticamente -->
+            <!-- Iframe para el reproductor de música -->
+            <iframe id="musicPlayer" src="player.html" style="display:none;"></iframe>
 
 
             <h2>Moral del Grupo</h2>
@@ -414,54 +415,38 @@
         });
     </script>
     <script>
-        const caminoTracks = ['camino1.mp3', 'camino2.mp3', 'camino3.mp3', 'camino4.mp3', 'camino5.mp3'];
-        const guerraTracks = ['guerra1.mp3', 'guerra2.mp3', 'guerra3.mp3', 'guerra4.mp3', 'guerra5.mp3'];
-        const mazmorraTracks = ['mazmorra1.mp3', 'mazmorra2.mp3', 'mazmorra3.mp3', 'mazmorra4.mp3', 'mazmorra5.mp3'];
+        // Elementos de referencia
+        const muteButton = document.getElementById('muteButton');
+        const musicPlayerIframe = document.getElementById('musicPlayer');
+        let activeButton = null;
 
-        let audioPlayer = document.getElementById('audio1');
-        let muteButton = document.getElementById('muteButton');
-        let activeButton = null; // Almacena el botón activo
+        // Función para iniciar música desde el iframe
+        function playMusic(type) {
+            // Mostrar el iframe si está oculto
+            musicPlayerIframe.style.display = 'block';
 
-        function playRandomTrack(type, button) {
-            let trackList;
-            switch (type) {
-                case 'camino':
-                    trackList = caminoTracks;
-                    break;
-                case 'guerra':
-                    trackList = guerraTracks;
-                    break;
-                case 'mazmorra':
-                    trackList = mazmorraTracks;
-                    break;
-            }
+            // Enviar mensaje al iframe con el tipo de música a reproducir
+            musicPlayerIframe.contentWindow.postMessage({ action: 'play', trackType: type }, '*');
 
-            // Selecciona un archivo aleatorio y construye la ruta
-            let randomTrack = trackList[Math.floor(Math.random() * trackList.length)];
-            audioPlayer.src = './sonidosambientes/' + randomTrack;
-            audioPlayer.play();
-
-            // Cambia el color del botón de silenciar a verde
+            // Activar el botón de silencio en verde
             muteButton.classList.add('active');
 
-            // Remueve la clase 'pressed' del botón anterior si existe
+            // Actualizar la clase "pressed" en el botón activo
             if (activeButton) {
                 activeButton.classList.remove('pressed');
             }
-
-            // Marca el botón actual como activo
+            const button = event.target;
             button.classList.add('pressed');
-            activeButton = button; // Actualiza el botón activo
+            activeButton = button;
         }
 
-        function stopAllTracks() {
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0; // Reinicia el audio
+        // Función para detener la música
+        function stopMusic() {
+            // Enviar mensaje al iframe para detener la reproducción
+            musicPlayerIframe.contentWindow.postMessage({ action: 'stop' }, '*');
 
-            // Cambia el color del botón de silenciar a rojo
+            // Cambiar el botón de silencio a rojo y remover la clase "pressed"
             muteButton.classList.remove('active');
-
-            // Remueve la clase 'pressed' de todos los botones de audio
             if (activeButton) {
                 activeButton.classList.remove('pressed');
                 activeButton = null;
