@@ -413,26 +413,26 @@
         });
     </script>
     <script>
-        let playerWindow = null;  // Ventana del reproductor de música
+        let playerTab = null; // Variable para la nueva pestaña
         let activeButton = null;  // Botón activo en la página
 
         function playMusic(type) {
-            // Abre el popup o utiliza el existente
-            if (!playerWindow || playerWindow.closed) {
-                playerWindow = window.open('player.html', 'Player', 'width=300,height=200');
+            // Abre una nueva pestaña o reutiliza la existente
+            if (!playerTab || playerTab.closed) {
+                playerTab = window.open('player.html', '_blank');
 
-                // Espera 3 segundos y luego envía el mensaje de reproducción
-                setTimeout(() => {
-                    playerWindow.postMessage({ action: 'play', trackType: type }, '*');
-                }, 3000);
-
-                // Espera unos milisegundos y luego devuelve el foco a la ventana principal
+                // Recupera el foco a la pestaña principal después de abrir la pestaña de audio
                 setTimeout(() => {
                     window.focus();
                 }, 500);
+
+                // Envía el tipo de música a reproducir después de una breve espera
+                setTimeout(() => {
+                    playerTab.postMessage({ action: 'play', trackType: type }, '*');
+                }, 1000);
             } else {
-                // Si el popup ya está abierto, envía el mensaje de reproducción inmediatamente
-                playerWindow.postMessage({ action: 'play', trackType: type }, '*');
+                // Si la pestaña de audio ya está abierta, envía el mensaje de reproducción inmediatamente
+                playerTab.postMessage({ action: 'play', trackType: type }, '*');
             }
 
             // Cambiar estado visual del botón de silencio
@@ -446,13 +446,10 @@
         }
 
         function stopMusic() {
-            // Verificar si el popup existe y sigue abierto
-            if (playerWindow && !playerWindow.closed) {
-                playerWindow.postMessage({ action: 'stop' }, '*');
-                playerWindow.close(); // Cerrar el popup
-            } else {
-                // Si el popup no existe, asegura que el estado visual se restablezca
-                playerWindow = null;
+            // Verificar si la pestaña de audio existe y sigue abierta
+            if (playerTab && !playerTab.closed) {
+                playerTab.postMessage({ action: 'stop' }, '*');
+                playerTab.close(); // Cerrar la pestaña
             }
 
             // Cambiar estado visual del botón de silencio y botones de audio
