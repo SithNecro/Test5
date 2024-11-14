@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor</title>
+</head>
+<body>
+    <audio id="audioPlayer" loop></audio>
+
+    <script>
+    // Listas de canciones por categoría
+    const tracks = {
+        camino: ['sonidosambientes/camino1.mp3', 'sonidosambientes/camino2.mp3', 'sonidosambientes/camino3.mp3'],
+        guerra: ['sonidosambientes/guerra1.mp3', 'sonidosambientes/guerra2.mp3', 'sonidosambientes/guerra3.mp3', 'sonidosambientes/guerra4.mp3', 'sonidosambientes/guerra5.mp3', 'sonidosambientes/guerra6.mp3', 'sonidosambientes/guerra7.mp3'],
+        mazmorra: ['sonidosambientes/mazmorra1.mp3', 'sonidosambientes/mazmorra2.mp3', 'sonidosambientes/mazmorra3.mp3']
+    };
+
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    // Maneja mensajes recibidos desde el iframe
+    window.addEventListener('message', (event) => {
+        const { action, trackType } = event.data;
+
+        if (action === 'play' && trackType) {
+            playRandomTrack(trackType);
+        } else if (action === 'stop') {
+            stopTrack();
+        }
+    });
+
+    // Función para reproducir una pista aleatoria
+    function playRandomTrack(type) {
+        const trackList = tracks[type];
+        const randomTrack = trackList[Math.floor(Math.random() * trackList.length)];
+        audioPlayer.src = randomTrack;
+        audioPlayer.play();
+    }
+
+    // Función para detener la pista
+    function stopTrack() {
+        audioPlayer.pause();
+        audioPlayer.currentTime = 0;
+    }
+    </script>
+</body>
+</html>
