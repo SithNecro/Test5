@@ -417,22 +417,20 @@
         let activeButton = null;  // Botón activo en la página
 
         function playMusic(type) {
-            // Si no existe una referencia o está cerrada, abrir la pestaña en segundo plano
+            // Verifica si la pestaña `player.html` está abierta y reutilizable
             if (!playerTab || playerTab.closed) {
-                playerTab = window.open('https://sithnecro.github.io/Test5/player.html', 'uniquePlayerTab', 'noopener,noreferrer'); // "noopener,noreferrer" evita que la pestaña tome el foco
+                playerTab = window.open('https://sithnecro.github.io/Test5/player.html', 'uniquePlayerTab'); // Abre o reutiliza `player.html`
                 playerTab.onload = () => {
-                    // Enviar el mensaje de reproducción una vez que la pestaña ha cargado
+                    // Envía el mensaje para reproducir el tipo de audio deseado
                     playerTab.postMessage({ action: 'play', trackType: type }, '*');
                 };
             } else {
-                // Si la pestaña ya está abierta, envía el mensaje sin reenfocar
+                // Envía el mensaje directamente si `player.html` ya está abierta
                 playerTab.postMessage({ action: 'play', trackType: type }, '*');
             }
 
-            // Cambiar estado visual del botón de silencio
+            // Actualizar estado visual de los botones
             document.getElementById('muteButton').classList.add('active');
-
-            // Actualizar estado visual del botón de audio activo
             if (activeButton) activeButton.classList.remove('pressed');
             const button = event.target;
             button.classList.add('pressed');
@@ -440,21 +438,21 @@
         }
 
         function stopMusic() {
-            // Verificar si la pestaña de audio existe y sigue abierta
+            // Envía el mensaje de detener audio si `player.html` está abierta
             if (playerTab && !playerTab.closed) {
                 playerTab.postMessage({ action: 'stop' }, '*');
             }
 
-            // Cambiar estado visual del botón de silencio y botones de audio
+            // Restablece el estado visual de los botones
             document.getElementById('muteButton').classList.remove('active');
             if (activeButton) activeButton.classList.remove('pressed');
             activeButton = null;
         }
 
-        // Escuchar el evento `beforeunload` para limpiar `playerTab` al cerrar la página principal
+        // Limpia `playerTab` al cerrar o recargar la página principal
         window.addEventListener('beforeunload', () => {
             if (playerTab && !playerTab.closed) {
-                playerTab.close(); // Cerrar la pestaña de audio cuando la pestaña principal se cierra
+                playerTab.close();
             }
         });
     </script>
