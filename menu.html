@@ -20,6 +20,9 @@
             background-color: #404040;
             overflow-y: auto; /* Habilitar barra de scroll vertical */
         }
+        .butback {
+            background-color: #404040;
+        }
         .menu-lateral h2 {
             font-family: 'Georgia', serif;
             margin-bottom: 10px;
@@ -125,7 +128,7 @@
 
     <div class="menu-lateral">
         <div class="section">
-            <button onclick="window.history.back()">Back</button>
+            <button class="butback" onclick="window.history.back()">Back</button>
             <!-- Botones circulares de música -->
             <!-- Botones circulares de música -->
             <button class="music-button music-button1" onclick="playRandomTrack('camino', this)"></button>
