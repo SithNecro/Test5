@@ -416,19 +416,23 @@
         let playerWindow = null;  // Ventana del reproductor de música
         let activeButton = null;  // Botón activo en la página
 
-        // Función para abrir el popup y reproducir música
         function playMusic(type) {
+            // Abre el popup o utiliza el existente
             if (!playerWindow || playerWindow.closed) {
                 playerWindow = window.open('player.html', 'Player', 'width=300,height=200');
+
+                // Espera 3 segundos y luego envía el mensaje de reproducción
+                setTimeout(() => {
+                    playerWindow.postMessage({ action: 'play', trackType: type }, '*');
+                }, 3000);
+
+                // Devuelve el foco a la ventana principal
+                window.focus();
+            } else {
+                // Si el popup ya está abierto, envía el mensaje de reproducción inmediatamente
+                playerWindow.postMessage({ action: 'play', trackType: type }, '*');
             }
 
-            // Enviar el tipo de música a reproducir
-            // Espera 3 segundos antes de enviar el mensaje de reproducción
-            setTimeout(() => {
-                if (playerWindow && !playerWindow.closed) {
-                    playerWindow.postMessage({ action: 'play', trackType: type }, '*');
-                }
-            }, 3000);
             // Cambiar estado visual del botón de silencio
             document.getElementById('muteButton').classList.add('active');
 
@@ -439,11 +443,10 @@
             activeButton = button;
         }
 
-        // Función para detener la música y cerrar el popup
         function stopMusic() {
             if (playerWindow && !playerWindow.closed) {
                 playerWindow.postMessage({ action: 'stop' }, '*');
-                playerWindow.close(); // Cerrar el popup
+                playerWindow.close();
             }
 
             // Cambiar estado visual del botón de silencio y botones de audio
