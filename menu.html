@@ -417,15 +417,15 @@
         let activeButton = null;  // Botón activo en la página
 
         function playMusic(type) {
-            // Verificar si la pestaña ya existe usando su nombre único
+            // Si no existe una referencia o está cerrada, abrir la pestaña en segundo plano
             if (!playerTab || playerTab.closed) {
-                playerTab = window.open('https://sithnecro.github.io/Test5/player.html', 'uniquePlayerTab'); // Asigna un nombre único
-                // Enviar el mensaje de reproducción después de que la pestaña cargue
+                playerTab = window.open('https://sithnecro.github.io/Test5/player.html', 'uniquePlayerTab', 'noopener,noreferrer'); // "noopener,noreferrer" evita que la pestaña tome el foco
                 playerTab.onload = () => {
+                    // Enviar el mensaje de reproducción una vez que la pestaña ha cargado
                     playerTab.postMessage({ action: 'play', trackType: type }, '*');
                 };
             } else {
-                // Si la pestaña ya está abierta, envía el mensaje sin cambiar el foco
+                // Si la pestaña ya está abierta, envía el mensaje sin reenfocar
                 playerTab.postMessage({ action: 'play', trackType: type }, '*');
             }
 
@@ -450,6 +450,13 @@
             if (activeButton) activeButton.classList.remove('pressed');
             activeButton = null;
         }
+
+        // Escuchar el evento `beforeunload` para limpiar `playerTab` al cerrar la página principal
+        window.addEventListener('beforeunload', () => {
+            if (playerTab && !playerTab.closed) {
+                playerTab.close(); // Cerrar la pestaña de audio cuando la pestaña principal se cierra
+            }
+        });
     </script>
 </body>
 </html>
