@@ -30,6 +30,13 @@
             margin-bottom: 20px;
         }
 
+        /* Contenedores para los botones y los textos */
+        .button-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         /* Botones de música circulares */
         .music-button {
             width: 80px;
@@ -85,10 +92,26 @@
     <div class="container">
         <!-- Fila de botones en la parte superior -->
         <div class="button-row">
-            <button title="Música de camino" class="music-button music-button1" onclick="playRandomTrack('camino')"></button>
-            <button title="Música de combate" class="music-button music-button2" onclick="playRandomTrack('guerra')"></button>
-            <button title="Música de mazmorra" class="music-button music-button3" onclick="playRandomTrack('mazmorra')"></button>
-            <button title="Parar la música" class="music-button music-button4" id="muteButton" onclick="stopTrack()">🔇</button>
+            <!-- Botón 1 con texto encima -->
+            <div class="button-wrapper">
+                <span>CAMINO</span>
+                <button title="Música de camino" class="music-button music-button1" onclick="playRandomTrack('camino')"></button>
+            </div>
+            <!-- Botón 2 con texto debajo -->
+            <div class="button-wrapper">
+                <button title="Música de combate" class="music-button music-button2" onclick="playRandomTrack('guerra')"></button>
+                <span>GUERRA</span>
+            </div>
+            <!-- Botón 3 con texto encima -->
+            <div class="button-wrapper">
+                <span>MAZMORRA</span>
+                <button title="Música de mazmorra" class="music-button music-button3" onclick="playRandomTrack('mazmorra')"></button>
+            </div>
+            <!-- Botón 4 con texto debajo -->
+            <div class="button-wrapper">
+                <button title="Parar la música" class="music-button music-button4" id="muteButton" onclick="stopTrack()">🔇</button>
+                <span>SILENCIAR</span>
+            </div>
         </div>
         <!-- Imagen principal debajo de los botones -->
         <img src="./img/playersound.png" alt="Player Sound" class="background-image">
