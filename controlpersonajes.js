@@ -26,6 +26,16 @@ function renderTable() {
     const tableBody = document.getElementById('character-table');
     tableBody.innerHTML = '';
 
+    // Tooltip descriptions for each state
+    const tooltips = {
+        Herido: "-1 PA",
+        Miedo: "-10 HC/HD y -10 AA",
+        Terror: "-10 HC/HD y -10 AA y -1 Acción",
+        Enfermedad: "CON/2 y FUE/2",
+        Aturdido: "-1 PA",
+        Veneno: "Pérdida gradual de salud"
+    };
+
     characters.forEach((character, index) => {
         const row = document.createElement('tr');
 
@@ -49,10 +59,14 @@ function renderTable() {
             row.appendChild(cell);
         });
 
-        // Estados
+        // Estados con tooltip
         const estadoCell = document.createElement('td');
         estadoCell.innerHTML = character.estados.map(estado => `
-            <a id="${estado.id}" href="#" onclick="removeState('${estado.id}', ${index})" style="color: ${estado.color || 'black'};">${estado.text}</a>
+            <a id="${estado.id}" 
+               href="#" 
+               onclick="removeState('${estado.id}', ${index})" 
+               style="color: ${estado.color || 'black'};"
+               title="${tooltips[estado.text.split(' ')[0]] || 'Estado sin descripción'}">${estado.text}</a>
         `).join(' ');
         row.appendChild(estadoCell);
 
