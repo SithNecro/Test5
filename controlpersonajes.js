@@ -124,13 +124,25 @@ function addState() {
     const characters = loadCharacters();
     const character = characters[heroSelect];
 
+    // Verificar si el estado ya existe
+    const stateId = `${heroSelect}-${estadoSelect}`;
+    const existingState = character.estados.find(estado => estado.id === stateId);
+    if (existingState) {
+        alert(`El estado "${estadoSelect}" ya está asignado a este personaje.`);
+        return; // No añadir duplicados
+    }
+
+    // Crear texto para el estado
     let stateText = estadoSelect;
     if (estadoSelect === 'Veneno') {
-        const rounds = parseInt(roundsInput, 10) || 0;
+        let rounds = parseInt(roundsInput, 10);
+        if (isNaN(rounds) || rounds < 1) {
+            rounds = 1; // Forzar mínimo de 1 turno
+        }
         stateText += ` (${rounds} rondas)`;
     }
 
-    const stateId = `${heroSelect}-${estadoSelect}`;
+    // Añadir el nuevo estado
     character.estados.push({ id: stateId, text: stateText });
 
     saveCharacters(characters);
