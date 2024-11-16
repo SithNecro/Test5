@@ -148,6 +148,10 @@ const tablaValores = [
 function calcularValores() {
     const valorCompra = parseInt(document.getElementById("valorCompra").value);
     const puntosDurabilidad = parseInt(document.getElementById("puntosDurabilidad").value);
+    if (puntosDurabilidad > 5)
+    {
+        puntosDurabilidad = 5;
+    }
     
     if (isNaN(valorCompra) || isNaN(puntosDurabilidad) || puntosDurabilidad < 0 || puntosDurabilidad > 12) {
         document.getElementById("resultadoVenta").textContent = "Por favor, ingrese valores válidos.";
