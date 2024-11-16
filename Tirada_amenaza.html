@@ -127,48 +127,46 @@ input{
     </div>
     <div id="contentContainer0">
         <h2>Bolsa de Fichas</h2>
-    
+
         <!-- Entrada de fichas iniciales -->
         <label>
-          Ini. Aliados:
-          <input type="number" id="aliadas" min="1" max="25" value="4">
+            Ini. Aliados:
+            <input type="number" id="aliadas" min="1" max="25" value="4">
         </label>
         <label>
-          Ini. Enems:
-          <input type="number" id="enemigas" min="1" max="25" value="3">
-          </label>
-    
+            Ini. Enems:
+            <input type="number" id="enemigas" min="1" max="25" value="3">
+        </label>
+
         <!-- Botón para reiniciar la bolsa -->
         <button onclick="iniciarBolsa()">Reiniciar Bolsa</button>
-        <label>
-    <!-- Información de las fichas en la bolsa -->
-    <p class="result" id="aliadasRestantes">Fichas Aliadas: 0</p>
-    <!-- <div class="control-buttons">
-
-        </div>
-    -->
-
-    <button class="button2" onclick="ajustarFichas('aliadas', 1)" style="background-color: green; color: white;">+</button>
-    <button class="button2" onclick="ajustarFichas('aliadas', -1)" style="background-color: red; color: white;">-</button>
-</label>
-       
+        <table>
+            <tr>
+                <td>
+                    <!-- Información de las fichas en la bolsa -->
+                    <p class="result" id="aliadasRestantes">Fichas Aliadas: 0</p>
+                        <button class="button2" onclick="ajustarFichas('aliadas', 1)" style="background-color: green; color: white;">+</button>
+                        <button class="button2" onclick="ajustarFichas('aliadas', -1)" style="background-color: red; color: white;">-</button>
+                </td>
+            </tr>
+        </table>
         <p class="result" id="enemigasRestantes">Fichas Enemigas: 0</p>
-       <!-- <div class="control-buttons">
-          
+        <!-- <div class="control-buttons">
+
         </div>
     -->
-    <label> 
-    <button class="button2" onclick="ajustarFichas('enemigas', 1)" style="background-color: green; color: white;">+</button>
-    <button class="button2" onclick="ajustarFichas('enemigas', -1)" style="background-color: red; color: white;" >-</button>
-    </label>
+        <label>
+            <button class="button2" onclick="ajustarFichas('enemigas', 1)" style="background-color: green; color: white;">+</button>
+            <button class="button2" onclick="ajustarFichas('enemigas', -1)" style="background-color: red; color: white;">-</button>
+        </label>
         <p class="result" id="totalFichas">Fichas en la Bolsa: 0</p>
-    
+
         <!-- Botón para sacar una ficha -->
         <button onclick="sacarFicha()">Sacar Ficha de la Bolsa</button>
-    
-       
+
+
         <img id="imagenFicha" src="" alt="Imagen de la ficha" style="display:none;">
-      </div>
+    </div>
     <div id="contentContainer">
         <h3>AMENAZA</h3>
         <div>
