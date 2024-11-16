@@ -14,9 +14,7 @@ const disadvantages = [
 
 function loadCharacters() {
     const savedData = localStorage.getItem('characters');
-    const characters = savedData ? JSON.parse(savedData) : defaultCharacters;
-    console.log('Characters Loaded:', characters); // Depuración
-    return characters;
+    return savedData ? JSON.parse(savedData) : defaultCharacters;
 }
 
 function saveCharacters(characters) {
@@ -25,15 +23,13 @@ function saveCharacters(characters) {
 
 function renderTable() {
     const characters = loadCharacters();
-    console.log('Rendering Table with Characters:', characters); // Depuración
     const tableBody = document.getElementById('character-table');
     tableBody.innerHTML = '';
 
     characters.forEach((character, index) => {
-        console.log('Processing Character:', character); // Depuración
         const row = document.createElement('tr');
 
-        // Nombre
+        // Nombre del personaje
         const nameCell = document.createElement('td');
         nameCell.innerHTML = `
             <input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)">
@@ -66,56 +62,6 @@ function renderTable() {
     saveCharacters(characters);
 }
 
-function updateName(index, newName) {
-    const characters = loadCharacters();
-    characters[index].name = newName;
-    saveCharacters(characters);
-}
-
-function modifyAttribute(index, attr, value) {
-    const characters = loadCharacters();
-    const character = characters[index];
-
-    character[attr] = Math.max(0, character[attr] + value);
-
-    // Reglas adicionales para Vida y Cordura
-    if (attr === 'vidaActual' || attr === 'vidaMaxima') {
-        if (character.vidaActual < character.vidaMaxima / 2) {
-            document.getElementById(`${character.id}-vidaActual`).parentElement.parentElement.style.backgroundColor = 'orange';
-        } else {
-            document.getElementById(`${character.id}-vidaActual`).parentElement.parentElement.style.backgroundColor = '';
-        }
-    }
-
-    if (attr === 'cordura' && character.cordura === 0) {
-        const randomDisadvantage = disadvantages[Math.floor(Math.random() * disadvantages.length)];
-        character.corduraMensaje = randomDisadvantage;
-    } else if (attr === 'cordura') {
-        character.corduraMensaje = '';
-    }
-
-    saveCharacters(characters);
-    renderTable();
-}
-
-function toggleRoundsInput() {
-    const estadoSelect = document.getElementById('estado-select');
-    const roundsContainer = document.getElementById('rounds-container');
-    roundsContainer.style.display = estadoSelect.value === 'Veneno' ? 'inline' : 'none';
-}
-
-function updateHeroSelect() {
-    const heroSelect = document.getElementById('hero-select');
-    const characters = loadCharacters();
-    heroSelect.innerHTML = '';
-    characters.forEach((character, index) => {
-        const option = document.createElement('option');
-        option.value = index;
-        option.textContent = character.name;
-        heroSelect.appendChild(option);
-    });
-}
-
 function addState() {
     const estadoSelect = document.getElementById('estado-select').value;
     const heroSelect = parseInt(document.getElementById('hero-select').value, 10);
@@ -128,7 +74,7 @@ function addState() {
     const stateId = `${heroSelect}-${estadoSelect}`;
     const existingState = character.estados.find(estado => estado.id === stateId);
     if (existingState) {
-     //   alert(`El estado "${estadoSelect}" ya está asignado a este personaje.`);
+        alert(`El estado "${estadoSelect}" ya está asignado a este personaje.`);
         return; // No añadir duplicados
     }
 
@@ -158,9 +104,42 @@ function removeState(stateId, heroIndex) {
     renderTable();
 }
 
+function toggleRoundsInput() {
+    const estadoSelect = document.getElementById('estado-select');
+    const roundsContainer = document.getElementById('rounds-container');
+    roundsContainer.style.display = estadoSelect.value === 'Veneno' ? 'inline' : 'none';
+}
+
+function updateHeroSelect() {
+    const heroSelect = document.getElementById('hero-select');
+    const characters = loadCharacters();
+    heroSelect.innerHTML = '';
+    characters.forEach((character, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = character.name;
+        heroSelect.appendChild(option);
+    });
+}
+
+function updateName(index, newName) {
+    const characters = loadCharacters();
+    characters[index].name = newName;
+    saveCharacters(characters);
+}
+
+function modifyAttribute(index, attr, value) {
+    const characters = loadCharacters();
+    const character = characters[index];
+
+    character[attr] = Math.max(0, character[attr] + value);
+
+    saveCharacters(characters);
+    renderTable();
+}
+
 // Al cargar la página
 window.onload = () => {
-    saveCharacters(defaultCharacters); // Reiniciar con valores predeterminados para pruebas
     renderTable();
     updateHeroSelect();
 };
