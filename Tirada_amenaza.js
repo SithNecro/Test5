@@ -197,7 +197,7 @@
                         if (tiradaCombate === 1) {
                             mensajeCombate = "Una perturbación en el Vacío. Hay un cambio repentino en el Vacío que deja todos los Magos en estado de shock. Los Magos no pueden hacer nada durante el próximo turno ni parar o esquivar.";
                             valorAModificar -= 2;
-                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Perturbación  en el Vacío.png';
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Perturbacion  en el Vacio.png';
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         } else if (tiradaCombate === 2) {
                             mensajeCombate = "Tinte Verdoso. Los héroes se dan cuenta de que el tinte verdoso del filo o garra de los enemigos es algún tipo de veneno. El enemigo adquiere la regla especial 'Venenoso'.";
@@ -207,17 +207,17 @@
                         } else if (tiradaCombate === 3) {
                             mensajeCombate = "Forjado bajo presión. Bajo presión unos se alzan y otros caen. Un enemigo gana +15HC hasta que muera.";
                             valorAModificar -= 3;
-                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Forjado bajo presión.png';
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Forjado bajo presion.png';
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         } else if (tiradaCombate === 4 || tiradaCombate === 5) {
                             mensajeCombate = "Curación. Un enemigo que esté actualmente herido en el tablero (El que de más experiencia o aleatorio) Se curará 1d10VIT. Esto es debido a una poción de curación o intervención divina de los dioses, O quizás pura voluntad.";
                             valorAModificar -= 3;
-                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Curación.png';
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Curacion.png';
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         } else if (tiradaCombate === 6) {
                             mensajeCombate = "Frenesí. Un enemigo comienza a rugir con rabia y ataca con una fuerza desatada. El enemigo gana el trato de 'Frenesí' hasta que muera.";
                             valorAModificar -= 3;
-                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Frenesí.png';
+                            imagenAmenaza.src = 'img/Eventos_Amenaza/d10Frenesi.png';
                             document.getElementById('imagenAmenazaContainer').appendChild(imagenAmenaza);
                         } else if (tiradaCombate === 7) {
                             mensajeCombate = "¡Desarmado! Ya sea por un intento de desarme del enemigo por propia torpeza, Un héroe al azar deja caer su arma. Este debe hacer un test de DES Para recuperarla, Gastando 1PA. Si falla, No tendrá armas y no podrá luchar. Puede continuar intentándolo gastando 1PA por intento.";
