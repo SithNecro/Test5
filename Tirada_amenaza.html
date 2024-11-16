@@ -90,37 +90,40 @@
                     background-color: #ccc; /* Color de fondo del menú */
                 }
 
-                #contentContainer {
-                    /* Deja espacio para el menú */
-                    width: 20%; /* Ancho del contenedor central */
-                    /*background-color: #404040; /* Color de fondo para distinguir */
-                    display: flex; /* Usamos flexbox para centrar contenido */
-                    align-items: stretch; /* Centra verticalmente el contenido */
-                    justify-content: flex-start; /* Centra horizontalmente el contenido */
-                    flex-direction: column; /* Opcional, si tienes más elementos aquí */
-                    padding: 10px; /* Espaciado interno opcional */
-                }
+        #contentContainer {
+            /* Deja espacio para el menú */
+            width: 20%; /* Ancho del contenedor central */
+            height: 50%; /* Ocupa toda la altura */
+            /*background-color: #404040; /* Color de fondo para distinguir */
+            display: flex; /* Usamos flexbox para centrar contenido */
+            align-items: stretch; /* Centra verticalmente el contenido */
+            justify-content: flex-start; /* Centra horizontalmente el contenido */
+            flex-direction: column; /* Opcional, si tienes más elementos aquí */
+            padding: 10px; /* Espaciado interno opcional */
+        }
 
-                #contentContainer0 {
-                    margin-left: 310px; /* Deja espacio para el menú */
-                    width: 30%; /* Ancho del contenedor central */
-                    /*background-color: #404040; /* Color de fondo para distinguir */
-                    display: flex; /* Usamos flexbox para centrar contenido */
-                    align-items: stretch; /* Centra verticalmente el contenido */
-                    justify-content: flex-start; /* Centra horizontalmente el contenido */
-                    flex-direction: column; /* Opcional, si tienes más elementos aquí */
-                    padding: 10px; /* Espaciado interno opcional */
-                }
+        #contentContainer0 {
+            height: 50%; /* Ocupa toda la altura */
+            margin-left: 310px; /* Deja espacio para el menú */
+            width: 30%; /* Ancho del contenedor central */
+            /*background-color: #404040; /* Color de fondo para distinguir */
+            display: flex; /* Usamos flexbox para centrar contenido */
+            align-items: stretch; /* Centra verticalmente el contenido */
+            justify-content: flex-start; /* Centra horizontalmente el contenido */
+            flex-direction: column; /* Opcional, si tienes más elementos aquí */
+            padding: 10px; /* Espaciado interno opcional */
+        }
 
-                #imageContainer {
-                    flex: 1; /* Ocupa el espacio restante */
-                    padding: 10px; /* Espaciado interno */
-                    /*background-color: #404040; /* Color de fondo para distinguir */
-                    display: flex; /* Hacemos que el contenedor de la imagen también sea un flexbox */
-                    flex-direction: column; /* Estructura en columna */
-                    justify-content: flex-start; /* Alinea los elementos al inicio */
-                    align-items: stretch; /* Alinea el contenido en la parte superior */
-                }
+        #imageContainer {
+            height: 50%; /* Ocupa toda la altura */
+            flex: 1; /* Ocupa el espacio restante */
+            padding: 10px; /* Espaciado interno */
+            /*background-color: #404040; /* Color de fondo para distinguir */
+            display: flex; /* Hacemos que el contenedor de la imagen también sea un flexbox */
+            flex-direction: column; /* Estructura en columna */
+            justify-content: flex-start; /* Alinea los elementos al inicio */
+            align-items: stretch; /* Alinea el contenido en la parte superior */
+        }
 
                 iframe {
                     width: 100%;
