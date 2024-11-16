@@ -45,7 +45,7 @@
         }
 
         async function manejarAmenaza() {
-            document.getElementById("resultadoFicha").textContent = "";
+            
             const diceImage2 = document.getElementById('dice-image2');
             diceImage2.style.display = 'none';
             const diceImage3 = document.getElementById('dice-image3');
