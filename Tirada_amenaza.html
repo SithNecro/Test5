@@ -308,6 +308,23 @@
             <tr>
                 <td colspan="3">
                     <div id="characterTableContainer" class="character-table-container">
+                        <div id="controls">
+                            <label for="estado-select">Asignar estado:</label>
+                            <select id="estado-select" onchange="toggleRoundsInput()">
+                                <option value="Aturdido">Aturdido</option>
+                                <option value="Enfermo">Enfermo</option>
+                                <option value="Miedo">Miedo</option>
+                                <option value="Terror">Terror</option>
+                                <option value="Veneno">Veneno</option>
+                            </select>
+                            <label for="hero-select">al héroe:</label>
+                            <select id="hero-select"></select>
+                            <span id="rounds-container" style="display:none;">
+                                <label for="rounds-input">Nº rondas:</label>
+                                <input type="number" id="rounds-input" min="0" max="20">
+                            </span>
+                            <button onclick="addState()">Añadir estado</button>
+                        </div>
                         <table>
                             <thead>
                                 <tr>
