@@ -33,8 +33,7 @@ function renderTable() {
         const nameCell = document.createElement('td');
         nameCell.innerHTML = `
             <input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)">
-            <div id="${character.id}-alert-vida" class="alert" style="display: none; color: red;"></div>
-            <div id="${character.id}-alert-cordura" class="alert" style="display: none; color: darkviolet;"></div>
+           
         `;
         row.appendChild(nameCell);
 
@@ -53,7 +52,13 @@ function renderTable() {
             }
             row.appendChild(cell);
         });
-
+        const nameCellNotes = document.createElement('td');
+        nameCell.innerHTML = `
+            
+            <div id="${character.id}-alert-vida" class="alert" style="display: none; color: red;"></div>
+            <div id="${character.id}-alert-cordura" class="alert" style="display: none; color: darkviolet;"></div>
+        `;
+        row.appendChild(nameCellNotes);
         tableBody.appendChild(row);
 
         // Mostrar mensajes si es necesario
