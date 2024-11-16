@@ -141,59 +141,63 @@
     </style>
     <style>
         /* Encapsular estilos dentro de una clase contenedora única */
-        .character-table-container {
-            width: 100%;
+        #characterTableContainer {
+            margin-left: 310px; /* Deja espacio para el menú */
+            width: calc(100% - 310px); /* Ancho completo menos el menú */
+            padding: 10px;
+            background-color: white; /* Opcional: fondo blanco para mejor visibilidad */
         }
 
-            .character-table-container table {
-                width: 100%;
-                border-collapse: collapse;
-            }
+        .character-table-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-            .character-table-container th,
-            .character-table-container td {
-                border: 1px solid black;
-                text-align: center;
-                padding: 10px;
-            }
+        .character-table-container th,
+        .character-table-container td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 10px;
+        }
 
-            .character-table-container .input-field {
-                width: 100%;
-                text-align: center;
-            }
+        .character-table-container .input-field {
+            width: 100%;
+            text-align: center;
+        }
 
-            .character-table-container .action-btn {
-                border: none;
-                color: white;
-                font-weight: bold;
-                border-radius: 50%;
-                width: 25px;
-                height: 25px;
-                cursor: pointer;
-            }
+        .character-table-container .action-btn {
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+        }
 
-            .character-table-container .btn-plus {
-                background-color: green;
-            }
+        .character-table-container .btn-plus {
+            background-color: green;
+        }
 
-            .character-table-container .btn-minus {
-                background-color: red;
-            }
+        .character-table-container .btn-minus {
+            background-color: red;
+        }
 
-            .character-table-container .alert {
-                font-size: 0.9em;
-                margin-top: 5px;
-            }
+        .character-table-container .alert {
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
 
-            .character-table-container .alert-red {
-                color: red;
-                font-weight: bold;
-            }
+        .character-table-container .alert-red {
+            color: red;
+            font-weight: bold;
+        }
 
-            .character-table-container .alert-purple {
-                color: darkviolet;
-                font-weight: bold;
-            }
+        .character-table-container .alert-purple {
+            color: darkviolet;
+            font-weight: bold;
+        }
+
     </style>
     <link rel="stylesheet" href="dado.css">
 </head>
@@ -289,7 +293,24 @@
             <p id="resultadoFicha" style="display: none;"></p>
         </div>
     </div>
-
+    <div id="characterTableContainer" class="character-table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Personaje</th>
+                    <th>Vida Actual</th>
+                    <th>Vida Máxima</th>
+                    <th>Maná</th>
+                    <th>Cordura</th>
+                    <th>Energía</th>
+                    <th>Suerte</th>
+                </tr>
+            </thead>
+            <tbody id="character-table">
+                <!-- Filas generadas dinámicamente -->
+            </tbody>
+        </table>
+    </div>
 
     <script src="Tirada_amenaza.js"></script>
     <script src="dado.js"></script>
