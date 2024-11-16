@@ -1,8 +1,8 @@
 const defaultCharacters = [
-    { id: 'pj1', name: 'Personaje 1', vidaActual: 10, vidaMaxima: 20, mana: 10, cordura: 10, energia: 10, suerte: 10, corduraMensaje: '', estados: [] },
-    { id: 'pj2', name: 'Personaje 2', vidaActual: 15, vidaMaxima: 30, mana: 15, cordura: 15, energia: 15, suerte: 15, corduraMensaje: '', estados: [] },
-    { id: 'pj3', name: 'Personaje 3', vidaActual: 20, vidaMaxima: 40, mana: 20, cordura: 20, energia: 20, suerte: 20, corduraMensaje: '', estados: [] },
-    { id: 'pj4', name: 'Personaje 4', vidaActual: 25, vidaMaxima: 50, mana: 25, cordura: 25, energia: 25, suerte: 25, corduraMensaje: '', estados: [] }
+    { id: 'pj1', name: 'Personaje 1', vidaActual: 20, vidaMaxima: 20, mana: 0, cordura: 8, energia: 1, suerte: 0, corduraMensaje: '', estados: [] },
+    { id: 'pj2', name: 'Personaje 2', vidaActual: 20, vidaMaxima: 20, mana: 0, cordura: 8, energia: 1, suerte: 0, corduraMensaje: '', estados: [] },
+    { id: 'pj3', name: 'Personaje 3', vidaActual: 20, vidaMaxima: 20, mana: 0, cordura: 8, energia: 1, suerte: 0, corduraMensaje: '', estados: [] },
+    { id: 'pj4', name: 'Personaje 4', vidaActual: 20, vidaMaxima: 20, mana: 0, cordura: 8, energia: 1, suerte: 0, corduraMensaje: '', estados: [] }
 ];
 
 const disadvantages = [
