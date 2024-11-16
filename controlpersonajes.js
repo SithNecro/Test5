@@ -74,7 +74,7 @@ function addState() {
     const stateId = `${heroSelect}-${estadoSelect}`;
     const existingState = character.estados.find(estado => estado.id === stateId);
     if (existingState) {
-        alert(`El estado "${estadoSelect}" ya está asignado a este personaje.`);
+       // alert(`El estado "${estadoSelect}" ya está asignado a este personaje.`);
         return; // No añadir duplicados
     }
 
@@ -134,7 +134,7 @@ function modifyAttribute(index, attr, value) {
 
     character[attr] = Math.max(0, character[attr] + value);
 
-    // Reglas adicionales para "Herido"
+    // Reglas para "Herido"
     if (attr === 'vidaActual') {
         const isWounded = character.vidaActual < character.vidaMaxima / 2;
         const stateId = `${index}-Herido`;
@@ -143,6 +143,22 @@ function modifyAttribute(index, attr, value) {
             const existingState = character.estados.find(estado => estado.id === stateId);
             if (!existingState) {
                 character.estados.push({ id: stateId, text: 'Herido', color: 'red' });
+            }
+        } else {
+            character.estados = character.estados.filter(estado => estado.id !== stateId);
+        }
+    }
+
+    // Reglas para "Cordura"
+    if (attr === 'cordura') {
+        const isInsane = character.cordura === 0;
+        const stateId = `${index}-Cordura`;
+
+        if (isInsane) {
+            const existingState = character.estados.find(estado => estado.id === stateId);
+            if (!existingState) {
+                const randomDisadvantage = disadvantages[Math.floor(Math.random() * disadvantages.length)];
+                character.estados.push({ id: stateId, text: randomDisadvantage, color: 'darkviolet' });
             }
         } else {
             character.estados = character.estados.filter(estado => estado.id !== stateId);
