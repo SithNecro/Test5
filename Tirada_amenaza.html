@@ -6,7 +6,7 @@
     <title>Amenaza</title>
     <style>
                 .contenedorbotones {
-                    display: flex;
+                    display:flex;
                     align-items: center; /* Alinea verticalmente los elementos en el centro */
                     text-align :center;
                     gap: 10px; /* Espacio entre los elementos */
@@ -227,17 +227,17 @@
                     <!-- Botón para reiniciar la bolsa -->
                     <button onclick="iniciarBolsa()">Reiniciar Bolsa</button>
                     <!-- Información de las fichas en la bolsa -->
-                    <div class="contenedorbotones">
+                    
                         <p class="result" id="aliadasRestantes">Fichas Aliadas: 0</p>
                         <button class="button2" onclick="ajustarFichas('aliadas', 1)" style="background-color: green; color: white;">+</button>
                         <button class="button2" onclick="ajustarFichas('aliadas', -1)" style="background-color: red; color: white;">-</button>
-                    </div>
+                   
 
-                    <div class="contenedorbotones">
+                   
                         <p class="result" id="enemigasRestantes">Fichas Enemigas: 0</p>
                         <button class="button2" onclick="ajustarFichas('enemigas', 1)" style="background-color: green; color: white;">+</button>
                         <button class="button2" onclick="ajustarFichas('enemigas', -1)" style="background-color: red; color: white;">-</button>
-                    </div>
+                    
                     <p class="result" id="totalFichas">Fichas en la Bolsa: 0</p>
 
                     <!-- Botón para sacar una ficha -->
