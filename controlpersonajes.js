@@ -1,8 +1,8 @@
 const defaultCharacters = [
-    { id: 'pj1', name: 'Personaje 1', vidaActual: 10, vidaMaxima: 20, mana: 10, cordura: 10, energia: 10, suerte: 10 },
-    { id: 'pj2', name: 'Personaje 2', vidaActual: 15, vidaMaxima: 30, mana: 15, cordura: 15, energia: 15, suerte: 15 },
-    { id: 'pj3', name: 'Personaje 3', vidaActual: 20, vidaMaxima: 40, mana: 20, cordura: 20, energia: 20, suerte: 20 },
-    { id: 'pj4', name: 'Personaje 4', vidaActual: 25, vidaMaxima: 50, mana: 25, cordura: 25, energia: 25, suerte: 25 }
+    { id: 'pj1', name: 'Personaje 1', vidaActual: 10, vidaMaxima: 20, mana: 10, cordura: 10, energia: 10, suerte: 10, corduraMensaje: '' },
+    { id: 'pj2', name: 'Personaje 2', vidaActual: 15, vidaMaxima: 30, mana: 15, cordura: 15, energia: 15, suerte: 15, corduraMensaje: '' },
+    { id: 'pj3', name: 'Personaje 3', vidaActual: 20, vidaMaxima: 40, mana: 20, cordura: 20, energia: 20, suerte: 20, corduraMensaje: '' },
+    { id: 'pj4', name: 'Personaje 4', vidaActual: 25, vidaMaxima: 50, mana: 25, cordura: 25, energia: 25, suerte: 25, corduraMensaje: '' }
 ];
 
 const disadvantages = [
@@ -29,11 +29,12 @@ function renderTable() {
     characters.forEach((character, index) => {
         const row = document.createElement('tr');
 
-        // Nombre y mensaje
+        // Nombre y mensajes
         const nameCell = document.createElement('td');
         nameCell.innerHTML = `
             <input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)">
-            <div id="${character.id}-alert" class="alert" style="display: none;"></div>
+            <div id="${character.id}-alert-vida" class="alert" style="display: none; color: red;"></div>
+            <div id="${character.id}-alert-cordura" class="alert" style="display: none; color: darkviolet;"></div>
         `;
         row.appendChild(nameCell);
 
@@ -55,7 +56,7 @@ function renderTable() {
 
         tableBody.appendChild(row);
 
-        // Mostrar mensaje si es necesario
+        // Mostrar mensajes si es necesario
         checkAlerts(character, index);
     });
 
@@ -74,7 +75,7 @@ function modifyAttribute(index, attr, value) {
 
     character[attr] = Math.max(0, character[attr] + value);
 
-    // Reglas adicionales
+    // Reglas adicionales para Vida y Cordura
     if (attr === 'vidaActual' || attr === 'vidaMaxima') {
         if (character.vidaActual < character.vidaMaxima / 2) {
             document.getElementById(`${character.id}-vidaActual`).parentElement.parentElement.style.backgroundColor = 'red';
@@ -87,10 +88,9 @@ function modifyAttribute(index, attr, value) {
 
     if (attr === 'cordura' && character.cordura === 0) {
         const randomDisadvantage = disadvantages[Math.floor(Math.random() * disadvantages.length)];
-        document.getElementById(`${character.id}-alert`).innerText = randomDisadvantage;
-        document.getElementById(`${character.id}-alert`).style.display = 'block';
+        character.corduraMensaje = randomDisadvantage;
     } else if (attr === 'cordura') {
-        document.getElementById(`${character.id}-alert`).style.display = 'none';
+        character.corduraMensaje = '';
     }
 
     saveCharacters(characters);
@@ -98,11 +98,23 @@ function modifyAttribute(index, attr, value) {
 }
 
 function checkAlerts(character, index) {
+    const vidaAlert = document.getElementById(`${character.id}-alert-vida`);
+    const corduraAlert = document.getElementById(`${character.id}-alert-cordura`);
+
+    // Verificar alerta de vida
     if (character.vidaActual < character.vidaMaxima / 2) {
-        document.getElementById(`${character.id}-alert`).innerText = "-1 Acción";
-        document.getElementById(`${character.id}-alert`).style.display = 'block';
+        vidaAlert.innerText = "-1 Acción";
+        vidaAlert.style.display = 'block';
     } else {
-        document.getElementById(`${character.id}-alert`).style.display = 'none';
+        vidaAlert.style.display = 'none';
+    }
+
+    // Verificar alerta de cordura
+    if (character.corduraMensaje) {
+        corduraAlert.innerText = character.corduraMensaje;
+        corduraAlert.style.display = 'block';
+    } else {
+        corduraAlert.style.display = 'none';
     }
 }
 
