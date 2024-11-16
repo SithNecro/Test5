@@ -33,7 +33,6 @@ function renderTable() {
         const nameCell = document.createElement('td');
         nameCell.innerHTML = `
             <input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)">
-           
         `;
         row.appendChild(nameCell);
 
@@ -52,15 +51,19 @@ function renderTable() {
             }
             row.appendChild(cell);
         });
-        const nameCellNotes = document.createElement('td');
-        nameCellNotes.innerHTML = `
-            
-            <div id="${character.id}-alert-vida" class="alert" style="display: none; color: red;"></div>
-            <div id="${character.id}-alert-cordura" class="alert" style="display: none; color: darkviolet;"></div>
+
+        // Notas (100% del ancho restante)
+        const notesRow = document.createElement('tr'); // Nueva fila para notas
+        const notesCell = document.createElement('td');
+        notesCell.colSpan = 8; // Ocupa todas las columnas de la tabla
+        notesCell.innerHTML = `
+            <div id="${character.id}-alert-vida" class="alert" style="display: none; color: red;">-1 Acción</div>
+            <div id="${character.id}-alert-cordura" class="alert" style="display: none; color: darkviolet;">Desventaja</div>
         `;
-        row.appendChild(nameCellNotes);
+        row.appendChild(notesCell);
 
         tableBody.appendChild(row);
+        tableBody.appendChild(notesRow); // Añadir la fila de notas
 
         // Mostrar mensajes si es necesario
         checkAlerts(character, index);
