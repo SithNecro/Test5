@@ -128,7 +128,7 @@ function addState() {
     const stateId = `${heroSelect}-${estadoSelect}`;
     const existingState = character.estados.find(estado => estado.id === stateId);
     if (existingState) {
-      //  alert(`El estado "${estadoSelect}" ya está asignado a este personaje.`);
+     //   alert(`El estado "${estadoSelect}" ya está asignado a este personaje.`);
         return; // No añadir duplicados
     }
 
