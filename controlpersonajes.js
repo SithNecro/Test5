@@ -5,7 +5,6 @@ const defaultCharacters = [
     { id: 'pj4', name: 'Personaje 4', vidaActual: 25, vidaMaxima: 50, mana: 25, cordura: 25, energia: 25, suerte: 25, corduraMensaje: '', estados: [] }
 ];
 
-
 const disadvantages = [
     "Paranoia extrema: desconfías de todos.",
     "Miedo irracional a la oscuridad.",
@@ -15,7 +14,9 @@ const disadvantages = [
 
 function loadCharacters() {
     const savedData = localStorage.getItem('characters');
-    return savedData ? JSON.parse(savedData) : defaultCharacters;
+    const characters = savedData ? JSON.parse(savedData) : defaultCharacters;
+    console.log('Characters Loaded:', characters); // Depuración
+    return characters;
 }
 
 function saveCharacters(characters) {
@@ -24,10 +25,12 @@ function saveCharacters(characters) {
 
 function renderTable() {
     const characters = loadCharacters();
+    console.log('Rendering Table with Characters:', characters); // Depuración
     const tableBody = document.getElementById('character-table');
     tableBody.innerHTML = '';
 
     characters.forEach((character, index) => {
+        console.log('Processing Character:', character); // Depuración
         const row = document.createElement('tr');
 
         // Nombre
@@ -63,9 +66,6 @@ function renderTable() {
     saveCharacters(characters);
 }
 
-
-
-
 function updateName(index, newName) {
     const characters = loadCharacters();
     characters[index].name = newName;
@@ -82,10 +82,8 @@ function modifyAttribute(index, attr, value) {
     if (attr === 'vidaActual' || attr === 'vidaMaxima') {
         if (character.vidaActual < character.vidaMaxima / 2) {
             document.getElementById(`${character.id}-vidaActual`).parentElement.parentElement.style.backgroundColor = 'orange';
-           // document.getElementById(`${character.id}-vidaMaxima`).parentElement.parentElement.style.backgroundColor = 'red';
         } else {
             document.getElementById(`${character.id}-vidaActual`).parentElement.parentElement.style.backgroundColor = '';
-           // document.getElementById(`${character.id}-vidaMaxima`).parentElement.parentElement.style.backgroundColor = '';
         }
     }
 
@@ -100,26 +98,6 @@ function modifyAttribute(index, attr, value) {
     renderTable();
 }
 
-function checkAlerts(character, index) {
-    const vidaAlert = document.getElementById(`${character.id}-alert-vida`);
-    const corduraAlert = document.getElementById(`${character.id}-alert-cordura`);
-
-    // Verificar alerta de vida
-    if (character.vidaActual < character.vidaMaxima / 2) {
-        vidaAlert.innerText = "-1 Acción";
-        vidaAlert.style.display = 'block';
-    } else {
-        vidaAlert.style.display = 'none';
-    }
-
-    // Verificar alerta de cordura
-    if (character.corduraMensaje) {
-        corduraAlert.innerText = character.corduraMensaje;
-        corduraAlert.style.display = 'block';
-    } else {
-        corduraAlert.style.display = 'none';
-    }
-}
 function toggleRoundsInput() {
     const estadoSelect = document.getElementById('estado-select');
     const roundsContainer = document.getElementById('rounds-container');
@@ -158,6 +136,7 @@ function addState() {
     saveCharacters(characters);
     renderTable();
 }
+
 function removeState(stateId, heroIndex) {
     const characters = loadCharacters();
     const character = characters[heroIndex];
@@ -169,6 +148,7 @@ function removeState(stateId, heroIndex) {
 
 // Al cargar la página
 window.onload = () => {
+    saveCharacters(defaultCharacters); // Reiniciar con valores predeterminados para pruebas
     renderTable();
     updateHeroSelect();
 };
