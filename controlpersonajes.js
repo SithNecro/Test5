@@ -32,7 +32,7 @@ function renderTable() {
 
         // Nombre y mensajes
         const nameCell = document.createElement('td');
-        nameCell.style.width = '10%'; // 10% del ancho
+        nameCell.style.width = '10%';
         nameCell.innerHTML = `
             <input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)">
         `;
@@ -41,7 +41,7 @@ function renderTable() {
         // Atributos
         ['vidaActual', 'vidaMaxima', 'mana', 'cordura', 'energia', 'suerte'].forEach(attr => {
             const cell = document.createElement('td');
-            cell.style.width = '10%'; // 10% del ancho
+            cell.style.width = '10%';
             cell.innerHTML = `
                 <div style="display: flex; align-items: center; justify-content: center;">
                     <button class="action-btn btn-minus" onclick="modifyAttribute(${index}, '${attr}', -1)">-</button>
@@ -49,30 +49,24 @@ function renderTable() {
                     <button class="action-btn btn-plus" onclick="modifyAttribute(${index}, '${attr}', 1)">+</button>
                 </div>
             `;
-            if (attr === 'vidaActual' || attr === 'vidaMaxima') {
-                cell.style.backgroundColor = character.vidaActual < character.vidaMaxima / 2 ? 'red' : '';
-            }
             row.appendChild(cell);
         });
 
-        // Notas (30% del ancho)
-        const notesCell = document.createElement('td');
-        notesCell.style.width = '30%'; // 30% del ancho
-        notesCell.style.textAlign = 'left'; // Opcional: alineación de texto
-        notesCell.innerHTML = `
-            <div id="${character.id}-alert-vida" class="alert" style="display: none; color: red;">-1 Acción</div>
-            <div id="${character.id}-alert-cordura" class="alert" style="display: none; color: darkviolet;">Desventaja</div>
-        `;
-        row.appendChild(notesCell);
+        // Estados
+        const estadoCell = document.createElement('td');
+        estadoCell.style.width = '30%';
+        estadoCell.innerHTML = character.estados.map(estado => `
+            <a id="${estado.id}" href="#" onclick="removeState('${estado.id}', ${index})">${estado.text}</a>
+        `).join(' ');
+        row.appendChild(estadoCell);
 
         tableBody.appendChild(row);
-
-        // Mostrar mensajes si es necesario
-        checkAlerts(character, index);
     });
 
     saveCharacters(characters);
 }
+
+
 
 
 function updateName(index, newName) {
@@ -172,10 +166,12 @@ function addState() {
     renderTable();
 }
 function removeState(stateId, heroIndex) {
-    const stateLink = document.getElementById(stateId);
-    if (stateLink) {
-        stateLink.remove();
-    }
+    const characters = loadCharacters();
+    const character = characters[heroIndex];
+    character.estados = character.estados.filter(estado => estado.id !== stateId);
+
+    saveCharacters(characters);
+    renderTable();
 }
 
 // Al cargar la página
@@ -183,4 +179,3 @@ window.onload = () => {
     renderTable();
     updateHeroSelect();
 };
-
