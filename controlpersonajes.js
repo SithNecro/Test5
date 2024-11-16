@@ -53,7 +53,7 @@ function renderTable() {
             row.appendChild(cell);
         });
         const nameCellNotes = document.createElement('td');
-        nameCell.innerHTML = `
+        nameCellNotes.innerHTML = `
             
             <div id="${character.id}-alert-vida" class="alert" style="display: none; color: red;"></div>
             <div id="${character.id}-alert-cordura" class="alert" style="display: none; color: darkviolet;"></div>
