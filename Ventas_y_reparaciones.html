@@ -147,7 +147,7 @@ const tablaValores = [
 // Función para calcular el valor de venta y reparación
 function calcularValores() {
     const valorCompra = parseInt(document.getElementById("valorCompra").value);
-    const puntosDurabilidad = parseInt(document.getElementById("puntosDurabilidad").value);
+    let puntosDurabilidad = parseInt(document.getElementById("puntosDurabilidad").value);
     if (puntosDurabilidad > 5)
     {
         puntosDurabilidad = 5;
