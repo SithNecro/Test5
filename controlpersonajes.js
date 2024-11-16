@@ -49,7 +49,7 @@ function renderTable() {
                 </div>
             `;
             if (attr === 'vidaActual' || attr === 'vidaMaxima') {
-                cell.style.backgroundColor = character.vidaActual < character.vidaMaxima / 2 ? 'red' : 'white';
+                cell.style.backgroundColor = character.vidaActual < character.vidaMaxima / 2 ? 'red' : '';
             }
             row.appendChild(cell);
         });
@@ -81,8 +81,8 @@ function modifyAttribute(index, attr, value) {
             document.getElementById(`${character.id}-vidaActual`).parentElement.parentElement.style.backgroundColor = 'red';
             document.getElementById(`${character.id}-vidaMaxima`).parentElement.parentElement.style.backgroundColor = 'red';
         } else {
-            document.getElementById(`${character.id}-vidaActual`).parentElement.parentElement.style.backgroundColor = 'white';
-            document.getElementById(`${character.id}-vidaMaxima`).parentElement.parentElement.style.backgroundColor = 'white';
+            document.getElementById(`${character.id}-vidaActual`).parentElement.parentElement.style.backgroundColor = '';
+            document.getElementById(`${character.id}-vidaMaxima`).parentElement.parentElement.style.backgroundColor = '';
         }
     }
 
