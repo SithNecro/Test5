@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amenaza</title>
     <style>
+        .contenedorbotones {
+            display: flex;
+            align-items: center; /* Alinea verticalmente los elementos en el centro */
+            gap: 10px; /* Espacio entre los elementos */
+        }
+
+        .result {
+            margin: 0; /* Quita los márgenes del párrafo si no los necesitas */
+        }
+
         img{
             border-radius: 5%;
         }
@@ -140,16 +150,14 @@ input{
 
         <!-- Botón para reiniciar la bolsa -->
         <button onclick="iniciarBolsa()">Reiniciar Bolsa</button>
-        <table>
-            <tr>
-                <td>
-                    <!-- Información de las fichas en la bolsa -->
-                    <p class="result" id="aliadasRestantes">Fichas Aliadas: 0</p>
-                        <button class="button2" onclick="ajustarFichas('aliadas', 1)" style="background-color: green; color: white;">+</button>
-                        <button class="button2" onclick="ajustarFichas('aliadas', -1)" style="background-color: red; color: white;">-</button>
-                </td>
-            </tr>
-        </table>
+        <!-- Información de las fichas en la bolsa -->
+        <div class="contenedorbotones">
+            <p class="result" id="aliadasRestantes">Fichas Aliadas: 0</p>
+            <button class="button2" onclick="ajustarFichas('aliadas', 1)" style="background-color: green; color: white;">+</button>
+            <button class="button2" onclick="ajustarFichas('aliadas', -1)" style="background-color: red; color: white;">-</button>
+        </div>
+
+       
         <p class="result" id="enemigasRestantes">Fichas Enemigas: 0</p>
         <!-- <div class="control-buttons">
 
