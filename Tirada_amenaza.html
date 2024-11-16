@@ -218,7 +218,7 @@ input{
                 <div><p id="mensajeAmenazaActual" style="display: none;"></p></div>
                 <p id="mensajeAmenaza" style="display: none;"></p>
                 <!-- Resultado de la ficha sacada -->
-                <p id="resultadoFicha"></p>
+                <p id="resultadoFicha" style="display: none;"></p>
             </div>
         </div>
         
@@ -270,6 +270,7 @@ document.getElementById('modificadorTirada').addEventListener('change', function
         }
 
         async function manejarAmenaza() {
+            document.getElementById("resultadoFicha").textContent = "";
             const diceImage2 = document.getElementById('dice-image2');
             diceImage2.style.display = 'none';
             const diceImage3 = document.getElementById('dice-image3');
