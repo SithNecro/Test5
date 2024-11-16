@@ -59,6 +59,7 @@ function renderTable() {
             <div id="${character.id}-alert-cordura" class="alert" style="display: none; color: darkviolet;"></div>
         `;
         row.appendChild(nameCellNotes);
+
         tableBody.appendChild(row);
 
         // Mostrar mensajes si es necesario
