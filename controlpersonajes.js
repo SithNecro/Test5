@@ -54,6 +54,7 @@ function renderTable() {
 
         // Notas (ocupa el ancho restante)
         const notesCell = document.createElement('td');
+        notesCell.colSpan = 3; // Colspan para ocupar 3 columnas
         notesCell.style.width = '100%'; // Ocupa todo el ancho restante
         notesCell.style.textAlign = 'left'; // Opcional: alineación de texto
         notesCell.innerHTML = `
