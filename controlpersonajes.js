@@ -31,6 +31,7 @@ function renderTable() {
 
         // Nombre y mensajes
         const nameCell = document.createElement('td');
+        nameCell.style.width = '10%'; // 10% del ancho
         nameCell.innerHTML = `
             <input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)">
         `;
@@ -39,6 +40,7 @@ function renderTable() {
         // Atributos
         ['vidaActual', 'vidaMaxima', 'mana', 'cordura', 'energia', 'suerte'].forEach(attr => {
             const cell = document.createElement('td');
+            cell.style.width = '10%'; // 10% del ancho
             cell.innerHTML = `
                 <div style="display: flex; align-items: center; justify-content: center;">
                     <button class="action-btn btn-minus" onclick="modifyAttribute(${index}, '${attr}', -1)">-</button>
@@ -52,10 +54,9 @@ function renderTable() {
             row.appendChild(cell);
         });
 
-        // Notas (ocupa el ancho restante)
+        // Notas (30% del ancho)
         const notesCell = document.createElement('td');
-        notesCell.colSpan = 3; // Colspan para ocupar 3 columnas
-        notesCell.style.width = '100%'; // Ocupa todo el ancho restante
+        notesCell.style.width = '30%'; // 30% del ancho
         notesCell.style.textAlign = 'left'; // Opcional: alineación de texto
         notesCell.innerHTML = `
             <div id="${character.id}-alert-vida" class="alert" style="display: none; color: red;">-1 Acción</div>
