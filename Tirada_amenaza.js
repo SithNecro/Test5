@@ -434,7 +434,7 @@
 
                 if (fichaElegida === "aliada" && fichasAliadas > 0) {
                     fichasAliadas--;
-                    document.getElementById("resultadoFicha").textContent = "¡Sacaste una ficha aliada!";
+                    document.getElementById("resultadoFicha").textContent = "TURNO ALIADO";
                     document.getElementById("resultadoFicha").style.color = "blue";
                     imagenAmenaza.src = "FIniAliadas.png"; // Ruta de la imagen de ficha aliada
                     imagenAmenaza.style.display = "block";
@@ -443,7 +443,7 @@
                     reproducirSonido("aliada"); // Reproduce sonido de ficha aliada
                 } else if (fichaElegida === "enemiga" && fichasEnemigas > 0) {
                     fichasEnemigas--;
-                    document.getElementById("resultadoFicha").textContent = "¡Sacaste una ficha enemiga!";
+                    document.getElementById("resultadoFicha").textContent = "TURNO ENEMIGO";
                     document.getElementById("resultadoFicha").style.color = "red";
                     imagenAmenaza.src = "FIniEnemigas.png"; // Ruta de la imagen de ficha enemiga
                     imagenAmenaza.style.display = "block";
