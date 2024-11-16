@@ -30,9 +30,8 @@ function renderTable() {
     characters.forEach((character, index) => {
         const row = document.createElement('tr');
 
-        // Nombre y mensajes
+        // Nombre
         const nameCell = document.createElement('td');
-        nameCell.style.width = '10%';
         nameCell.innerHTML = `
             <input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)">
         `;
@@ -41,7 +40,6 @@ function renderTable() {
         // Atributos
         ['vidaActual', 'vidaMaxima', 'mana', 'cordura', 'energia', 'suerte'].forEach(attr => {
             const cell = document.createElement('td');
-            cell.style.width = '10%';
             cell.innerHTML = `
                 <div style="display: flex; align-items: center; justify-content: center;">
                     <button class="action-btn btn-minus" onclick="modifyAttribute(${index}, '${attr}', -1)">-</button>
@@ -54,7 +52,6 @@ function renderTable() {
 
         // Estados
         const estadoCell = document.createElement('td');
-        estadoCell.style.width = '30%';
         estadoCell.innerHTML = character.estados.map(estado => `
             <a id="${estado.id}" href="#" onclick="removeState('${estado.id}', ${index})">${estado.text}</a>
         `).join(' ');
@@ -126,11 +123,7 @@ function checkAlerts(character, index) {
 function toggleRoundsInput() {
     const estadoSelect = document.getElementById('estado-select');
     const roundsContainer = document.getElementById('rounds-container');
-    if (estadoSelect.value === 'Veneno') {
-        roundsContainer.style.display = 'inline';
-    } else {
-        roundsContainer.style.display = 'none';
-    }
+    roundsContainer.style.display = estadoSelect.value === 'Veneno' ? 'inline' : 'none';
 }
 
 function updateHeroSelect() {
@@ -147,7 +140,7 @@ function updateHeroSelect() {
 
 function addState() {
     const estadoSelect = document.getElementById('estado-select').value;
-    const heroSelect = document.getElementById('hero-select').value;
+    const heroSelect = parseInt(document.getElementById('hero-select').value, 10);
     const roundsInput = document.getElementById('rounds-input').value;
 
     const characters = loadCharacters();
