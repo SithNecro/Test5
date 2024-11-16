@@ -128,5 +128,66 @@ function checkAlerts(character, index) {
         corduraAlert.style.display = 'none';
     }
 }
+function toggleRoundsInput() {
+    const estadoSelect = document.getElementById('estado-select');
+    const roundsContainer = document.getElementById('rounds-container');
+    if (estadoSelect.value === 'Veneno') {
+        roundsContainer.style.display = 'inline';
+    } else {
+        roundsContainer.style.display = 'none';
+    }
+}
 
-window.onload = renderTable;
+function updateHeroSelect() {
+    const heroSelect = document.getElementById('hero-select');
+    const characters = loadCharacters();
+    heroSelect.innerHTML = '';
+    characters.forEach((character, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = character.name;
+        heroSelect.appendChild(option);
+    });
+}
+
+function addState() {
+    const estadoSelect = document.getElementById('estado-select').value;
+    const heroSelect = document.getElementById('hero-select').value;
+    const roundsInput = document.getElementById('rounds-input').value;
+
+    const characters = loadCharacters();
+    const character = characters[heroSelect];
+    const tableRow = document.querySelectorAll('#character-table tr')[heroSelect];
+    const estadoCell = tableRow.querySelectorAll('td')[7];
+
+    let stateText = estadoSelect;
+    if (estadoSelect === 'Veneno') {
+        const rounds = parseInt(roundsInput, 10) || 0;
+        stateText += ` (${rounds} rondas)`;
+    }
+
+    const stateId = `${heroSelect}-${estadoSelect}`;
+    const stateLink = document.createElement('a');
+    stateLink.id = stateId;
+    stateLink.href = '#';
+    stateLink.textContent = stateText;
+    stateLink.onclick = () => removeState(stateId, heroSelect);
+    estadoCell.appendChild(stateLink);
+
+    saveCharacters(characters);
+    renderTable();
+}
+
+function removeState(stateId, heroIndex) {
+    const stateLink = document.getElementById(stateId);
+    if (stateLink) {
+        stateLink.remove();
+    }
+}
+
+// Al cargar la página
+window.onload = () => {
+    renderTable();
+    updateHeroSelect();
+};
+
