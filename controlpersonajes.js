@@ -52,10 +52,10 @@ function renderTable() {
             row.appendChild(cell);
         });
 
-        // Notas (100% del ancho restante)
-        const notesRow = document.createElement('tr'); // Nueva fila para notas
+        // Notas (ocupa el ancho restante)
         const notesCell = document.createElement('td');
-        notesCell.colSpan = 8; // Ocupa todas las columnas de la tabla
+        notesCell.style.width = '100%'; // Ocupa todo el ancho restante
+        notesCell.style.textAlign = 'left'; // Opcional: alineación de texto
         notesCell.innerHTML = `
             <div id="${character.id}-alert-vida" class="alert" style="display: none; color: red;">-1 Acción</div>
             <div id="${character.id}-alert-cordura" class="alert" style="display: none; color: darkviolet;">Desventaja</div>
@@ -63,7 +63,6 @@ function renderTable() {
         row.appendChild(notesCell);
 
         tableBody.appendChild(row);
-        tableBody.appendChild(notesRow); // Añadir la fila de notas
 
         // Mostrar mensajes si es necesario
         checkAlerts(character, index);
@@ -71,6 +70,7 @@ function renderTable() {
 
     saveCharacters(characters);
 }
+
 
 function updateName(index, newName) {
     const characters = loadCharacters();
