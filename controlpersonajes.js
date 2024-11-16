@@ -87,11 +87,11 @@ function modifyAttribute(index, attr, value) {
     // Reglas adicionales para Vida y Cordura
     if (attr === 'vidaActual' || attr === 'vidaMaxima') {
         if (character.vidaActual < character.vidaMaxima / 2) {
-            document.getElementById(`${character.id}-vidaActual`).parentElement.parentElement.style.backgroundColor = 'red';
-            document.getElementById(`${character.id}-vidaMaxima`).parentElement.parentElement.style.backgroundColor = 'red';
+            document.getElementById(`${character.id}-vidaActual`).parentElement.parentElement.style.backgroundColor = 'orange';
+           // document.getElementById(`${character.id}-vidaMaxima`).parentElement.parentElement.style.backgroundColor = 'red';
         } else {
             document.getElementById(`${character.id}-vidaActual`).parentElement.parentElement.style.backgroundColor = '';
-            document.getElementById(`${character.id}-vidaMaxima`).parentElement.parentElement.style.backgroundColor = '';
+           // document.getElementById(`${character.id}-vidaMaxima`).parentElement.parentElement.style.backgroundColor = '';
         }
     }
 
