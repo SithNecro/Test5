@@ -52,7 +52,7 @@ function renderTable() {
         // Estados
         const estadoCell = document.createElement('td');
         estadoCell.innerHTML = character.estados.map(estado => `
-            <a id="${estado.id}" href="#" onclick="removeState('${estado.id}', ${index})">${estado.text}</a>
+            <a id="${estado.id}" href="#" onclick="removeState('${estado.id}', ${index})" style="color: ${estado.color || 'black'};">${estado.text}</a>
         `).join(' ');
         row.appendChild(estadoCell);
 
@@ -133,6 +133,21 @@ function modifyAttribute(index, attr, value) {
     const character = characters[index];
 
     character[attr] = Math.max(0, character[attr] + value);
+
+    // Reglas adicionales para "Herido"
+    if (attr === 'vidaActual') {
+        const isWounded = character.vidaActual < character.vidaMaxima / 2;
+        const stateId = `${index}-Herido`;
+
+        if (isWounded) {
+            const existingState = character.estados.find(estado => estado.id === stateId);
+            if (!existingState) {
+                character.estados.push({ id: stateId, text: 'Herido', color: 'red' });
+            }
+        } else {
+            character.estados = character.estados.filter(estado => estado.id !== stateId);
+        }
+    }
 
     saveCharacters(characters);
     renderTable();
