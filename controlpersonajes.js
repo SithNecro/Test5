@@ -1,9 +1,10 @@
 const defaultCharacters = [
-    { id: 'pj1', name: 'Personaje 1', vidaActual: 10, vidaMaxima: 20, mana: 10, cordura: 10, energia: 10, suerte: 10, corduraMensaje: '' },
-    { id: 'pj2', name: 'Personaje 2', vidaActual: 15, vidaMaxima: 30, mana: 15, cordura: 15, energia: 15, suerte: 15, corduraMensaje: '' },
-    { id: 'pj3', name: 'Personaje 3', vidaActual: 20, vidaMaxima: 40, mana: 20, cordura: 20, energia: 20, suerte: 20, corduraMensaje: '' },
-    { id: 'pj4', name: 'Personaje 4', vidaActual: 25, vidaMaxima: 50, mana: 25, cordura: 25, energia: 25, suerte: 25, corduraMensaje: '' }
+    { id: 'pj1', name: 'Personaje 1', vidaActual: 10, vidaMaxima: 20, mana: 10, cordura: 10, energia: 10, suerte: 10, corduraMensaje: '', estados: [] },
+    { id: 'pj2', name: 'Personaje 2', vidaActual: 15, vidaMaxima: 30, mana: 15, cordura: 15, energia: 15, suerte: 15, corduraMensaje: '', estados: [] },
+    { id: 'pj3', name: 'Personaje 3', vidaActual: 20, vidaMaxima: 40, mana: 20, cordura: 20, energia: 20, suerte: 20, corduraMensaje: '', estados: [] },
+    { id: 'pj4', name: 'Personaje 4', vidaActual: 25, vidaMaxima: 50, mana: 25, cordura: 25, energia: 25, suerte: 25, corduraMensaje: '', estados: [] }
 ];
+
 
 const disadvantages = [
     "Paranoia extrema: desconfías de todos.",
@@ -157,8 +158,6 @@ function addState() {
 
     const characters = loadCharacters();
     const character = characters[heroSelect];
-    const tableRow = document.querySelectorAll('#character-table tr')[heroSelect];
-    const estadoCell = tableRow.querySelectorAll('td')[7];
 
     let stateText = estadoSelect;
     if (estadoSelect === 'Veneno') {
@@ -167,17 +166,11 @@ function addState() {
     }
 
     const stateId = `${heroSelect}-${estadoSelect}`;
-    const stateLink = document.createElement('a');
-    stateLink.id = stateId;
-    stateLink.href = '#';
-    stateLink.textContent = stateText;
-    stateLink.onclick = () => removeState(stateId, heroSelect);
-    estadoCell.appendChild(stateLink);
+    character.estados.push({ id: stateId, text: stateText });
 
     saveCharacters(characters);
     renderTable();
 }
-
 function removeState(stateId, heroIndex) {
     const stateLink = document.getElementById(stateId);
     if (stateLink) {
