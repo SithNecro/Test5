@@ -7,15 +7,15 @@ const defaultCharacters = [
 
 const disadvantages = [
     "Odio",
-    "EstrÈs agudo",
-    "EstrÈs agudo",
+    "Estr√©s agudo",
+    "Estr√©s agudo",
     "Trauma persistente",
     "Temor a la oscuridad",
     "Aracnofobia",
     "Asustadizo",
     "Miedo irracional",
     "Claustrofobia",
-    "DepresiÛn"
+    "Depresi√≥n"
 ];
 
 function loadCharacters() {
@@ -39,7 +39,7 @@ function renderTable() {
         Terror: "-10 HC/HD, -10 AA y -1 PA",
         Enfermedad: "CON/2 y FUE/2",
         Aturdido: "-1 PA",
-        Veneno: "PÈrdida gradual de salud"
+        Veneno: "P√©rdida gradual de salud"
     };
 
     characters.forEach((character, index) => {
@@ -48,7 +48,7 @@ function renderTable() {
         // Nombre del personaje
         const nameCell = document.createElement('td');
         nameCell.innerHTML = `
-            <input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)">
+<input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)">
         `;
         row.appendChild(nameCell);
 
@@ -56,11 +56,11 @@ function renderTable() {
         ['vidaActual', 'vidaMaxima', 'mana', 'cordura', 'energia', 'suerte'].forEach(attr => {
             const cell = document.createElement('td');
             cell.innerHTML = `
-                <div style="display: flex; align-items: center; justify-content: center;">
-                    <button class="action-btn btn-minus" onclick="modifyAttribute(${index}, '${attr}', -1)">-</button>
-                    <span id="${character.id}-${attr}" style="margin: 0 10px;">${character[attr]}</span>
-                    <button class="action-btn btn-plus" onclick="modifyAttribute(${index}, '${attr}', 1)">+</button>
-                </div>
+<div style="display: flex; align-items: center; justify-content: center;">
+    <button class="action-btn btn-minus" onclick="modifyAttribute(${index}, '${attr}', -1)">-</button>
+    <span id="${character.id}-${attr}" style="margin: 0 10px;">${character[attr]}</span>
+    <button class="action-btn btn-plus" onclick="modifyAttribute(${index}, '${attr}', 1)">+</button>
+</div>
             `;
             row.appendChild(cell);
         });
@@ -68,11 +68,11 @@ function renderTable() {
         // Estados con tooltip
         const estadoCell = document.createElement('td');
         estadoCell.innerHTML = character.estados.map(estado => `
-            <a id="${estado.id}" 
-               href="#" 
-               onclick="removeState('${estado.id}', ${index})" 
-               style="color: ${estado.color || 'black'};"
-               title="${tooltips[estado.text.split(' ')[0]] || 'Estado sin descripciÛn'}">${estado.text}</a>
+<a id="${estado.id}"
+   href="#"
+   onclick="removeState('${estado.id}', ${index})"
+   style="color: ${estado.color || 'black'};"
+   title="${tooltips[estado.text.split(' ')[0]] || 'Estado sin descripci√≥n'}">${estado.text}</a>
         `).join(' ');
         row.appendChild(estadoCell);
 
@@ -94,8 +94,8 @@ function addState() {
     const stateId = `${heroSelect}-${estadoSelect}`;
     const existingState = character.estados.find(estado => estado.id === stateId);
     if (existingState) {
-       // alert(`El estado "${estadoSelect}" ya est· asignado a este personaje.`);
-        return; // No aÒadir duplicados
+       // alert(`El estado "${estadoSelect}" ya est√° asignado a este personaje.`);
+        return; // No a√±adir duplicados
     }
 
     // Crear texto para el estado
@@ -103,12 +103,12 @@ function addState() {
     if (estadoSelect === 'Veneno') {
         let rounds = parseInt(roundsInput, 10);
         if (isNaN(rounds) || rounds < 1) {
-            rounds = 1; // Forzar mÌnimo de 1 turno
+            rounds = 1; // Forzar m√≠nimo de 1 turno
         }
         stateText += ` (${rounds} rondas)`;
     }
 
-    // AÒadir el nuevo estado
+    // A√±adir el nuevo estado
     character.estados.push({ id: stateId, text: stateText });
 
     saveCharacters(characters);
@@ -190,8 +190,8 @@ function modifyAttribute(index, attr, value) {
 }
 function pasarTurno() {
     const characters = loadCharacters();
-    let venenoActualizado = false; // Bandera para verificar si se actualizÛ alg˙n estado "Veneno"
-    const heroesConVeneno = []; // Lista de nombres de hÈroes con "Veneno"
+    let venenoActualizado = false; // Bandera para verificar si se actualiz√≥ alg√∫n estado "Veneno"
+    const heroesConVeneno = []; // Lista de nombres de h√©roes con "Veneno"
 
     characters.forEach((character, index) => {
         // Procesar el estado "Veneno" para cada personaje
@@ -208,12 +208,12 @@ function pasarTurno() {
                     if (rounds > 0) {
                         // Actualizar el texto del estado con las rondas restantes
                         estado.text = `Veneno (${rounds} rondas)`;
-                        venenoActualizado = true; // Marcar que hubo actualizaciÛn
-                        heroesConVeneno.push(character.name); // AÒadir el nombre del hÈroe a la lista
+                        venenoActualizado = true; // Marcar que hubo actualizaci√≥n
+                        heroesConVeneno.push(character.name); // A√±adir el nombre del h√©roe a la lista
                         return estado;
                     }
                     // Si las rondas llegan a 0, eliminar el estado devolviendo null
-                    venenoActualizado = true; // Marcar que hubo actualizaciÛn
+                    venenoActualizado = true; // Marcar que hubo actualizaci√≥n
                     return null;
                 }
             }
@@ -225,11 +225,11 @@ function pasarTurno() {
     renderTable();
 
     if (venenoActualizado && heroesConVeneno.length > 0) {
-        alert(`AtenciÛn nuevo turno, recuerda aplicar el veneno a los hÈroes: ${heroesConVeneno.join(', ')}`);
+        alert(`Atenci√≥n nuevo turno, recuerda aplicar el veneno a los h√©roes: ${heroesConVeneno.join(', ')}`);
     }
 }
 
-// Al cargar la p·gina
+// Al cargar la p√°gina
 window.onload = () => {
     renderTable();
     updateHeroSelect();
