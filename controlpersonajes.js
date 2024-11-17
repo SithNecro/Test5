@@ -30,7 +30,7 @@ function renderTable() {
     const tooltips = {
         Herido: "-1 PA",
         Miedo: "-10 HC/HD y -10 AA",
-        Terror: "-10 HC/HD y -10 AA y -1 Acción",
+        Terror: "-10 HC/HD, -10 AA y -1 PA",
         Enfermedad: "CON/2 y FUE/2",
         Aturdido: "-1 PA",
         Veneno: "Pérdida gradual de salud"
@@ -182,7 +182,39 @@ function modifyAttribute(index, attr, value) {
     saveCharacters(characters);
     renderTable();
 }
+function pasarTurno() {
+    const characters = loadCharacters();
 
+    characters.forEach((character, index) => {
+        // Procesar el estado "Veneno" para cada personaje
+        character.estados = character.estados.map(estado => {
+            if (estado.text.startsWith('Veneno')) {
+                // Extraer las rondas restantes
+                const roundsMatch = estado.text.match(/\((\d+) rondas\)/);
+                if (roundsMatch) {
+                    let rounds = parseInt(roundsMatch[1], 10);
+
+                    // Reducir las rondas en 1
+                    rounds -= 1;
+
+                    if (rounds > 0) {
+                        // Actualizar el texto del estado con las rondas restantes
+                        estado.text = `Veneno (${rounds} rondas)`;
+                        return estado;
+                    }
+                    // Si las rondas llegan a 0, eliminar el estado devolviendo null
+                    return null;
+                }
+            }
+            return estado; // Devolver otros estados sin cambios
+        }).filter(Boolean); // Eliminar los estados que son null
+    });
+
+    saveCharacters(characters);
+    renderTable();
+
+    alert("Turno pasado. El estado 'Veneno' ha sido actualizado.");
+}
 // Al cargar la página
 window.onload = () => {
     renderTable();
