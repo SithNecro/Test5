@@ -6,10 +6,16 @@ const defaultCharacters = [
 ];
 
 const disadvantages = [
-    "Paranoia extrema: desconfías de todos.",
-    "Miedo irracional a la oscuridad.",
-    "Ataques de ira incontrolable.",
-    "Alucinaciones constantes."
+    "Odio",
+    "Estrés agudo",
+    "Estrés agudo",
+    "Trauma persistente",
+    "Temor a la oscuridad",
+    "Aracnofobia",
+    "Asustadizo",
+    "Miedo irracional",
+    "Claustrofobia",
+    "Depresión"
 ];
 
 function loadCharacters() {
