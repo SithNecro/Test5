@@ -5,91 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amenaza</title>
     <style>
-                .contenedorbotones {
-                    display:flex;
-                    align-items: center; /* Alinea verticalmente los elementos en el centro */
-                    text-align :center;
-                    gap: 10px; /* Espacio entre los elementos */
-                }
+         .contenedorbotones {
+            display: flex;
+            align-items: center; /* Alinea verticalmente los elementos en el centro */
+            text-align: center;
+              gap: 10px; /* Espacio entre los elementos */
+          }
 
-                .result {
-                    margin: 0; /* Quita los márgenes del párrafo si no los necesitas */
-                }
+        .result {
+            margin: 0; /* Quita los márgenes del párrafo si no los necesitas */
+        }
 
-                img {
-                    border-radius: 5%;
-                }
-                /*
+        img {
+            border-radius: 5%;
+        }
+        /*
             * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }*/
 
-                #imagenFicha {
-                    margin-top: 10px;
-                    width: 100px;
-                    height: auto;
-                }
+        #imagenFicha {
+            margin-top: 10px;
+            width: 100px;
+            height: auto;
+        }
 
-                .control-buttons {
-                    display: flex;
-                    gap: 5px;
-                    margin-bottom: 10px;
-                }
+        .control-buttons {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
 
-                .result {
-                    font-weight: bold;
-                    /*margin: 10px 0;*/
-                    font-size: 14px;
-                }
+        .result {
+            font-weight: bold;
+            /*margin: 10px 0;*/
+            font-size: 14px;
+        }
 
-                .container {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    gap: 10px;
-                }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
 
-                body {
-                    display: flex; /* Usamos flexbox para la disposición general */
-                    height: 100vh; /* Altura total de la ventana */
-                }
+        body {
+            display: flex; /* Usamos flexbox para la disposición general */
+            height: 100vh; /* Altura total de la ventana */
+        }
 
-                button {
-                    padding: 5px 5px;
-                    font-size: 14px;
-                    cursor: pointer;
-                    margin: 2px 0;
-                }
+        button {
+            padding: 5px 5px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 2px 0;
+        }
 
-                .button2 {
-                    width: 30px;
-                    height: 30px;
-                    border: none;
-                    border-radius: 50%;
-                    background-color: #777;
-                    color: white;
-                    font-size: 18px;
-                    margin-left: 10px;
-                    cursor: pointer;
-                }
+        .button2 {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            background-color: #777;
+            color: white;
+            font-size: 18px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
 
-                select {
-                    padding: 5px 5px;
-                    font-size: 14px;
-                    cursor: pointer;
-                    margin: 2px 0;
-                }
+        select {
+            padding: 5px 5px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 2px 0;
+        }
 
-                #menuContainer {
-                    position: fixed; /* Fijo a la izquierda */
-                    left: 0;
-                    top: 0;
-                    height: 100%; /* Ocupa toda la altura */
-                    width: 310px; /* Ancho fijo del menú */
-                    background-color: #ccc; /* Color de fondo del menú */
-                }
+        #menuContainer {
+            position: fixed; /* Fijo a la izquierda */
+            left: 0;
+            top: 0;
+            height: 100%; /* Ocupa toda la altura */
+            width: 310px; /* Ancho fijo del menú */
+            background-color: #ccc; /* Color de fondo del menú */
+        }
 
         #contentContainer {
             /* Deja espacio para el menú */
@@ -126,22 +126,22 @@
             align-items: stretch; /* Alinea el contenido en la parte superior */
         }
 
-                iframe {
-                    width: 100%;
-                    height: 100%;
-                    border: none;
-                }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
-                input {
-                    width: 50px;
-                    padding: 5px;
-                    text-align: center;
-                }
+        input {
+            width: 50px;
+            padding: 5px;
+            text-align: center;
+        }
 
-                .rojo {
-                    color: red;
-                    font-weight: bold;
-                }
+        .rojo {
+            color: red;
+            font-weight: bold;
+        }
     </style>
     <style>
         /* Encapsular estilos dentro de una clase contenedora única */
@@ -164,7 +164,6 @@
         }
 
         .character-table-container .input-field {
-            
             text-align: center;
         }
 
@@ -200,7 +199,6 @@
             color: darkviolet;
             font-weight: bold;
         }
-
     </style>
     <link rel="stylesheet" href="dado.css">
 </head>
@@ -227,17 +225,17 @@
                     <!-- Botón para reiniciar la bolsa -->
                     <button onclick="iniciarBolsa()">Reiniciar Bolsa</button>
                     <!-- Información de las fichas en la bolsa -->
-                    
-                        <p class="result" id="aliadasRestantes">Fichas Aliadas: 0</p>
-                        <button class="button2" onclick="ajustarFichas('aliadas', 1)" style="background-color: green; color: white;">+</button>
-                        <button class="button2" onclick="ajustarFichas('aliadas', -1)" style="background-color: red; color: white;">-</button>
-                   
 
-                   
-                        <p class="result" id="enemigasRestantes">Fichas Enemigas: 0</p>
-                        <button class="button2" onclick="ajustarFichas('enemigas', 1)" style="background-color: green; color: white;">+</button>
-                        <button class="button2" onclick="ajustarFichas('enemigas', -1)" style="background-color: red; color: white;">-</button>
-                    
+                    <p class="result" id="aliadasRestantes">Fichas Aliadas: 0</p>
+                    <button class="button2" onclick="ajustarFichas('aliadas', 1)" style="background-color: green; color: white;">+</button>
+                    <button class="button2" onclick="ajustarFichas('aliadas', -1)" style="background-color: red; color: white;">-</button>
+
+
+
+                    <p class="result" id="enemigasRestantes">Fichas Enemigas: 0</p>
+                    <button class="button2" onclick="ajustarFichas('enemigas', 1)" style="background-color: green; color: white;">+</button>
+                    <button class="button2" onclick="ajustarFichas('enemigas', -1)" style="background-color: red; color: white;">-</button>
+
                     <p class="result" id="totalFichas">Fichas en la Bolsa: 0</p>
 
                     <!-- Botón para sacar una ficha -->
@@ -347,12 +345,12 @@
             </tr>
         </table>
     </div>
-       
 
 
-        <script src="Tirada_amenaza.js"></script>
-        <script src="dado.js"></script>
-        <script src="controlpersonajes.js"></script>
-        <audio id="diceSound" src="sonidos/dados.mp3"></audio>
+
+    <script src="Tirada_amenaza.js"></script>
+    <script src="dado.js"></script>
+    <script src="controlpersonajes.js"></script>
+    <audio id="diceSound" src="sonidos/dados.mp3"></audio>
 </body>
 </html>
