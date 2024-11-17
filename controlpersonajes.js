@@ -184,6 +184,8 @@ function modifyAttribute(index, attr, value) {
 }
 function pasarTurno() {
     const characters = loadCharacters();
+    let venenoActualizado = false; // Bandera para verificar si se actualizó algún estado "Veneno"
+    const heroesConVeneno = []; // Lista de nombres de héroes con "Veneno"
 
     characters.forEach((character, index) => {
         // Procesar el estado "Veneno" para cada personaje
@@ -200,9 +202,12 @@ function pasarTurno() {
                     if (rounds > 0) {
                         // Actualizar el texto del estado con las rondas restantes
                         estado.text = `Veneno (${rounds} rondas)`;
+                        venenoActualizado = true; // Marcar que hubo actualización
+                        heroesConVeneno.push(character.name); // Añadir el nombre del héroe a la lista
                         return estado;
                     }
                     // Si las rondas llegan a 0, eliminar el estado devolviendo null
+                    venenoActualizado = true; // Marcar que hubo actualización
                     return null;
                 }
             }
@@ -213,8 +218,11 @@ function pasarTurno() {
     saveCharacters(characters);
     renderTable();
 
-    alert("Turno pasado. El estado 'Veneno' ha sido actualizado.");
+    if (venenoActualizado && heroesConVeneno.length > 0) {
+        alert(`Atención nuevo turno, recuerda aplicar el veneno a los héroes: ${heroesConVeneno.join(', ')}`);
+    }
 }
+
 // Al cargar la página
 window.onload = () => {
     renderTable();
