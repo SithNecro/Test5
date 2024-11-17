@@ -43,6 +43,7 @@
             document.getElementById("resultadoFicha").textContent = "";
             // Enviar mensaje al iframe para solicitar el valor de amenazaActual
             iframe.contentWindow.postMessage({ tipo: 'solicitarAmenazaActual' }, '*');
+            pasarTurno();
         }
 
         async function manejarAmenaza() {
