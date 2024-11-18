@@ -1,6 +1,6 @@
 // Ingredientes y partes de monstruos
 const ingredients = [
-    "Raíz arqueada", "Jengibre ceniciento", "Ajenjo Espinado", "Ambrosía", "Equinácea azul",
+    "Botella de cristal","Raíz arqueada", "Jengibre ceniciento", "Ajenjo Espinado", "Ambrosía", "Equinácea azul",
     "Callicarpa brillante", "Polen del Amaru", "Corteza de arce rojo", "Artemisa salada",
     "Asclepia picante", "Frambuesa gigante", "Baya lunar", "Laurel del monje", "Agracejo",
     "Belladona", "Dulcamara", "Hiedra dulce", "Perejil tóxico", "Barbarea", "Trébol llorón"
