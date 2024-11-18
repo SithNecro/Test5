@@ -53,7 +53,22 @@ function saveRecipes() {
     localStorage.setItem(RECIPES_KEY, JSON.stringify(recipes));
 }
 
-// Renderizar inventario
+// Renderizar inventario como tabla
+function renderInventoryTable() {
+    const tbody = document.querySelector("#inventory-table tbody");
+    tbody.innerHTML = "";
+    inventory.forEach(item => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${item.name}</td>
+            <td>${item.units}</td>
+            <td>${item.exquisite ? "Sí" : "No"}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+// Renderizar inventario (original)
 function renderInventory() {
     const inventoryList = document.getElementById("inventory-list");
     inventoryList.innerHTML = "";
@@ -66,41 +81,41 @@ function renderInventory() {
             inventory.splice(index, 1);
             saveInventory();
             renderInventory();
+            renderInventoryTable();
         };
         li.appendChild(removeButton);
         inventoryList.appendChild(li);
     });
 }
 
-// Inicializar materiales
-function initializeMaterialDropdown() {
-    const materialSelect = document.getElementById("material-select");
-    [...ingredients, ...monsterParts].forEach(material => {
-        const option = document.createElement("option");
-        option.value = material;
-        option.textContent = material;
-        materialSelect.appendChild(option);
+// Renderizar recetario como tabla
+function renderRecipeTable() {
+    const tbody = document.querySelector("#recipe-table tbody");
+    tbody.innerHTML = "";
+    recipes.forEach(recipe => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${recipe.name}</td>
+            <td>${recipe.type}</td>
+            <td>${recipe.ingredients.join(", ")}</td>
+        `;
+        tbody.appendChild(row);
     });
 }
 
-// Renderizar recetario
+// Renderizar recetario y el desplegable para olvidar recetas
 function renderRecipeBook() {
-    const recipeBook = document.getElementById("recipe-book");
     const forgetRecipeSelect = document.getElementById("forget-recipe-select");
-
-    recipeBook.innerHTML = "";
     forgetRecipeSelect.innerHTML = "<option value=''>Seleccione una receta</option>";
 
     recipes.forEach((recipe, index) => {
-        const li = document.createElement("li");
-        li.textContent = `${recipe.name} (${recipe.type}): ${recipe.ingredients.join(", ")}`;
-        recipeBook.appendChild(li);
-
         const option = document.createElement("option");
         option.value = index;
         option.textContent = recipe.name;
         forgetRecipeSelect.appendChild(option);
     });
+
+    renderRecipeTable();
 }
 
 // Olvidar receta
@@ -119,12 +134,38 @@ document.getElementById("forget-recipe").addEventListener("click", () => {
     alert("Receta olvidada con éxito.");
 });
 
-// Crear poción (Aquí ya está la lógica previamente implementada)
+// Agregar material al inventario
+document.getElementById("add-material").addEventListener("click", () => {
+    const material = document.getElementById("material-select").value;
+    const units = parseInt(document.getElementById("material-units").value, 10);
+    const exquisite = document.getElementById("material-exquisite").checked;
+
+    const existing = inventory.find(item => item.name === material && item.exquisite === exquisite);
+    if (existing) {
+        existing.units += units;
+    } else {
+        inventory.push({ name: material, units, exquisite });
+    }
+    saveInventory();
+    renderInventory();
+    renderInventoryTable();
+});
+
+// Inicializar materiales en el desplegable
+function initializeMaterialDropdown() {
+    const materialSelect = document.getElementById("material-select");
+    [...ingredients, ...monsterParts].forEach(material => {
+        const option = document.createElement("option");
+        option.value = material;
+        option.textContent = material;
+        materialSelect.appendChild(option);
+    });
+}
 
 // Inicializar
 document.addEventListener("DOMContentLoaded", () => {
     initializeMaterialDropdown();
     renderInventory();
+    renderInventoryTable();
     renderRecipeBook();
-    generatePotionSelectors("basic");
 });
