@@ -334,13 +334,18 @@ document.getElementById("create-potion").addEventListener("click", () => {
         } else {
             potionName = getPotionName(type);
             alert(`¡Nueva poción creada: "${potionName}"!`);
-            recipes.push({
+
+            // Agregar la poción al recetario
+            const newRecipe = {
                 type,
                 name: potionName,
-                ingredients: selectedItems
-            });
+                ingredients: [...selectedItems]
+            };
+            recipes.push(newRecipe);
             saveRecipes();
+            renderRecipeBook(); // Actualizar visualmente el recetario
         }
+
         saveInventory();
         renderInventory();
         renderInventoryTable();
