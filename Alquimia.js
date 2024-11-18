@@ -269,7 +269,6 @@ document.getElementById("potion-type").addEventListener("change", (e) => {
     generatePotionSelectors(e.target.value);
 });
 
-// Crear poción
 document.getElementById("create-potion").addEventListener("click", () => {
     const type = document.getElementById("potion-type").value;
     const selectors = document.querySelectorAll(".potion-selector");
@@ -363,7 +362,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
                 ingredients: [...selectedItems]
             };
             recipes.push(newRecipe);
-            saveRecipes();
+            saveRecipes(); // Guardar en localStorage
             renderRecipeBook(); // Actualizar visualmente el recetario
         }
 
