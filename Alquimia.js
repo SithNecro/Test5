@@ -104,18 +104,37 @@ function renderRecipeTable() {
 }
 
 // Renderizar recetario y el desplegable para olvidar recetas
+// Renderizar recetario como lista y tabla
 function renderRecipeBook() {
+    const recipeList = document.getElementById("recipe-list");
+    const recipeTableBody = document.querySelector("#recipe-table tbody");
     const forgetRecipeSelect = document.getElementById("forget-recipe-select");
+
+    recipeList.innerHTML = ""; // Limpiar la lista
+    recipeTableBody.innerHTML = ""; // Limpiar la tabla
     forgetRecipeSelect.innerHTML = "<option value=''>Seleccione una receta</option>";
 
     recipes.forEach((recipe, index) => {
+        // Agregar a la lista
+        const li = document.createElement("li");
+        li.textContent = `${recipe.name} (${recipe.type}): ${recipe.ingredients.join(", ")}`;
+        recipeList.appendChild(li);
+
+        // Agregar a la tabla
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${recipe.name}</td>
+            <td>${recipe.type}</td>
+            <td>${recipe.ingredients.join(", ")}</td>
+        `;
+        recipeTableBody.appendChild(row);
+
+        // Agregar al desplegable para olvidar recetas
         const option = document.createElement("option");
         option.value = index;
         option.textContent = recipe.name;
         forgetRecipeSelect.appendChild(option);
     });
-
-    renderRecipeTable();
 }
 
 // Olvidar receta
@@ -133,6 +152,8 @@ document.getElementById("forget-recipe").addEventListener("click", () => {
     renderRecipeBook();
     alert("Receta olvidada con éxito.");
 });
+
+
 
 // Agregar material al inventario
 document.getElementById("add-material").addEventListener("click", () => {
