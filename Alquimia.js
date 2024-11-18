@@ -265,9 +265,9 @@ document.getElementById("create-potion").addEventListener("click", () => {
         return;
     }
 
-    // Resto de la lógica para crear pociones
     const alchemySkill = parseInt(document.getElementById("alchemy-skill").value, 10);
 
+    // Verificar inventario
     const missingItems = selectedItems.filter(item => {
         const inventoryItem = inventory.find(inv => inv.name === item);
         return !inventoryItem || inventoryItem.units < 1;
@@ -304,7 +304,14 @@ document.getElementById("create-potion").addEventListener("click", () => {
         // Restar ingredientes y partes
         selectedItems.forEach(item => {
             const inventoryItem = inventory.find(inv => inv.name === item);
-            if (inventoryItem) inventoryItem.units -= 1;
+            if (inventoryItem) {
+                inventoryItem.units -= 1;
+                if (inventoryItem.units === 0) {
+                    // Eliminar del inventario si se queda en 0
+                    const index = inventory.indexOf(inventoryItem);
+                    inventory.splice(index, 1);
+                }
+            }
         });
 
         // Restar botella
@@ -332,6 +339,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
         }
         saveInventory();
         renderInventory();
+        renderInventoryTable();
     } else {
         // Fallo en la creación
         alert(`Fallaste en la creación de la poción. Ingredientes usados: ${selectedItems.join(", ")}`);
@@ -342,8 +350,10 @@ document.getElementById("create-potion").addEventListener("click", () => {
         }
         saveInventory();
         renderInventory();
+        renderInventoryTable();
     }
 });
+
 
 // Inicializar
 document.addEventListener("DOMContentLoaded", () => {
@@ -353,3 +363,34 @@ document.addEventListener("DOMContentLoaded", () => {
     renderRecipeBook();
     generatePotionSelectors(""); // Por defecto, limpiar desplegables
 });
+// Función para generar un nombre de poción basado en el tipo
+function getPotionName(type) {
+    if (type === "basic") {
+        const roll = Math.floor(Math.random() * 3) + 1; // Tirada de 1d3
+        if (roll === 1 || roll === 2) {
+            const basicNames = [
+                "Experiencia", "Constitución", "Valentía", "Destreza", "Energía",
+                "Vitalidad", "Mana", "Fuerza", "Sabiduría", "Ácido",
+                "Nauseabunda", "Flamígera", "Invisibilidad", "Corrosión",
+                "Contra Enfermedades", "Antídoto", "Veneno", "Fuego Líquido",
+                "Frasco del Vacío", "Aceite para Armas"
+            ];
+            return basicNames[Math.floor(Math.random() * basicNames.length)];
+        } else {
+            const rareNames = [
+                "Velocidad", "Polvo Químico", "Elixir de Arquero", "Poción de Furia",
+                "Resistencia al Fuego", "Escama de Dragón", "Restauración",
+                "Escupefuego", "Humo"
+            ];
+            return rareNames[Math.floor(Math.random() * rareNames.length)];
+        }
+    } else if (type === "weak" || type === "supreme") {
+        const advancedNames = [
+            "Flamígera", "Constitución", "Valentía", "Destreza", "Energía",
+            "Vitalidad", "Mana", "Fuerza", "Sabiduría", "Ácido",
+            "Contra Enfermedades", "Antídoto"
+        ];
+        return advancedNames[Math.floor(Math.random() * advancedNames.length)];
+    }
+    return "Poción Desconocida";
+}
