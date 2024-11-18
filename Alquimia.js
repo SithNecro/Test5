@@ -281,10 +281,14 @@ document.getElementById("create-potion").addEventListener("click", () => {
     // Calcular habilidad total
     let totalAlchemySkill = alchemySkill;
     let exquisiteBonus = 0;
+
     selectedItems.forEach(item => {
         const inventoryItem = inventory.find(inv => inv.name === item);
-        if (inventoryItem && inventoryItem.exquisite) exquisiteBonus += 10;
+        if (inventoryItem && inventoryItem.exquisite) {
+            exquisiteBonus += 10;
+        }
     });
+
     totalAlchemySkill += exquisiteBonus;
 
     // Verificar si la poción es conocida
@@ -353,7 +357,6 @@ document.getElementById("create-potion").addEventListener("click", () => {
         renderInventoryTable();
     }
 });
-
 
 // Inicializar
 document.addEventListener("DOMContentLoaded", () => {
