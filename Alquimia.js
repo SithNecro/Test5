@@ -332,7 +332,9 @@ document.getElementById("create-potion").addEventListener("click", () => {
     totalAlchemySkill += exquisiteBonus;
 
     // Verificar si la poción es conocida
-    const knownRecipe = recipes.find(recipe => recipe.ingredients.sort().join(",") === selectedItems.sort().join(","));
+    const knownRecipe = recipes.find(recipe =>
+        JSON.stringify(recipe.ingredients.sort()) === JSON.stringify(selectedItems.sort())
+    );
     if (knownRecipe) totalAlchemySkill += 10;
 
     // Realizar tirada
@@ -383,12 +385,15 @@ document.getElementById("create-potion").addEventListener("click", () => {
             };
             recipes.push(newRecipe);
             saveRecipes(); // Guardar en localStorage
-            renderRecipeBook(); // Actualizar visualmente el recetario
+            console.log("Receta nueva agregada:", newRecipe);
         }
 
+        // Guardar cambios y actualizar vistas
         saveInventory();
+        saveRecipes();
         renderInventory();
         renderInventoryTable();
+        renderRecipeBook(); // Asegurar que se renderiza correctamente
     } else {
         // Fallo en la creación
         alert(`Fallaste en la creación de la poción. Ingredientes usados: ${selectedItems.join(", ")}`);
@@ -404,12 +409,29 @@ document.getElementById("create-potion").addEventListener("click", () => {
 });
 
 // Inicializar
+// Inicialización al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
-    initializeMaterialDropdown();
-    renderInventory();
-    renderInventoryTable();
-    renderRecipeBook();
-    generatePotionSelectors(""); // Por defecto, limpiar desplegables
+    console.log("Cargando datos de LocalStorage...");
+    if (!localStorage.getItem(RECIPES_KEY)) {
+    const defaultRecipes = [
+        { type: "basic", name: "Poción de Energía", ingredients: ["Jengibre ceniciento", "Ectoplasma"] },
+        { type: "basic", name: "Poción de Fuerza", ingredients: ["Raíz arqueada", "Sangre de orco"] }
+    ];
+    localStorage.setItem(RECIPES_KEY, JSON.stringify(defaultRecipes));
+    console.log("Recetas predeterminadas guardadas:", defaultRecipes);
+}
+    // Leer inventario y recetas de LocalStorage
+    const storedRecipes = JSON.parse(localStorage.getItem(RECIPES_KEY)) || [];
+    recipes.length = 0; // Vaciar el array actual (si ya existe en memoria)
+    recipes.push(...storedRecipes); // Asegurarse de que contiene las recetas cargadas
+    console.log("Recetas cargadas:", recipes);
+
+    // Renderizar elementos de la interfaz
+    initializeMaterialDropdown(); // Inicializar el desplegable de materiales
+    renderInventory(); // Renderizar el inventario
+    renderInventoryTable(); // Renderizar la tabla de inventario
+    renderRecipeBook(); // Renderizar el recetario completo
+    generatePotionSelectors(""); // Limpiar y generar los selectores de ingredientes
 });
 // Función para generar un nombre de poción basado en el tipo
 function getPotionName(type) {
