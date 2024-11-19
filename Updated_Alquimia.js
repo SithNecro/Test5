@@ -413,13 +413,13 @@ document.getElementById("create-potion").addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Cargando datos de LocalStorage...");
     if (!localStorage.getItem(RECIPES_KEY)) {
-        const defaultRecipes = [
-            { type: "basic", name: "Poción de Energía", ingredients: ["Jengibre ceniciento", "Ectoplasma"] },
-            { type: "basic", name: "Poción de Fuerza", ingredients: ["Raíz arqueada", "Sangre de orco"] }
-        ];
-        localStorage.setItem(RECIPES_KEY, JSON.stringify(defaultRecipes));
-        console.log("Recetas predeterminadas guardadas:", defaultRecipes);
-    }
+    const defaultRecipes = [
+        { type: "basic", name: "Poción de Energía", ingredients: ["Jengibre ceniciento", "Ectoplasma"] },
+        { type: "basic", name: "Poción de Fuerza", ingredients: ["Raíz arqueada", "Sangre de orco"] }
+    ];
+    localStorage.setItem(RECIPES_KEY, JSON.stringify(defaultRecipes));
+    console.log("Recetas predeterminadas guardadas:", defaultRecipes);
+}
     // Leer inventario y recetas de LocalStorage
     const storedRecipes = JSON.parse(localStorage.getItem(RECIPES_KEY)) || [];
     recipes.length = 0; // Vaciar el array actual (si ya existe en memoria)
