@@ -319,14 +319,12 @@ document.getElementById("create-potion").addEventListener("click", () => {
 
     // Calcular habilidad total
     let totalAlchemySkill = alchemySkill;
-    let exquisiteBonus = 0;
 
-    selectedItems.forEach(item => {
+    // Sumar 10 puntos por cada ingrediente o parte exquisito
+    const exquisiteBonus = selectedItems.reduce((bonus, item) => {
         const inventoryItem = inventory.find(inv => inv.name === item);
-        if (inventoryItem && inventoryItem.exquisite) {
-            exquisiteBonus += 10;
-        }
-    });
+        return bonus + (inventoryItem && inventoryItem.exquisite ? 10 : 0);
+    }, 0);
 
     totalAlchemySkill += exquisiteBonus;
 
