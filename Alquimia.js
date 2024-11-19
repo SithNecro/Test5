@@ -195,6 +195,54 @@ document.addEventListener("DOMContentLoaded", () => {
 // Popular los desplegables con los materiales del inventario
 // Generar los desplegables para seleccionar materiales
 // Generar los desplegables para seleccionar materiales
+// Popular los desplegables con los materiales del inventario
+function populatePotionSelectors() {
+    const selectors = document.querySelectorAll(".potion-selector");
+    const usedValues = Array.from(selectors)
+        .filter(select => select.value) // Filtrar solo los que ya tienen un valor seleccionado
+        .map(select => select.value);
+
+    selectors.forEach((select, index) => {
+        const type = select.dataset.type; // "ingredient" o "monsterPart"
+        const previousValue = select.value; // Guardar el valor seleccionado previamente
+        select.innerHTML = ""; // Limpiar opciones previas
+
+        // Añadir la opción por defecto
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "Select material";
+        defaultOption.disabled = true;
+        select.appendChild(defaultOption);
+
+        // Filtrar opciones disponibles en el inventario según el tipo
+        const availableItems = inventory.filter(item =>
+            (type === "ingredient" && ingredients.includes(item.name) && item.units > 0) ||
+            (type === "monsterPart" && monsterParts.includes(item.name) && item.units > 0)
+        );
+
+        availableItems.forEach(item => {
+            const option = document.createElement("option");
+            option.value = item.name;
+            option.textContent = `${item.name} (${item.exquisite ? "Exquisito" : "Normal"})`;
+
+            // Deshabilitar si ya ha sido seleccionado en otro desplegable
+            if (usedValues.includes(item.name) && item.name !== previousValue) {
+                option.disabled = true;
+            }
+
+            select.appendChild(option);
+        });
+
+        // Restaurar el valor previamente seleccionado, si todavía está disponible
+        if (previousValue && usedValues.includes(previousValue)) {
+            select.value = previousValue;
+        } else {
+            select.value = ""; // Volver a la opción por defecto si el valor previo no está disponible
+        }
+    });
+}
+
+// Generar los desplegables para seleccionar materiales
 function generatePotionSelectors(type) {
     const container = document.getElementById("potion-ingredients");
     container.innerHTML = ""; // Limpiar los desplegables previos
@@ -231,51 +279,6 @@ function generatePotionSelectors(type) {
 
     // Popular los desplegables con opciones iniciales
     populatePotionSelectors();
-}
-
-// Popular los desplegables con los materiales del inventario
-function populatePotionSelectors() {
-    const selectors = document.querySelectorAll(".potion-selector");
-    const usedValues = Array.from(selectors)
-        .filter(select => select.value) // Filtrar solo los que ya tienen un valor seleccionado
-        .map(select => select.value);
-
-    selectors.forEach((select, index) => {
-        const type = select.dataset.type; // "ingredient" o "monsterPart"
-        const previousValue = select.value; // Guardar el valor seleccionado previamente
-        select.innerHTML = ""; // Limpiar opciones previas
-
-        const defaultOption = document.createElement("option");
-        defaultOption.value = "";
-        defaultOption.textContent = "Select material";
-        defaultOption.disabled = true;
-        defaultOption.selected = true;
-        select.appendChild(defaultOption);
-
-        // Filtrar opciones disponibles en el inventario según el tipo
-        const availableItems = inventory.filter(item =>
-            (type === "ingredient" && ingredients.includes(item.name) && item.units > 0) ||
-            (type === "monsterPart" && monsterParts.includes(item.name) && item.units > 0)
-        );
-
-        availableItems.forEach(item => {
-            const option = document.createElement("option");
-            option.value = item.name;
-            option.textContent = `${item.name} (${item.exquisite ? "Exquisito" : "Normal"})`;
-
-            // Deshabilitar si ya ha sido seleccionado en otro desplegable
-            if (usedValues.includes(item.name) && item.name !== previousValue) {
-                option.disabled = true;
-            }
-
-            select.appendChild(option);
-        });
-
-        // Restaurar el valor previo si todavía está disponible
-        if (previousValue && !usedValues.includes(previousValue)) {
-            select.value = previousValue;
-        }
-    });
 }
 
 // Detectar cambio en el tipo de poción y generar los desplegables
