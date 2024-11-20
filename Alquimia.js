@@ -361,7 +361,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
         });
 
         // Restar botella
-        const bottle = inventory.find(inv => inv.name === "Botella de cristal");
+        const bottle = parseInt(document.getElementById("empty-bottles").values, 10);
         if (!bottle || bottle.units < 1) {
             alert("No hay botellas vacías en el inventario.");
             return;
@@ -397,7 +397,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
     } else {
         // Fallo en la creación
         alert(`Fallaste en la creación de la poción. Ingredientes usados: ${selectedItems.join(", ")}`);
-        const bottle = inventory.find(inv => inv.name === "Botella de cristal");
+        const bottle = emptyBottles;
         if (roll >= 95 && bottle) {
             bottle.units -= 1;
             alert("¡La botella también se rompió!");
