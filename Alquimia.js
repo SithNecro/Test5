@@ -66,7 +66,7 @@ function renderInventory() {
             inventory.splice(index, 1);
             saveInventory();
             renderInventory();
-            renderInventoryTable();
+            
         };
         li.appendChild(removeButton);
         inventoryList.appendChild(li);
@@ -154,7 +154,7 @@ document.getElementById("add-material").addEventListener("click", () => {
     }
     saveInventory();
     renderInventory();
-    renderInventoryTable();
+   
 });
 
 // Inicializar materiales en el desplegable
@@ -172,7 +172,7 @@ function initializeMaterialDropdown() {
 document.addEventListener("DOMContentLoaded", () => {
     initializeMaterialDropdown();
     renderInventory();
-    renderInventoryTable();
+   
     renderRecipeBook();
 });
 
@@ -293,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Renderizar elementos de la interfaz
     initializeMaterialDropdown(); // Inicializar el desplegable de materiales
     renderInventory(); // Renderizar el inventario
-    renderInventoryTable(); // Renderizar la tabla de inventario
+   
     renderRecipeBook(); // Renderizar el recetario completo
     generatePotionSelectors(""); // Limpiar y generar los selectores de ingredientes
 });
@@ -450,7 +450,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
         saveInventory();
         saveRecipes();
         renderInventory();
-        renderInventoryTable();
+       
         renderRecipeBook(); // Asegurar que se renderiza correctamente
     } else {
         // Fallo en la creación
@@ -461,7 +461,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
         }
         saveInventory();
         renderInventory();
-        renderInventoryTable();
+      
     }
 
     updateBottleCount();
