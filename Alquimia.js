@@ -202,7 +202,7 @@ function initializeMaterialDropdown() {
 document.addEventListener("DOMContentLoaded", () => {
     initializeMaterialDropdown();
     renderInventory();
-   
+    renderRecipeTable(); // Actualiza la tabla de recetas
     renderRecipeBook();
 });
 
