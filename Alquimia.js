@@ -53,21 +53,6 @@ function saveRecipes() {
     localStorage.setItem(RECIPES_KEY, JSON.stringify(recipes));
 }
 
-// Renderizar inventario como tabla
-function renderInventoryTable() {
-    const tbody = document.querySelector("#inventory-table tbody");
-    tbody.innerHTML = "";
-    inventory.forEach(item => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${item.name}</td>
-            <td>${item.units}</td>
-            <td>${item.exquisite ? "Sí" : "No"}</td>
-        `;
-        tbody.appendChild(row);
-    });
-}
-
 // Renderizar inventario (original)
 function renderInventory() {
     const inventoryList = document.getElementById("inventory-list");
@@ -286,127 +271,6 @@ document.getElementById("potion-type").addEventListener("change", (e) => {
     generatePotionSelectors(e.target.value);
 });
 
-// Detectar cambio en el tipo de poción y generar los desplegables
-document.getElementById("potion-type").addEventListener("change", (e) => {
-    generatePotionSelectors(e.target.value);
-});
-
-document.getElementById("create-potion").addEventListener("click", () => {
-    const type = document.getElementById("potion-type").value;
-    const selectors = document.querySelectorAll(".potion-selector");
-
-    if (!type) {
-        alert("Selecciona un tipo de poción.");
-        return;
-    }
-
-    const selectedItems = Array.from(selectors).map(s => s.value);
-
-    if (selectedItems.includes("")) {
-        alert("Selecciona todos los ingredientes a usar.");
-        return;
-    }
-
-    const alchemySkill = parseInt(document.getElementById("alchemy-skill").value, 10);
-
-    // Verificar inventario
-    const missingItems = selectedItems.filter(item => {
-        const inventoryItem = inventory.find(inv => inv.name === item);
-        return !inventoryItem || inventoryItem.units < 1;
-    });
-
-    if (missingItems.length > 0) {
-        alert(`Faltan los siguientes ingredientes o partes en el inventario: ${missingItems.join(", ")}`);
-        return;
-    }
-
-    // Calcular habilidad total
-    let totalAlchemySkill = alchemySkill;
-
-    // Sumar 10 puntos por cada ingrediente o parte exquisito
-    const exquisiteBonus = selectedItems.reduce((bonus, item) => {
-        const inventoryItem = inventory.find(inv => inv.name === item);
-        return bonus + (inventoryItem && inventoryItem.exquisite ? 10 : 0);
-    }, 0);
-
-    totalAlchemySkill += exquisiteBonus;
-
-    // Verificar si la poción es conocida
-    const knownRecipe = recipes.find(recipe =>
-        JSON.stringify(recipe.ingredients.sort()) === JSON.stringify(selectedItems.sort())
-    );
-    if (knownRecipe) totalAlchemySkill += 10;
-
-    // Realizar tirada
-    const roll = Math.floor(Math.random() * 100) + 1;
-    if (roll <= totalAlchemySkill || roll <= 5) {
-        // Éxito crítico o normal
-        const isCritical = roll <= 5;
-
-        if (isCritical) {
-            alert("¡Éxito crítico! Mejora Hab. ALQ. en 1 o recupera energía.");
-        }
-
-        // Restar ingredientes y partes
-        selectedItems.forEach(item => {
-            const inventoryItem = inventory.find(inv => inv.name === item);
-            if (inventoryItem) {
-                inventoryItem.units -= 1;
-                if (inventoryItem.units === 0) {
-                    // Eliminar del inventario si se queda en 0
-                    const index = inventory.indexOf(inventoryItem);
-                    inventory.splice(index, 1);
-                }
-            }
-        });
-
-        // Restar botella
-        const bottle = parseInt(document.getElementById("empty-bottles").values, 10);
-        if (!bottle || bottle.units < 1) {
-            alert("No hay botellas vacías en el inventario.");
-            return;
-        }
-        bottle.units -= 1;
-
-        // Crear poción
-        let potionName;
-        if (knownRecipe) {
-            potionName = knownRecipe.name;
-            alert(`¡La poción "${potionName}" ha sido creada exitosamente!`);
-        } else {
-            potionName = getPotionName(type);
-            alert(`¡Nueva poción creada: "${potionName}"!`);
-
-            // Agregar la poción al recetario
-            const newRecipe = {
-                type,
-                name: potionName,
-                ingredients: [...selectedItems]
-            };
-            recipes.push(newRecipe);
-            saveRecipes(); // Guardar en localStorage
-            console.log("Receta nueva agregada:", newRecipe);
-        }
-
-        // Guardar cambios y actualizar vistas
-        saveInventory();
-        saveRecipes();
-        renderInventory();
-        renderInventoryTable();
-        renderRecipeBook(); // Asegurar que se renderiza correctamente
-    } else {
-        // Fallo en la creación
-        alert(`Fallaste en la creación de la poción. Ingredientes usados: ${selectedItems.join(", ")}`);
-        const bottle = emptyBottles;
-        if (roll >= 95 && bottle) {
-            bottle.units -= 1;
-            alert("¡La botella también se rompió!");
-        }
-        saveInventory();
-        renderInventory();
-        renderInventoryTable();
-    }
-});
 
 // Inicializar
 // Inicialización al cargar la página
@@ -484,14 +348,12 @@ document.getElementById("remove-bottle").addEventListener("click", () => {
     }
 });
 
-// Actualización en creación de pociones para incluir la verificación de botellas
 document.getElementById("create-potion").addEventListener("click", () => {
     if (emptyBottles <= 0) {
         alert("No se puede crear la poción sin botellas vacías.");
         return;
     }
 
-    // Lógica existente de creación de pociones
     const type = document.getElementById("potion-type").value;
     const selectors = document.querySelectorAll(".potion-selector");
 
