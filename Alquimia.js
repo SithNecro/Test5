@@ -123,34 +123,7 @@ function forgetRecipe(index) {
     alert(`Receta "${removedRecipe[0].name}" olvidada con éxito.`);
 }
 
-// Renderizar recetario y el desplegable para olvidar recetas
-// Renderizar recetario como lista y tabla
-function renderRecipeBook() {
-    const recipeTableBody = document.querySelector("#recipe-table tbody");
-    const forgetRecipeSelect = document.getElementById("forget-recipe-select");
 
-    recipeTableBody.innerHTML = ""; // Limpiar la tabla
-    forgetRecipeSelect.innerHTML = "<option value=''>Seleccione una receta</option>";
-
-    recipes.forEach((recipe, index) => {
-        
-       
-        // Agregar a la tabla
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${recipe.name}</td>
-            <td>${recipe.type}</td>
-            <td>${recipe.ingredients.join(", ")}</td>
-        `;
-        recipeTableBody.appendChild(row);
-
-        // Agregar al desplegable para olvidar recetas
-        const option = document.createElement("option");
-        option.value = index;
-        option.textContent = recipe.name;
-        forgetRecipeSelect.appendChild(option);
-    });
-}
 
 // Olvidar receta
 document.getElementById("forget-recipe").addEventListener("click", () => {
@@ -164,7 +137,7 @@ document.getElementById("forget-recipe").addEventListener("click", () => {
 
     recipes.splice(selectedIndex, 1);
     saveRecipes();
-    renderRecipeBook();
+  
     alert("Receta olvidada con éxito.");
 });
 
@@ -203,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeMaterialDropdown();
     renderInventory();
     renderRecipeTable(); // Actualiza la tabla de recetas
-    renderRecipeBook();
+    
 });
 
 // Generar los desplegables para seleccionar materiales
@@ -324,7 +297,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeMaterialDropdown(); // Inicializar el desplegable de materiales
     renderInventory(); // Renderizar el inventario
    
-    renderRecipeBook(); // Renderizar el recetario completo
+   
     generatePotionSelectors(""); // Limpiar y generar los selectores de ingredientes
 });
 // Función para generar un nombre de poción basado en el tipo
@@ -481,7 +454,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
         saveRecipes();
         renderInventory();
        
-        renderRecipeBook(); // Asegurar que se renderiza correctamente
+       
     } else {
         // Fallo en la creación
         alert(`Fallaste en la creación de la poción. Ingredientes usados: ${selectedItems.join(", ")}`);
