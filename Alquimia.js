@@ -76,16 +76,51 @@ function renderInventory() {
 // Renderizar recetario como tabla
 function renderRecipeTable() {
     const tbody = document.querySelector("#recipe-table tbody");
+    if (!tbody) {
+        console.error("El elemento #recipe-table tbody no existe.");
+        return;
+    }
+
     tbody.innerHTML = "";
-    recipes.forEach(recipe => {
+
+    if (recipes.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='4'>No hay recetas registradas.</td></tr>";
+        return;
+    }
+
+    recipes.forEach((recipe, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${recipe.name}</td>
             <td>${recipe.type}</td>
             <td>${recipe.ingredients.join(", ")}</td>
+            <td>
+                <button class="forget-recipe" data-index="${index}">Olvidar</button>
+            </td>
         `;
         tbody.appendChild(row);
     });
+
+    // Añadir eventos a los botones "Olvidar"
+    const forgetButtons = document.querySelectorAll(".forget-recipe");
+    forgetButtons.forEach(button => {
+        button.addEventListener("click", (e) => {
+            const index = parseInt(e.target.dataset.index, 10);
+            forgetRecipe(index);
+        });
+    });
+}
+
+// Función para olvidar una receta
+function forgetRecipe(index) {
+    if (index < 0 || index >= recipes.length) {
+        console.error("Índice de receta inválido:", index);
+        return;
+    }
+    recipes.splice(index, 1);
+    saveRecipes(); // Guardar cambios en localStorage
+    renderRecipeTable(); // Actualizar tabla
+    alert("Receta olvidada con éxito.");
 }
 
 // Renderizar recetario y el desplegable para olvidar recetas
