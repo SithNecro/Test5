@@ -242,23 +242,14 @@ function populatePotionSelectors() {
 // Generar los desplegables para seleccionar materiales
 function generatePotionSelectors(type) {
     const container = document.getElementById("potion-ingredients");
-    container.innerHTML = ""; // Limpiar cualquier selector previo
+    container.innerHTML = ""; // Limpiar cualquier contenido previo
 
     if (!type) {
         return; // No hacer nada si no se ha seleccionado un tipo
     }
 
-    let selectorsNeeded;
-
-    // Configuración según el tipo de poción
-    if (type === "basic") {
-        selectorsNeeded = [
-            { type: "ingredient", count: 1 },
-            { type: "monsterPart", count: 1 }
-        ];
-        createSelectors(selectorsNeeded);
-    } else if (type === "weak") {
-        // Configuraciones para pociones débiles
+    if (type === "weak") {
+        // Configuración para las combinaciones posibles
         const combinations = [
             {
                 label: "2 Ingredientes + 1 Parte",
@@ -278,13 +269,13 @@ function generatePotionSelectors(type) {
             }
         ];
 
-        // Crear botones de radio para las combinaciones
+        // Crear botones de radio para elegir la combinación
         const switcher = document.createElement("div");
-        switcher.style.marginBottom = "10px"; // Añadir margen inferior para separar los selectores
+        switcher.style.marginBottom = "10px"; // Separar botones de los selectores
 
         combinations.forEach((combination, index) => {
             const label = document.createElement("label");
-            label.style.marginRight = "10px"; // Espacio entre opciones
+            label.style.marginRight = "10px";
 
             const radio = document.createElement("input");
             radio.type = "radio";
@@ -307,11 +298,21 @@ function generatePotionSelectors(type) {
 
         // Crear los selectores iniciales
         createSelectors(combinations[0].selectors);
-    } else if (type === "supreme") {
-        selectorsNeeded = [
-            { type: "ingredient", count: 2 },
-            { type: "monsterPart", count: 2 }
-        ];
+    } else {
+        let selectorsNeeded;
+
+        if (type === "basic") {
+            selectorsNeeded = [
+                { type: "ingredient", count: 1 },
+                { type: "monsterPart", count: 1 }
+            ];
+        } else if (type === "supreme") {
+            selectorsNeeded = [
+                { type: "ingredient", count: 2 },
+                { type: "monsterPart", count: 2 }
+            ];
+        }
+
         createSelectors(selectorsNeeded);
     }
 }
@@ -319,7 +320,7 @@ function generatePotionSelectors(type) {
 function createSelectors(selectorsNeeded) {
     const container = document.getElementById("potion-ingredients");
 
-    // Eliminar selectores existentes (excepto el switcher)
+    // Eliminar selectores existentes
     const existingSelectors = container.querySelectorAll(".potion-selector");
     existingSelectors.forEach(selector => selector.remove());
 
@@ -328,7 +329,6 @@ function createSelectors(selectorsNeeded) {
             const select = document.createElement("select");
             select.classList.add("potion-selector");
             select.dataset.type = type;
-            select.style.marginRight = "10px"; // Espacio entre selectores
 
             const defaultOption = document.createElement("option");
             defaultOption.value = "";
@@ -342,33 +342,9 @@ function createSelectors(selectorsNeeded) {
         }
     });
 
-    populatePotionSelectors(); // Llenar los selectores con opciones
+    populatePotionSelectors(); // Llenar selectores con opciones
 }
-// Función auxiliar para crear los selectores según la configuración
-function createSelectors(selectorsNeeded) {
-    const container = document.getElementById("potion-ingredients");
-    container.innerHTML = ""; // Limpiar antes de agregar nuevos selectores
 
-    selectorsNeeded.forEach(({ type, count }) => {
-        for (let i = 0; i < count; i++) {
-            const select = document.createElement("select");
-            select.classList.add("potion-selector");
-            select.dataset.type = type;
-
-            const defaultOption = document.createElement("option");
-            defaultOption.value = "";
-            defaultOption.textContent = "Select material";
-            defaultOption.disabled = true;
-            defaultOption.selected = true;
-            select.appendChild(defaultOption);
-
-            select.addEventListener("change", () => populatePotionSelectors());
-            container.appendChild(select);
-        }
-    });
-
-    populatePotionSelectors(); // Llenar los selectores con opciones
-}
 // Detectar cambio en el tipo de poción y generar los desplegables
 document.getElementById("potion-type").addEventListener("change", (e) => {
     generatePotionSelectors(e.target.value);
