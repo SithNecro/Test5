@@ -117,12 +117,17 @@ function forgetRecipe(index) {
         return;
     }
 
-    const removedRecipe = recipes.splice(index, 1); // Eliminar receta
-    saveRecipes(); // Guardar cambios en localStorage
-    renderRecipeTable(); // Actualizar tabla
-    alert(`Receta "${removedRecipe[0].name}" olvidada con éxito.`);
-}
+    const recipeToForget = recipes[index];
+    const confirmation = confirm(`¿Estás seguro de que quieres olvidar la receta "${recipeToForget.name}"?`);
+    if (!confirmation) {
+        return; // Si el usuario cancela, no hacemos nada
+    }
 
+    recipes.splice(index, 1); // Eliminar receta
+    saveRecipes(); // Guardar cambios en LocalStorage
+    renderRecipeTable(); // Actualizar tabla
+    alert(`Receta "${recipeToForget.name}" olvidada con éxito.`);
+}
 
 
 
