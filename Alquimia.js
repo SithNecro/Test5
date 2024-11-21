@@ -242,7 +242,7 @@ function populatePotionSelectors() {
 // Generar los desplegables para seleccionar materiales
 function generatePotionSelectors(type) {
     const container = document.getElementById("potion-ingredients");
-    container.innerHTML = ""; // Limpiar los desplegables previos
+    container.innerHTML = ""; // Limpiar cualquier selector previo
 
     if (!type) {
         return; // No hacer nada si no se ha seleccionado un tipo
@@ -256,51 +256,93 @@ function generatePotionSelectors(type) {
             { type: "ingredient", count: 1 },
             { type: "monsterPart", count: 1 }
         ];
+        createSelectors(selectorsNeeded);
     } else if (type === "weak") {
-        // Configuración para dos combinaciones posibles: 2 ingredientes + 1 parte o 2 partes + 1 ingrediente
-        selectorsNeeded = [
-            { type: "ingredient", count: 2 },
-            { type: "monsterPart", count: 1 }
-        ];
-
-        // Alternativa: 1 ingrediente + 2 partes
-        const alternateSelectors = [
-            { type: "ingredient", count: 1 },
-            { type: "monsterPart", count: 2 }
-        ];
-
-        // Mostrar opciones al usuario
-        const switcher = document.createElement("div");
-        switcher.innerHTML = `
-            <label>
-                <input type="radio" name="selector-combination" value="ingredients-first" checked>
-                2 Ingredientes + 1 Parte
-            </label>
-            <label>
-                <input type="radio" name="selector-combination" value="parts-first">
-                2 Partes + 1 Ingrediente
-            </label>
-        `;
-        container.appendChild(switcher);
-
-        switcher.addEventListener("change", (e) => {
-            if (e.target.value === "ingredients-first") {
-                createSelectors(selectorsNeeded);
-            } else {
-                createSelectors(alternateSelectors);
+        // Configuraciones para pociones débiles
+        const combinations = [
+            {
+                label: "2 Ingredientes + 1 Parte",
+                value: "ingredientsFirst",
+                selectors: [
+                    { type: "ingredient", count: 2 },
+                    { type: "monsterPart", count: 1 }
+                ]
+            },
+            {
+                label: "1 Ingrediente + 2 Partes",
+                value: "partsFirst",
+                selectors: [
+                    { type: "ingredient", count: 1 },
+                    { type: "monsterPart", count: 2 }
+                ]
             }
+        ];
+
+        // Crear botones de radio para las combinaciones
+        const switcher = document.createElement("div");
+        switcher.style.marginBottom = "10px"; // Añadir margen inferior para separar los selectores
+
+        combinations.forEach((combination, index) => {
+            const label = document.createElement("label");
+            label.style.marginRight = "10px"; // Espacio entre opciones
+
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = "selectorCombination";
+            radio.value = combination.value;
+            if (index === 0) {
+                radio.checked = true; // Selección predeterminada
+            }
+
+            radio.addEventListener("change", () => {
+                createSelectors(combination.selectors);
+            });
+
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(" " + combination.label));
+            switcher.appendChild(label);
         });
 
-        createSelectors(selectorsNeeded); // Predeterminado
-        return;
+        container.appendChild(switcher);
+
+        // Crear los selectores iniciales
+        createSelectors(combinations[0].selectors);
     } else if (type === "supreme") {
         selectorsNeeded = [
             { type: "ingredient", count: 2 },
             { type: "monsterPart", count: 2 }
         ];
+        createSelectors(selectorsNeeded);
     }
+}
 
-    createSelectors(selectorsNeeded);
+function createSelectors(selectorsNeeded) {
+    const container = document.getElementById("potion-ingredients");
+
+    // Eliminar selectores existentes (excepto el switcher)
+    const existingSelectors = container.querySelectorAll(".potion-selector");
+    existingSelectors.forEach(selector => selector.remove());
+
+    selectorsNeeded.forEach(({ type, count }) => {
+        for (let i = 0; i < count; i++) {
+            const select = document.createElement("select");
+            select.classList.add("potion-selector");
+            select.dataset.type = type;
+            select.style.marginRight = "10px"; // Espacio entre selectores
+
+            const defaultOption = document.createElement("option");
+            defaultOption.value = "";
+            defaultOption.textContent = "Seleccionar material";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            select.appendChild(defaultOption);
+
+            select.addEventListener("change", () => populatePotionSelectors());
+            container.appendChild(select);
+        }
+    });
+
+    populatePotionSelectors(); // Llenar los selectores con opciones
 }
 // Función auxiliar para crear los selectores según la configuración
 function createSelectors(selectorsNeeded) {
