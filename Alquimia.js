@@ -188,7 +188,14 @@ function initializeMaterialDropdown() {
 // Inicializar
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Cargando datos de LocalStorage...");
-
+    let defaultRecipes = [
+        { type: "basic", name: "Poción de Curación", ingredients: ["Sangre humana", "Cola de rata", "Jengibre ceniciento"], default: true },
+        { type: "basic", name: "Poción contra Enfermedades", ingredients: ["Piel de zombi", "Ala de murciélago", "Laurel del monje"], default: true },
+        { type: "basic", name: "Bomba Flamígera", ingredients: ["Corazón de bestia", "Cola de rata", "Baya lunar"], default: true },
+        { type: "basic", name: "Antídoto", ingredients: ["Colmillo de araña", "Barbárea", "Agracejo"], default: true },
+        { type: "basic", name: "Frasco de Experiencia", ingredients: ["Sangre de dragón", "Hiedra dulce", "Belladona"], default: true },
+        { type: "basic", name: "Poción de Restauración", ingredients: ["Sangre de vampiro", "Sangre de troll", "Corteza de arce rojo"], default: true }
+    ];
     let storedRecipes = JSON.parse(localStorage.getItem(RECIPES_KEY)) || [];
 
     const isDefaultLoaded = storedRecipes.some(recipe => recipe.default);
