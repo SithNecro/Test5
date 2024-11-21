@@ -115,34 +115,35 @@ function renderRecipeTable() {
 
     recipes.forEach((recipe, index) => {
         const row = document.createElement("tr");
-
         row.innerHTML = `
             <td>${recipe.name}</td>
             <td>${recipe.type}</td>
             <td>${recipe.ingredients.join(", ")}</td>
-            <td>
+            <td>${recipe.default ? "" : `
                 <button class="forget-recipe" data-index="${index}" style="background-color: red; color: white; border-radius: 5px;">Olvidar</button>
-            </td>
+            `}</td>
         `;
 
         tbody.appendChild(row);
 
-        // Asignar evento al botón "Olvidar"
-        const forgetButton = row.querySelector(".forget-recipe");
-        forgetButton.addEventListener("click", () => {
-            forgetRecipe(index);
-        });
+        // Asignar evento al botón "Olvidar" solo si no es receta por defecto
+        if (!recipe.default) {
+            const forgetButton = row.querySelector(".forget-recipe");
+            forgetButton.addEventListener("click", () => {
+                forgetRecipe(index);
+            });
+        }
     });
 }
 
 // Función para olvidar una receta
 function forgetRecipe(index) {
-    if (index < 0 || index >= recipes.length) {
-        console.error("Índice de receta inválido:", index);
+    const recipeToForget = recipes[index];
+    if (recipeToForget.default) {
+        alert(`La receta "${recipeToForget.name}" es predeterminada y no se puede olvidar.`);
         return;
     }
 
-    const recipeToForget = recipes[index];
     const confirmation = confirm(`¿Estás seguro de que quieres olvidar la receta "${recipeToForget.name}"?`);
     if (!confirmation) {
         return; // Si el usuario cancela, no hacemos nada
@@ -357,13 +358,14 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Cargando datos de LocalStorage...");
     if (!localStorage.getItem(RECIPES_KEY)) {
         const defaultRecipes = [
-            { type: "basic", name: "Poción de Curación", ingredients: ["Sangre humana", "Cola de rata","Jengibre ceniciento"] },
-            { type: "basic", name: "Poción contra Enfermedades", ingredients: ["Piel de zombi", "Ala de murciélago","Laurel del monje"] },
-            { type: "basic", name: "Bomba Flamígera", ingredients: ["Corazón de bestia","Cola de rata","Baya lunar"] },
-            { type: "basic", name: "Antídoto", ingredients: ["Colmillo de araña","Barbárea","Agracejo"] },
-            { type: "basic", name: "Frasco de Experiencia", ingredients: ["Sangre de dragón","Hiedra dulce","Belladona"] },
-            { type: "basic", name: "Poción de Restauración", ingredients: ["Sangre de vampiro","Sangre de troll","Corteza de arce rojo"] }
+            { type: "basic", name: "Poción de Curación", ingredients: ["Sangre humana", "Cola de rata", "Jengibre ceniciento"], default: true },
+            { type: "basic", name: "Poción contra Enfermedades", ingredients: ["Piel de zombi", "Ala de murciélago", "Laurel del monje"], default: true },
+            { type: "basic", name: "Bomba Flamígera", ingredients: ["Corazón de bestia", "Cola de rata", "Baya lunar"], default: true },
+            { type: "basic", name: "Antídoto", ingredients: ["Colmillo de araña", "Barbárea", "Agracejo"], default: true },
+            { type: "basic", name: "Frasco de Experiencia", ingredients: ["Sangre de dragón", "Hiedra dulce", "Belladona"], default: true },
+            { type: "basic", name: "Poción de Restauración", ingredients: ["Sangre de vampiro", "Sangre de troll", "Corteza de arce rojo"], default: true }
         ];
+
         localStorage.setItem(RECIPES_KEY, JSON.stringify(defaultRecipes));
         console.log("Recetas predeterminadas guardadas:", defaultRecipes);
     }
