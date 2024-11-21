@@ -248,7 +248,7 @@ function generatePotionSelectors(type) {
         return; // No hacer nada si no se ha seleccionado un tipo
     }
 
-    if (type === "weak") {
+    if (type === "basic") {
         // Configuración para las combinaciones posibles
         const combinations = [
             {
@@ -301,7 +301,7 @@ function generatePotionSelectors(type) {
     } else {
         let selectorsNeeded;
 
-        if (type === "basic") {
+        if (type === "weak") {
             selectorsNeeded = [
                 { type: "ingredient", count: 1 },
                 { type: "monsterPart", count: 1 }
