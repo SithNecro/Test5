@@ -357,8 +357,12 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Cargando datos de LocalStorage...");
     if (!localStorage.getItem(RECIPES_KEY)) {
         const defaultRecipes = [
-            { type: "basic", name: "Poción de Energía", ingredients: ["Jengibre ceniciento", "Ectoplasma"] },
-            { type: "basic", name: "Poción de Fuerza", ingredients: ["Raíz arqueada", "Sangre de orco"] }
+            { type: "basic", name: "Poción de Curación", ingredients: ["Sangre humana", "Cola de rata","Jengibre ceniciento"] },
+            { type: "basic", name: "Poción contra Enfermedades", ingredients: ["Piel de zombi", "Ala de murciélago","Laurel del monje"] },
+            { type: "basic", name: "Bomba Flamígera", ingredients: ["Corazón de bestia","Cola de rata","Baya lunar"] },
+            { type: "basic", name: "Antídoto", ingredients: ["Colmillo de araña","Barbárea","Agracejo"] },
+            { type: "basic", name: "Frasco de Experiencia", ingredients: ["Sangre de dragón","Hiedra dulce","Belladona"] },
+            { type: "basic", name: "Poción de Restauración", ingredients: ["Sangre de vampiro","Sangre de troll","Corteza de arce rojo"] }
         ];
         localStorage.setItem(RECIPES_KEY, JSON.stringify(defaultRecipes));
         console.log("Recetas predeterminadas guardadas:", defaultRecipes);
