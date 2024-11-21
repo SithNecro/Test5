@@ -115,8 +115,10 @@ function renderRecipeTable() {
 
     recipes.forEach((recipe, index) => {
         const row = document.createElement("tr");
+
+        // Incluir el atributo `title` para el tooltip
         row.innerHTML = `
-            <td>${recipe.name}</td>
+            <td title="${recipe.title || ''}">${recipe.name}</td>
             <td>${recipe.type}</td>
             <td>${recipe.ingredients.join(", ")}</td>
             <td>${recipe.default ? "" : `
@@ -125,7 +127,7 @@ function renderRecipeTable() {
         `;
 
         tbody.appendChild(row);
-         
+
         // Asignar evento al botón "Olvidar" solo si no es receta por defecto
         if (!recipe.default) {
             const forgetButton = row.querySelector(".forget-recipe");
@@ -135,6 +137,7 @@ function renderRecipeTable() {
         }
     });
 }
+
 
 // Función para olvidar una receta
 function forgetRecipe(index) {
