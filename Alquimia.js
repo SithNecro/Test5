@@ -54,25 +54,50 @@ function saveRecipes() {
 }
 
 // Renderizar inventario (original)
-function renderInventory() {
-    const inventoryList = document.getElementById("inventory-list");
-    inventoryList.innerHTML = "";
+function renderInventoryTable() {
+    const tbody = document.querySelector("#inventory-table tbody");
+    if (!tbody) {
+        console.error("El elemento #inventory-table tbody no existe.");
+        return;
+    }
+
+    tbody.innerHTML = "";
+
+    if (inventory.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='4'>No hay elementos en el inventario.</td></tr>";
+        return;
+    }
+
     inventory.forEach((item, index) => {
-        const li = document.createElement("li");
-        li.textContent = `${item.name} (${item.units}) ${item.exquisite ? "[Exquisito]" : ""}`;
-        const removeButton = document.createElement("button");
-        removeButton.textContent = "Eliminar";
-        removeButton.onclick = () => {
-            inventory.splice(index, 1);
-            saveInventory();
-            renderInventory();
-            
-        };
-        li.appendChild(removeButton);
-        inventoryList.appendChild(li);
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${item.name}</td>
+            <td>${item.units}</td>
+            <td>${item.exquisite ? "Sí" : "No"}</td>
+            <td>
+                <button class="remove-item" data-index="${index}" style="background-color: red; color: white; border-radius: 5px;">Eliminar</button>
+            </td>
+        `;
+        tbody.appendChild(row);
+
+        // Añadir evento al botón "Eliminar"
+        const removeButton = row.querySelector(".remove-item");
+        removeButton.addEventListener("click", () => {
+            removeInventoryItem(index);
+        });
     });
 }
+function removeInventoryItem(index) {
+    if (index < 0 || index >= inventory.length) {
+        console.error("Índice de inventario inválido:", index);
+        return;
+    }
 
+    const removedItem = inventory.splice(index, 1); // Eliminar del inventario
+    saveInventory(); // Guardar cambios en LocalStorage
+    renderInventoryTable(); // Actualizar la tabla
+    alert(`Elemento "${removedItem[0].name}" eliminado con éxito.`);
+}
 // Renderizar recetario como tabla
 function renderRecipeTable() {
     const tbody = document.querySelector("#recipe-table tbody");
@@ -144,8 +169,7 @@ document.getElementById("add-material").addEventListener("click", () => {
         inventory.push({ name: material, units, exquisite });
     }
     saveInventory();
-    renderInventory();
-   
+    renderInventoryTable();
 });
 
 // Inicializar materiales en el desplegable
@@ -162,7 +186,7 @@ function initializeMaterialDropdown() {
 // Inicializar
 document.addEventListener("DOMContentLoaded", () => {
     initializeMaterialDropdown();
-    renderInventory();
+    renderInventoryTable();
     renderRecipeTable(); // Actualiza la tabla de recetas
     
 });
@@ -280,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Renderizar elementos de la interfaz
     initializeMaterialDropdown(); // Inicializar el desplegable de materiales
-    renderInventory(); // Renderizar el inventario
+    renderInventoryTable(); // Renderizar el inventario
    
     generatePotionSelectors(""); // Limpiar y generar los selectores de ingredientes
 });
@@ -436,7 +460,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
         // Guardar cambios y actualizar vistas
         saveInventory();
         saveRecipes();
-        renderInventory();
+        renderInventoryTable();
         renderRecipeTable(); // Actualizar tabla
        
     } else {
@@ -447,7 +471,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
             alert("¡La botella también se rompió!");
         }
         saveInventory();
-        renderInventory();
+        renderInventoryTable();
         renderRecipeTable(); // Actualizar tabla
     }
 
