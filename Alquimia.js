@@ -125,7 +125,7 @@ function renderRecipeTable() {
         `;
 
         tbody.appendChild(row);
-
+         
         // Asignar evento al botón "Olvidar" solo si no es receta por defecto
         if (!recipe.default) {
             const forgetButton = row.querySelector(".forget-recipe");
@@ -185,11 +185,24 @@ function initializeMaterialDropdown() {
 }
 
 // Inicializar
+// Inicializar
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("Cargando datos de LocalStorage...");
+
+    let storedRecipes = JSON.parse(localStorage.getItem(RECIPES_KEY)) || [];
+
+    const isDefaultLoaded = storedRecipes.some(recipe => recipe.default);
+    if (!isDefaultLoaded) {
+        storedRecipes = [...storedRecipes, ...defaultRecipes];
+        localStorage.setItem(RECIPES_KEY, JSON.stringify(storedRecipes));
+    }
+
+    recipes.length = 0;
+    recipes.push(...storedRecipes);
+
     initializeMaterialDropdown();
     renderInventoryTable();
-    renderRecipeTable(); // Actualiza la tabla de recetas
-    
+    renderRecipeTable();
 });
 
 
