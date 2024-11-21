@@ -249,35 +249,84 @@ function generatePotionSelectors(type) {
     }
 
     let selectorsNeeded;
+
+    // Configuración según el tipo de poción
     if (type === "basic") {
-        selectorsNeeded = 2; // 1 Ingrediente + 1 Parte de monstruo
+        selectorsNeeded = [
+            { type: "ingredient", count: 1 },
+            { type: "monsterPart", count: 1 }
+        ];
     } else if (type === "weak") {
-        selectorsNeeded = 3; // 2 Ingredientes o Partes, 1 del otro tipo
+        // Configuración para dos combinaciones posibles: 2 ingredientes + 1 parte o 2 partes + 1 ingrediente
+        selectorsNeeded = [
+            { type: "ingredient", count: 2 },
+            { type: "monsterPart", count: 1 }
+        ];
+
+        // Alternativa: 1 ingrediente + 2 partes
+        const alternateSelectors = [
+            { type: "ingredient", count: 1 },
+            { type: "monsterPart", count: 2 }
+        ];
+
+        // Mostrar opciones al usuario
+        const switcher = document.createElement("div");
+        switcher.innerHTML = `
+            <label>
+                <input type="radio" name="selector-combination" value="ingredients-first" checked>
+                2 Ingredientes + 1 Parte
+            </label>
+            <label>
+                <input type="radio" name="selector-combination" value="parts-first">
+                2 Partes + 1 Ingrediente
+            </label>
+        `;
+        container.appendChild(switcher);
+
+        switcher.addEventListener("change", (e) => {
+            if (e.target.value === "ingredients-first") {
+                createSelectors(selectorsNeeded);
+            } else {
+                createSelectors(alternateSelectors);
+            }
+        });
+
+        createSelectors(selectorsNeeded); // Predeterminado
+        return;
     } else if (type === "supreme") {
-        selectorsNeeded = 4; // 2 Ingredientes + 2 Partes
+        selectorsNeeded = [
+            { type: "ingredient", count: 2 },
+            { type: "monsterPart", count: 2 }
+        ];
     }
 
-    // Crear los desplegables
-    for (let i = 0; i < selectorsNeeded; i++) {
-        const select = document.createElement("select");
-        select.classList.add("potion-selector");
-        select.dataset.type = i % 2 === 0 ? "ingredient" : "monsterPart";
-
-        const defaultOption = document.createElement("option");
-        defaultOption.value = "";
-        defaultOption.textContent = "Select material";
-        defaultOption.disabled = true;
-        defaultOption.selected = true;
-        select.appendChild(defaultOption);
-
-        select.addEventListener("change", () => populatePotionSelectors());
-        container.appendChild(select);
-    }
-
-    // Popular los desplegables con opciones iniciales
-    populatePotionSelectors();
+    createSelectors(selectorsNeeded);
 }
+// Función auxiliar para crear los selectores según la configuración
+function createSelectors(selectorsNeeded) {
+    const container = document.getElementById("potion-ingredients");
+    container.innerHTML = ""; // Limpiar antes de agregar nuevos selectores
 
+    selectorsNeeded.forEach(({ type, count }) => {
+        for (let i = 0; i < count; i++) {
+            const select = document.createElement("select");
+            select.classList.add("potion-selector");
+            select.dataset.type = type;
+
+            const defaultOption = document.createElement("option");
+            defaultOption.value = "";
+            defaultOption.textContent = "Select material";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            select.appendChild(defaultOption);
+
+            select.addEventListener("change", () => populatePotionSelectors());
+            container.appendChild(select);
+        }
+    });
+
+    populatePotionSelectors(); // Llenar los selectores con opciones
+}
 // Detectar cambio en el tipo de poción y generar los desplegables
 document.getElementById("potion-type").addEventListener("change", (e) => {
     generatePotionSelectors(e.target.value);
