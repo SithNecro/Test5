@@ -125,23 +125,6 @@ function forgetRecipe(index) {
 
 
 
-// Olvidar receta
-document.getElementById("forget-recipe").addEventListener("click", () => {
-    const forgetRecipeSelect = document.getElementById("forget-recipe-select");
-    const selectedIndex = forgetRecipeSelect.value;
-
-    if (selectedIndex === "") {
-        alert("Seleccione una receta para olvidar.");
-        return;
-    }
-
-    recipes.splice(selectedIndex, 1);
-    saveRecipes();
-  
-    alert("Receta olvidada con éxito.");
-});
-
-
 
 // Agregar material al inventario
 document.getElementById("add-material").addEventListener("click", () => {
