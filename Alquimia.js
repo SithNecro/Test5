@@ -167,10 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
 });
 
-// Generar los desplegables para seleccionar materiales
-// Popular los desplegables con los materiales del inventario
-// Generar los desplegables para seleccionar materiales
-// Generar los desplegables para seleccionar materiales
+
 // Popular los desplegables con los materiales del inventario
 function populatePotionSelectors() {
     const selectors = document.querySelectorAll(".potion-selector");
@@ -284,7 +281,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Renderizar elementos de la interfaz
     initializeMaterialDropdown(); // Inicializar el desplegable de materiales
     renderInventory(); // Renderizar el inventario
-   
    
     generatePotionSelectors(""); // Limpiar y generar los selectores de ingredientes
 });
@@ -441,7 +437,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
         saveInventory();
         saveRecipes();
         renderInventory();
-       
+        renderRecipeTable(); // Actualizar tabla
        
     } else {
         // Fallo en la creación
@@ -452,7 +448,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
         }
         saveInventory();
         renderInventory();
-      
+        renderRecipeTable(); // Actualizar tabla
     }
 
     updateBottleCount();
