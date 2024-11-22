@@ -375,7 +375,23 @@ document.getElementById("potion-type").addEventListener("change", (e) => {
 });
 
 
+// Inicializar
+// Inicialización al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Cargando datos de LocalStorage...");
+    if (!localStorage.getItem(RECIPES_KEY)) {
+        const defaultRecipes = [
+            { type: "basic", name: "Poción de Curación", ingredients: ["Sangre humana", "Cola de rata", "Jengibre ceniciento"], default: true, title: "Sana Sanita" },
+            { type: "basic", name: "Poción contra Enfermedades", ingredients: ["Piel de zombi", "Ala de murciélago", "Laurel del monje"], default: true, title: "Sana enferme" },
+            { type: "basic", name: "Bomba Flamígera", ingredients: ["Corazón de bestia", "Cola de rata", "Baya lunar"], default: true, title: "pum" },
+            { type: "basic", name: "Antídoto", ingredients: ["Colmillo de araña", "Barbárea", "Agracejo"], default: true, title: "cura eneno" },
+            { type: "basic", name: "Frasco de Experiencia", ingredients: ["Sangre de dragón", "Hiedra dulce", "Belladona"], default: true, title: "Exp up" },
+            { type: "basic", name: "Poción de Restauración", ingredients: ["Sangre de vampiro", "Sangre de troll", "Corteza de arce rojo"], default: true, title: "restaura tripita" }
+        ];
 
+        localStorage.setItem(RECIPES_KEY, JSON.stringify(defaultRecipes));
+        console.log("Recetas predeterminadas guardadas:", defaultRecipes);
+    }
     // Leer inventario y recetas de LocalStorage
     const storedRecipes = JSON.parse(localStorage.getItem(RECIPES_KEY)) || [];
     recipes.length = 0; // Vaciar el array actual (si ya existe en memoria)
