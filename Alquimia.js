@@ -555,6 +555,17 @@ document.getElementById("create-potion").addEventListener("click", () => {
     } else {
         // Fallo en la creación
         alert(`Fallaste en la creación de la poción. Ingredientes usados: ${selectedItems.join(", ")}`);
+        selectedItems.forEach(item => {
+            const inventoryItem = inventory.find(inv => inv.name === item);
+            if (inventoryItem) {
+                inventoryItem.units -= 1;
+                if (inventoryItem.units === 0) {
+                    // Eliminar del inventario si se queda en 0
+                    const index = inventory.indexOf(inventoryItem);
+                    inventory.splice(index, 1);
+                }
+            }
+        });
         if (roll >= 95) {
             emptyBottles--;
             alert("¡La botella también se rompió!");
