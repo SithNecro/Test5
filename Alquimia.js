@@ -246,13 +246,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // Popular los desplegables con los materiales del inventario
+// Popular los desplegables con los materiales del inventario
 function populatePotionSelectors() {
     const selectors = document.querySelectorAll(".potion-selector");
     const usedValues = Array.from(selectors)
         .filter(select => select.value) // Filtrar solo los que ya tienen un valor seleccionado
         .map(select => select.value);
 
-    selectors.forEach((select, index) => {
+    selectors.forEach((select) => {
         const type = select.dataset.type; // "ingredient" o "monsterPart"
         const previousValue = select.value; // Guardar el valor seleccionado previamente
         select.innerHTML = ""; // Limpiar opciones previas
@@ -260,8 +261,9 @@ function populatePotionSelectors() {
         // Añadir la opción por defecto
         const defaultOption = document.createElement("option");
         defaultOption.value = "";
-        defaultOption.textContent = "Select material";
+        defaultOption.textContent = "Seleccionar material";
         defaultOption.disabled = true;
+        defaultOption.selected = true;
         select.appendChild(defaultOption);
 
         // Filtrar opciones disponibles en el inventario según el tipo
@@ -272,11 +274,11 @@ function populatePotionSelectors() {
 
         availableItems.forEach(item => {
             const option = document.createElement("option");
-            option.value = item.name;
+            option.value = `${item.name}#${item.exquisite ? "Exquisito" : "Normal"}`;
             option.textContent = `${item.name} (${item.exquisite ? "Exquisito" : "Normal"})`;
 
             // Deshabilitar si ya ha sido seleccionado en otro desplegable
-            if (usedValues.includes(item.name) && item.name !== previousValue) {
+            if (usedValues.includes(option.value) && option.value !== previousValue) {
                 option.disabled = true;
             }
 
@@ -284,14 +286,9 @@ function populatePotionSelectors() {
         });
 
         // Restaurar el valor previamente seleccionado, si todavía está disponible
-        if (previousValue && usedValues.includes(previousValue)) {
-            select.value = previousValue;
-        } else {
-            select.value = ""; // Volver a la opción por defecto si el valor previo no está disponible
-        }
+        select.value = previousValue || "";
     });
 }
-
 // Generar los desplegables para seleccionar materiales
 function generatePotionSelectors(type) {
     const container = document.getElementById("potion-ingredients");
@@ -372,10 +369,7 @@ function generatePotionSelectors(type) {
 
 function createSelectors(selectorsNeeded) {
     const container = document.getElementById("potion-ingredients");
-
-    // Eliminar selectores existentes
-    const existingSelectors = container.querySelectorAll(".potion-selector");
-    existingSelectors.forEach(selector => selector.remove());
+    container.innerHTML = ""; // Limpiar cualquier contenido previo
 
     selectorsNeeded.forEach(({ type, count }) => {
         for (let i = 0; i < count; i++) {
@@ -386,7 +380,7 @@ function createSelectors(selectorsNeeded) {
             const defaultOption = document.createElement("option");
             defaultOption.value = "";
             defaultOption.textContent = "Seleccionar material";
-            //defaultOption.disabled = true;
+            defaultOption.disabled = true;
             defaultOption.selected = true;
             select.appendChild(defaultOption);
 
@@ -491,32 +485,35 @@ document.getElementById("create-potion").addEventListener("click", () => {
         return;
     }
 
-    const selectedItems = Array.from(selectors).map(s => s.value);
+    const selectedItems = Array.from(selectors).map(select => {
+        const [name, quality] = select.value.split("#");
+        return { name, exquisite: quality === "Exquisito" };
+    });
 
-    if (selectedItems.includes("")) {
+    if (selectedItems.some(item => !item.name)) {
         alert("Selecciona todos los ingredientes a usar.");
+        return;
+    }
+
+    // Verificar inventario
+    const missingItems = selectedItems.filter(({ name, exquisite }) => {
+        const inventoryItem = inventory.find(item => item.name === name && item.exquisite === exquisite);
+        return !inventoryItem || inventoryItem.units < 1;
+    });
+
+    if (missingItems.length > 0) {
+        alert(`Faltan los siguientes ingredientes o partes en el inventario: ${missingItems.map(item => item.name).join(", ")}`);
         return;
     }
 
     const alchemySkill = parseInt(document.getElementById("alchemy-skill").value, 10);
 
-    // Verificar inventario
-    const missingItems = selectedItems.filter(item => {
-        const inventoryItem = inventory.find(inv => inv.name === item);
-        return !inventoryItem || inventoryItem.units < 1;
-    });
-
-    if (missingItems.length > 0) {
-        alert(`Faltan los siguientes ingredientes o partes en el inventario: ${missingItems.join(", ")}`);
-        return;
-    }
-
     // Calcular habilidad total
     let totalAlchemySkill = alchemySkill;
 
     // Sumar 10 puntos por cada ingrediente o parte exquisito
-    const exquisiteBonus = selectedItems.reduce((bonus, item) => {
-        const inventoryItem = inventory.find(inv => inv.name === item);
+    const exquisiteBonus = selectedItems.reduce((bonus, { name, exquisite }) => {
+        const inventoryItem = inventory.find(item => item.name === name && item.exquisite === exquisite);
         return bonus + (inventoryItem && inventoryItem.exquisite ? 10 : 0);
     }, 0);
 
@@ -524,7 +521,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
 
     // Verificar si la poción es conocida
     const knownRecipe = recipes.find(recipe =>
-        JSON.stringify(recipe.ingredients.sort()) === JSON.stringify(selectedItems.sort())
+        JSON.stringify(recipe.ingredients.sort()) === JSON.stringify(selectedItems.map(item => item.name).sort())
     );
     if (knownRecipe) totalAlchemySkill += 10;
 
@@ -539,8 +536,8 @@ document.getElementById("create-potion").addEventListener("click", () => {
         }
 
         // Restar ingredientes y partes
-        selectedItems.forEach(item => {
-            const inventoryItem = inventory.find(inv => inv.name === item);
+        selectedItems.forEach(({ name, exquisite }) => {
+            const inventoryItem = inventory.find(item => item.name === name && item.exquisite === exquisite);
             if (inventoryItem) {
                 inventoryItem.units -= 1;
                 if (inventoryItem.units === 0) {
@@ -568,7 +565,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
             const newRecipe = {
                 type,
                 name: potionName,
-                ingredients: [...selectedItems]
+                ingredients: selectedItems.map(item => item.name)
             };
             recipes.push(newRecipe);
             saveRecipes(); // Guardar en localStorage
@@ -579,13 +576,12 @@ document.getElementById("create-potion").addEventListener("click", () => {
         saveInventory();
         saveRecipes();
         renderInventoryTable();
-        renderRecipeTable(); // Actualizar tabla
-       
+        renderRecipeTable();
     } else {
         // Fallo en la creación
-        alert(`Fallaste en la creación de la poción. Ingredientes usados: ${selectedItems.join(", ")}`);
-        selectedItems.forEach(item => {
-            const inventoryItem = inventory.find(inv => inv.name === item);
+        alert(`Fallaste en la creación de la poción. Ingredientes usados: ${selectedItems.map(item => item.name).join(", ")}`);
+        selectedItems.forEach(({ name, exquisite }) => {
+            const inventoryItem = inventory.find(item => item.name === name && item.exquisite === exquisite);
             if (inventoryItem) {
                 inventoryItem.units -= 1;
                 if (inventoryItem.units === 0) {
@@ -601,7 +597,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
         }
         saveInventory();
         renderInventoryTable();
-        renderRecipeTable(); // Actualizar tabla
+        renderRecipeTable();
     }
 
     updateBottleCount();
