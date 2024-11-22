@@ -59,7 +59,14 @@ function saveInventory() {
 function saveRecipes() {
     localStorage.setItem(RECIPES_KEY, JSON.stringify(recipes));
 }
-
+// Ordenar ingredientes y partes por tipo y nombre
+const combinedItems = [
+    ...ingredients.map(name => ({ name, type: "Ingrediente" })),
+    ...monsterParts.map(name => ({ name, type: "Parte" }))
+].sort((a, b) => {
+    if (a.type !== b.type) return a.type.localeCompare(b.type);
+    return a.name.localeCompare(b.name);
+});
 // Renderizar inventario (original)
 function renderInventoryTable() {
     const tbody = document.querySelector("#inventory-table tbody");
@@ -71,13 +78,15 @@ function renderInventoryTable() {
     tbody.innerHTML = "";
 
     if (inventory.length === 0) {
-        tbody.innerHTML = "<tr><td colspan='4'>No hay elementos en el inventario.</td></tr>";
+        tbody.innerHTML = "<tr><td colspan='5'>No hay elementos en el inventario.</td></tr>";
         return;
     }
 
     inventory.forEach((item, index) => {
+        const itemType = ingredients.includes(item.name) ? "Ingrediente" : "Parte";
         const row = document.createElement("tr");
         row.innerHTML = `
+            <td>${itemType}</td>
             <td>${item.name}</td>
             <td>${item.units}</td>
             <td>${item.exquisite ? "Sí" : "No"}</td>
@@ -87,13 +96,14 @@ function renderInventoryTable() {
         `;
         tbody.appendChild(row);
 
-        // Añadir evento al botón "Eliminar"
         const removeButton = row.querySelector(".remove-item");
         removeButton.addEventListener("click", () => {
             removeInventoryItem(index);
         });
     });
 }
+// Eliminar elementos del inventario
+
 function removeInventoryItem(index) {
     if (index < 0 || index >= inventory.length) {
         console.error("Índice de inventario inválido:", index);
@@ -106,6 +116,7 @@ function removeInventoryItem(index) {
     alert(`Elemento "${removedItem[0].name}" eliminado con éxito.`);
 }
 // Renderizar recetario como tabla
+// Renderizar la tabla de recetas
 function renderRecipeTable() {
     const tbody = document.querySelector("#recipe-table tbody");
     if (!tbody) {
@@ -122,20 +133,16 @@ function renderRecipeTable() {
 
     recipes.forEach((recipe, index) => {
         const row = document.createElement("tr");
-
-        // Incluir el atributo `title` para el tooltip
         row.innerHTML = `
+            <td>${ingredients.includes(recipe.ingredients[0]) ? "Ingrediente" : "Parte"}</td>
             <td title="${recipe.title || ''}">${recipe.name}</td>
-            <td>${recipe.type}</td>
             <td>${recipe.ingredients.join(", ")}</td>
             <td>${recipe.default ? "" : `
                 <button class="forget-recipe" data-index="${index}" style="background-color: red; color: white; border-radius: 5px;">Olvidar</button>
             `}</td>
         `;
-
         tbody.appendChild(row);
 
-        // Asignar evento al botón "Olvidar" solo si no es receta por defecto
         if (!recipe.default) {
             const forgetButton = row.querySelector(".forget-recipe");
             forgetButton.addEventListener("click", () => {
@@ -155,19 +162,19 @@ function forgetRecipe(index) {
     }
 
     const confirmation = confirm(`¿Estás seguro de que quieres olvidar la receta "${recipeToForget.name}"?`);
-    if (!confirmation) {
-        return; // Si el usuario cancela, no hacemos nada
-    }
+    if (!confirmation) return;
 
-    recipes.splice(index, 1); // Eliminar receta
-    saveRecipes(); // Guardar cambios en LocalStorage
-    renderRecipeTable(); // Actualizar tabla
+    recipes.splice(index, 1);
+    saveRecipes();
+    renderRecipeTable();
     alert(`Receta "${recipeToForget.name}" olvidada con éxito.`);
 }
 
 
 
+
 // Agregar material al inventario
+// Evento para agregar material al inventario
 document.getElementById("add-material").addEventListener("click", () => {
     const material = document.getElementById("material-select").value;
     const units = parseInt(document.getElementById("material-units").value, 10);
@@ -179,17 +186,19 @@ document.getElementById("add-material").addEventListener("click", () => {
     } else {
         inventory.push({ name: material, units, exquisite });
     }
+
     saveInventory();
     renderInventoryTable();
 });
 
 // Inicializar materiales en el desplegable
+// Inicializar el desplegable de materiales
 function initializeMaterialDropdown() {
     const materialSelect = document.getElementById("material-select");
-    [...ingredients, ...monsterParts].forEach(material => {
+    combinedItems.forEach(({ name, type }) => {
         const option = document.createElement("option");
-        option.value = material;
-        option.textContent = material;
+        option.value = name;
+        option.textContent = `${type}: ${name}`;
         materialSelect.appendChild(option);
     });
 }
