@@ -67,7 +67,19 @@ const combinedItems = [
     if (a.type !== b.type) return a.type.localeCompare(b.type);
     return a.name.localeCompare(b.name);
 });
+
+// Ordenar inventario
+function sortInventory() {
+    inventory.sort((a, b) => {
+        const typeA = ingredients.includes(a.name) ? "Ingrediente" : "Parte";
+        const typeB = ingredients.includes(b.name) ? "Ingrediente" : "Parte";
+
+        if (typeA !== typeB) return typeA.localeCompare(typeB);
+        return a.name.localeCompare(b.name);
+    });
+}
 // Renderizar inventario (original)
+// Renderizar inventario
 function renderInventoryTable() {
     const tbody = document.querySelector("#inventory-table tbody");
     if (!tbody) {
@@ -81,6 +93,8 @@ function renderInventoryTable() {
         tbody.innerHTML = "<tr><td colspan='5'>No hay elementos en el inventario.</td></tr>";
         return;
     }
+
+    sortInventory(); // Ordenar el inventario antes de renderizar
 
     inventory.forEach((item, index) => {
         const itemType = ingredients.includes(item.name) ? "Ingrediente" : "Parte";
@@ -117,6 +131,7 @@ function removeInventoryItem(index) {
 }
 // Renderizar recetario como tabla
 // Renderizar la tabla de recetas
+// Renderizar la tabla de recetas
 function renderRecipeTable() {
     const tbody = document.querySelector("#recipe-table tbody");
     if (!tbody) {
@@ -131,11 +146,13 @@ function renderRecipeTable() {
         return;
     }
 
+    sortRecipes(); // Ordenar recetas antes de renderizar
+
     recipes.forEach((recipe, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td>${ingredients.includes(recipe.ingredients[0]) ? "Ingrediente" : "Parte"}</td>
-            <td title="${recipe.title || ''}">${recipe.name}</td>
+            <td>${recipe.name}</td>
+            <td>${recipe.type}</td>
             <td>${recipe.ingredients.join(", ")}</td>
             <td>${recipe.default ? "" : `
                 <button class="forget-recipe" data-index="${index}" style="background-color: red; color: white; border-radius: 5px;">Olvidar</button>
@@ -151,7 +168,10 @@ function renderRecipeTable() {
         }
     });
 }
-
+// Ordenar recetas
+function sortRecipes() {
+    recipes.sort((a, b) => a.name.localeCompare(b.name));
+}
 
 // Función para olvidar una receta
 function forgetRecipe(index) {
