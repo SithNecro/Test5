@@ -386,7 +386,7 @@ function createSelectors(selectorsNeeded) {
             const defaultOption = document.createElement("option");
             defaultOption.value = "";
             defaultOption.textContent = "Seleccionar material";
-            defaultOption.disabled = true;
+            //defaultOption.disabled = true;
             defaultOption.selected = true;
             select.appendChild(defaultOption);
 
