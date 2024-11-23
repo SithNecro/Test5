@@ -463,10 +463,14 @@ function getPotionName(type) {
 }
 // Gestión de botellas vacías
 let emptyBottles = parseInt(localStorage.getItem("empty_bottles")) || 0;
-
+let alchemyskill = parseInt(localStorage.getItem("alchemy-skill")) || 0;
 function updateBottleCount() {
     document.getElementById("empty-bottles").value = emptyBottles;
     localStorage.setItem("empty_bottles", emptyBottles);
+}
+function updateBottleCount() {
+    document.getElementById("alchemy-skill").value = alchemyskill;
+    localStorage.setItem("alchemy-skill", alchemyskill);
 }
 
 document.getElementById("add-bottle").addEventListener("click", () => {
