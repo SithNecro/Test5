@@ -739,3 +739,8 @@ function createManualPotionAdder() {
     // Agregar formulario al contenedor
     container.appendChild(form);
 }
+
+// Inicialización
+document.addEventListener("DOMContentLoaded", () => {
+    createManualPotionAdder();
+});
