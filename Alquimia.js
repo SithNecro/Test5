@@ -463,14 +463,14 @@ function getPotionName(type) {
 }
 // Gestión de botellas vacías
 let emptyBottles = parseInt(localStorage.getItem("empty_bottles")) || 0;
-let alchemyskill = parseInt(localStorage.getItem("alchemy-skill")) || 0;
+let alchemyskill = parseInt(localStorage.getItem("alchemy_skill")) || 0;
 function updateBottleCount() {
     document.getElementById("empty-bottles").value = emptyBottles;
     localStorage.setItem("empty_bottles", emptyBottles);
 }
 function updateAlchemyskill() {
     document.getElementById("alchemy-skill").value = alchemyskill;
-    localStorage.setItem("alchemy-skill", alchemyskill);
+    localStorage.setItem("alchemy_skill", alchemyskill);
 }
 
 document.getElementById("add-bottle").addEventListener("click", () => {
@@ -637,6 +637,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
 // Inicialización al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
     updateBottleCount();
+    updateAlchemyskill();
 });
 function createManualPotionAdder() {
     const container = document.getElementById("manual-potion-adder");
