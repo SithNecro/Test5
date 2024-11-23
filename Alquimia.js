@@ -689,6 +689,11 @@ function generatePotionMaterialsForm(container, type) {
 
     // Rellenar el desplegable con pociones disponibles según el tipo
     const availablePotions = defaultRecipes.filter(recipe => recipe.type === type);
+    if (availablePotions.length === 0) {
+        alert("No hay pociones disponibles para este tipo.");
+        return;
+    }
+
     availablePotions.forEach(recipe => {
         const option = document.createElement("option");
         option.value = recipe.name;
