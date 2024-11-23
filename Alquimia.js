@@ -468,7 +468,7 @@ function updateBottleCount() {
     document.getElementById("empty-bottles").value = emptyBottles;
     localStorage.setItem("empty_bottles", emptyBottles);
 }
-function updateBottleCount() {
+function updateAlchemyskill() {
     document.getElementById("alchemy-skill").value = alchemyskill;
     localStorage.setItem("alchemy-skill", alchemyskill);
 }
@@ -477,15 +477,30 @@ document.getElementById("add-bottle").addEventListener("click", () => {
     emptyBottles++;
     updateBottleCount();
 });
-document.querySelectorAll(".potion-selector").forEach(select => {
-    select.addEventListener("change", () => populatePotionSelectors());
-});
+
 document.getElementById("remove-bottle").addEventListener("click", () => {
     if (emptyBottles > 0) {
         emptyBottles--;
         updateBottleCount();
     }
 });
+
+document.getElementById("add-alchemy").addEventListener("click", () => {
+    alchemyskill++;
+    updateAlchemyskill();
+});
+
+document.getElementById("remove-alchemy").addEventListener("click", () => {
+    if (alchemyskill > 0) {
+        alchemyskill--;
+        updateAlchemyskill();
+    }
+});
+
+document.querySelectorAll(".potion-selector").forEach(select => {
+    select.addEventListener("change", () => populatePotionSelectors());
+});
+
 
 document.getElementById("create-potion").addEventListener("click", () => {
     if (emptyBottles <= 0) {
