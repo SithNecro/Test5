@@ -249,11 +249,11 @@ document.addEventListener("DOMContentLoaded", () => {
 // Popular los desplegables con los materiales del inventario
 function populatePotionSelectors() {
     const selectors = document.querySelectorAll(".potion-selector");
-    const usedValues = Array.from(selectors)
+    const usedNames = Array.from(selectors)
         .filter(select => select.value) // Filtrar solo los que ya tienen un valor seleccionado
-        .map(select => select.value);
+        .map(select => select.value.split("#")[0]); // Extraer solo el nombre (ignorando exquisito)
 
-    selectors.forEach((select) => {
+    selectors.forEach(select => {
         const type = select.dataset.type; // "ingredient" o "monsterPart"
         const previousValue = select.value; // Guardar el valor seleccionado previamente
         select.innerHTML = ""; // Limpiar opciones previas
@@ -273,12 +273,18 @@ function populatePotionSelectors() {
         );
 
         availableItems.forEach(item => {
-            const option = document.createElement("option");
-            option.value = `${item.name}#${item.exquisite ? "Exquisito" : "Normal"}`;
-            option.textContent = `${item.name} (${item.exquisite ? "Exquisito" : "Normal"})`;
+            const optionValue = `${item.name}#${item.exquisite ? "Exquisito" : "Normal"}`;
+            const optionText = `${item.name} (${item.exquisite ? "Exquisito" : "Normal"})`;
 
-            // Deshabilitar si ya ha sido seleccionado en otro desplegable
-            if (usedValues.includes(option.value) && option.value !== previousValue) {
+            // Verificar si el nombre del material ya está en uso en otros selectores
+            const isNameUsed = usedNames.includes(item.name);
+
+            const option = document.createElement("option");
+            option.value = optionValue;
+            option.textContent = optionText;
+
+            // Deshabilitar si el nombre ya está en uso en otro selector
+            if (isNameUsed && optionValue !== previousValue) {
                 option.disabled = true;
             }
 
@@ -463,7 +469,9 @@ document.getElementById("add-bottle").addEventListener("click", () => {
     emptyBottles++;
     updateBottleCount();
 });
-
+document.querySelectorAll(".potion-selector").forEach(select => {
+    select.addEventListener("change", () => populatePotionSelectors());
+});
 document.getElementById("remove-bottle").addEventListener("click", () => {
     if (emptyBottles > 0) {
         emptyBottles--;
