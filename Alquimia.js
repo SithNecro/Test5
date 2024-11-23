@@ -668,7 +668,7 @@ function generatePotionTypeSelector(container) {
     const typeSelect = document.createElement("select");
     typeSelect.id = "manual-potion-type";
 
-    ["", "Débil", "Básica", "Suprema"].forEach(type => {
+    ["", "weak", "basic", "supreme"].forEach(type => {
         const option = document.createElement("option");
         option.value = type.toLowerCase();
         option.textContent = type || "Seleccionar tipo";
