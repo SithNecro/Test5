@@ -540,7 +540,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
         const isCritical = roll <= 5;
 
         if (isCritical) {
-            alert("¡Éxito crítico! Mejora Hab. ALQ. en 1 o recupera energía.");
+            alert("Has sacado:"+roll+"  ¡Éxito crítico! Mejora Hab. ALQ. en 1 o recupera energía.");
         }
 
         // Restar ingredientes y partes
@@ -558,16 +558,16 @@ document.getElementById("create-potion").addEventListener("click", () => {
 
         // Restar botella
         emptyBottles--;
-        alert("¡Poción creada con éxito! Una botella ha sido utilizada.");
+        alert("Has sacado:" + roll +"  ¡Poción creada con éxito! Una botella ha sido utilizada.");
 
         // Crear poción
         let potionName;
         if (knownRecipe) {
             potionName = knownRecipe.name;
-            alert(`¡La poción "${potionName}" ha sido creada exitosamente!`);
+            alert("Has sacado:" + roll +`    ¡La poción "${potionName}" ha sido creada exitosamente!`);
         } else {
             potionName = getPotionName(type);
-            alert(`¡Nueva poción creada: "${potionName}"!`);
+            alert("Has sacado:" + roll +`    ¡Nueva poción creada: "${potionName}"!`);
 
             // Agregar la poción al recetario
             const newRecipe = {
@@ -587,7 +587,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
         renderRecipeTable();
     } else {
         // Fallo en la creación
-        alert(`Fallaste en la creación de la poción. Ingredientes usados: ${selectedItems.map(item => item.name).join(", ")}`);
+        alert("Has sacado:" + roll +`    Fallaste en la creación de la poción. Ingredientes usados: ${selectedItems.map(item => item.name).join(", ")}`);
         selectedItems.forEach(({ name, exquisite }) => {
             const inventoryItem = inventory.find(item => item.name === name && item.exquisite === exquisite);
             if (inventoryItem) {
@@ -601,7 +601,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
         });
         if (roll >= 95) {
             emptyBottles--;
-            alert("¡La botella también se rompió!");
+            alert("Has sacado:" + roll +"  ¡La botella también se rompió!");
         }
         saveInventory();
         renderInventoryTable();
