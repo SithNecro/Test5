@@ -691,17 +691,21 @@ function generatePotionMaterialsForm(container, type) {
     defaultPotionOption.selected = true;
     potionNameSelect.appendChild(defaultPotionOption);
 
-    // Rellenar el desplegable con pociones disponibles según el tipo
-    const availablePotions = defaultRecipes.filter(recipe => recipe.type === type);
-    if (availablePotions.length === 0) {
-        alert("No hay pociones disponibles para este tipo.");
-        return;
+    // Obtener los nombres de las pociones según el tipo
+    let availablePotions = [];
+    if (type === "weak" || type === "supreme") {
+        availablePotions = potionNames.weak_and_supreme;
+    } else if (type === "basic") {
+        availablePotions = [
+            ...potionNames.basic.d3_1_2,
+            ...potionNames.basic.d3_3
+        ];
     }
 
-    availablePotions.forEach(recipe => {
+    availablePotions.forEach(name => {
         const option = document.createElement("option");
-        option.value = recipe.name;
-        option.textContent = recipe.name;
+        option.value = name;
+        option.textContent = name;
         potionNameSelect.appendChild(option);
     });
 
@@ -711,17 +715,17 @@ function generatePotionMaterialsForm(container, type) {
 
     // Determinar el número de materiales necesarios según el tipo de poción
     let selectorsNeeded;
-    if (type === "débil") {
+    if (type === "weak") {
         selectorsNeeded = [
             { type: "ingredient", count: 1 },
             { type: "monsterPart", count: 1 }
         ];
-    } else if (type === "básica") {
+    } else if (type === "basic") {
         selectorsNeeded = [
             { type: "ingredient", count: 2 },
             { type: "monsterPart", count: 1 }
         ];
-    } else if (type === "suprema") {
+    } else if (type === "supreme") {
         selectorsNeeded = [
             { type: "ingredient", count: 2 },
             { type: "monsterPart", count: 2 }
