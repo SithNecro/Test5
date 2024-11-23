@@ -341,6 +341,7 @@ function generatePotionSelectors(type) {
                 radio.checked = true; // Selección predeterminada
             }
 
+            // Al cambiar el radio, generar los selectores correspondientes
             radio.addEventListener("change", () => {
                 createSelectors(combination.selectors);
             });
@@ -375,7 +376,10 @@ function generatePotionSelectors(type) {
 
 function createSelectors(selectorsNeeded) {
     const container = document.getElementById("potion-ingredients");
-    container.innerHTML = ""; // Limpiar cualquier contenido previo
+
+    // Eliminar selectores existentes
+    const existingSelectors = container.querySelectorAll(".potion-selector");
+    existingSelectors.forEach(selector => selector.remove());
 
     selectorsNeeded.forEach(({ type, count }) => {
         for (let i = 0; i < count; i++) {
