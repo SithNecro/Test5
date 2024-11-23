@@ -619,3 +619,123 @@ document.getElementById("create-potion").addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", () => {
     updateBottleCount();
 });
+function createManualPotionAdder() {
+    const toggleButton = document.getElementById("add-manual-potion-button");
+    const container = document.getElementById("manual-potion-adder");
+
+    // Mostrar/ocultar el formulario al hacer clic en el botón
+    toggleButton.addEventListener("click", () => {
+        container.style.display = container.style.display === "none" ? "block" : "none";
+        toggleButton.textContent = container.style.display === "block"
+            ? "Ocultar añadir poción a mano"
+            : "Añadir poción a mano";
+    });
+
+    // Formulario dinámico para añadir la poción
+    const form = document.createElement("div");
+
+    // Desplegable para el nombre de la poción
+    const potionNameLabel = document.createElement("label");
+    potionNameLabel.textContent = "Nombre de la poción: ";
+    const potionNameSelect = document.createElement("select");
+    const defaultPotionOption = document.createElement("option");
+    defaultPotionOption.value = "";
+    defaultPotionOption.textContent = "Seleccionar poción";
+    defaultPotionOption.disabled = true;
+    defaultPotionOption.selected = true;
+    potionNameSelect.appendChild(defaultPotionOption);
+
+    // Añadir opciones de pociones
+    const allPotionNames = [...new Set(defaultRecipes.map(recipe => recipe.name))];
+    allPotionNames.forEach(name => {
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        potionNameSelect.appendChild(option);
+    });
+
+    // Desplegable para el tipo de poción
+    const potionTypeLabel = document.createElement("label");
+    potionTypeLabel.textContent = "Tipo de poción: ";
+    const potionTypeSelect = document.createElement("select");
+    ["", "Débil", "Básica", "Suprema"].forEach(type => {
+        const option = document.createElement("option");
+        option.value = type.toLowerCase();
+        option.textContent = type || "Seleccionar tipo";
+        potionTypeSelect.appendChild(option);
+    });
+
+    // Desplegables para materiales
+    const ingredientSelectors = [];
+    for (let i = 0; i < 4; i++) {
+        const ingredientLabel = document.createElement("label");
+        ingredientLabel.textContent = `Material ${i + 1}: `;
+        const ingredientSelect = document.createElement("select");
+
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "Seleccionar material";
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        ingredientSelect.appendChild(defaultOption);
+
+        // Añadir opciones de materiales ordenadas alfabéticamente
+        const allMaterials = [...ingredients, ...monsterParts].sort();
+        allMaterials.forEach(material => {
+            const option = document.createElement("option");
+            option.value = material;
+            option.textContent = material;
+            ingredientSelect.appendChild(option);
+        });
+
+        ingredientSelectors.push(ingredientSelect);
+        form.appendChild(ingredientLabel);
+        form.appendChild(ingredientSelect);
+        form.appendChild(document.createElement("br"));
+    }
+
+    // Botón para añadir la poción al recetario
+    const addButton = document.createElement("button");
+    addButton.textContent = "Añadir al recetario";
+    addButton.addEventListener("click", () => {
+        const selectedPotionName = potionNameSelect.value;
+        const selectedPotionType = potionTypeSelect.value;
+        const selectedMaterials = ingredientSelectors
+            .map(select => select.value)
+            .filter(value => value); // Filtrar los no seleccionados
+
+        if (!selectedPotionName || !selectedPotionType) {
+            alert("Debes seleccionar un nombre y un tipo de poción.");
+            return;
+        }
+
+        if (selectedMaterials.length === 0) {
+            alert("Debes seleccionar al menos un material.");
+            return;
+        }
+
+        // Crear una nueva receta
+        const newRecipe = {
+            name: selectedPotionName,
+            type: selectedPotionType,
+            ingredients: selectedMaterials
+        };
+
+        recipes.push(newRecipe);
+        saveRecipes();
+        renderRecipeTable();
+        alert(`Poción "${selectedPotionName}" añadida al recetario.`);
+    });
+
+    // Añadir elementos al formulario
+    form.appendChild(potionNameLabel);
+    form.appendChild(potionNameSelect);
+    form.appendChild(document.createElement("br"));
+    form.appendChild(potionTypeLabel);
+    form.appendChild(potionTypeSelect);
+    form.appendChild(document.createElement("br"));
+    form.appendChild(addButton);
+
+    // Agregar formulario al contenedor
+    container.appendChild(form);
+}
