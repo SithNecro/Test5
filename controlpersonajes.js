@@ -26,7 +26,11 @@ function loadCharacters() {
 function saveCharacters(characters) {
     localStorage.setItem('characters', JSON.stringify(characters));
 }
-
+function updateExp(index, newName) {
+    const characters = loadCharacters();
+    characters[index].exp = newName;
+    saveCharacters(characters);
+}
 function renderTable() {
     const characters = loadCharacters();
     const tableBody = document.getElementById('character-table');
@@ -48,8 +52,8 @@ function renderTable() {
         // Nombre del personaje
         const nameCell = document.createElement('td');
         nameCell.innerHTML = `
-        <input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)"><br></br>
-        <input type="text" id="exp${index}" class="input-field">`;
+        <input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)"><br>experiencia:</br>
+        <input type="text" class="input-field" value="${character.exp}"  onchange="updateName(${index}, this.value)">`;
         row.appendChild(nameCell);
 
         // Atributos
