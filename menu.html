@@ -196,7 +196,7 @@
                         localStorage.setItem('maxMoral', maxMoral.value);
                         localStorage.setItem('medMoral', medMoral.value);
                         localStorage.setItem('moralActual', moralActual.value);
-                        localStorage.setItem('dinero', Dinero.value);
+                        localStorage.setItem('dinero', dinero.value);
                         // Guardar todos los valores de Amenaza
                         localStorage.setItem('minAmenaza', minAmenaza.value);
                         localStorage.setItem('maxAmenaza', maxAmenaza.value);
@@ -218,8 +218,8 @@
                         if (localStorage.getItem('moralActual')) {
                             moralActual.value = localStorage.getItem('moralActual');
                         }
-                        if (localStorage.getItem('Dinero')) {
-                            dinero.value = localStorage.getItem('Dinero');
+                        if (localStorage.getItem('dinero')) {
+                            dinero.value = localStorage.getItem('dinero'); // Usa el ID en minúscula
                         }
                         // Cargar todos los valores de Amenaza
                         if (localStorage.getItem('minAmenaza')) {
