@@ -245,7 +245,10 @@
                         saveValues(); // Guardar valores en localStorage
                         window.top.location.href = url; // Navegar a la nueva página en el marco principal
                     }
-
+                    // Asegúrate de que se guarde el dinero cuando se modifique
+                    dinero.addEventListener('input', function () {
+                        localStorage.setItem('dinero', dinero.value); // Guarda automáticamente al cambiar
+                    });
                     // Función para verificar si la moral es menor a la media
                     function checkMoral() {
                         const currentMoral = parseInt(moralActual.value);
