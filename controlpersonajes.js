@@ -53,7 +53,7 @@ function renderTable() {
         const nameCell = document.createElement('td');
         nameCell.innerHTML = `
         <input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)"><br>experiencia:</br>
-        <input type="text" class="input-field" value="${character.exp}"  onchange="updateName(${index}, this.value)">`;
+        <input type="text" class="input-field" value="${character.exp}"  onchange="updateExp(${index}, this.value)">`;
         row.appendChild(nameCell);
 
         // Atributos
