@@ -48,12 +48,12 @@ function renderTable() {
 
     characters.forEach((character, index) => {
         const row = document.createElement('tr');
-
+        
         // Nombre del personaje
         const nameCell = document.createElement('td');
         nameCell.innerHTML = `
-        <input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)"><br><b>Experiencia:</b></br>
-        <input type="text" class="input-field" value="${character.exp}"  onchange="updateExp(${index}, this.value)">`;
+        <input style="width: 100%; "type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)"><br><b>Experiencia:</b></br>
+        <input style="width: 100%; "type="text" class="input-field" value="${character.exp}"  onchange="updateExp(${index}, this.value)">`;
         row.appendChild(nameCell);
 
         // Atributos
