@@ -5,7 +5,7 @@ const defaultCharacters = [
     { id: 'pj4', name: 'Personaje 4', vidaActual: 20, vidaMaxima: 20, mana: 0, cordura: 8, energia: 1, suerte: 0, corduraMensaje: '', estados: [] }
 ];
 
-const disadvantages = [
+const disadvantages = [ 
     "Odio",
     "Estrés agudo",
     "Estrés agudo",
