@@ -48,7 +48,7 @@ function renderTable() {
         // Nombre del personaje
         const nameCell = document.createElement('td');
         nameCell.innerHTML = `
-        <input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)">;
+        <input type="text" class="input-field" value="${character.name}" onchange="updateName(${index}, this.value)"><br></br>
         <input type="text" id="exp${index}" class="input-field">`;
         row.appendChild(nameCell);
 
