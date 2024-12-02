@@ -37,7 +37,7 @@ const potionNames = {
             "Escupefuego", "Humo"
         ]
     },
-    Débil_and_Supremae: [
+    Débil_and_Suprema: [
         "Flamígera", "Constitución", "Valentía", "Destreza", "Energía", "Vitalidad",
         "Mana", "Fuerza", "Sabiduría", "Ácido", "Contra Enfermedades", "Antídoto"
     ]
@@ -402,7 +402,7 @@ function generatePotionSelectors(type) {
                 { type: "ingredient", count: 1 },
                 { type: "monsterPart", count: 1 }
             ];
-        } else if (type === "Supremae") {
+        } else if (type === "Suprema") {
             selectorsNeeded = [
                 { type: "ingredient", count: 2 },
                 { type: "monsterPart", count: 2 }
@@ -490,7 +490,7 @@ function getPotionName(type) {
             ];
             return rareNames[Math.floor(Math.random() * rareNames.length)];
         }
-    } else if (type === "Débil" || type === "Supremae") {
+    } else if (type === "Débil" || type === "Suprema") {
         const advancedNames = [
             "Flamígera", "Constitución", "Valentía", "Destreza", "Energía",
             "Vitalidad", "Mana", "Fuerza", "Sabiduría", "Ácido",
@@ -707,7 +707,7 @@ function generatePotionTypeSelector(container) {
     const typeSelect = document.createElement("select");
     typeSelect.id = "manual-potion-type";
 
-    ["", "Débil", "Básica", "Supremae"].forEach(type => {
+    ["", "Débil", "Básica", "Suprema"].forEach(type => {
         const option = document.createElement("option");
         option.value = type.toLowerCase();
         option.textContent = type || "Seleccionar tipo";
@@ -748,8 +748,8 @@ function generatePotionMaterialsForm(container, type) {
 
     // Obtener los nombres de las pociones según el tipo
     let availablePotions = [];
-    if (type === "Débil" || type === "Supremae") {
-        availablePotions = potionNames.Débil_and_Supremae;
+    if (type === "Débil" || type === "Suprema") {
+        availablePotions = potionNames.Débil_and_Suprema;
     } else if (type === "Básica") {
         availablePotions = [
             ...potionNames.Básica.d3_1_2,
@@ -780,7 +780,7 @@ function generatePotionMaterialsForm(container, type) {
             { type: "ingredient", count: 2 },
             { type: "monsterPart", count: 1 }
         ];
-    } else if (type === "Supremae") {
+    } else if (type === "Suprema") {
         selectorsNeeded = [
             { type: "ingredient", count: 2 },
             { type: "monsterPart", count: 2 }
