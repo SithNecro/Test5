@@ -765,9 +765,9 @@ function generatePotionMaterialsForm(container, type) {
 
     // Obtener los nombres de las pociones según el tipo
     let availablePotions = [];
-    if (type === "Debil" || type === "Suprema") {
+    if (type === "debil" || type === "suprema") {
         availablePotions = potionNames.Debil_and_Suprema;
-    } else if (type === "Basica") {
+    } else if (type === "basica") {
         availablePotions = [
             ...potionNames.Basica.d3_1_2,
             ...potionNames.Basica.d3_3
