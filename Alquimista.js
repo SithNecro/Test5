@@ -787,17 +787,17 @@ function generatePotionMaterialsForm(container, type) {
 
     // Determinar el número de materiales necesarios según el tipo de poción
     let selectorsNeeded;
-    if (type === "Debil") {
+    if (type === "debil") {
         selectorsNeeded = [
             { type: "ingredient", count: 1 },
             { type: "monsterPart", count: 1 }
         ];
-    } else if (type === "Basica") {
+    } else if (type === "basica") {
         selectorsNeeded = [
             { type: "ingredient", count: 2 },
             { type: "monsterPart", count: 1 }
         ];
-    } else if (type === "Suprema") {
+    } else if (type === "suprema") {
         selectorsNeeded = [
             { type: "ingredient", count: 2 },
             { type: "monsterPart", count: 2 }
