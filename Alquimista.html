@@ -1,12 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Alquimia</title>
+    <title>Tesoros Corriente</title>
     <script defer src="Alquimia.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos para el menú lateral */
+        .menu {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 300px;
+        }
+
+        .menu-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Estilos para el contenido principal */
+        .main-content {
+            margin-left: 310px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .top-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .content-right {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .treasure-image {
+            width: 290px;
+            border-radius: 5%;
+        }
+
+        button, select {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .treasure-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .two-treasures-container {
+            display: none;
+            gap: 20px;
+        }
+    </style>
 </head>
-<body>
+<body style="background-image: url('fondo.png'); background-size: cover;">
+
     <h1>Juego de Alquimia</h1>
     <button id="reset-button">Comenzar de 0</button>
     <section id="inventory-section">
@@ -90,3 +151,4 @@
     </section>
 </body>
 </html>
+
