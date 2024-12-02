@@ -868,3 +868,30 @@ function generatePotionMaterialsForm(container, type) {
 document.addEventListener("DOMContentLoaded", () => {
     createManualPotionAdder();
 });
+
+// Event listener para guardar la habilidad al cambiar el valor
+document.getElementById("alchemy-skill").addEventListener("input", saveAlchemySkill);
+
+// Cargar la habilidad al inicializar la página
+document.addEventListener("DOMContentLoaded", loadAlchemySkill);
+
+// Función para guardar el valor de alchemy-skill en localStorage
+function saveAlchemySkill() {
+    const alchemySkillValue = document.getElementById("alchemy-skill").value;
+    localStorage.setItem("alchemy_skill", alchemySkillValue);
+    console.log(`Habilidad de alquimia guardada: ${alchemySkillValue}`);
+}
+
+// Función para cargar el valor de alchemy-skill desde localStorage
+function loadAlchemySkill() {
+    const savedSkill = localStorage.getItem("alchemy_skill");
+    const skillInput = document.getElementById("alchemy-skill");
+
+    if (savedSkill !== null) {
+        skillInput.value = savedSkill;
+        console.log(`Habilidad de alquimia cargada: ${savedSkill}`);
+    } else {
+        skillInput.value = 0; // Valor por defecto si no existe en localStorage
+        console.log("No se encontró habilidad de alquimia en localStorage. Usando valor predeterminado.");
+    }
+}
