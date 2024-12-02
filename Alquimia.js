@@ -42,7 +42,38 @@ const potionNames = {
         "Mana", "Fuerza", "Sabiduría", "Ácido", "Contra Enfermedades", "Antídoto"
     ]
 };
-
+// Agregar descripciones de las pociones
+const potionDescriptions = {
+    "Experiencia": "Otorga 300 EXP. Un héroe sólo puede beber una entre mazmorras",
+    "Constitución": "Débil: +10 CON; Básica: +15 CON; Suprema: +20 CON",
+    "Valentía": "Débil: +10 DET; Básica: +15 DET; Suprema: +20 DET",
+    "Destreza": "Débil: +5 DES; Básica: +10 DES; Suprema: +15 DES",
+    "Energía": "Débil: +1 ENERGÍA; Básica: +2 ENERGÍA; Suprema: +3 ENERGÍA",
+    "Vitalidad": "Débil: 1d4 VIT; Básica: 1d6 VIT; Suprema: 1d10 VIT",
+    "Mana": "Débil: 1d20 Maná; Básica: 2d20 Maná; Suprema: 3d20 Maná",
+    "Fuerza": "Débil: +10 FUE; Básica: +15 FUE; Suprema: +20 FUE",
+    "Sabiduría": "Débil: +10 SAB; Básica: +15 SAB; Suprema: +20 SAB",
+    "Ácido": "Débil: 1d6 DAÑ; Básica: 1d10 DAÑ; Suprema: 1d12 DAÑ",
+    "Nauseabunda": "Cualquier miniatura en esa casilla realizará una tirada de DET o perderá su siguiente turno...",
+    "Flamígera": "Débil: 1d6 DAÑ; Básica: 1d10 DAÑ; Suprema: 1d12 DAÑ",
+    "Invisibilidad": "Quita al héroe del tablero hasta que la batalla termine...",
+    "Corrosión": "Para abrir una puerta. El héroe debe gastar 1 PA adyacente...",
+    "Contra Enfermedades": "Débil tiene un 75% de éxito, la básica y la suprema tendrán un 100%...",
+    "Antídoto": "Débil tiene un 75% de éxito, la básica y la suprema tendrán un 100%...",
+    "Veneno": "Puede aplicarse a un arma en cualquier momento...",
+    "Fuego Líquido": "Esta poción puede aplicarse en un arma a melé, prendiéndola...",
+    "Frasco del Vacío": "Cuando se abre este frasco, absorbe toda la magia...",
+    "Aceite para Armas": "Cada arma de filo puede ser cubierta con esta pócima...",
+    "Velocidad": "Beber esto otorgará al héroe un extra de movimiento...",
+    "Polvo Químico": "Si se usa antes de buscar en una habitación o pasillo...",
+    "Elixir de Arquero": "Utilizado en armas a distancia, añadirá +1 DAÑ...",
+    "Poción de Furia": "Esta poción otorga la ventaja “Frenesí” sin pagar coste de energía...",
+    "Resistencia al Fuego": "Todo el daño de fuego es reducido en 1d10...",
+    "Escama de Dragón": "El héroe ignora todo el daño durante 3 turnos...",
+    "Restauración": "Restaura toda la vitalidad de un héroe...",
+    "Escupefuego": "Alcance de 2 casillas y puede causar 1d8 Daño de Fuego...",
+    "Humo": "Obstruye la LDV en la casilla donde explota y las 8 adyacentes..."
+};
 // LocalStorage Keys
 const INVENTORY_KEY = "alchemy_inventory";
 const RECIPES_KEY = "alchemy_recipes";
@@ -132,6 +163,7 @@ function removeInventoryItem(index) {
 // Renderizar recetario como tabla
 // Renderizar la tabla de recetas
 // Renderizar la tabla de recetas
+// Actualizar la función renderRecipeTable
 function renderRecipeTable() {
     const tbody = document.querySelector("#recipe-table tbody");
     if (!tbody) {
@@ -150,8 +182,15 @@ function renderRecipeTable() {
 
     recipes.forEach((recipe, index) => {
         const row = document.createElement("tr");
+
+        // Obtener la descripción de la poción
+        const description = potionDescriptions[recipe.name] || "Descripción no disponible";
+
+        // Crear el enlace con tooltip
+        const potionLink = `<a href="#" title="${description}">${recipe.name}</a>`;
+
         row.innerHTML = `
-            <td>${recipe.name}</td>
+            <td>${potionLink}</td>
             <td>${recipe.type}</td>
             <td>${recipe.ingredients.join(", ")}</td>
             <td>${recipe.default ? "" : `
