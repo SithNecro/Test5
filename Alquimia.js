@@ -266,7 +266,8 @@ function initializeMaterialDropdown() {
 // Inicializar
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Cargando datos de LocalStorage...");
-   
+    localStorage.removeItem("alchemy_inventory"); // Elimina el inventario
+    localStorage.removeItem("alchemy_recipes"); // Elimina las recetas
     let storedRecipes = JSON.parse(localStorage.getItem(RECIPES_KEY)) || [];
 
     const isDefaultLoaded = storedRecipes.some(recipe => recipe.default);
