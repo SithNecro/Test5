@@ -15,16 +15,16 @@ const monsterParts = Array.from(new Set([
     "Sangre de troll", "Sangre Vampiro", "Piel de zombi"
 ]));
 const defaultRecipes = [
-    { type: "Básica", name: "Poción de Curación", ingredients: ["Sangre humana", "Cola de rata", "Jengibre ceniciento"], default: true, title: "Sana Sanita" },
-    { type: "Básica", name: "Contra Enfermedades", ingredients: ["Piel de zombi", "Ala de murciélago", "Laurel del monje"], default: true, title: "Sana enferme" },
-    { type: "Básica", name: "Flamígera", ingredients: ["Corazón de bestia", "Cola de rata", "Baya lunar"], default: true, title: "pum" },
-    { type: "Básica", name: "Antídoto", ingredients: ["Colmillo de araña", "Barbárea", "Agracejo"], default: true, title: "cura eneno" },
-    { type: "Básica", name: "Experiencia", ingredients: ["Sangre de dragón", "Hiedra dulce", "Belladona"], default: true, title: "Exp up" },
-    { type: "Básica", name: "Restauración", ingredients: ["Sangre de vampiro", "Sangre de troll", "Corteza de arce rojo"], default: true, title: "restaura tripita" }
+    { type: "Basica", name: "Poción de Curación", ingredients: ["Sangre humana", "Cola de rata", "Jengibre ceniciento"], default: true, title: "Sana Sanita" },
+    { type: "Basica", name: "Contra Enfermedades", ingredients: ["Piel de zombi", "Ala de murciélago", "Laurel del monje"], default: true, title: "Sana enferme" },
+    { type: "Basica", name: "Flamígera", ingredients: ["Corazón de bestia", "Cola de rata", "Baya lunar"], default: true, title: "pum" },
+    { type: "Basica", name: "Antídoto", ingredients: ["Colmillo de araña", "Barbárea", "Agracejo"], default: true, title: "cura eneno" },
+    { type: "Basica", name: "Experiencia", ingredients: ["Sangre de dragón", "Hiedra dulce", "Belladona"], default: true, title: "Exp up" },
+    { type: "Basica", name: "Restauración", ingredients: ["Sangre de vampiro", "Sangre de troll", "Corteza de arce rojo"], default: true, title: "restaura tripita" }
 ];
 // Nombres de pociones
 const potionNames = {
-    Básica: {
+    Basica: {
         d3_1_2: [
             "Experiencia", "Constitución", "Valentía", "Destreza", "Energía", "Vitalidad",
             "Mana", "Fuerza", "Sabiduría", "Ácido", "Nauseabunda", "Flamígera",
@@ -37,7 +37,7 @@ const potionNames = {
             "Escupefuego", "Humo"
         ]
     },
-    Débil_and_Suprema: [
+    Debil_and_Suprema: [
         "Flamígera", "Constitución", "Valentía", "Destreza", "Energía", "Vitalidad",
         "Mana", "Fuerza", "Sabiduría", "Ácido", "Contra Enfermedades", "Antídoto"
     ]
@@ -45,21 +45,21 @@ const potionNames = {
 // Agregar descripciones de las pociones
 const potionDescriptions = {
     "Experiencia": "Otorga 300 EXP. Un héroe sólo puede beber una entre mazmorras.",
-    "Constitución": "Débil: +10 CON; Básica: +15 CON; Supremaa: +20 CON.",
-    "Valentía": "Débil: +10 DET; Básica: +15 DET; Supremaa: +20 DET.",
-    "Destreza": "Débil: +5 DES; Básica: +10 DES; Supremaa: +15 DES.",
-    "Energía": "Débil: +1 ENERGÍA; Básica: +2 ENERGÍA; Supremaa: +3 ENERGÍA.",
-    "Vitalidad": "Débil: 1d4 VIT; Básica: 1d6 VIT; Supremaa: 1d10 VIT.",
-    "Mana": "Débil: 1d20 Maná; Básica: 2d20 Maná; Supremaa: 3d20 Maná.",
-    "Fuerza": "Débil: +10 FUE; Básica: +15 FUE; Supremaa: +20 FUE.",
-    "Sabiduría": "Débil: +10 SAB; Básica: +15 SAB; Supremaa: +20 SAB.",
-    "Ácido": "Débil: 1d6 DAÑ; Básica: 1d10 DAÑ; Supremaa: 1d12 DAÑ.",
+    "Constitución": "Debil: +10 CON; Basica: +15 CON; Supremaa: +20 CON.",
+    "Valentía": "Debil: +10 DET; Basica: +15 DET; Supremaa: +20 DET.",
+    "Destreza": "Debil: +5 DES; Basica: +10 DES; Supremaa: +15 DES.",
+    "Energía": "Debil: +1 ENERGÍA; Basica: +2 ENERGÍA; Supremaa: +3 ENERGÍA.",
+    "Vitalidad": "Debil: 1d4 VIT; Basica: 1d6 VIT; Supremaa: 1d10 VIT.",
+    "Mana": "Debil: 1d20 Maná; Basica: 2d20 Maná; Supremaa: 3d20 Maná.",
+    "Fuerza": "Debil: +10 FUE; Basica: +15 FUE; Supremaa: +20 FUE.",
+    "Sabiduría": "Debil: +10 SAB; Basica: +15 SAB; Supremaa: +20 SAB.",
+    "Ácido": "Debil: 1d6 DAÑ; Basica: 1d10 DAÑ; Supremaa: 1d12 DAÑ.",
     "Nauseabunda": "Cualquier miniatura en esa casilla realizará una tirada de DET o perderá su siguiente turno. Cualquier miniatura en una casilla adyacente realizará una tirada de DET +20. No tiene efecto en No muertos.",
-    "Flamígera": "Débil: 1d6 DAÑ; Básica: 1d10 DAÑ; Supremaa: 1d12 DAÑ.",
+    "Flamígera": "Debil: 1d6 DAÑ; Basica: 1d10 DAÑ; Supremaa: 1d12 DAÑ.",
     "Invisibilidad": "Quita al héroe del tablero hasta que la batalla termine. Cuando finalice, vuelve a cualquier casilla de la loseta.",
     "Corrosión": "Para abrir una puerta. El héroe debe gastar 1 PA adyacente a una puerta para usar esta poción y abrirla automáticamente.",
-    "Contra Enfermedades": "Débil tiene un 75% de éxito, la básica y la Supremaa tendrán un 100%. Además, la Supremaa curará un 1d3 VIT.",
-    "Antídoto": "Débil tiene un 75% de éxito, la básica y la Supremaa tendrán un 100%. Además, la Supremaa curará un 1d3 VIT.",
+    "Contra Enfermedades": "Debil tiene un 75% de éxito, la Basica y la Supremaa tendrán un 100%. Además, la Supremaa curará un 1d3 VIT.",
+    "Antídoto": "Debil tiene un 75% de éxito, la Basica y la Supremaa tendrán un 100%. Además, la Supremaa curará un 1d3 VIT.",
     "Veneno": "Puede aplicarse a un arma en cualquier momento, también se puede usar para envenenar 5 proyectiles. Dura hasta el final de la próxima batalla. Los enemigos dañados con un arma envenenada perderán 1 VIT cada turno.",
     "Fuego Líquido": "Esta poción puede aplicarse en un arma a melé, prendiéndola. El arma causará daño de fuego hasta el final de la batalla.",
     "Frasco del Vacío": "Cuando se abre este frasco, absorbe toda la magia. Cualquier hechizo lanzado en la batalla sufre una penalización de -20 además de su modificación de VH.",
@@ -343,7 +343,7 @@ function generatePotionSelectors(type) {
         return; // No hacer nada si no se ha seleccionado un tipo
     }
 
-    if (type === "Básica") {
+    if (type === "Basica") {
         // Configuración para las combinaciones posibles
         const combinations = [
             {
@@ -397,7 +397,7 @@ function generatePotionSelectors(type) {
     } else {
         let selectorsNeeded;
 
-        if (type === "Débil") {
+        if (type === "Debil") {
             selectorsNeeded = [
                 { type: "ingredient", count: 1 },
                 { type: "monsterPart", count: 1 }
@@ -471,17 +471,17 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 // Función para generar un nombre de poción basado en el tipo
 function getPotionName(type) {
-    if (type === "Básica") {
+    if (type === "Basica") {
         const roll = Math.floor(Math.random() * 3) + 1; // Tirada de 1d3
         if (roll === 1 || roll === 2) {
-            const BásicaNames = [
+            const BasicaNames = [
                 "Experiencia", "Constitución", "Valentía", "Destreza", "Energía",
                 "Vitalidad", "Mana", "Fuerza", "Sabiduría", "Ácido",
                 "Nauseabunda", "Flamígera", "Invisibilidad", "Corrosión",
                 "Contra Enfermedades", "Antídoto", "Veneno", "Fuego Líquido",
                 "Frasco del Vacío", "Aceite para Armas"
             ];
-            return BásicaNames[Math.floor(Math.random() * BásicaNames.length)];
+            return BasicaNames[Math.floor(Math.random() * BasicaNames.length)];
         } else {
             const rareNames = [
                 "Velocidad", "Polvo Químico", "Elixir de Arquero", "Poción de Furia",
@@ -490,7 +490,7 @@ function getPotionName(type) {
             ];
             return rareNames[Math.floor(Math.random() * rareNames.length)];
         }
-    } else if (type === "Débil" || type === "Suprema") {
+    } else if (type === "Debil" || type === "Suprema") {
         const advancedNames = [
             "Flamígera", "Constitución", "Valentía", "Destreza", "Energía",
             "Vitalidad", "Mana", "Fuerza", "Sabiduría", "Ácido",
@@ -707,7 +707,7 @@ function generatePotionTypeSelector(container) {
     const typeSelect = document.createElement("select");
     typeSelect.id = "manual-potion-type";
 
-    ["", "Débil", "Básica", "Suprema"].forEach(type => {
+    ["", "Debil", "Basica", "Suprema"].forEach(type => {
         const option = document.createElement("option");
         option.value = type.toLowerCase();
         option.textContent = type || "Seleccionar tipo";
@@ -748,12 +748,12 @@ function generatePotionMaterialsForm(container, type) {
 
     // Obtener los nombres de las pociones según el tipo
     let availablePotions = [];
-    if (type === "Débil" || type === "Suprema") {
-        availablePotions = potionNames.Débil_and_Suprema;
-    } else if (type === "Básica") {
+    if (type === "Debil" || type === "Suprema") {
+        availablePotions = potionNames.Debil_and_Suprema;
+    } else if (type === "Basica") {
         availablePotions = [
-            ...potionNames.Básica.d3_1_2,
-            ...potionNames.Básica.d3_3
+            ...potionNames.Basica.d3_1_2,
+            ...potionNames.Basica.d3_3
         ];
     }
 
@@ -770,12 +770,12 @@ function generatePotionMaterialsForm(container, type) {
 
     // Determinar el número de materiales necesarios según el tipo de poción
     let selectorsNeeded;
-    if (type === "Débil") {
+    if (type === "Debil") {
         selectorsNeeded = [
             { type: "ingredient", count: 1 },
             { type: "monsterPart", count: 1 }
         ];
-    } else if (type === "Básica") {
+    } else if (type === "Basica") {
         selectorsNeeded = [
             { type: "ingredient", count: 2 },
             { type: "monsterPart", count: 1 }
