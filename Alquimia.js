@@ -82,6 +82,18 @@ const RECIPES_KEY = "alchemy_recipes";
 const inventory = JSON.parse(localStorage.getItem(INVENTORY_KEY)) || [];
 const recipes = JSON.parse(localStorage.getItem(RECIPES_KEY)) || [];
 
+
+// Función para borrar las claves específicas de localStorage
+function resetAlchemyData() {
+    localStorage.removeItem("alchemy_inventory"); // Elimina el inventario
+    localStorage.removeItem("alchemy_recipes"); // Elimina las recetas
+    alert("¡Se han eliminado los datos de Alquimia! Comenzamos de 0.");
+    // Opcional: puedes recargar la página o actualizar la UI aquí
+    location.reload(); // Recarga la página para aplicar cambios
+}
+
+// Asociar la función al botón "Comenzar de 0"
+document.getElementById("reset-button").addEventListener("click", resetAlchemyData);
 // Guardar en LocalStorage
 function saveInventory() {
     localStorage.setItem(INVENTORY_KEY, JSON.stringify(inventory));
@@ -266,8 +278,7 @@ function initializeMaterialDropdown() {
 // Inicializar
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Cargando datos de LocalStorage...");
-    localStorage.removeItem("alchemy_inventory"); // Elimina el inventario
-    localStorage.removeItem("alchemy_recipes"); // Elimina las recetas
+   
     let storedRecipes = JSON.parse(localStorage.getItem(RECIPES_KEY)) || [];
 
     const isDefaultLoaded = storedRecipes.some(recipe => recipe.default);
