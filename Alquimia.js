@@ -1,79 +1,48 @@
-// Ingredientes y partes de monstruos
+ï»¿// Ingredientes y partes de monstruos
 const ingredients = [
-    "Raíz arqueada", "Jengibre ceniciento", "Ajenjo Espinado", "Ambrosía", "Equinácea azul",
+    "Raï¿½z arqueada", "Jengibre ceniciento", "Ajenjo Espinado", "Ambrosï¿½a", "Equinï¿½cea azul",
     "Callicarpa brillante", "Polen del Amaru", "Corteza de arce rojo", "Artemisa salada",
     "Asclepia picante", "Frambuesa gigante", "Baya lunar", "Laurel del monje", "Agracejo",
-    "Belladona", "Dulcamara", "Hiedra dulce", "Perejil tóxico", "Barbarea", "Trébol llorón"
+    "Belladona", "Dulcamara", "Hiedra dulce", "Perejil tï¿½xico", "Barbarea", "Trï¿½bol llorï¿½n"
 ];
 
 const monsterParts = Array.from(new Set([
-    "Ectoplasma", "Colmillo de araña", "Plumas", "Sangre humana", "Tejido cerebral",
-    "Corazón bestial", "Quitina", "Sangre de dragón", "Pelo de elfo", "Alas murciélago",
-    "Hojas enredador", "Polvo de huesos", "Uñas", "Ojo de goblin", "Escamas",
+    "Ectoplasma", "Colmillo de araï¿½a", "Plumas", "Sangre humana", "Tejido cerebral",
+    "Corazï¿½n bestial", "Quitina", "Sangre de dragï¿½n", "Pelo de elfo", "Alas murciï¿½lago",
+    "Hojas enredador", "Polvo de huesos", "Uï¿½as", "Ojo de goblin", "Escamas",
     "Piel", "Ojo de medusa", "Lengua", "Polvo de momia", "Sangre de necro",
     "Diente de ogro", "Sangre de orco", "Cola de rata", "Viscosidad", "Piel anfibia",
     "Sangre de troll", "Sangre Vampiro", "Piel de zombi"
 ]));
 const defaultRecipes = [
-    { type: "Basica", name: "Poción de Curación", ingredients: ["Sangre humana", "Cola de rata", "Jengibre ceniciento"], default: true, title: "Sana Sanita" },
-    { type: "Basica", name: "Contra Enfermedades", ingredients: ["Piel de zombi", "Ala de murciélago", "Laurel del monje"], default: true, title: "Sana enferme" },
-    { type: "Basica", name: "Flamígera", ingredients: ["Corazón de bestia", "Cola de rata", "Baya lunar"], default: true, title: "pum" },
-    { type: "Basica", name: "Antídoto", ingredients: ["Colmillo de araña", "Barbárea", "Agracejo"], default: true, title: "cura eneno" },
-    { type: "Basica", name: "Experiencia", ingredients: ["Sangre de dragón", "Hiedra dulce", "Belladona"], default: true, title: "Exp up" },
-    { type: "Basica", name: "Restauración", ingredients: ["Sangre de vampiro", "Sangre de troll", "Corteza de arce rojo"], default: true, title: "restaura tripita" }
+    { type: "basic", name: "Pociï¿½n de Curaciï¿½n", ingredients: ["Sangre humana", "Cola de rata", "Jengibre ceniciento"], default: true, title: "Sana Sanita" },
+    { type: "basic", name: "Pociï¿½n contra Enfermedades", ingredients: ["Piel de zombi", "Ala de murciï¿½lago", "Laurel del monje"], default: true, title: "Sana enferme" },
+    { type: "basic", name: "Bomba Flamï¿½gera", ingredients: ["Corazï¿½n de bestia", "Cola de rata", "Baya lunar"], default: true, title: "pum" },
+    { type: "basic", name: "Antï¿½doto", ingredients: ["Colmillo de araï¿½a", "Barbï¿½rea", "Agracejo"], default: true, title: "cura eneno" },
+    { type: "basic", name: "Frasco de Experiencia", ingredients: ["Sangre de dragï¿½n", "Hiedra dulce", "Belladona"], default: true, title: "Exp up" },
+    { type: "basic", name: "Pociï¿½n de Restauraciï¿½n", ingredients: ["Sangre de vampiro", "Sangre de troll", "Corteza de arce rojo"], default: true, title: "restaura tripita" }
 ];
 // Nombres de pociones
 const potionNames = {
-    Basica: {
+    basic: {
         d3_1_2: [
-            "Experiencia", "Constitución", "Valentía", "Destreza", "Energía", "Vitalidad",
-            "Mana", "Fuerza", "Sabiduría", "Ácido", "Nauseabunda", "Flamígera",
-            "Invisibilidad", "Corrosión", "Contra Enfermedades", "Antídoto",
-            "Veneno", "Fuego Líquido", "Frasco del Vacío", "Aceite para Armas"
+            "Experiencia", "Constituciï¿½n", "Valentï¿½a", "Destreza", "Energï¿½a", "Vitalidad",
+            "Mana", "Fuerza", "Sabidurï¿½a", "ï¿½cido", "Nauseabunda", "Flamï¿½gera",
+            "Invisibilidad", "Corrosiï¿½n", "Contra Enfermedades", "Antï¿½doto",
+            "Veneno", "Fuego Lï¿½quido", "Frasco del Vacï¿½o", "Aceite para Armas"
         ],
         d3_3: [
-            "Velocidad", "Polvo Químico", "Elixir de Arquero", "Poción de Furia",
-            "Resistencia al Fuego", "Escama de Dragón", "Restauración",
+            "Velocidad", "Polvo Quï¿½mico", "Elixir de Arquero", "Pociï¿½n de Furia",
+            "Resistencia al Fuego", "Escama de Dragï¿½n", "Restauraciï¿½n",
             "Escupefuego", "Humo"
         ]
     },
-    Debil_and_Suprema: [
-        "Flamígera", "Constitución", "Valentía", "Destreza", "Energía", "Vitalidad",
-        "Mana", "Fuerza", "Sabiduría", "Ácido", "Contra Enfermedades", "Antídoto"
+    weak_and_supreme: [
+        "Flamï¿½gera", "Constituciï¿½n", "Valentï¿½a", "Destreza", "Energï¿½a", "Vitalidad",
+        "Mana", "Fuerza", "Sabidurï¿½a", "ï¿½cido", "Contra Enfermedades", "Antï¿½doto"
     ]
 };
-// Agregar descripciones de las pociones
-const potionDescriptions = {
-    "Experiencia": "Otorga 300 EXP. Un héroe sólo puede beber una entre mazmorras.",
-    "Constitución": "Debil: +10 CON; Basica: +15 CON; Supremaa: +20 CON.",
-    "Valentía": "Debil: +10 DET; Basica: +15 DET; Supremaa: +20 DET.",
-    "Destreza": "Debil: +5 DES; Basica: +10 DES; Supremaa: +15 DES.",
-    "Energía": "Debil: +1 ENERGÍA; Basica: +2 ENERGÍA; Supremaa: +3 ENERGÍA.",
-    "Vitalidad": "Debil: 1d4 VIT; Basica: 1d6 VIT; Supremaa: 1d10 VIT.",
-    "Mana": "Debil: 1d20 Maná; Basica: 2d20 Maná; Supremaa: 3d20 Maná.",
-    "Fuerza": "Debil: +10 FUE; Basica: +15 FUE; Supremaa: +20 FUE.",
-    "Sabiduría": "Debil: +10 SAB; Basica: +15 SAB; Supremaa: +20 SAB.",
-    "Ácido": "Debil: 1d6 DAÑ; Basica: 1d10 DAÑ; Supremaa: 1d12 DAÑ.",
-    "Nauseabunda": "Cualquier miniatura en esa casilla realizará una tirada de DET o perderá su siguiente turno. Cualquier miniatura en una casilla adyacente realizará una tirada de DET +20. No tiene efecto en No muertos.",
-    "Flamígera": "Debil: 1d6 DAÑ; Basica: 1d10 DAÑ; Supremaa: 1d12 DAÑ.",
-    "Invisibilidad": "Quita al héroe del tablero hasta que la batalla termine. Cuando finalice, vuelve a cualquier casilla de la loseta.",
-    "Corrosión": "Para abrir una puerta. El héroe debe gastar 1 PA adyacente a una puerta para usar esta poción y abrirla automáticamente.",
-    "Contra Enfermedades": "Debil tiene un 75% de éxito, la Basica y la Supremaa tendrán un 100%. Además, la Supremaa curará un 1d3 VIT.",
-    "Antídoto": "Debil tiene un 75% de éxito, la Basica y la Supremaa tendrán un 100%. Además, la Supremaa curará un 1d3 VIT.",
-    "Veneno": "Puede aplicarse a un arma en cualquier momento, también se puede usar para envenenar 5 proyectiles. Dura hasta el final de la próxima batalla. Los enemigos dañados con un arma envenenada perderán 1 VIT cada turno.",
-    "Fuego Líquido": "Esta poción puede aplicarse en un arma a melé, prendiéndola. El arma causará daño de fuego hasta el final de la batalla.",
-    "Frasco del Vacío": "Cuando se abre este frasco, absorbe toda la magia. Cualquier hechizo lanzado en la batalla sufre una penalización de -20 además de su modificación de VH.",
-    "Aceite para Armas": "Cada arma de filo puede ser cubierta con esta pócima. Otorgará +1 DAÑ hasta que abandonéis la mazmorra.",
-    "Velocidad": "Beber esto otorgará al héroe un extra de movimiento de +1 durante el resto de la mazmorra.",
-    "Polvo Químico": "Si se usa antes de buscar en una habitación o pasillo, se puede volver a tirar y elegir el mejor resultado. 1 uso.",
-    "Elixir de Arquero": "Utilizado en armas a distancia, añadirá +1 DAÑ hasta abandonar la mazmorra.",
-    "Poción de Furia": "Esta poción otorga la ventaja 'Frenesí' sin pagar coste de energía. Dura una batalla completa.",
-    "Resistencia al Fuego": "Todo el daño de fuego es reducido en 1d10. Haz una tirada cada vez que el Héroe es dañado. Dura hasta el final de la siguiente batalla.",
-    "Escama de Dragón": "El héroe ignora todo el daño durante 3 turnos, exceptuando el daño mágico o de veneno. La armadura puede seguir siendo dañada, pero el Héroe no perderá VIT.",
-    "Restauración": "Restaura toda la vitalidad de un héroe y elimina enfermedades y venenos.",
-    "Escupefuego": "Alcance de 2 casillas y puede causar 1d8 Daño de Fuego en la casilla adyacente al héroe o 1d4 Daño de Fuego en la casilla adyacente y la siguiente a esa también.",
-    "Humo": "Obstruye la LDV en la casilla donde explota y las 8 adyacentes. Toda pelea dentro del rango del humo sufre -20 HC y disparar a través del humo no es posible. Dura 4 turnos."
-};
+
 // LocalStorage Keys
 const INVENTORY_KEY = "alchemy_inventory";
 const RECIPES_KEY = "alchemy_recipes";
@@ -82,18 +51,6 @@ const RECIPES_KEY = "alchemy_recipes";
 const inventory = JSON.parse(localStorage.getItem(INVENTORY_KEY)) || [];
 const recipes = JSON.parse(localStorage.getItem(RECIPES_KEY)) || [];
 
-
-// Función para borrar las claves específicas de localStorage
-function resetAlchemyData() {
-    localStorage.removeItem("alchemy_inventory"); // Elimina el inventario
-    localStorage.removeItem("alchemy_recipes"); // Elimina las recetas
-    alert("¡Se han eliminado los datos de Alquimia! Comenzamos de 0.");
-    // Opcional: puedes recargar la página o actualizar la UI aquí
-    location.reload(); // Recarga la página para aplicar cambios
-}
-
-// Asociar la función al botón "Comenzar de 0"
-document.getElementById("reset-button").addEventListener("click", resetAlchemyData);
 // Guardar en LocalStorage
 function saveInventory() {
     localStorage.setItem(INVENTORY_KEY, JSON.stringify(inventory));
@@ -146,7 +103,7 @@ function renderInventoryTable() {
             <td>${itemType}</td>
             <td>${item.name}</td>
             <td>${item.units}</td>
-            <td>${item.exquisite ? "Sí" : "No"}</td>
+            <td>${item.exquisite ? "Sï¿½" : "No"}</td>
             <td>
                 <button class="remove-item" data-index="${index}" style="background-color: red; color: white; border-radius: 5px;">Eliminar</button>
             </td>
@@ -163,19 +120,18 @@ function renderInventoryTable() {
 
 function removeInventoryItem(index) {
     if (index < 0 || index >= inventory.length) {
-        console.error("Índice de inventario inválido:", index);
+        console.error("ï¿½ndice de inventario invï¿½lido:", index);
         return;
     }
 
     const removedItem = inventory.splice(index, 1); // Eliminar del inventario
     saveInventory(); // Guardar cambios en LocalStorage
     renderInventoryTable(); // Actualizar la tabla
-    alert(`Elemento "${removedItem[0].name}" eliminado con éxito.`);
+    alert(`Elemento "${removedItem[0].name}" eliminado con ï¿½xito.`);
 }
 // Renderizar recetario como tabla
 // Renderizar la tabla de recetas
 // Renderizar la tabla de recetas
-// Actualizar la función renderRecipeTable
 function renderRecipeTable() {
     const tbody = document.querySelector("#recipe-table tbody");
     if (!tbody) {
@@ -194,15 +150,8 @@ function renderRecipeTable() {
 
     recipes.forEach((recipe, index) => {
         const row = document.createElement("tr");
-
-        // Obtener la descripción de la poción
-        const description = potionDescriptions[recipe.name] || "Descripción no disponible";
-
-        // Crear el enlace con tooltip
-        const potionLink = `<a href="#" title="${description}">${recipe.name}</a>`;
-
         row.innerHTML = `
-            <td>${potionLink}</td>
+            <td>${recipe.name}</td>
             <td>${recipe.type}</td>
             <td>${recipe.ingredients.join(", ")}</td>
             <td>${recipe.default ? "" : `
@@ -224,7 +173,7 @@ function sortRecipes() {
     recipes.sort((a, b) => a.name.localeCompare(b.name));
 }
 
-// Función para olvidar una receta
+// Funciï¿½n para olvidar una receta
 function forgetRecipe(index) {
     const recipeToForget = recipes[index];
     if (recipeToForget.default) {
@@ -232,13 +181,13 @@ function forgetRecipe(index) {
         return;
     }
 
-    const confirmation = confirm(`¿Estás seguro de que quieres olvidar la receta "${recipeToForget.name}"?`);
+    const confirmation = confirm(`ï¿½Estï¿½s seguro de que quieres olvidar la receta "${recipeToForget.name}"?`);
     if (!confirmation) return;
 
     recipes.splice(index, 1);
     saveRecipes();
     renderRecipeTable();
-    alert(`Receta "${recipeToForget.name}" olvidada con éxito.`);
+    alert(`Receta "${recipeToForget.name}" olvidada con ï¿½xito.`);
 }
 
 
@@ -278,7 +227,7 @@ function initializeMaterialDropdown() {
 // Inicializar
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Cargando datos de LocalStorage...");
-   
+
     let storedRecipes = JSON.parse(localStorage.getItem(RECIPES_KEY)) || [];
 
     const isDefaultLoaded = storedRecipes.some(recipe => recipe.default);
@@ -309,7 +258,7 @@ function populatePotionSelectors() {
         const previousValue = select.value; // Guardar el valor seleccionado previamente
         select.innerHTML = ""; // Limpiar opciones previas
 
-        // Añadir la opción por defecto
+        // Aï¿½adir la opciï¿½n por defecto
         const defaultOption = document.createElement("option");
         defaultOption.value = "";
         defaultOption.textContent = "Seleccionar material";
@@ -317,7 +266,7 @@ function populatePotionSelectors() {
         defaultOption.selected = true;
         select.appendChild(defaultOption);
 
-        // Filtrar opciones disponibles en el inventario según el tipo
+        // Filtrar opciones disponibles en el inventario segï¿½n el tipo
         const availableItems = inventory.filter(item =>
             (type === "ingredient" && ingredients.includes(item.name) && item.units > 0) ||
             (type === "monsterPart" && monsterParts.includes(item.name) && item.units > 0)
@@ -327,14 +276,14 @@ function populatePotionSelectors() {
             const optionValue = `${item.name}#${item.exquisite ? "Exquisito" : "Normal"}`;
             const optionText = `${item.name} (${item.exquisite ? "Exquisito" : "Normal"})`;
 
-            // Verificar si el nombre del material ya está en uso en otros selectores
+            // Verificar si el nombre del material ya estï¿½ en uso en otros selectores
             const isNameUsed = usedNames.includes(item.name);
 
             const option = document.createElement("option");
             option.value = optionValue;
             option.textContent = optionText;
 
-            // Deshabilitar si el nombre ya está en uso en otro selector
+            // Deshabilitar si el nombre ya estï¿½ en uso en otro selector
             if (isNameUsed && optionValue !== previousValue) {
                 option.disabled = true;
             }
@@ -342,7 +291,7 @@ function populatePotionSelectors() {
             select.appendChild(option);
         });
 
-        // Restaurar el valor previamente seleccionado, si todavía está disponible
+        // Restaurar el valor previamente seleccionado, si todavï¿½a estï¿½ disponible
         select.value = previousValue || "";
     });
 }
@@ -355,8 +304,8 @@ function generatePotionSelectors(type) {
         return; // No hacer nada si no se ha seleccionado un tipo
     }
 
-    if (type === "Basica") {
-        // Configuración para las combinaciones posibles
+    if (type === "basic") {
+        // Configuraciï¿½n para las combinaciones posibles
         const combinations = [
             {
                 label: "2 Ingredientes + 1 Parte",
@@ -376,7 +325,7 @@ function generatePotionSelectors(type) {
             }
         ];
 
-        // Crear botones de radio para elegir la combinación
+        // Crear botones de radio para elegir la combinaciï¿½n
         const switcher = document.createElement("div");
         switcher.style.marginBottom = "10px"; // Separar botones de los selectores
 
@@ -389,7 +338,7 @@ function generatePotionSelectors(type) {
             radio.name = "selectorCombination";
             radio.value = combination.value;
             if (index === 0) {
-                radio.checked = true; // Selección predeterminada
+                radio.checked = true; // Selecciï¿½n predeterminada
             }
 
             // Al cambiar el radio, generar los selectores correspondientes
@@ -409,12 +358,12 @@ function generatePotionSelectors(type) {
     } else {
         let selectorsNeeded;
 
-        if (type === "Debil") {
+        if (type === "weak") {
             selectorsNeeded = [
                 { type: "ingredient", count: 1 },
                 { type: "monsterPart", count: 1 }
             ];
-        } else if (type === "Suprema") {
+        } else if (type === "supreme") {
             selectorsNeeded = [
                 { type: "ingredient", count: 2 },
                 { type: "monsterPart", count: 2 }
@@ -453,18 +402,18 @@ function createSelectors(selectorsNeeded) {
     populatePotionSelectors(); // Llenar selectores con opciones
 }
 
-// Detectar cambio en el tipo de poción y generar los desplegables
+// Detectar cambio en el tipo de pociï¿½n y generar los desplegables
 document.getElementById("potion-type").addEventListener("change", (e) => {
     generatePotionSelectors(e.target.value);
 });
 
 
 // Inicializar
-// Inicialización al cargar la página
+// Inicializaciï¿½n al cargar la pï¿½gina
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Cargando datos de LocalStorage...");
     if (!localStorage.getItem(RECIPES_KEY)) {
-        
+
 
         localStorage.setItem(RECIPES_KEY, JSON.stringify(defaultRecipes));
         console.log("Recetas predeterminadas guardadas:", defaultRecipes);
@@ -478,41 +427,41 @@ document.addEventListener("DOMContentLoaded", () => {
     // Renderizar elementos de la interfaz
     initializeMaterialDropdown(); // Inicializar el desplegable de materiales
     renderInventoryTable(); // Renderizar el inventario
-   
+
     generatePotionSelectors(""); // Limpiar y generar los selectores de ingredientes
 });
-// Función para generar un nombre de poción basado en el tipo
+// Funciï¿½n para generar un nombre de pociï¿½n basado en el tipo
 function getPotionName(type) {
-    if (type === "Basica") {
+    if (type === "basic") {
         const roll = Math.floor(Math.random() * 3) + 1; // Tirada de 1d3
         if (roll === 1 || roll === 2) {
-            const BasicaNames = [
-                "Experiencia", "Constitución", "Valentía", "Destreza", "Energía",
-                "Vitalidad", "Mana", "Fuerza", "Sabiduría", "Ácido",
-                "Nauseabunda", "Flamígera", "Invisibilidad", "Corrosión",
-                "Contra Enfermedades", "Antídoto", "Veneno", "Fuego Líquido",
-                "Frasco del Vacío", "Aceite para Armas"
+            const basicNames = [
+                "Experiencia", "Constituciï¿½n", "Valentï¿½a", "Destreza", "Energï¿½a",
+                "Vitalidad", "Mana", "Fuerza", "Sabidurï¿½a", "ï¿½cido",
+                "Nauseabunda", "Flamï¿½gera", "Invisibilidad", "Corrosiï¿½n",
+                "Contra Enfermedades", "Antï¿½doto", "Veneno", "Fuego Lï¿½quido",
+                "Frasco del Vacï¿½o", "Aceite para Armas"
             ];
-            return BasicaNames[Math.floor(Math.random() * BasicaNames.length)];
+            return basicNames[Math.floor(Math.random() * basicNames.length)];
         } else {
             const rareNames = [
-                "Velocidad", "Polvo Químico", "Elixir de Arquero", "Poción de Furia",
-                "Resistencia al Fuego", "Escama de Dragón", "Restauración",
+                "Velocidad", "Polvo Quï¿½mico", "Elixir de Arquero", "Pociï¿½n de Furia",
+                "Resistencia al Fuego", "Escama de Dragï¿½n", "Restauraciï¿½n",
                 "Escupefuego", "Humo"
             ];
             return rareNames[Math.floor(Math.random() * rareNames.length)];
         }
-    } else if (type === "Debil" || type === "Suprema") {
+    } else if (type === "weak" || type === "supreme") {
         const advancedNames = [
-            "Flamígera", "Constitución", "Valentía", "Destreza", "Energía",
-            "Vitalidad", "Mana", "Fuerza", "Sabiduría", "Ácido",
-            "Contra Enfermedades", "Antídoto"
+            "Flamï¿½gera", "Constituciï¿½n", "Valentï¿½a", "Destreza", "Energï¿½a",
+            "Vitalidad", "Mana", "Fuerza", "Sabidurï¿½a", "ï¿½cido",
+            "Contra Enfermedades", "Antï¿½doto"
         ];
         return advancedNames[Math.floor(Math.random() * advancedNames.length)];
     }
-    return "Poción Desconocida";
+    return "Pociï¿½n Desconocida";
 }
-// Gestión de botellas vacías
+// Gestiï¿½n de botellas vacï¿½as
 let emptyBottles = parseInt(localStorage.getItem("empty_bottles")) || 0;
 let alchemyskill = parseInt(localStorage.getItem("alchemy_skill")) || 0;
 function updateBottleCount() {
@@ -555,7 +504,7 @@ document.querySelectorAll(".potion-selector").forEach(select => {
 
 document.getElementById("create-potion").addEventListener("click", () => {
     if (emptyBottles <= 0) {
-        alert("No se puede crear la poción sin botellas vacías.");
+        alert("No se puede crear la pociï¿½n sin botellas vacï¿½as.");
         return;
     }
 
@@ -563,7 +512,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
     const selectors = document.querySelectorAll(".potion-selector");
 
     if (!type) {
-        alert("Selecciona un tipo de poción.");
+        alert("Selecciona un tipo de pociï¿½n.");
         return;
     }
 
@@ -601,7 +550,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
 
     totalAlchemySkill += exquisiteBonus;
 
-    // Verificar si la poción es conocida
+    // Verificar si la pociï¿½n es conocida
     const knownRecipe = recipes.find(recipe =>
         JSON.stringify(recipe.ingredients.sort()) === JSON.stringify(selectedItems.map(item => item.name).sort())
     );
@@ -610,11 +559,11 @@ document.getElementById("create-potion").addEventListener("click", () => {
     // Realizar tirada
     const roll = Math.floor(Math.random() * 100) + 1;
     if (roll <= totalAlchemySkill || roll <= 5) {
-        // Éxito crítico o normal
+        // ï¿½xito crï¿½tico o normal
         const isCritical = roll <= 5;
 
         if (isCritical) {
-            alert("Has sacado:"+roll+"  ¡Éxito crítico! Mejora Hab. ALQ. en 1 o recupera energía.");
+            alert("Has sacado:" + roll + "  ï¿½ï¿½xito crï¿½tico! Mejora Hab. ALQ. en 1 o recupera energï¿½a.");
         }
 
         // Restar ingredientes y partes
@@ -632,18 +581,18 @@ document.getElementById("create-potion").addEventListener("click", () => {
 
         // Restar botella
         emptyBottles--;
-        alert("Has sacado:" + roll +"  ¡Poción creada con éxito! Una botella ha sido utilizada.");
+        alert("Has sacado:" + roll + "  ï¿½Pociï¿½n creada con ï¿½xito! Una botella ha sido utilizada.");
 
-        // Crear poción
+        // Crear pociï¿½n
         let potionName;
         if (knownRecipe) {
             potionName = knownRecipe.name;
-            alert("Has sacado:" + roll +`    ¡La poción "${potionName}" ha sido creada exitosamente!`);
+            alert("Has sacado:" + roll + `    ï¿½La pociï¿½n "${potionName}" ha sido creada exitosamente!`);
         } else {
             potionName = getPotionName(type);
-            alert("Has sacado:" + roll +`    ¡Nueva poción creada: "${potionName}"!`);
+            alert("Has sacado:" + roll + `    ï¿½Nueva pociï¿½n creada: "${potionName}"!`);
 
-            // Agregar la poción al recetario
+            // Agregar la pociï¿½n al recetario
             const newRecipe = {
                 type,
                 name: potionName,
@@ -660,8 +609,8 @@ document.getElementById("create-potion").addEventListener("click", () => {
         renderInventoryTable();
         renderRecipeTable();
     } else {
-        // Fallo en la creación
-        alert("Has sacado:" + roll +`    Fallaste en la creación de la poción. Ingredientes usados: ${selectedItems.map(item => item.name).join(", ")}`);
+        // Fallo en la creaciï¿½n
+        alert("Has sacado:" + roll + `    Fallaste en la creaciï¿½n de la pociï¿½n. Ingredientes usados: ${selectedItems.map(item => item.name).join(", ")}`);
         selectedItems.forEach(({ name, exquisite }) => {
             const inventoryItem = inventory.find(item => item.name === name && item.exquisite === exquisite);
             if (inventoryItem) {
@@ -675,7 +624,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
         });
         if (roll >= 95) {
             emptyBottles--;
-            alert("Has sacado:" + roll +"  ¡La botella también se rompió!");
+            alert("Has sacado:" + roll + "  ï¿½La botella tambiï¿½n se rompiï¿½!");
         }
         saveInventory();
         renderInventoryTable();
@@ -685,7 +634,7 @@ document.getElementById("create-potion").addEventListener("click", () => {
     updateBottleCount();
 });
 
-// Inicialización al cargar la página
+// Inicializaciï¿½n al cargar la pï¿½gina
 document.addEventListener("DOMContentLoaded", () => {
     updateBottleCount();
     updateAlchemyskill();
@@ -695,15 +644,15 @@ function createManualPotionAdder() {
     const toggleButton = document.getElementById("add-manual-potion-button");
 
     if (!toggleButton || !container) {
-        console.error("No se encontró el botón o el contenedor en el HTML.");
+        console.error("No se encontrï¿½ el botï¿½n o el contenedor en el HTML.");
         return;
     }
 
     toggleButton.addEventListener("click", () => {
         container.style.display = container.style.display === "none" ? "block" : "none";
         toggleButton.textContent = container.style.display === "block"
-            ? "Ocultar añadir poción a mano"
-            : "Añadir poción a mano";
+            ? "Ocultar aï¿½adir pociï¿½n a mano"
+            : "Aï¿½adir pociï¿½n a mano";
 
         // Resetear contenido del contenedor
         container.innerHTML = "";
@@ -715,11 +664,11 @@ function createManualPotionAdder() {
 
 function generatePotionTypeSelector(container) {
     const typeLabel = document.createElement("label");
-    typeLabel.textContent = "Tipo de poción: ";
+    typeLabel.textContent = "Tipo de pociï¿½n: ";
     const typeSelect = document.createElement("select");
     typeSelect.id = "manual-potion-type";
 
-    ["", "Debil", "Basica", "Suprema"].forEach(type => {
+    ["", "weak", "basic", "supreme"].forEach(type => {
         const option = document.createElement("option");
         option.value = type.toLowerCase();
         option.textContent = type || "Seleccionar tipo";
@@ -747,25 +696,25 @@ function generatePotionMaterialsForm(container, type) {
     const form = document.createElement("div");
     form.id = "manual-potion-materials-form";
 
-    // Generar el desplegable de nombre de la poción según el tipo
+    // Generar el desplegable de nombre de la pociï¿½n segï¿½n el tipo
     const potionNameLabel = document.createElement("label");
-    potionNameLabel.textContent = "Nombre de la poción: ";
+    potionNameLabel.textContent = "Nombre de la pociï¿½n: ";
     const potionNameSelect = document.createElement("select");
     const defaultPotionOption = document.createElement("option");
     defaultPotionOption.value = "";
-    defaultPotionOption.textContent = "Seleccionar poción";
+    defaultPotionOption.textContent = "Seleccionar pociï¿½n";
     defaultPotionOption.disabled = true;
     defaultPotionOption.selected = true;
     potionNameSelect.appendChild(defaultPotionOption);
 
-    // Obtener los nombres de las pociones según el tipo
+    // Obtener los nombres de las pociones segï¿½n el tipo
     let availablePotions = [];
-    if (type === "Debil" || type === "Suprema") {
-        availablePotions = potionNames.Debil_and_Suprema;
-    } else if (type === "Basica") {
+    if (type === "weak" || type === "supreme") {
+        availablePotions = potionNames.weak_and_supreme;
+    } else if (type === "basic") {
         availablePotions = [
-            ...potionNames.Basica.d3_1_2,
-            ...potionNames.Basica.d3_3
+            ...potionNames.basic.d3_1_2,
+            ...potionNames.basic.d3_3
         ];
     }
 
@@ -780,19 +729,19 @@ function generatePotionMaterialsForm(container, type) {
     form.appendChild(potionNameSelect);
     form.appendChild(document.createElement("br"));
 
-    // Determinar el número de materiales necesarios según el tipo de poción
+    // Determinar el nï¿½mero de materiales necesarios segï¿½n el tipo de pociï¿½n
     let selectorsNeeded;
-    if (type === "Debil") {
+    if (type === "weak") {
         selectorsNeeded = [
             { type: "ingredient", count: 1 },
             { type: "monsterPart", count: 1 }
         ];
-    } else if (type === "Basica") {
+    } else if (type === "basic") {
         selectorsNeeded = [
             { type: "ingredient", count: 2 },
             { type: "monsterPart", count: 1 }
         ];
-    } else if (type === "Suprema") {
+    } else if (type === "supreme") {
         selectorsNeeded = [
             { type: "ingredient", count: 2 },
             { type: "monsterPart", count: 2 }
@@ -828,9 +777,9 @@ function generatePotionMaterialsForm(container, type) {
         }
     });
 
-    // Botón para añadir al recetario
+    // Botï¿½n para aï¿½adir al recetario
     const addButton = document.createElement("button");
-    addButton.textContent = "Añadir al recetario";
+    addButton.textContent = "Aï¿½adir al recetario";
     addButton.addEventListener("click", () => {
         const selectedPotionName = potionNameSelect.value;
         const selectedMaterials = Array.from(form.querySelectorAll("select"))
@@ -838,7 +787,7 @@ function generatePotionMaterialsForm(container, type) {
             .filter(value => value); // Filtrar los no seleccionados
 
         if (!selectedPotionName) {
-            alert("Debes seleccionar un nombre de poción.");
+            alert("Debes seleccionar un nombre de pociï¿½n.");
             return;
         }
 
@@ -857,41 +806,14 @@ function generatePotionMaterialsForm(container, type) {
         recipes.push(newRecipe);
         saveRecipes();
         renderRecipeTable();
-        alert(`Poción "${selectedPotionName}" añadida al recetario.`);
+        alert(`Pociï¿½n "${selectedPotionName}" aï¿½adida al recetario.`);
     });
 
     form.appendChild(addButton);
     container.appendChild(form);
 }
 
-// Inicialización
+// Inicializaciï¿½n
 document.addEventListener("DOMContentLoaded", () => {
     createManualPotionAdder();
 });
-
-// Event listener para guardar la habilidad al cambiar el valor
-document.getElementById("alchemy-skill").addEventListener("input", saveAlchemySkill);
-
-// Cargar la habilidad al inicializar la página
-document.addEventListener("DOMContentLoaded", loadAlchemySkill);
-
-// Función para guardar el valor de alchemy-skill en localStorage
-function saveAlchemySkill() {
-    const alchemySkillValue = document.getElementById("alchemy-skill").value;
-    localStorage.setItem("alchemy_skill", alchemySkillValue);
-    console.log(`Habilidad de alquimia guardada: ${alchemySkillValue}`);
-}
-
-// Función para cargar el valor de alchemy-skill desde localStorage
-function loadAlchemySkill() {
-    const savedSkill = localStorage.getItem("alchemy_skill");
-    const skillInput = document.getElementById("alchemy-skill");
-
-    if (savedSkill !== null) {
-        skillInput.value = savedSkill;
-        console.log(`Habilidad de alquimia cargada: ${savedSkill}`);
-    } else {
-        skillInput.value = 0; // Valor por defecto si no existe en localStorage
-        console.log("No se encontró habilidad de alquimia en localStorage. Usando valor predeterminado.");
-    }
-}
