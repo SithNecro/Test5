@@ -84,12 +84,17 @@ const recipes = JSON.parse(localStorage.getItem(RECIPES_KEY)) || [];
 
 
 // Función para borrar las claves específicas de localStorage
+// Función para borrar las claves específicas de localStorage con confirmación
 function resetAlchemyData() {
-    localStorage.removeItem("alchemy_inventory"); // Elimina el inventario
-    localStorage.removeItem("alchemy_recipes"); // Elimina las recetas
-    alert("¡Se han eliminado los datos de Alquimia! Comenzamos de 0.");
-    // Opcional: puedes recargar la página o actualizar la UI aquí
-    location.reload(); // Recarga la página para aplicar cambios
+    const confirmation = confirm("¿Estás seguro de que quieres eliminar el inventario y el recetario de pociones conocidas? Esta acción no se puede deshacer.");
+    if (confirmation) {
+        localStorage.removeItem("alchemy_inventory"); // Elimina el inventario
+        localStorage.removeItem("alchemy_recipes"); // Elimina las recetas
+        alert("¡Se han eliminado los datos de Alquimia! Comenzamos de 0.");
+        location.reload(); // Recarga la página para aplicar cambios
+    } else {
+        alert("La acción ha sido cancelada. Los datos no se han eliminado.");
+    }
 }
 
 // Asociar la función al botón "Comenzar de 0"
