@@ -35,10 +35,13 @@
             gap: 10px;
         }
 
-        .content-right {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
+        #menuContainer {
+            position: fixed; /* Fijo a la izquierda */
+            left: 0;
+            top: 0;
+            height: 100%; /* Ocupa toda la altura */
+            width: 310px; /* Ancho fijo del menú */
+            background-color: #ccc; /* Color de fondo del menú */
         }
 
         .treasure-image {
@@ -64,15 +67,27 @@
             display: none;
             gap: 20px;
         }
+        #contentContainer0 {
+            height: 100%; /* Ocupa toda la altura */
+            margin-left: 310px; /* Deja espacio para el menú */
+            width: 100%; /* Ancho del contenedor central */
+            /*background-color: #404040; /* Color de fondo para distinguir */
+            display: flex; /* Usamos flexbox para centrar contenido */
+            align-items: stretch; /* Centra verticalmente el contenido */
+            justify-content: flex-start; /* Centra horizontalmente el contenido */
+            flex-direction: column; /* Opcional, si tienes más elementos aquí */
+            padding: 10px; /* Espaciado interno opcional */
+        }
     </style>
 </head>
 <body style="background-image: url('fondo.png'); background-size: cover;">
     <!-- Carga del menú lateral -->
-    <div class="menu">
+    <div class="menuContainer">
         <iframe id="iframeMenu" src="menu.html" frameborder="0" class="menu-frame"></iframe>
     </div>
-    <h2>Inventario</h2>
-    <div class="main-content">
+    
+    <div class="contentContainer0">
+        <h2>Inventario</h2>
         <section id="bottle-section">
             <div>
                 <label for="empty-bottles">Botellas Vacías:</label>
