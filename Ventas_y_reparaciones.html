@@ -110,17 +110,17 @@
     </div>
 
     <!-- Zona de contenido principal -->
-    <div class="main-content container mt-4">
-        <h2 class="mb-4">Calculadora de Valor de Venta y Reparación</h2>
+    <div class="main-content container mt-6">
+        <h2 class="mb-6">Calculadora de Valor de Venta y Reparación</h2>
 
         <!-- Campo: Valor de compra -->
-        <div class="mb-3">
+        <div class="mb-5">
             <label for="valorCompra" class="form-label">Valor de compra:</label>
             <input type="number" id="valorCompra" class="form-control" value="10" min="10" max="50000" step="10" placeholder="Ingresa el valor de compra">
         </div>
 
         <!-- Campo: Puntos de durabilidad -->
-        <div class="mb-3">
+        <div class="mb-5">
             <label for="puntosDurabilidad" class="form-label">Puntos perdidos de durabilidad (0-12):</label>
             <input type="number" id="puntosDurabilidad" class="form-control" value="0" min="0" max="12" placeholder="Ingresa los puntos perdidos de durabilidad">
         </div>
@@ -129,7 +129,7 @@
         <button onclick="calcularValores()" class="btn btn-primary">Calcular Valores</button>
 
         <!-- Resultados -->
-        <div class="mt-4">
+        <div class="mt-6">
             <h3>Resultado:</h3>
             <p id="resultadoVenta" class="mb-1">Valor de venta: </p>
             <p id="resultadoReparacion">Valor de reparación por punto: </p>
