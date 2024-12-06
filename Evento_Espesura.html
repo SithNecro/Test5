@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eventos de Viaje: Espesura</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
     <style>
-          /* Estilos para el menú lateral */
-          .menu {
+        /* Estilos para el menú lateral */
+        .menu {
             position: fixed;
             left: 0;
             top: 0;
@@ -73,7 +75,7 @@
         <!-- Botones en la parte Legendario izquierda -->
         <div class="treasure-container" id="single-treasure-container">
             <img src="img/traseras/Trasera Espesura.png" id="imagen-tesoro" alt="Tesoro Legendario" class="treasure-image">
-            
+
         </div>
 
         <!-- Zona derecha con la imagen y el selector debajo -->
@@ -81,19 +83,20 @@
             <button onclick="cargarTesoroLegendario()" id="tesoro-btn">Sacar Evento de Viaje</button>
             <button onclick="barajarTesoros()">Barajar Eventos</button>
             <!-- Imagen y selector del tesoro normal -->
-                
-                <select id="selector-tesoro-0" onchange="cambiarImagenSeleccionada()">
-                    <!-- Aquí se añadirán los nombres de los archivos mediante JavaScript -->
-                </select>
-            </div>
 
-           
+            <select id="selector-tesoro-0" onchange="cambiarImagenSeleccionada()">
+                <!-- Aquí se añadirán los nombres de los archivos mediante JavaScript -->
+            </select>
         </div>
 
 
-    <script src="Evento_Espesura.js"></script>
+    </div>
 
-   
+
+    <script src="Evento_Espesura.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+
 
 </body>
 </html>
